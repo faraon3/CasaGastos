@@ -5,7 +5,22 @@
 <style>
 :root{--bg:#f4f8f7;--card:#fff;--ink:#17312d;--muted:#71817e;--p:#0b8f78;--soft:#e7f7f3;--line:#e4ece9;--shadow:0 10px 28px #164f4215}
 *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,Segoe UI,sans-serif}.app{max-width:540px;margin:auto;padding-bottom:90px}.top{padding:20px 18px 10px;display:flex;justify-content:space-between}.brand{font-size:23px;font-weight:850}.sub,.small{font-size:11px;color:var(--muted)}button{border:0;cursor:pointer}.icon{width:42px;height:42px;border-radius:14px;background:#fff;box-shadow:var(--shadow)}.hero{margin:8px 18px;padding:22px;border-radius:25px;background:linear-gradient(135deg,#0b8f78,#08725f);color:white;box-shadow:var(--shadow)}.hero h1{font-size:31px;margin:8px 0}.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:14px 18px}.card{background:var(--card);border-radius:20px;padding:16px;box-shadow:var(--shadow)}.money{font-size:20px;font-weight:850;margin-top:5px}.section{margin:18px}.section h2{font-size:16px}.row{display:flex;gap:11px;align-items:center;padding:13px 0;border-bottom:1px solid var(--line)}.ico{width:42px;height:42px;border-radius:13px;background:var(--soft);display:grid;place-items:center}.grow{flex:1}.tag{font-size:10px;padding:5px 8px;border-radius:9px;background:#fff0d6;color:#8b6418}.ok{background:#e5f8f1;color:#08755f}.pay{padding:8px 10px;border-radius:11px;background:#fff0f3;color:#b73952;font-size:10px;font-weight:800}.pay.ok{background:#e5f8f1;color:#08755f}.fab{position:fixed;bottom:73px;left:50%;transform:translateX(-50%);width:calc(100% - 36px);max-width:504px;background:var(--p);color:#fff;padding:15px;border-radius:16px;font-weight:800;box-shadow:0 12px 25px #0b8f7845}.nav{position:fixed;bottom:0;left:0;right:0;background:#fffffff2;border-top:1px solid var(--line);display:flex;justify-content:center;z-index:5}.nav button{flex:1;max-width:100px;background:none;color:var(--muted);padding:9px 1px;font-size:10px}.nav .active{color:var(--p);font-weight:800}.screen{display:none}.screen.active{display:block;animation:in .2s}@keyframes in{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}.modal{position:fixed;inset:0;background:#04141166;display:none;align-items:end;z-index:20}.modal.show{display:flex}.sheet{width:100%;max-width:540px;margin:auto;background:var(--bg);border-radius:25px 25px 0 0;max-height:92vh;overflow:auto}.head{padding:16px 18px;display:flex;justify-content:space-between}.form{padding:18px}.form label{display:block;font-size:12px;color:var(--muted);margin:11px 0 5px}.form input,.form select,.form textarea{width:100%;padding:13px;border:1px solid var(--line);border-radius:12px;background:#fff}.form textarea{min-height:70px}.tw{display:grid;grid-template-columns:1fr 1fr;gap:9px}.primary,.secondary{padding:13px;border-radius:13px;font-weight:800}.primary{width:100%;background:var(--p);color:#fff;margin-top:15px}.secondary{background:var(--soft);color:#076b5b}.drop{padding:17px;border:2px dashed #c7dcd7;border-radius:15px;text-align:center;color:var(--muted)}.photos{display:flex;gap:7px;overflow:auto;margin-top:8px}.photo{width:70px;height:70px;object-fit:cover;border-radius:10px}.item{display:flex;gap:10px;align-items:center;padding:12px 0;border-bottom:1px solid var(--line)}.check{width:27px;height:27px;border-radius:9px;border:2px solid #c6d7d2;background:white}.check.on{background:var(--p);color:white}.bar{height:9px;background:#edf1f0;border-radius:20px;margin-top:6px}.fill{height:100%;background:var(--p);border-radius:20px;transition:width .4s}.empty{text-align:center;color:var(--muted);padding:25px}.notice{font-size:11px;color:var(--muted);background:#edf6f3;padding:10px;border-radius:11px;margin-top:10px}
-</style></head><body><div class="app">
+</style></head><body><div id="loginScreen" style="position:fixed;inset:0;background:#f4f8f7;z-index:9999;display:flex;align-items:center;justify-content:center;padding:20px">
+  <div style="background:white;padding:30px;border-radius:20px;width:100%;max-width:380px;box-shadow:0 10px 30px #0001">
+    <h1 style="margin-top:0">CasaGastos</h1>
+    <p>Inicia sesión para continuar</p>
+
+    <input id="loginEmail" type="email" placeholder="Correo electrónico" style="width:100%;padding:14px;margin:8px 0;box-sizing:border-box">
+    
+    <input id="loginPassword" type="password" placeholder="Contraseña" style="width:100%;padding:14px;margin:8px 0;box-sizing:border-box">
+    
+    <button onclick="login()" style="width:100%;padding:14px;margin-top:10px">
+      Iniciar sesión
+    </button>
+
+    <p id="loginMsg" style="margin-bottom:0"></p>
+  </div>
+</div><div class="app">
 <div id="home" class="screen active"><div class="top"><div><div class="brand">🏠 CasaGastos</div><div class="sub" id="month"></div></div><button class="icon" onclick="openM('expense')">＋</button></div>
 <div class="hero"><small>Total del mes</small><h1 id="total">$0</h1><span id="pending">0 pendientes</span></div>
 <div class="grid"><div class="card"><div class="small">👤 Tu parte</div><div class="money" id="my">$0</div></div><div class="card"><div class="small">👩 Parte esposa</div><div class="money" id="wife">$0</div></div></div>
@@ -33,7 +48,52 @@
 <script>
 const SUPABASE_URL="https://knpmkqursxxnomwgmswt.supabase.co";
 const SUPABASE_KEY="sb_publishable_ch91p7gNPmY48rFK7VZWdg_3LSTz4Hw";
-const sb=supabase.createClient(SUPABASE_URL,SUPABASE_KEY);const EK='cg2_exp',SK='cg2_shop',CC='cg2_cats';let E=JSON.parse(localStorage.getItem(EK)||'[]'),S=JSON.parse(localStorage.getItem(SK)||'[]'),pics=[],active='home';
+const sb=supabase.createClient(SUPABASE_URL,SUPABASE_KEY)let currentUser=null;
+let currentRole=null;
+let currentHouseholdId=null;
+
+async function login(){
+  const email=document.getElementById('loginEmail').value.trim();
+  const password=document.getElementById('loginPassword').value;
+  const msg=document.getElementById('loginMsg');
+
+  if(!email||!password){
+    msg.textContent='Escribe correo y contraseña';
+    return;
+  }
+
+  msg.textContent='Iniciando sesión...';
+
+  const {data,error}=await sb.auth.signInWithPassword({
+    email:email,
+    password:password
+  });
+
+  if(error){
+    msg.textContent='Correo o contraseña incorrectos';
+    return;
+  }
+
+  currentUser=data.user;
+
+  const {data:member,error:memberError}=await sb
+    .from('miembros_hogar')
+    .select('hogar_id,rol')
+    .eq('usuario_id',currentUser.id)
+    .limit(1)
+    .maybeSingle();
+
+  if(memberError||!member){
+    await sb.auth.signOut();
+    msg.textContent='Este usuario no tiene un hogar configurado';
+    return;
+  }
+
+  currentRole=member.rol;
+  currentHouseholdId=member.hogar_id;
+
+  document.getElementById('loginScreen').style.display='none';
+};const EK='cg2_exp',SK='cg2_shop',CC='cg2_cats';let E=JSON.parse(localStorage.getItem(EK)||'[]'),S=JSON.parse(localStorage.getItem(SK)||'[]'),pics=[],active='home';
 const icons={Arriendo:'🏠',Luz:'💡',Gas:'🔥',Agua:'💧','Internet hogar':'🌐','Internet celular':'📱',Mercado:'🛒',Otro:'🧾'}, money=n=>new Intl.NumberFormat('es-CO',{style:'currency',currency:'COP',maximumFractionDigits:0}).format(n||0),ym=new Date().toISOString().slice(0,7);
 function cats(){return [...new Set(['Arriendo','Luz','Gas','Agua','Internet hogar','Internet celular','Mercado','Otro',...JSON.parse(localStorage.getItem(CC)||'[]')])]}
 function fill(){cat.innerHTML=cats().map(x=>`<option>${x}</option>`).join('')}
