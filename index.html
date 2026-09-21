@@ -31,7 +31,9 @@
 <div id="shopModal" class="modal"><div class="sheet"><div class="head"><b>Agregar compra</b><button class="icon" onclick="closeM('shopModal')">✕</button></div><form class="form" onsubmit="addShop(event)"><label>Producto</label><input id="prod" required><label>Cantidad</label><input id="qty" value="1"><label>Descripción</label><textarea id="desc" placeholder="Marca, tamaño, presentación..."></textarea><button class="primary">Agregar a la lista</button></form></div></div>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
-const EK='cg2_exp',SK='cg2_shop',CC='cg2_cats';let E=JSON.parse(localStorage.getItem(EK)||'[]'),S=JSON.parse(localStorage.getItem(SK)||'[]'),pics=[],active='home';
+const SUPABASE_URL="https://knpmkqursxxnomwgmswt.supabase.co";
+const SUPABASE_KEY="sb_publishable_ch91p7gNPmY48rFK7VZWdg_3LSTz4Hw";
+const sb=supabase.createClient(SUPABASE_URL,SUPABASE_KEY);const EK='cg2_exp',SK='cg2_shop',CC='cg2_cats';let E=JSON.parse(localStorage.getItem(EK)||'[]'),S=JSON.parse(localStorage.getItem(SK)||'[]'),pics=[],active='home';
 const icons={Arriendo:'🏠',Luz:'💡',Gas:'🔥',Agua:'💧','Internet hogar':'🌐','Internet celular':'📱',Mercado:'🛒',Otro:'🧾'}, money=n=>new Intl.NumberFormat('es-CO',{style:'currency',currency:'COP',maximumFractionDigits:0}).format(n||0),ym=new Date().toISOString().slice(0,7);
 function cats(){return [...new Set(['Arriendo','Luz','Gas','Agua','Internet hogar','Internet celular','Mercado','Otro',...JSON.parse(localStorage.getItem(CC)||'[]')])]}
 function fill(){cat.innerHTML=cats().map(x=>`<option>${x}</option>`).join('')}
