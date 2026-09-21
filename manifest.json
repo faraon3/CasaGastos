@@ -1,0 +1,10 @@
+{
+  "name": "CasaGastos",
+  "short_name": "CasaGastos",
+  "start_url": "./",
+  "display": "standalone",
+  "theme_color": "#0b8f78",
+  "background_color": "#f4f8f7",
+  "lang": "es",
+  "icons": []
+}
