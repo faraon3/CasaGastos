@@ -300,7 +300,10 @@ async function addExpense(ev){
       descripcion: '',
       monto: Number(amount.value),
       fecha: date.value,
-      notas: note.value || ''
+      notas: note.value || '',
+split: split.value,
+payer: payer.value,
+paid: false
     })
     .select()
     .single();
