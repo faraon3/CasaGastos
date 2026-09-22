@@ -434,31 +434,7 @@ function paid(id){
 ========================= */
 
 function render(){
-  if(document.getElementById('shopping')){
-  const shoppingBox=document.getElementById('shopping');
-
-  shoppingBox.innerHTML=
-    S.map(x=>`
-      <div class="item">
-        <button
-          class="check ${x.done?'on':''}"
-          onclick="shopDone(${x.id})"
-        >
-          ${x.done?'✓':''}
-        </button>
-
-        <div class="ico">🛒</div>
-
-        <div class="grow">
-          <b>${x.p} × ${x.q}</b>
-          <div class="small">
-            ${x.d||'Sin descripción'} · ${x.by}
-          </div>
-        </div>
-      </div>
-    `).join('') ||
-    '<div class="empty">Lista vacía.</div>';
-}
+  
 
   fill();
 
