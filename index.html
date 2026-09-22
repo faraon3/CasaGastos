@@ -446,9 +446,9 @@ function render(){
   ).format(new Date());
 
   let a=E
-    .filter(x=>x.date.startsWith(ym))
-    .sort((a,b)=>a.date.localeCompare(b.date));
-
+    .filter(x=>x.date && x.date.startsWith(ym))
+    .sort((a,b)=>(a.date||'').localeCompare(b.date||''));
+  
   let total=a.reduce(
     (s,x)=>s+x.amount,
     0
