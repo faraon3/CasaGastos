@@ -1038,29 +1038,57 @@ button{
         Fotos
       </label>
 
-      <div
-        class="drop"
-        onclick="document.getElementById('photosInput').click()"
-      >
+      <div class="drop">
 
-        📷 Agregar una o más fotos
+  <div style="
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+    justify-content:center;
+  ">
 
-        <input
-          id="photosInput"
-          type="file"
-          accept="image/*"
-          multiple
-          hidden
-          onchange="previewPhotos(event)"
-        >
+    <button
+      type="button"
+      class="secondary"
+      onclick="openCamera()"
+    >
+      📷 Tomar foto
+    </button>
 
-        <div
-          class="photos"
-          id="preview"
-        ></div>
+    <button
+      type="button"
+      class="secondary"
+      onclick="openGallery()"
+    >
+      🖼️ Elegir de galería
+    </button>
 
-      </div>
+  </div>
 
+  <input
+    id="cameraInput"
+    type="file"
+    accept="image/*"
+    capture="environment"
+    hidden
+    onchange="previewPhotos(event)"
+  >
+
+  <input
+    id="photosInput"
+    type="file"
+    accept="image/*"
+    multiple
+    hidden
+    onchange="previewPhotos(event)"
+  >
+
+  <div
+    class="photos"
+    id="preview"
+  ></div>
+
+</div>
 
       <label>
         Descripción
@@ -2659,7 +2687,22 @@ function closeM(id){
 /* =========================
    FOTOS
 ========================= */
+function openCamera(){
 
+  document
+    .getElementById('cameraInput')
+    .click();
+
+}
+
+
+function openGallery(){
+
+  document
+    .getElementById('photosInput')
+    .click();
+
+}
 function previewPhotos(ev){
 
   pics=[];
