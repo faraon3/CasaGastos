@@ -168,7 +168,7 @@
 <label>¿Quién pagó?</label><select id="payer"><option value="me">Yo</option><option value="wife">Mi esposa</option></select>
 <label>Fotos</label><div class="drop" onclick="photosInput.click()">📷 Agregar una o más fotos<input id="photosInput" type="file" accept="image/*" multiple hidden onchange="preview(event)"><div class="photos" id="preview"></div></div>
 <label>Descripción</label><textarea id="note" placeholder="Factura, marca, detalle..."></textarea><button class="primary">Guardar gasto</button></form></div></div>
-<div id="shop" class="modal"></div>
+
 <div id="shopModal" class="modal"><div class="sheet"><div class="head"><b>Agregar compra</b><button class="icon" onclick="closeM('shopModal')">✕</button></div><form class="form" onsubmit="addShop(event)"><label>Producto</label><input id="prod" required><label>Cantidad</label><input id="qty" value="1"><label>Descripción</label><textarea id="desc" placeholder="Marca, tamaño, presentación..."></textarea><button class="primary">Agregar a la lista</button></form></div></div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -339,8 +339,11 @@ async function loadExpenses(){
 async function loadShopping(){
 
   if(!currentHouseholdId){
+    console.log('No hay hogar_id');
     return;
   }
+
+  console.log('Cargando compras del hogar:',currentHouseholdId);
 
   const {data,error}=await sb
     .from('compras')
@@ -349,22 +352,24 @@ async function loadShopping(){
     .order('created_at',{ascending:false});
 
   if(error){
-    console.error('Error cargando compras:',error);
+    console.error('ERROR COMPRAS:',error);
+    alert('Error cargando compras: '+error.message);
     return;
   }
+
+  console.log('COMPRAS ENCONTRADAS:',data);
 
   S=(data||[]).map(x=>({
     id:x.id,
     p:x.producto,
     q:Number(x.cantidad||1),
     d:x.notas||'',
-    done:x.comprado||false,
+    done:Boolean(x.comprado),
     by:x.usuario_id===currentUser?.id?'Yo':'Usuario'
   }));
 
   render();
 }
-
 
 /* =========================
    GUARDADO LOCAL
