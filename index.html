@@ -1,11 +1,385 @@
-<!doctype html><html lang="es"><head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#0b8f78"><link rel="manifest" href="manifest.json">
+<!doctype html>
+<html lang="es">
+<head>
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#0b8f78">
+<link rel="manifest" href="manifest.json">
+
 <title>CasaGastos</title>
+
 <style>
-:root{--bg:#f4f8f7;--card:#fff;--ink:#17312d;--muted:#71817e;--p:#0b8f78;--soft:#e7f7f3;--line:#e4ece9;--shadow:0 10px 28px #164f4215}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,Segoe UI,sans-serif}.app{max-width:540px;margin:auto;padding-bottom:90px}.top{padding:20px 18px 10px;display:flex;justify-content:space-between}.brand{font-size:23px;font-weight:850}.sub,.small{font-size:11px;color:var(--muted)}button{border:0;cursor:pointer}.icon{width:42px;height:42px;border-radius:14px;background:#fff;box-shadow:var(--shadow)}.hero{margin:8px 18px;padding:22px;border-radius:25px;background:linear-gradient(135deg,#0b8f78,#08725f);color:white;box-shadow:var(--shadow)}.hero h1{font-size:31px;margin:8px 0}.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:14px 18px}.card{background:var(--card);border-radius:20px;padding:16px;box-shadow:var(--shadow)}.money{font-size:20px;font-weight:850;margin-top:5px}.section{margin:18px}.section h2{font-size:16px}.row{display:flex;gap:11px;align-items:center;padding:13px 0;border-bottom:1px solid var(--line)}.ico{width:42px;height:42px;border-radius:13px;background:var(--soft);display:grid;place-items:center}.grow{flex:1}.tag{font-size:10px;padding:5px 8px;border-radius:9px;background:#fff0d6;color:#8b6418}.ok{background:#e5f8f1;color:#08755f}.pay{padding:8px 10px;border-radius:11px;background:#fff0f3;color:#b73952;font-size:10px;font-weight:800}.pay.ok{background:#e5f8f1;color:#08755f}.fab{position:fixed;bottom:73px;left:50%;transform:translateX(-50%);width:calc(100% - 36px);max-width:504px;background:var(--p);color:#fff;padding:15px;border-radius:16px;font-weight:800;box-shadow:0 12px 25px #0b8f7845}.nav{position:fixed;bottom:0;left:0;right:0;background:#fffffff2;border-top:1px solid var(--line);display:flex;justify-content:center;z-index:5}.nav button{flex:1;max-width:100px;background:none;color:var(--muted);padding:9px 1px;font-size:10px}.nav .active{color:var(--p);font-weight:800}.screen{display:none}.screen.active{display:block;animation:in .2s}@keyframes in{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}.modal{position:fixed;inset:0;background:#04141166;display:none;align-items:end;z-index:20}.modal.show{display:flex}.sheet{width:100%;max-width:540px;margin:auto;background:var(--bg);border-radius:25px 25px 0 0;max-height:92vh;overflow:auto}.head{padding:16px 18px;display:flex;justify-content:space-between}.form{padding:18px}.form label{display:block;font-size:12px;color:var(--muted);margin:11px 0 5px}.form input,.form select,.form textarea{width:100%;padding:13px;border:1px solid var(--line);border-radius:12px;background:#fff}.form textarea{min-height:70px}.tw{display:grid;grid-template-columns:1fr 1fr;gap:9px}.primary,.secondary{padding:13px;border-radius:13px;font-weight:800}.primary{width:100%;background:var(--p);color:#fff;margin-top:15px}.secondary{background:var(--soft);color:#076b5b}.drop{padding:17px;border:2px dashed #c7dcd7;border-radius:15px;text-align:center;color:var(--muted)}.photos{display:flex;gap:7px;overflow:auto;margin-top:8px}.photo{width:70px;height:70px;object-fit:cover;border-radius:10px}.item{display:flex;gap:10px;align-items:center;padding:12px 0;border-bottom:1px solid var(--line)}.check{width:27px;height:27px;border-radius:9px;border:2px solid #c6d7d2;background:white}.check.on{background:var(--p);color:white}.bar{height:9px;background:#edf1f0;border-radius:20px;margin-top:6px}.fill{height:100%;background:var(--p);border-radius:20px;transition:width .4s}.empty{text-align:center;color:var(--muted);padding:25px}.notice{font-size:11px;color:var(--muted);background:#edf6f3;padding:10px;border-radius:11px;margin-top:10px}
-</style></head><body><div id="loginScreen" style="
+
+:root{
+  --bg:#f4f8f7;
+  --card:#fff;
+  --ink:#17312d;
+  --muted:#71817e;
+  --p:#0b8f78;
+  --soft:#e7f7f3;
+  --line:#e4ece9;
+  --shadow:0 10px 28px #164f4215
+}
+
+*{
+  box-sizing:border-box
+}
+
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--ink);
+  font-family:system-ui,-apple-system,Segoe UI,sans-serif
+}
+
+.app{
+  max-width:540px;
+  margin:auto;
+  padding-bottom:90px
+}
+
+.top{
+  padding:20px 18px 10px;
+  display:flex;
+  justify-content:space-between
+}
+
+.brand{
+  font-size:23px;
+  font-weight:850
+}
+
+.sub,.small{
+  font-size:11px;
+  color:var(--muted)
+}
+
+button{
+  border:0;
+  cursor:pointer
+}
+
+.icon{
+  width:42px;
+  height:42px;
+  border-radius:14px;
+  background:#fff;
+  box-shadow:var(--shadow)
+}
+
+.hero{
+  margin:8px 18px;
+  padding:22px;
+  border-radius:25px;
+  background:linear-gradient(135deg,#0b8f78,#08725f);
+  color:white;
+  box-shadow:var(--shadow)
+}
+
+.hero h1{
+  font-size:31px;
+  margin:8px 0
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+  margin:14px 18px
+}
+
+.card{
+  background:var(--card);
+  border-radius:20px;
+  padding:16px;
+  box-shadow:var(--shadow)
+}
+
+.money{
+  font-size:20px;
+  font-weight:850;
+  margin-top:5px
+}
+
+.section{
+  margin:18px
+}
+
+.section h2{
+  font-size:16px
+}
+
+.row{
+  display:flex;
+  gap:11px;
+  align-items:center;
+  padding:13px 0;
+  border-bottom:1px solid var(--line)
+}
+
+.ico{
+  width:42px;
+  height:42px;
+  border-radius:13px;
+  background:var(--soft);
+  display:grid;
+  place-items:center
+}
+
+.grow{
+  flex:1
+}
+
+.tag{
+  font-size:10px;
+  padding:5px 8px;
+  border-radius:9px;
+  background:#fff0d6;
+  color:#8b6418
+}
+
+.ok{
+  background:#e5f8f1;
+  color:#08755f
+}
+
+.pay{
+  padding:8px 10px;
+  border-radius:11px;
+  background:#fff0f3;
+  color:#b73952;
+  font-size:10px;
+  font-weight:800
+}
+
+.pay.ok{
+  background:#e5f8f1;
+  color:#08755f
+}
+
+.fab{
+  position:fixed;
+  bottom:73px;
+  left:50%;
+  transform:translateX(-50%);
+  width:calc(100% - 36px);
+  max-width:504px;
+  background:var(--p);
+  color:#fff;
+  padding:15px;
+  border-radius:16px;
+  font-weight:800;
+  box-shadow:0 12px 25px #0b8f7845
+}
+
+.nav{
+  position:fixed;
+  bottom:0;
+  left:0;
+  right:0;
+  background:#fffffff2;
+  border-top:1px solid var(--line);
+  display:flex;
+  justify-content:center;
+  z-index:5
+}
+
+.nav button{
+  flex:1;
+  max-width:100px;
+  background:none;
+  color:var(--muted);
+  padding:9px 1px;
+  font-size:10px
+}
+
+.nav .active{
+  color:var(--p);
+  font-weight:800
+}
+
+.screen{
+  display:none
+}
+
+.screen.active{
+  display:block;
+  animation:in .2s
+}
+
+@keyframes in{
+  from{
+    opacity:0;
+    transform:translateY(5px)
+  }
+  to{
+    opacity:1;
+    transform:none
+  }
+}
+
+.modal{
+  position:fixed;
+  inset:0;
+  background:#04141166;
+  display:none;
+  align-items:end;
+  z-index:20
+}
+
+.modal.show{
+  display:flex
+}
+
+.sheet{
+  width:100%;
+  max-width:540px;
+  margin:auto;
+  background:var(--bg);
+  border-radius:25px 25px 0 0;
+  max-height:92vh;
+  overflow:auto
+}
+
+.head{
+  padding:16px 18px;
+  display:flex;
+  justify-content:space-between
+}
+
+.form{
+  padding:18px
+}
+
+.form label{
+  display:block;
+  font-size:12px;
+  color:var(--muted);
+  margin:11px 0 5px
+}
+
+.form input,
+.form select,
+.form textarea{
+  width:100%;
+  padding:13px;
+  border:1px solid var(--line);
+  border-radius:12px;
+  background:#fff
+}
+
+.form textarea{
+  min-height:70px
+}
+
+.tw{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:9px
+}
+
+.primary,
+.secondary{
+  padding:13px;
+  border-radius:13px;
+  font-weight:800
+}
+
+.primary{
+  width:100%;
+  background:var(--p);
+  color:#fff;
+  margin-top:15px
+}
+
+.secondary{
+  background:var(--soft);
+  color:#076b5b
+}
+
+.drop{
+  padding:17px;
+  border:2px dashed #c7dcd7;
+  border-radius:15px;
+  text-align:center;
+  color:var(--muted)
+}
+
+.photos{
+  display:flex;
+  gap:7px;
+  overflow:auto;
+  margin-top:8px
+}
+
+.photo{
+  width:70px;
+  height:70px;
+  object-fit:cover;
+  border-radius:10px
+}
+
+.item{
+  display:flex;
+  gap:10px;
+  align-items:center;
+  padding:12px 0;
+  border-bottom:1px solid var(--line)
+}
+
+.check{
+  width:27px;
+  height:27px;
+  border-radius:9px;
+  border:2px solid #c6d7d2;
+  background:white
+}
+
+.check.on{
+  background:var(--p);
+  color:white
+}
+
+.bar{
+  height:9px;
+  background:#edf1f0;
+  border-radius:20px;
+  margin-top:6px
+}
+
+.fill{
+  height:100%;
+  background:var(--p);
+  border-radius:20px;
+  transition:width .4s
+}
+
+.empty{
+  text-align:center;
+  color:var(--muted);
+  padding:25px
+}
+
+.notice{
+  font-size:11px;
+  color:var(--muted);
+  background:#edf6f3;
+  padding:10px;
+  border-radius:11px;
+  margin-top:10px
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- =========================
+     LOGIN
+========================= -->
+
+<div id="loginScreen" style="
   position:fixed;
   inset:0;
   z-index:9999;
@@ -17,6 +391,7 @@
   background:linear-gradient(145deg,#071f1b,#0b8f78);
   font-family:Arial,sans-serif;
 ">
+
   <div style="
     width:100%;
     max-width:390px;
@@ -28,6 +403,7 @@
   ">
 
     <div style="text-align:center;margin-bottom:28px">
+
       <div style="
         width:68px;
         height:68px;
@@ -54,9 +430,11 @@
         color:#71807d;
         font-size:14px;
       ">Tus finanzas, en un solo lugar</p>
+
     </div>
 
     <div style="margin-bottom:16px">
+
       <label style="
         display:block;
         margin-bottom:7px;
@@ -82,9 +460,11 @@
           background:#f8faf9;
         "
       >
+
     </div>
 
     <div style="margin-bottom:18px">
+
       <label style="
         display:block;
         margin-bottom:7px;
@@ -110,6 +490,7 @@
           background:#f8faf9;
         "
       >
+
     </div>
 
     <button
@@ -146,119 +527,683 @@
     ">CasaGastos • Finanzas del hogar</div>
 
   </div>
-</div><div class="app">
-<div id="home" class="screen active"><div class="top"><div><div class="brand">🏠 CasaGastos</div><div class="sub" id="month"></div></div><button class="icon" onclick="openM('expense')">＋</button></div>
-<div class="hero"><small>Total del mes</small><h1 id="total">$0</h1><span id="pending">0 pendientes</span></div>
-<div class="grid"><div class="card"><div class="small">👤 Tu parte</div><div class="money" id="my">$0</div></div><div class="card"><div class="small">👩 Parte esposa</div><div class="money" id="wife">$0</div></div></div>
-<div class="card" style="margin:14px 18px"><div class="small">⚖️ Saldo entre los dos</div><div class="money" id="bal">$0</div><div class="small" id="balText">Todo equilibrado</div></div>
-<div class="section"><h2>Próximos pagos</h2><div id="up"></div></div></div>
 
-<div id="expenses" class="screen"><div class="top"><div><div class="brand">💰 Gastos</div><div class="sub">La esposa solo visualiza y consulta</div></div></div><div class="section" id="list"></div></div>
-<div id="calendar" class="screen"><div class="top"><div><div class="brand">📅 Calendario</div><div class="sub">Pagos y vencimientos</div></div></div><div class="section"><div class="card" id="cal"></div></div></div>
-<div id="stats" class="screen"><div class="top"><div><div class="brand">📊 Estadísticas</div><div class="sub">Gastos por categoría</div></div></div><div class="section"><div class="card" id="statsbox"></div></div></div>
-<div id="shop" class="screen"><div class="top"><div><div class="brand">🛒 Compras</div><div class="sub">Lista compartida</div></div><button class="icon" onclick="openM('shop')">＋</button></div><div class="section"><div class="card" id="shopping"></div><div class="notice">Para ver cambios en vivo en ambos teléfonos hace falta conectar una base de datos en la nube.</div></div></div>
-<div id="more" class="screen"><div class="top"><div><div class="brand">⚙️ Más</div><div class="sub">Configuración</div></div></div><div class="section"><div class="card"><h2>🔔 Recordatorios</h2><p class="small">1 día antes · día del pago · seguimiento posterior.</p><button class="secondary" onclick="notif()">Activar notificaciones</button><div class="notice">Las alarmas garantizadas en ambos teléfonos requieren notificaciones push desde un servidor.</div></div><div class="card" style="margin-top:12px"><h2>👥 Acceso</h2><p class="small">Administrador: puede modificar gastos. Esposa: solo consulta gastos; ambos pueden usar Compras.</p></div><div class="card" style="margin-top:12px"><button class="secondary" onclick="exportData()">💾 Exportar respaldo</button></div></div></div>
 </div>
-<button id="fab" class="fab" onclick="openM('expense')">＋ Agregar gasto</button>
-<div class="nav"><button class="active" onclick="show('home',this)">🏠<br>Inicio</button><button onclick="show('expenses',this)">💰<br>Gastos</button><button onclick="show('calendar',this)">📅<br>Calendario</button><button onclick="show('shop',this)">🛒<br>Compras</button><button onclick="show('stats',this)">📊<br>Stats</button><button onclick="show('more',this)">⚙️<br>Más</button></div>
 
-<div id="expense" class="modal"><div class="sheet"><div class="head"><b>Nuevo gasto</b><button class="icon" onclick="closeM('expense')">✕</button></div><form class="form" onsubmit="addExpense(event)">
-<label>Categoría</label><select id="cat"></select><label>Valor</label><input id="amount" type="number" min="0" required>
-<div class="tw"><div><label>Fecha</label><input id="date" type="date" required></div><div><label>Tipo</label><select id="split"><option value="shared">50/50</option><option value="mine">Solo mío</option><option value="wife">Solo esposa</option></select></div></div>
-<label>¿Quién pagó?</label><select id="payer"><option value="me">Yo</option><option value="wife">Mi esposa</option></select>
-<label>Fotos</label><div class="drop" onclick="photosInput.click()">📷 Agregar una o más fotos<input id="photosInput" type="file" accept="image/*" multiple hidden onchange="preview(event)"><div class="photos" id="preview"></div></div>
-<label>Descripción</label><textarea id="note" placeholder="Factura, marca, detalle..."></textarea><button class="primary">Guardar gasto</button></form></div></div>
 
-<div id="shopModal" class="modal"><div class="sheet"><div class="head"><b>Agregar compra</b><button class="icon" onclick="closeM('shopModal')">✕</button></div><form class="form" onsubmit="addShop(event)"><label>Producto</label><input id="prod" required><label>Cantidad</label><input id="qty" value="1"><label>Descripción</label><textarea id="desc" placeholder="Marca, tamaño, presentación..."></textarea><button class="primary">Agregar a la lista</button></form></div></div>
+<!-- =========================
+     APP
+========================= -->
+
+<div class="app">
+
+  <!-- INICIO -->
+
+  <div id="home" class="screen active">
+
+    <div class="top">
+
+      <div>
+
+        <div class="brand">
+          🏠 CasaGastos
+        </div>
+
+        <div class="sub" id="month"></div>
+
+      </div>
+
+      <button
+        class="icon"
+        onclick="openM('expense')"
+      >＋</button>
+
+    </div>
+
+    <div class="hero">
+
+      <small>Total del mes</small>
+
+      <h1 id="total">$0</h1>
+
+      <span id="pending">
+        0 pendientes
+      </span>
+
+    </div>
+
+    <div class="grid">
+
+      <div class="card">
+
+        <div class="small">
+          👤 Tu parte
+        </div>
+
+        <div
+          class="money"
+          id="my"
+        >$0</div>
+
+      </div>
+
+      <div class="card">
+
+        <div class="small">
+          👩 Parte esposa
+        </div>
+
+        <div
+          class="money"
+          id="wife"
+        >$0</div>
+
+      </div>
+
+    </div>
+
+    <div
+      class="card"
+      style="margin:14px 18px"
+    >
+
+      <div class="small">
+        ⚖️ Saldo entre los dos
+      </div>
+
+      <div
+        class="money"
+        id="bal"
+      >$0</div>
+
+      <div
+        class="small"
+        id="balText"
+      >Todo equilibrado</div>
+
+    </div>
+
+    <div class="section">
+
+      <h2>
+        Próximos pagos
+      </h2>
+
+      <div id="up"></div>
+
+    </div>
+
+  </div>
+
+
+  <!-- GASTOS -->
+
+  <div
+    id="expenses"
+    class="screen"
+  >
+
+    <div class="top">
+
+      <div>
+
+        <div class="brand">
+          💰 Gastos
+        </div>
+
+        <div class="sub">
+          La esposa solo visualiza y consulta
+        </div>
+
+      </div>
+
+    </div>
+
+    <div
+      class="section"
+      id="list"
+    ></div>
+
+  </div>
+
+
+  <!-- CALENDARIO -->
+
+  <div
+    id="calendar"
+    class="screen"
+  >
+
+    <div class="top">
+
+      <div>
+
+        <div class="brand">
+          📅 Calendario
+        </div>
+
+        <div class="sub">
+          Pagos y vencimientos
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="section">
+
+      <div
+        class="card"
+        id="cal"
+      ></div>
+
+    </div>
+
+  </div>
+
+
+  <!-- ESTADISTICAS -->
+
+  <div
+    id="stats"
+    class="screen"
+  >
+
+    <div class="top">
+
+      <div>
+
+        <div class="brand">
+          📊 Estadísticas
+        </div>
+
+        <div class="sub">
+          Gastos por categoría
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="section">
+
+      <div
+        class="card"
+        id="statsbox"
+      ></div>
+
+    </div>
+
+  </div>
+
+
+  <!-- COMPRAS -->
+
+  <div
+    id="shop"
+    class="screen"
+  >
+
+    <div class="top">
+
+      <div>
+
+        <div class="brand">
+          🛒 Compras
+        </div>
+
+        <div class="sub">
+          Lista compartida
+        </div>
+
+      </div>
+
+      <button
+        class="icon"
+        onclick="openM('shop')"
+      >＋</button>
+
+    </div>
+
+    <div class="section">
+
+      <div
+        class="card"
+        id="shopping"
+      ></div>
+
+      <div class="notice">
+        Para ver cambios en vivo en ambos teléfonos hace falta conectar una base de datos en la nube.
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- MAS -->
+
+  <div
+    id="more"
+    class="screen"
+  >
+
+    <div class="top">
+
+      <div>
+
+        <div class="brand">
+          ⚙️ Más
+        </div>
+
+        <div class="sub">
+          Configuración
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="section">
+
+      <div class="card">
+
+        <h2>
+          🔔 Recordatorios
+        </h2>
+
+        <p class="small">
+          1 día antes · día del pago · seguimiento posterior.
+        </p>
+
+        <button
+          class="secondary"
+          onclick="notif()"
+        >
+          Activar notificaciones
+        </button>
+
+        <div class="notice">
+          Las alarmas garantizadas en ambos teléfonos requieren notificaciones push desde un servidor.
+        </div>
+
+      </div>
+
+      <div
+        class="card"
+        style="margin-top:12px"
+      >
+
+        <h2>
+          👥 Acceso
+        </h2>
+
+        <p class="small">
+          Administrador: puede modificar gastos. Esposa: solo consulta gastos; ambos pueden usar Compras.
+        </p>
+
+      </div>
+
+      <div
+        class="card"
+        style="margin-top:12px"
+      >
+
+        <button
+          class="secondary"
+          onclick="exportData()"
+        >
+          💾 Exportar respaldo
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- =========================
+     BOTON AGREGAR GASTO
+========================= -->
+
+<button
+  id="fab"
+  class="fab"
+  onclick="openM('expense')"
+>
+  ＋ Agregar gasto
+</button>
+
+
+<!-- =========================
+     NAVEGACION
+========================= -->
+
+<div class="nav">
+
+  <button
+    class="active"
+    onclick="show('home',this)"
+  >
+    🏠<br>Inicio
+  </button>
+
+  <button
+    onclick="show('expenses',this)"
+  >
+    💰<br>Gastos
+  </button>
+
+  <button
+    onclick="show('calendar',this)"
+  >
+    📅<br>Calendario
+  </button>
+
+  <button
+    onclick="show('shop',this)"
+  >
+    🛒<br>Compras
+  </button>
+
+  <button
+    onclick="show('stats',this)"
+  >
+    📊<br>Stats
+  </button>
+
+  <button
+    onclick="show('more',this)"
+  >
+    ⚙️<br>Más
+  </button>
+
+</div>
+
+
+<!-- =========================
+     MODAL GASTO
+========================= -->
+
+<div
+  id="expense"
+  class="modal"
+>
+
+  <div class="sheet">
+
+    <div class="head">
+
+      <b>
+        Nuevo gasto
+      </b>
+
+      <button
+        class="icon"
+        onclick="closeM('expense')"
+      >
+        ✕
+      </button>
+
+    </div>
+
+    <form
+      class="form"
+      onsubmit="addExpense(event)"
+    >
+
+      <label>
+        Categoría
+      </label>
+
+      <select id="cat"></select>
+
+
+      <label>
+        Valor
+      </label>
+
+      <input
+        id="amount"
+        type="number"
+        min="0"
+        required
+      >
+
+
+      <div class="tw">
+
+        <div>
+
+          <label>
+            Fecha
+          </label>
+
+          <input
+            id="date"
+            type="date"
+            required
+          >
+
+        </div>
+
+        <div>
+
+          <label>
+            Tipo
+          </label>
+
+          <select id="split">
+
+            <option value="shared">
+              50/50
+            </option>
+
+            <option value="mine">
+              Solo mío
+            </option>
+
+            <option value="wife">
+              Solo esposa
+            </option>
+
+          </select>
+
+        </div>
+
+      </div>
+
+
+      <label>
+        ¿Quién pagó?
+      </label>
+
+      <select id="payer">
+
+        <option value="me">
+          Yo
+        </option>
+
+        <option value="wife">
+          Mi esposa
+        </option>
+
+      </select>
+
+
+      <label>
+        Fotos
+      </label>
+
+      <div
+        class="drop"
+        onclick="document.getElementById('photosInput').click()"
+      >
+
+        📷 Agregar una o más fotos
+
+        <input
+          id="photosInput"
+          type="file"
+          accept="image/*"
+          multiple
+          hidden
+          onchange="previewPhotos(event)"
+        >
+
+        <div
+          class="photos"
+          id="preview"
+        ></div>
+
+      </div>
+
+
+      <label>
+        Descripción
+      </label>
+
+      <textarea
+        id="note"
+        placeholder="Factura, marca, detalle..."
+      ></textarea>
+
+
+      <button class="primary">
+        Guardar gasto
+      </button>
+
+    </form>
+
+  </div>
+
+</div>
+
+
+<!-- =========================
+     MODAL COMPRAS
+========================= -->
+
+<div
+  id="shopModal"
+  class="modal"
+>
+
+  <div class="sheet">
+
+    <div class="head">
+
+      <b>
+        Agregar compra
+      </b>
+
+      <button
+        class="icon"
+        onclick="closeM('shopModal')"
+      >
+        ✕
+      </button>
+
+    </div>
+
+    <form
+      class="form"
+      onsubmit="addShop(event)"
+    >
+
+      <label>
+        Producto
+      </label>
+
+      <input
+        id="prod"
+        required
+      >
+
+
+      <label>
+        Cantidad
+      </label>
+
+      <input
+        id="qty"
+        value="1"
+      >
+
+
+      <label>
+        Descripción
+      </label>
+
+      <textarea
+        id="desc"
+        placeholder="Marca, tamaño, presentación..."
+      ></textarea>
+
+
+      <button class="primary">
+        Agregar a la lista
+      </button>
+
+    </form>
+
+  </div>
+
+</div>
+
+
+<!-- =========================
+     SUPABASE
+========================= -->
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 <script>
-const SUPABASE_URL="https://knpmkqursxxnomwgmswt.supabase.co";
-const SUPABASE_KEY="sb_publishable_ch91p7gNPmY48rFK7VZWdg_3LSTz4Hw";
-const sb=supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
 
-let currentUser=null;
-let currentRole=null;
-let currentHouseholdId=null;
+const SUPABASE_URL =
+  "https://knpmkqursxxnomwgmswt.supabase.co";
 
-async function login(){
-  const email=document.getElementById('loginEmail').value.trim();
-  const password=document.getElementById('loginPassword').value;
-  const msg=document.getElementById('loginMsg');
+const SUPABASE_KEY =
+  "sb_publishable_ch91p7gNPmY48rFK7VZWdg_3LSTz4Hw";
 
-  if(!email||!password){
-    msg.textContent='Escribe correo y contraseña';
-    return;
-  }
+const sb =
+  supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY
+  );
 
-  msg.textContent='Iniciando sesión...';
 
-  const {data,error}=await sb.auth.signInWithPassword({
-    email:email,
-    password:password
-  });
+/* =========================
+   SESION
+========================= */
 
-  if(error){
-    msg.textContent='Correo o contraseña incorrectos';
-    return;
-  }
+let currentUser = null;
+let currentRole = null;
+let currentHouseholdId = null;
 
-  currentUser=data.user;
 
-  const {data:member,error:memberError}=await sb
-    .from('miembros_hogar')
-    .select('hogar_id,rol')
-    .eq('usuario_id',currentUser.id)
-    .limit(1)
-    .maybeSingle();
+/* =========================
+   VARIABLES
+========================= */
 
-  if(memberError||!member){
-    await sb.auth.signOut();
-    msg.textContent='Este usuario no tiene un hogar configurado';
-    return;
-  }
+const EK = 'cg2_exp';
+const CC = 'cg2_cats';
 
-  currentRole=member.rol;
-  currentHouseholdId=member.hogar_id;
+let E = [];
+let S = [];
+let pics = [];
+let active = 'home';
 
-  document.getElementById('loginScreen').style.display='none';
 
-  await loadExpenses();
-  await loadShopping();
-  render();
-}
+/* =========================
+   ICONOS
+========================= */
 
-sb.auth.onAuthStateChange(async (event, session) => {
-  if(session?.user){
-    currentUser=session.user;
+const icons = {
 
-    const {data:member}=await sb
-      .from('miembros_hogar')
-      .select('hogar_id,rol')
-      .eq('usuario_id',currentUser.id)
-      .limit(1)
-      .maybeSingle();
-
-    if(member){
-      currentRole=member.rol;
-      currentHouseholdId=member.hogar_id;
-      document.getElementById('loginScreen').style.display='none';
-
-      await loadExpenses();
-      await loadShopping();
-      render();
-    }
-  }
-});
-
-const EK='cg2_exp',CC='cg2_cats';
-
-let E=[],
-    S=[],
-    pics=[],
-    active='home';
-
-const icons={
   Arriendo:'🏠',
   Luz:'💡',
   Gas:'🔥',
@@ -267,117 +1212,538 @@ const icons={
   'Internet celular':'📱',
   Mercado:'🛒',
   Otro:'🧾'
+
 };
 
-const money=n=>new Intl.NumberFormat('es-CO',{
-  style:'currency',
-  currency:'COP',
-  maximumFractionDigits:0
-}).format(n||0);
 
-const ym=new Date().toISOString().slice(0,7);
+/* =========================
+   DINERO
+========================= */
+
+const money = n =>
+
+  new Intl.NumberFormat(
+    'es-CO',
+    {
+      style:'currency',
+      currency:'COP',
+      maximumFractionDigits:0
+    }
+  ).format(
+    Number(n)||0
+  );
+
+
+/* =========================
+   MES ACTUAL
+========================= */
+
+const ym =
+  new Date()
+    .toISOString()
+    .slice(0,7);
+
+
+/* =========================
+   CATEGORIAS
+========================= */
 
 function cats(){
-  return [...new Set([
-    'Arriendo',
-    'Luz',
-    'Gas',
-    'Agua',
-    'Internet hogar',
-    'Internet celular',
-    'Mercado',
-    'Otro',
-    ...JSON.parse(localStorage.getItem(CC)||'[]')
-  ])]
+
+  return [
+    ...new Set([
+      'Arriendo',
+      'Luz',
+      'Gas',
+      'Agua',
+      'Internet hogar',
+      'Internet celular',
+      'Mercado',
+      'Otro',
+      ...JSON.parse(
+        localStorage.getItem(CC)||'[]'
+      )
+    ])
+  ];
+
 }
+
 
 function fill(){
-  cat.innerHTML=cats().map(x=>`<option>${x}</option>`).join('')
-}
 
-cat?.addEventListener('change',()=>{
-  if(cat.value==='Otro'){
-    let n=prompt('Nombre de la nueva categoría');
+  const catEl =
+    document.getElementById('cat');
 
-    if(n){
-      let a=JSON.parse(localStorage.getItem(CC)||'[]');
-
-      if(!a.includes(n))
-        a.push(n);
-
-      localStorage.setItem(CC,JSON.stringify(a));
-
-      fill();
-      cat.value=n
-    }
-  }
-});
-
-async function loadExpenses(){
-  if(!currentHouseholdId)return;
-
-  const {data,error}=await sb
-    .from('gastos')
-    .select('*')
-    .eq('hogar_id',currentHouseholdId)
-    .order('fecha',{ascending:false});
-
-  if(error){
-    console.error('Error cargando gastos:',error);
+  if(!catEl){
     return;
   }
 
-  E=data||[];
-  render();
+  catEl.innerHTML =
+    cats()
+      .map(
+        x=>`<option>${x}</option>`
+      )
+      .join('');
+
 }
 
 
 /* =========================
-   COMPRAS DESDE SUPABASE
+   CATEGORIA NUEVA
+========================= */
+
+document
+  .getElementById('cat')
+  ?.addEventListener(
+    'change',
+    ()=>{
+
+      const catEl =
+        document.getElementById('cat');
+
+      if(
+        catEl.value === 'Otro'
+      ){
+
+        let n =
+          prompt(
+            'Nombre de la nueva categoría'
+          );
+
+        if(n){
+
+          let a =
+            JSON.parse(
+              localStorage.getItem(CC)||'[]'
+            );
+
+          if(!a.includes(n)){
+            a.push(n);
+          }
+
+          localStorage.setItem(
+            CC,
+            JSON.stringify(a)
+          );
+
+          fill();
+
+          catEl.value=n;
+
+        }
+
+      }
+
+    }
+  );
+
+
+/* =========================
+   LOGIN
+========================= */
+
+async function login(){
+
+  const email =
+    document
+      .getElementById('loginEmail')
+      .value
+      .trim();
+
+  const password =
+    document
+      .getElementById('loginPassword')
+      .value;
+
+  const msg =
+    document
+      .getElementById('loginMsg');
+
+
+  if(
+    !email ||
+    !password
+  ){
+
+    msg.textContent =
+      'Escribe correo y contraseña';
+
+    return;
+
+  }
+
+
+  msg.textContent =
+    'Iniciando sesión...';
+
+
+  const {
+    data,
+    error
+  } =
+    await sb.auth.signInWithPassword({
+
+      email:email,
+      password:password
+
+    });
+
+
+  if(error){
+
+    console.error(
+      'Error de inicio de sesión:',
+      error
+    );
+
+    msg.textContent =
+      'Correo o contraseña incorrectos';
+
+    return;
+
+  }
+
+
+  currentUser =
+    data.user;
+
+
+  const {
+    data:member,
+    error:memberError
+  } =
+    await sb
+      .from('miembros_hogar')
+      .select('hogar_id,rol')
+      .eq(
+        'usuario_id',
+        currentUser.id
+      )
+      .limit(1)
+      .maybeSingle();
+
+
+  if(
+    memberError ||
+    !member
+  ){
+
+    console.error(
+      'Error miembro:',
+      memberError
+    );
+
+    await sb.auth.signOut();
+
+    msg.textContent =
+      'Este usuario no tiene un hogar configurado';
+
+    return;
+
+  }
+
+
+  currentRole =
+    member.rol;
+
+  currentHouseholdId =
+    member.hogar_id;
+
+
+  document
+    .getElementById('loginScreen')
+    .style.display='none';
+
+
+  await loadExpenses();
+
+  await loadShopping();
+
+  render();
+
+}
+
+
+/* =========================
+   CAMBIO DE SESION
+========================= */
+
+sb.auth.onAuthStateChange(
+  async (
+    event,
+    session
+  ) => {
+
+    if(session?.user){
+
+      currentUser =
+        session.user;
+
+
+      const {
+        data:member
+      } =
+        await sb
+          .from('miembros_hogar')
+          .select('hogar_id,rol')
+          .eq(
+            'usuario_id',
+            currentUser.id
+          )
+          .limit(1)
+          .maybeSingle();
+
+
+      if(member){
+
+        currentRole =
+          member.rol;
+
+        currentHouseholdId =
+          member.hogar_id;
+
+
+        document
+          .getElementById(
+            'loginScreen'
+          )
+          .style.display='none';
+
+
+        await loadExpenses();
+
+        await loadShopping();
+
+        render();
+
+      }
+
+    }
+
+  }
+);
+
+
+/* =========================
+   CARGAR GASTOS
+   SUPABASE -> INTERFAZ
+========================= */
+
+async function loadExpenses(){
+
+  if(!currentHouseholdId){
+    return;
+  }
+
+
+  const {
+    data,
+    error
+  } =
+    await sb
+      .from('gastos')
+      .select('*')
+      .eq(
+        'hogar_id',
+        currentHouseholdId
+      )
+      .order(
+        'fecha',
+        {
+          ascending:false
+        }
+      );
+
+
+  if(error){
+
+    console.error(
+      'Error cargando gastos:',
+      error
+    );
+
+    return;
+
+  }
+
+
+  /*
+    Convertimos los nombres de Supabase
+    a los nombres que usa la interfaz.
+  */
+
+  E =
+    (data||[]).map(
+      x=>({
+
+        id:x.id,
+
+        cat:
+          x.cat ||
+          x.categoria ||
+          (
+            x.categoria_id != null
+              ? 'Categoría '+x.categoria_id
+              : 'Otro'
+          ),
+
+        amount:
+          Number(
+            x.amount ??
+            x.monto ??
+            0
+          ),
+
+        date:
+          x.date ??
+          x.fecha ??
+          '',
+
+        split:
+          x.split ??
+          'shared',
+
+        payer:
+          x.payer ??
+          'me',
+
+        paid:
+          Boolean(
+            x.paid
+          ),
+
+        note:
+          x.note ??
+          x.notas ??
+          x.descripcion ??
+          '',
+
+        photos:
+          x.photos ??
+          []
+
+      })
+    );
+
+
+  render();
+
+}
+
+
+/* =========================
+   CARGAR COMPRAS
+   SUPABASE
 ========================= */
 
 async function loadShopping(){
 
   if(!currentHouseholdId){
-    console.log('No hay hogar_id');
+
+    console.log(
+      'No hay hogar_id'
+    );
+
     return;
+
   }
 
-  console.log('Cargando compras del hogar:',currentHouseholdId);
 
-  const {data,error}=await sb
-    .from('compras')
-    .select('*')
-    .eq('hogar_id',currentHouseholdId)
-    .order('created_at',{ascending:false});
+  console.log(
+    'Cargando compras del hogar:',
+    currentHouseholdId
+  );
+
+
+  const {
+    data,
+    error
+  } =
+    await sb
+      .from('compras')
+      .select('*')
+      .eq(
+        'hogar_id',
+        currentHouseholdId
+      )
+      .order(
+        'created_at',
+        {
+          ascending:false
+        }
+      );
+
 
   if(error){
-    console.error('ERROR COMPRAS:',error);
-    alert('Error cargando compras: '+error.message);
+
+    console.error(
+      'ERROR COMPRAS:',
+      error
+    );
+
+    alert(
+      'Error cargando compras: '+
+      error.message
+    );
+
     return;
+
   }
 
-  console.log('COMPRAS ENCONTRADAS:',data);
 
-  S=(data||[]).map(x=>({
-    id:x.id,
-    p:x.producto,
-    q:Number(x.cantidad||1),
-    d:x.notas||'',
-    done:Boolean(x.comprado),
-    by:x.usuario_id===currentUser?.id?'Yo':'Usuario'
-  }));
+  console.log(
+    'COMPRAS ENCONTRADAS:',
+    data
+  );
+
+
+  S =
+    (data||[]).map(
+      x=>({
+
+        id:x.id,
+
+        p:x.producto,
+
+        q:
+          Number(
+            x.cantidad||1
+          ),
+
+        d:
+          x.notas||'',
+
+        done:
+          Boolean(
+            x.comprado
+          ),
+
+        by:
+          x.usuario_id === currentUser?.id
+            ? 'Yo'
+            : 'Usuario'
+
+      })
+    );
+
 
   render();
+
 }
+
 
 /* =========================
    GUARDADO LOCAL
-   SOLO PARA GASTOS
+   SOLO PARA GASTOS NUEVOS
 ========================= */
 
 function save(){
-  localStorage.setItem(EK,JSON.stringify(E));
+
+  localStorage.setItem(
+    EK,
+    JSON.stringify(E)
+  );
+
 }
 
 
@@ -386,27 +1752,77 @@ function save(){
 ========================= */
 
 function addExpense(ev){
+
   ev.preventDefault();
 
+
+  const catEl =
+    document.getElementById('cat');
+
+  const amountEl =
+    document.getElementById('amount');
+
+  const dateEl =
+    document.getElementById('date');
+
+  const splitEl =
+    document.getElementById('split');
+
+  const payerEl =
+    document.getElementById('payer');
+
+  const noteEl =
+    document.getElementById('note');
+
+  const previewEl =
+    document.getElementById('preview');
+
+
   E.push({
+
     id:Date.now(),
-    cat:cat.value,
-    amount:+amount.value,
-    date:date.value,
-    split:split.value,
-    payer:payer.value,
+
+    cat:
+      catEl.value,
+
+    amount:
+      Number(
+        amountEl.value
+      )||0,
+
+    date:
+      dateEl.value,
+
+    split:
+      splitEl.value,
+
+    payer:
+      payerEl.value,
+
     paid:false,
-    note:note.value,
-    photos:pics
+
+    note:
+      noteEl.value,
+
+    photos:
+      pics
+
   });
+
 
   save();
 
+
   pics=[];
-  preview.innerHTML='';
+
+  previewEl.innerHTML='';
+
   ev.target.reset();
+
   closeM('expense');
+
   render();
+
 }
 
 
@@ -415,17 +1831,37 @@ function addExpense(ev){
 ========================= */
 
 function paid(id){
-  let x=E.find(a=>a.id===id);
 
-  x.paid=!x.paid;
+  let x =
+    E.find(
+      a=>a.id===id
+    );
+
+
+  if(!x){
+    return;
+  }
+
+
+  x.paid =
+    !x.paid;
+
 
   save();
+
   render();
 
+
   notify(
-    x.paid?'Servicio pagado':'Pago pendiente',
+
+    x.paid
+      ? 'Servicio pagado'
+      : 'Pago pendiente',
+
     x.cat
+
   );
+
 }
 
 
@@ -434,264 +1870,546 @@ function paid(id){
 ========================= */
 
 function render(){
-  
 
   fill();
 
-  month.textContent=new Intl.DateTimeFormat(
-    'es-CO',
-    {
-      month:'long',
-      year:'numeric'
-    }
-  ).format(new Date());
 
-  let a=E
-    .filter(x=>x.date && x.date.startsWith(ym))
-    .sort((a,b)=>(a.date||'').localeCompare(b.date||''));
-  
-  let total=a.reduce(
-  (s,x)=>s+(Number(x.amount)||0),
-  0
-);
-  
-  let my=0,
-      w=0,
-      pm=0;
+  const monthEl =
+    document.getElementById('month');
 
-  a.forEach(x=>{
+  if(monthEl){
 
-    if(x.split==='shared'){
-      my+=x.amount/2;
-      w+=x.amount/2;
-    }else if(x.split==='mine'){
-      my+=x.amount;
-    }else{
-      w+=x.amount;
-    }
-
-    if(x.payer==='me')
-      pm+=x.amount;
-  });
-
-  let d=pm-my;
-
-  document.querySelector('#total').textContent=money(total);
-  document.querySelector('#my').textContent=money(my);
-  document.querySelector('#wife').textContent=money(w);
-  document.querySelector('#bal').textContent=money(Math.abs(d));
-
-  document.querySelector('#balText').textContent=
-    d>0
-      ?'Tu esposa te debe este valor'
-      :d<0
-        ?'Tú debes este valor a tu esposa'
-        :'Todo equilibrado';
-
-  pending.textContent=
-    a.filter(x=>!x.paid).length+' pendientes';
-
-
-  list.innerHTML=a.map(x=>`
-
-    <div class="row">
-
-      <div class="ico">
-        ${icons[x.cat]||'🧾'}
-      </div>
-
-      <div class="grow">
-
-        <b>${x.cat}</b>
-
-        <div class="small">
-          ${x.date} ·
-          ${
-            x.split==='shared'
-              ?'50/50'
-              :x.split==='mine'
-                ?'Tú'
-                :'Esposa'
-          }
-        </div>
-
-        ${
-          x.note
-            ?'<div class="small">'+x.note+'</div>'
-            :''
+    monthEl.textContent =
+      new Intl.DateTimeFormat(
+        'es-CO',
+        {
+          month:'long',
+          year:'numeric'
         }
+      ).format(
+        new Date()
+      );
 
-      </div>
-
-      <div>
-
-        <b>
-          ${money(x.amount)}
-        </b>
-
-        <br>
-
-        <button
-          class="pay ${x.paid?'ok':''}"
-          onclick="paid(${x.id})"
-        >
-          ${
-            x.paid
-              ?'✓ Pagado'
-              :'Marcar pagado'
-          }
-        </button>
-
-      </div>
-
-    </div>
-
-  `).join('') ||
-  '<div class="empty">No hay gastos este mes.</div>';
+  }
 
 
-  up.innerHTML=a
-    .filter(x=>!x.paid)
-    .slice(0,6)
-    .map(x=>`
+  /*
+    GASTOS DEL MES
+  */
 
-      <div class="row">
+  let a =
+    E
+      .filter(
+        x =>
+          x.date &&
+          x.date.startsWith(ym)
+      )
+      .sort(
+        (a,b)=>
+          (a.date||'')
+            .localeCompare(
+              b.date||''
+            )
+      );
 
-        <div class="ico">
-          ${icons[x.cat]||'🧾'}
-        </div>
 
-        <div class="grow">
+  /*
+    TOTAL
+  */
 
-          <b>${x.cat}</b>
+  let total =
+    a.reduce(
+      (s,x)=>
+        s+
+        (
+          Number(x.amount)||0
+        ),
+      0
+    );
 
-          <div class="small">
-            ${x.date}
+
+  /*
+    PARTES
+  */
+
+  let my=0;
+  let w=0;
+  let pm=0;
+
+
+  a.forEach(
+    x=>{
+
+      const amount =
+        Number(x.amount)||0;
+
+
+      if(
+        x.split==='shared'
+      ){
+
+        my +=
+          amount/2;
+
+        w +=
+          amount/2;
+
+      }
+
+      else if(
+        x.split==='mine'
+      ){
+
+        my +=
+          amount;
+
+      }
+
+      else{
+
+        w +=
+          amount;
+
+      }
+
+
+      if(
+        x.payer==='me'
+      ){
+
+        pm +=
+          amount;
+
+      }
+
+    }
+  );
+
+
+  let d =
+    pm-my;
+
+
+  /*
+    HOME
+  */
+
+  const totalEl =
+    document.getElementById('total');
+
+  const myEl =
+    document.getElementById('my');
+
+  const wifeEl =
+    document.getElementById('wife');
+
+  const balEl =
+    document.getElementById('bal');
+
+  const balTextEl =
+    document.getElementById('balText');
+
+  const pendingEl =
+    document.getElementById('pending');
+
+
+  if(totalEl)
+    totalEl.textContent =
+      money(total);
+
+  if(myEl)
+    myEl.textContent =
+      money(my);
+
+  if(wifeEl)
+    wifeEl.textContent =
+      money(w);
+
+  if(balEl)
+    balEl.textContent =
+      money(
+        Math.abs(d)
+      );
+
+
+  if(balTextEl){
+
+    balTextEl.textContent =
+      d>0
+        ? 'Tu esposa te debe este valor'
+        : d<0
+          ? 'Tú debes este valor a tu esposa'
+          : 'Todo equilibrado';
+
+  }
+
+
+  if(pendingEl){
+
+    pendingEl.textContent =
+      a.filter(
+        x=>!x.paid
+      ).length+
+      ' pendientes';
+
+  }
+
+
+  /*
+    LISTA DE GASTOS
+  */
+
+  const listEl =
+    document.getElementById('list');
+
+
+  if(listEl){
+
+    listEl.innerHTML =
+
+      a.map(
+        x=>`
+
+          <div class="row">
+
+            <div class="ico">
+              ${icons[x.cat]||'🧾'}
+            </div>
+
+            <div class="grow">
+
+              <b>
+                ${x.cat}
+              </b>
+
+              <div class="small">
+
+                ${x.date||''} ·
+
+                ${
+                  x.split==='shared'
+                    ? '50/50'
+                    : x.split==='mine'
+                      ? 'Tú'
+                      : 'Esposa'
+                }
+
+              </div>
+
+              ${
+                x.note
+                  ? `<div class="small">${x.note}</div>`
+                  : ''
+              }
+
+            </div>
+
+            <div>
+
+              <b>
+                ${money(x.amount)}
+              </b>
+
+              <br>
+
+              <button
+                class="pay ${x.paid?'ok':''}"
+                onclick="paid(${x.id})"
+              >
+
+                ${
+                  x.paid
+                    ? '✓ Pagado'
+                    : 'Marcar pagado'
+                }
+
+              </button>
+
+            </div>
+
           </div>
 
-        </div>
+        `
+      ).join('') ||
 
-        <b>
-          ${money(x.amount)}
-        </b>
+      '<div class="empty">No hay gastos este mes.</div>';
 
-      </div>
-
-    `).join('') ||
-    '<div class="empty">No hay pendientes 🎉</div>';
+  }
 
 
-  cal.innerHTML=
-    '<h2>Vencimientos</h2>'+
-    a.map(x=>`
+  /*
+    PROXIMOS PAGOS
+  */
 
-      <div class="row">
+  const upEl =
+    document.getElementById('up');
 
-        <div class="ico">
-          ${icons[x.cat]||'🧾'}
-        </div>
 
-        <div class="grow">
+  if(upEl){
 
-          <b>${x.cat}</b>
+    upEl.innerHTML =
 
-          <div class="small">
-            ${x.date}
-          </div>
+      a
+        .filter(
+          x=>!x.paid
+        )
+        .slice(0,6)
+        .map(
+          x=>`
 
-        </div>
+            <div class="row">
 
-        <span class="tag ${x.paid?'ok':''}">
-          ${x.paid?'Pagado':'Pendiente'}
-        </span>
+              <div class="ico">
+                ${icons[x.cat]||'🧾'}
+              </div>
 
-      </div>
+              <div class="grow">
 
-    `).join('') ||
-    '<div class="empty">Sin pagos.</div>';
+                <b>
+                  ${x.cat}
+                </b>
 
+                <div class="small">
+                  ${x.date||''}
+                </div>
+
+              </div>
+
+              <b>
+                ${money(x.amount)}
+              </b>
+
+            </div>
+
+          `
+        )
+        .join('') ||
+
+        '<div class="empty">No hay pendientes 🎉</div>';
+
+  }
+
+
+  /*
+    CALENDARIO
+  */
+
+  const calEl =
+    document.getElementById('cal');
+
+
+  if(calEl){
+
+    calEl.innerHTML =
+
+      '<h2>Vencimientos</h2>'+
+
+      (
+        a.map(
+          x=>`
+
+            <div class="row">
+
+              <div class="ico">
+                ${icons[x.cat]||'🧾'}
+              </div>
+
+              <div class="grow">
+
+                <b>
+                  ${x.cat}
+                </b>
+
+                <div class="small">
+                  ${x.date||''}
+                </div>
+
+              </div>
+
+              <span
+                class="tag ${x.paid?'ok':''}"
+              >
+
+                ${
+                  x.paid
+                    ? 'Pagado'
+                    : 'Pendiente'
+                }
+
+              </span>
+
+            </div>
+
+          `
+        ).join('') ||
+
+        '<div class="empty">Sin pagos.</div>'
+      );
+
+  }
+
+
+  /*
+    ESTADISTICAS
+  */
 
   let c={};
 
-  a.forEach(x=>{
-    c[x.cat]=(c[x.cat]||0)+(Number(x.amount)||0)
-  });
 
-  let max=Math.max(
-    ...Object.values(c),
-    1
+  a.forEach(
+    x=>{
+
+      c[x.cat] =
+        (
+          c[x.cat]||0
+        )+
+        (
+          Number(x.amount)||0
+        );
+
+    }
   );
 
-   statsbox.innerHTML=
-    Object.entries(c)
-      .sort((a,b)=>b[1]-a[1])
-      .map(([k,v])=>`
 
-        <div style="margin:13px 0">
+  let max =
+    Math.max(
+      ...Object.values(c),
+      1
+    );
 
-          <div style="
-            display:flex;
-            justify-content:space-between
-          ">
 
-            <b>
-              ${icons[k]||'🧾'} ${k}
-            </b>
+  const statsEl =
+    document.getElementById('statsbox');
 
-            <span>
-              ${money(v)}
-            </span>
 
-          </div>
+  if(statsEl){
 
-          <div class="bar">
+    statsEl.innerHTML =
+
+      Object.entries(c)
+
+        .sort(
+          (a,b)=>
+            b[1]-a[1]
+        )
+
+        .map(
+          ([k,v])=>`
+
             <div
-              class="fill"
-              style="width:${v/max*100}%"
-            ></div>
-          </div>
+              style="margin:13px 0"
+            >
 
-        </div>
+              <div
+                style="
+                  display:flex;
+                  justify-content:space-between
+                "
+              >
 
-      `).join('') ||
-      '<div class="empty">Registra gastos.</div>';
-}
-  /* =========================
-     LISTA DE COMPRAS
-  ========================= */
+                <b>
+                  ${icons[k]||'🧾'} ${k}
+                </b>
 
-  shopping.innerHTML=
-    S.map(x=>`
+                <span>
+                  ${money(v)}
+                </span>
 
-      <div class="item">
+              </div>
 
-        <button
-          class="check ${x.done?'on':''}"
-          onclick="shopDone(${x.id})"
-        >
-          ${x.done?'✓':''}
-        </button>
+              <div class="bar">
 
-        <div class="ico">
-          🛒
-        </div>
+                <div
+                  class="fill"
+                  style="width:${v/max*100}%"
+                ></div>
 
-        <div class="grow">
+              </div>
 
-          <b>
-            ${x.p} × ${x.q}
-          </b>
+            </div>
 
-          <div class="small">
-            ${x.d||'Sin descripción'} · ${x.by}
-          </div>
+          `
+        )
 
-        </div>
+        .join('') ||
 
-      </div>
+        '<div class="empty">Registra gastos.</div>';
 
-    `).join('') ||
-    '<div class="empty">Lista vacía.</div>';
+  }
+
+
+  /*
+    =========================
+    LISTA DE COMPRAS
+    =========================
+
+    IMPORTANTE:
+    Este bloque está DENTRO de render().
+  */
+
+  const shoppingBox =
+    document.getElementById('shopping');
+
+
+  if(shoppingBox){
+
+    shoppingBox.innerHTML =
+
+      S
+        .map(
+          x=>`
+
+            <div class="item">
+
+              <button
+                class="check ${x.done?'on':''}"
+                onclick="shopDone(${x.id})"
+              >
+
+                ${
+                  x.done
+                    ? '✓'
+                    : ''
+                }
+
+              </button>
+
+              <div class="ico">
+                🛒
+              </div>
+
+              <div class="grow">
+
+                <b>
+                  ${x.p} × ${x.q}
+                </b>
+
+                <div class="small">
+
+                  ${
+                    x.d ||
+                    'Sin descripción'
+                  }
+
+                  ·
+
+                  ${x.by}
+
+                </div>
+
+              </div>
+
+            </div>
+
+          `
+        )
+
+        .join('') ||
+
+        '<div class="empty">Lista vacía.</div>';
+
+  }
+
 }
 
 
@@ -701,32 +2419,75 @@ function render(){
 
 function show(id,b){
 
-  active=id;
+  active =
+    id;
+
 
   document
     .querySelectorAll('.screen')
-    .forEach(x=>x.classList.remove('active'));
+    .forEach(
+      x=>
+        x.classList.remove(
+          'active'
+        )
+    );
 
-  document
-    .getElementById(id)
-    .classList.add('active');
+
+  const screen =
+    document.getElementById(id);
+
+
+  if(screen){
+
+    screen.classList.add(
+      'active'
+    );
+
+  }
+
 
   document
     .querySelectorAll('.nav button')
-    .forEach(x=>x.classList.remove('active'));
+    .forEach(
+      x=>
+        x.classList.remove(
+          'active'
+        )
+    );
 
-  b.classList.add('active');
 
-  fab.style.display=
-    ['home','expenses'].includes(id)
-      ?'block'
-      :'none';
+  if(b){
 
-  if(id==='shop'){
-    loadShopping();
+    b.classList.add(
+      'active'
+    );
+
   }
 
+
+  const fabEl =
+    document.getElementById('fab');
+
+
+  if(fabEl){
+
+    fabEl.style.display =
+      ['home','expenses'].includes(id)
+        ? 'block'
+        : 'none';
+
+  }
+
+
+  if(id==='shop'){
+
+    loadShopping();
+
+  }
+
+
   render();
+
 }
 
 
@@ -738,31 +2499,62 @@ function openM(id){
 
   if(id==='expense'){
 
-    date.value=
-      new Date()
-        .toISOString()
-        .slice(0,10);
+    const dateEl =
+      document.getElementById('date');
+
+
+    if(dateEl){
+
+      dateEl.value =
+        new Date()
+          .toISOString()
+          .slice(0,10);
+
+    }
+
 
     fill();
+
   }
 
-  document
-    .getElementById(
-      id==='shop'
-        ?'shopModal'
-        :id
-    )
-    .classList
-    .add('show');
+
+  const modalId =
+    id==='shop'
+      ? 'shopModal'
+      : id;
+
+
+  const modal =
+    document.getElementById(
+      modalId
+    );
+
+
+  if(modal){
+
+    modal.classList.add(
+      'show'
+    );
+
+  }
+
 }
 
 
 function closeM(id){
 
-  document
-    .getElementById(id)
-    .classList
-    .remove('show');
+  const modal =
+    document.getElementById(id);
+
+
+  if(modal){
+
+    modal.classList.remove(
+      'show'
+    );
+
+  }
+
 }
 
 
@@ -770,98 +2562,145 @@ function closeM(id){
    FOTOS
 ========================= */
 
-function preview(ev){
+function previewPhotos(ev){
 
   pics=[];
-  preview.innerHTML='';
 
-  [...ev.target.files].forEach(f=>{
 
-    let r=new FileReader;
+  const previewEl =
+    document.getElementById('preview');
 
-    r.onload=e=>{
 
-      pics.push(e.target.result);
+  previewEl.innerHTML='';
 
-      let i=document.createElement('img');
 
-      i.src=e.target.result;
-      i.className='photo';
+  [
+    ...ev.target.files
+  ].forEach(
+    f=>{
 
-      preview.appendChild(i);
-    };
+      let r =
+        new FileReader;
 
-    r.readAsDataURL(f);
-  });
+
+      r.onload =
+        e=>{
+
+          pics.push(
+            e.target.result
+          );
+
+
+          let i =
+            document.createElement(
+              'img'
+            );
+
+
+          i.src =
+            e.target.result;
+
+          i.className =
+            'photo';
+
+
+          previewEl.appendChild(i);
+
+        };
+
+
+      r.readAsDataURL(f);
+
+    }
+  );
+
 }
 
 
 /* =========================
    AGREGAR COMPRA
-   AHORA EN SUPABASE
 ========================= */
 
 async function addShop(ev){
 
   ev.preventDefault();
 
+
   if(
     !currentUser ||
     !currentHouseholdId
   ){
 
-    alert('No hay una sesión activa.');
+    alert(
+      'No hay una sesión activa.'
+    );
+
     return;
+
   }
 
-  const producto=
+
+  const producto =
     document
       .getElementById('prod')
       .value
       .trim();
 
-  const cantidad=
+
+  const cantidad =
     document
       .getElementById('qty')
       .value;
 
-  const descripcion=
+
+  const descripcion =
     document
       .getElementById('desc')
       .value
       .trim();
 
+
   if(!producto){
 
-    alert('Escribe el producto.');
+    alert(
+      'Escribe el producto.'
+    );
+
     return;
+
   }
 
-  const {data,error}=await sb
-    .from('compras')
-    .insert({
 
-      hogar_id:
-        currentHouseholdId,
+  const {
+    data,
+    error
+  } =
+    await sb
+      .from('compras')
+      .insert({
 
-      usuario_id:
-        currentUser.id,
+        hogar_id:
+          currentHouseholdId,
 
-      producto:
-        producto,
+        usuario_id:
+          currentUser.id,
 
-      cantidad:
-        Number(cantidad)||1,
+        producto:
+          producto,
 
-      notas:
-        descripcion,
+        cantidad:
+          Number(cantidad)||1,
 
-      comprado:
-        false
+        notas:
+          descripcion,
 
-    })
-    .select()
-    .single();
+        comprado:
+          false
+
+      })
+      .select()
+      .single();
+
 
   if(error){
 
@@ -870,68 +2709,89 @@ async function addShop(ev){
       error
     );
 
+
     alert(
       'No se pudo guardar la compra: '+
       error.message
     );
 
+
     return;
+
   }
+
 
   console.log(
     'Compra guardada:',
     data
   );
 
+
   ev.target.reset();
 
-  closeM('shopModal');
+
+  closeM(
+    'shopModal'
+  );
+
 
   await loadShopping();
 
+
   render();
+
 
   notify(
     'Nueva compra',
     producto
   );
+
 }
 
 
 /* =========================
    MARCAR COMPRA
-   AHORA EN SUPABASE
 ========================= */
 
 async function shopDone(id){
 
-  let x=S.find(
-    a=>a.id===id
-  );
+  let x =
+    S.find(
+      a=>a.id===id
+    );
+
 
   if(!x){
+
     return;
+
   }
 
-  const nuevoEstado=
+
+  const nuevoEstado =
     !x.done;
 
-  const {error}=await sb
-    .from('compras')
-    .update({
 
-      comprado:
-        nuevoEstado
+  const {
+    error
+  } =
+    await sb
+      .from('compras')
+      .update({
 
-    })
-    .eq(
-      'id',
-      id
-    )
-    .eq(
-      'hogar_id',
-      currentHouseholdId
-    );
+        comprado:
+          nuevoEstado
+
+      })
+      .eq(
+        'id',
+        id
+      )
+      .eq(
+        'hogar_id',
+        currentHouseholdId
+      );
+
 
   if(error){
 
@@ -940,25 +2800,35 @@ async function shopDone(id){
       error
     );
 
+
     alert(
       'No se pudo actualizar la compra: '+
       error.message
     );
 
+
     return;
+
   }
 
-  x.done=
+
+  x.done =
     nuevoEstado;
+
 
   render();
 
+
   notify(
+
     nuevoEstado
-      ?'Producto comprado'
-      :'Producto pendiente',
+      ? 'Producto comprado'
+      : 'Producto pendiente',
+
     x.p
+
   );
+
 }
 
 
@@ -968,34 +2838,57 @@ async function shopDone(id){
 
 async function notif(){
 
-  if(!('Notification'in window))
-    return alert(
+  if(
+    !('Notification' in window)
+  ){
+
+    alert(
       'Tu navegador no permite notificaciones'
     );
 
-  let p=
+    return;
+
+  }
+
+
+  let p =
     await Notification.requestPermission();
 
+
   alert(
+
     p==='granted'
-      ?'Notificaciones activadas en este dispositivo'
-      :'Permiso no concedido'
+      ? 'Notificaciones activadas en este dispositivo'
+      : 'Permiso no concedido'
+
   );
+
 }
 
 
 function notify(t,b){
 
   if(
-    'Notification'in window &&
-    Notification.permission==='granted'
-  )
+
+    'Notification' in window &&
+
+    Notification.permission ===
+      'granted'
+
+  ){
+
     new Notification(
+
       t,
+
       {
         body:b
       }
+
     );
+
+  }
+
 }
 
 
@@ -1005,31 +2898,46 @@ function notify(t,b){
 
 function exportData(){
 
-  let b=new Blob(
-    [
-      JSON.stringify(
-        {
-          gastos:E,
-          compras:S
-        },
-        null,
-        2
-      )
-    ],
-    {
-      type:'application/json'
-    }
-  );
+  let b =
+    new Blob(
 
-  let a=document.createElement('a');
+      [
+        JSON.stringify(
 
-  a.href=
+          {
+            gastos:E,
+            compras:S
+          },
+
+          null,
+          2
+
+        )
+      ],
+
+      {
+        type:'application/json'
+      }
+
+    );
+
+
+  let a =
+    document.createElement(
+      'a'
+    );
+
+
+  a.href =
     URL.createObjectURL(b);
 
-  a.download=
+
+  a.download =
     'casagastos-respaldo.json';
 
+
   a.click();
+
 }
 
 
@@ -1041,34 +2949,40 @@ function exportData(){
 
   const {
     data
-  }=await sb.auth.getSession();
+  } =
+    await sb.auth.getSession();
+
 
   if(
     data?.session?.user
   ){
 
-    currentUser=
+    currentUser =
       data.session.user;
+
 
     const {
       data:member
-    }=await sb
-      .from('miembros_hogar')
-      .select('hogar_id,rol')
-      .eq(
-        'usuario_id',
-        currentUser.id
-      )
-      .limit(1)
-      .maybeSingle();
+    } =
+      await sb
+        .from('miembros_hogar')
+        .select('hogar_id,rol')
+        .eq(
+          'usuario_id',
+          currentUser.id
+        )
+        .limit(1)
+        .maybeSingle();
+
 
     if(member){
 
-      currentRole=
+      currentRole =
         member.rol;
 
-      currentHouseholdId=
+      currentHouseholdId =
         member.hogar_id;
+
 
       document
         .getElementById(
@@ -1077,17 +2991,26 @@ function exportData(){
         .style
         .display='none';
 
+
       await loadExpenses();
+
       await loadShopping();
 
       render();
+
     }
 
-  }else{
+  }
+
+  else{
 
     render();
 
   }
 
 })();
-</script></body></html>
+
+</script>
+
+</body>
+</html>
