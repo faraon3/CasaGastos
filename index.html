@@ -559,6 +559,8 @@
   let currentHouseholdId = null;
 
   let E = [];
+
+  /* Compras ahora vienen de Supabase */
   let S = [];
 
   let pics = [];
@@ -794,7 +796,7 @@
 
 
   /* =========================
-     CARGAR COMPRAS
+     CARGAR COMPRAS DESDE SUPABASE
   ========================= */
 
   async function loadShopping() {
@@ -823,6 +825,11 @@
       console.error(
         "Error cargando compras:",
         error
+      );
+
+      alert(
+        "No se pudieron cargar las compras: " +
+        error.message
       );
 
       return;
@@ -1290,7 +1297,7 @@
 
 
   /* =========================
-     AGREGAR COMPRA
+     AGREGAR COMPRA A SUPABASE
   ========================= */
 
   async function addShop(ev) {
@@ -1409,7 +1416,7 @@
 
 
   /* =========================
-     MARCAR COMPRA
+     MARCAR COMPRA COMO COMPRADA
   ========================= */
 
   async function shopDone(id) {
@@ -1522,6 +1529,11 @@
       );
 
 
+    /*
+     * Cada vez que entramos a Compras,
+     * consultamos Supabase para traer
+     * los datos más recientes.
+     */
     if (
       id === "shoppingScreen" &&
       currentUser &&
