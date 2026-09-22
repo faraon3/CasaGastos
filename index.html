@@ -1873,7 +1873,7 @@ async function addExpense(ev){
   categoria_id: categoria.id,
   monto: monto,
   fecha: fecha,
-  notas: notas,
+  descripcion: notas || 'Sin descripción',
   split: split,
   payer: payer,
   paid: false
