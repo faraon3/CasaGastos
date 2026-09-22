@@ -1751,10 +1751,17 @@ function save(){
    AGREGAR GASTO
 ========================= */
 
-function addExpense(ev){
+async function addExpense(ev){
 
   ev.preventDefault();
 
+  if(!currentUser || !currentHouseholdId){
+
+    alert('No hay una sesión activa.');
+
+    return;
+
+  }
 
   const catEl =
     document.getElementById('cat');
@@ -1778,83 +1785,244 @@ function addExpense(ev){
     document.getElementById('preview');
 
 
-  E.push({
+  const categoriaTexto =
+    catEl.value;
 
-    id:Date.now(),
+  const monto =
+    Number(amountEl.value) || 0;
 
-    cat:
-      catEl.value,
+  const fecha =
+    dateEl.value;
 
-    amount:
-      Number(
-        amountEl.value
-      )||0,
+  const split =
+    splitEl.value;
 
-    date:
-      dateEl.value,
+  const payer =
+    payerEl.value;
 
-    split:
-      splitEl.value,
-
-    payer:
-      payerEl.value,
-
-    paid:false,
-
-    note:
-      noteEl.value,
-
-    photos:
-      pics
-
-  });
+  const notas =
+    noteEl.value.trim();
 
 
-  save();
+  if(monto <= 0){
+
+    alert('El valor debe ser mayor que 0.');
+
+    return;
+
+  }
 
 
-  pics=[];
+  if(!fecha){
 
-  previewEl.innerHTML='';
+    alert('Selecciona una fecha.');
+
+    return;
+
+  }
+
+
+  const {
+    data:categoria,
+    error:catError
+  } =
+    await sb
+      .from('categorias')
+      .select('id,nombre')
+      .eq(
+        'nombre',
+        categoriaTexto
+      )
+      .limit(1)
+      .maybeSingle();
+
+
+  if(catError){
+
+    console.error(
+      'Error buscando categoría:',
+      catError
+    );
+
+    alert(
+      'No se pudo identificar la categoría: '+
+      catError.message
+    );
+
+    return;
+
+  }
+
+
+  if(!categoria){
+
+    alert(
+      'La categoría "'+
+      categoriaTexto+
+      '" no existe todavía en la tabla de categorías.'
+    );
+
+    return;
+
+  }
+
+
+  const {
+    data,
+    error
+  } =
+    await sb
+      .from('gastos')
+      .insert({
+
+        hogar_id:
+          currentHouseholdId,
+
+        usuario_id:
+          currentUser.id,
+
+        categoria_id:
+          categoria.id,
+
+        monto:
+          monto,
+
+        fecha:
+          fecha,
+
+        notas:
+          notas,
+
+        split:
+          split,
+
+        payer:
+          payer,
+
+        paid:
+          false,
+
+        photos:
+          pics
+
+      })
+      .select()
+      .single();
+
+
+  if(error){
+
+    console.error(
+      'Error guardando gasto en Supabase:',
+      error
+    );
+
+    alert(
+      'No se pudo guardar el gasto: '+
+      error.message
+    );
+
+    return;
+
+  }
+
+
+  console.log(
+    'Gasto guardado en Supabase:',
+    data
+  );
+
+
+  pics = [];
+
+  previewEl.innerHTML = '';
 
   ev.target.reset();
 
   closeM('expense');
 
-  render();
+
+  await loadExpenses();
+
+
+  notify(
+    'Nuevo gasto',
+    categoriaTexto
+  );
 
 }
-
 
 /* =========================
    PAGAR GASTO
 ========================= */
 
-function paid(id){
+async function paid(id){
 
-  let x =
+  const x =
     E.find(
-      a=>a.id===id
+      a => a.id === id
     );
 
 
   if(!x){
+
     return;
+
+  }
+
+
+  const nuevoEstado =
+    !x.paid;
+
+
+  const {
+    error
+  } =
+    await sb
+      .from('gastos')
+      .update({
+
+        paid:
+          nuevoEstado
+
+      })
+      .eq(
+        'id',
+        id
+      )
+      .eq(
+        'hogar_id',
+        currentHouseholdId
+      );
+
+
+  if(error){
+
+    console.error(
+      'Error actualizando gasto:',
+      error
+    );
+
+    alert(
+      'No se pudo actualizar el pago: '+
+      error.message
+    );
+
+    return;
+
   }
 
 
   x.paid =
-    !x.paid;
+    nuevoEstado;
 
-
-  save();
 
   render();
 
 
   notify(
 
-    x.paid
+    nuevoEstado
       ? 'Servicio pagado'
       : 'Pago pendiente',
 
@@ -1863,7 +2031,6 @@ function paid(id){
   );
 
 }
-
 
 /* =========================
    RENDER
