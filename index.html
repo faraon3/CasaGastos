@@ -1932,6 +1932,44 @@ async function deleteExpense(id) {
 
   alert("Gasto eliminado correctamente");
 }
+    async function editExpense(id) {
+  const gasto = E.find(x => x.id === id);
+
+  if (!gasto) return;
+
+  const nuevoMonto = prompt(
+    "Nuevo valor:",
+    gasto.amount
+  );
+
+  if (nuevoMonto === null) return;
+
+  const monto = Number(nuevoMonto);
+
+  if (!monto || monto <= 0) {
+    alert("Escribe un valor válido");
+    return;
+  }
+
+  const { error } = await sb
+    .from("gastos")
+    .update({
+      monto: monto
+    })
+    .eq("id", id)
+    .eq("hogar_id", currentHouseholdId);
+
+  if (error) {
+    console.error("Error editando gasto:", error);
+    alert("No se pudo editar el gasto: " + error.message);
+    return;
+  }
+
+  await loadExpenses();
+  render();
+
+  alert("Gasto actualizado correctamente");
+}
 
     /* =========================================================
        14. RENDERIZAR APLICACIÓN
@@ -2152,6 +2190,13 @@ async function deleteExpense(id) {
                           : "Marcar pagado"
                       }
                     </button>
+                    <button
+  class="pay"
+  style="margin-top:6px;background:#e8f0ff;color:#2457a6;"
+  onclick="editExpense(${x.id})"
+>
+  ✏️ Editar
+</button>
                     <button
   class="pay"
   style="margin-top:6px;background:#ffe8e8;color:#b42318;"
