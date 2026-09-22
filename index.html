@@ -1530,106 +1530,68 @@ sb.auth.onAuthStateChange(
 ========================= */
 
 async function loadExpenses(){
-
   if(!currentHouseholdId){
     return;
   }
 
-
-  const {
-    data,
-    error
-  } =
-    await sb
-      .from('gastos')
-      .select('*')
-      .eq(
-        'hogar_id',
-        currentHouseholdId
-      )
-      .order(
-        'fecha',
-        {
-          ascending:false
-        }
-      );
-
+  const {data,error}=await sb
+    .from('gastos')
+    .select('*')
+    .eq('hogar_id',currentHouseholdId)
+    .order('fecha',{ascending:false});
 
   if(error){
-
-    console.error(
-      'Error cargando gastos:',
-      error
-    );
-
+    console.error('Error cargando gastos:',error);
     return;
-
   }
 
+  const gastos=data||[];
 
-  /*
-    Convertimos los nombres de Supabase
-    a los nombres que usa la interfaz.
-  */
+  // Obtener las categorías utilizadas en los gastos
+  const categoriaIds=[
+    ...new Set(
+      gastos
+        .map(x=>x.categoria_id)
+        .filter(id=>id!=null)
+    )
+  ];
 
-  E =
-    (data||[]).map(
-      x=>({
+  let categoriasMap={};
 
-        id:x.id,
+  if(categoriaIds.length){
+    const {data:categorias,error:catError}=await sb
+      .from('categorias')
+      .select('id,nombre')
+      .in('id',categoriaIds);
 
-        cat:
-          x.cat ||
-          x.categoria ||
-          (
-            x.categoria_id != null
-              ? 'Categoría '+x.categoria_id
-              : 'Otro'
-          ),
+    if(catError){
+      console.error('Error cargando categorías:',catError);
+    }else{
+      (categorias||[]).forEach(c=>{
+        categoriasMap[c.id]=c.nombre;
+      });
+    }
+  }
 
-        amount:
-          Number(
-            x.amount ??
-            x.monto ??
-            0
-          ),
-
-        date:
-          x.date ??
-          x.fecha ??
-          '',
-
-        split:
-          x.split ??
-          'shared',
-
-        payer:
-          x.payer ??
-          'me',
-
-        paid:
-          Boolean(
-            x.paid
-          ),
-
-        note:
-          x.note ??
-          x.notas ??
-          x.descripcion ??
-          '',
-
-        photos:
-          x.photos ??
-          []
-
-      })
-    );
-
+  E=gastos.map(x=>({
+    id:x.id,
+    cat:
+      x.cat ||
+      x.categoria ||
+      (x.categoria_id!=null
+        ? (categoriasMap[x.categoria_id] || 'Categoría '+x.categoria_id)
+        : 'Otro'),
+    amount:Number(x.amount??x.monto??0),
+    date:x.date??x.fecha??'',
+    split:x.split??'shared',
+    payer:x.payer??'me',
+    paid:Boolean(x.paid),
+    note:x.note??x.notas??x.descripcion??'',
+    photos:x.photos??[]
+  }));
 
   render();
-
 }
-
 
 /* =========================
    CARGAR COMPRAS
