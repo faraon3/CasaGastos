@@ -2596,61 +2596,11 @@ async function deleteExpense(id) {
        19. COMPRAS
     ========================================================== */
 
-    function addShop(ev) {
+   async function addShop(ev) {
+  // nueva función que te pasé
+}
 
-      ev.preventDefault();
-
-
-      S.push({
-
-        id:
-          Date.now(),
-
-        p:
-          document
-            .getElementById("prod")
-            .value,
-
-        q:
-          document
-            .getElementById("qty")
-            .value,
-
-        d:
-          document
-            .getElementById("desc")
-            .value,
-
-        done:
-          false,
-
-        by:
-          "Usuario"
-
-      });
-
-
-      saveLocal();
-
-
-      ev.target.reset();
-
-
-      closeM(
-        "shopModal"
-      );
-
-
-      render();
-
-
-      notify(
-        "Nueva compra",
-        S[S.length - 1].p
-      );
-
-    }
-
+function shopDone(id) {
 
     /* =========================================================
        20. MARCAR COMPRA
