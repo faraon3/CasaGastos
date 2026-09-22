@@ -1867,48 +1867,17 @@ async function addExpense(ev){
   }
 
 
-  const {
-    data,
-    error
-  } =
-    await sb
-      .from('gastos')
-      .insert({
-
-        hogar_id:
-          currentHouseholdId,
-
-        usuario_id:
-          currentUser.id,
-
-        categoria_id:
-          categoria.id,
-
-        monto:
-          monto,
-
-        fecha:
-          fecha,
-
-        notas:
-          notas,
-
-        split:
-          split,
-
-        payer:
-          payer,
-
-        paid:
-          false,
-
-        photos:
-          pics
-
-      })
-      .select()
-      .single();
-
+  const {data,error}=await sb.from('gastos').insert({
+  hogar_id: currentHouseholdId,
+  usuario_id: currentUser.id,
+  categoria_id: categoria.id,
+  monto: monto,
+  fecha: fecha,
+  notas: notas,
+  split: split,
+  payer: payer,
+  paid: false
+}).select().single();
 
   if(error){
 
