@@ -1903,7 +1903,35 @@ payer:
       );
 
     }
+async function deleteExpense(id) {
+  const gasto = E.find(x => x.id === id);
 
+  if (!gasto) return;
+
+  const confirmar = confirm(
+    `¿Eliminar el gasto de ${money(gasto.amount)} en ${gasto.cat}?`
+  );
+
+  if (!confirmar) return;
+
+  const { error } = await sb
+    .from("gastos")
+    .delete()
+    .eq("id", id)
+    .eq("hogar_id", currentHouseholdId);
+
+  if (error) {
+    console.error("Error eliminando gasto:", error);
+    alert("No se pudo eliminar el gasto: " + error.message);
+    return;
+  }
+
+  E = E.filter(x => x.id !== id);
+
+  render();
+
+  alert("Gasto eliminado correctamente");
+}
 
     /* =========================================================
        14. RENDERIZAR APLICACIÓN
@@ -2124,6 +2152,13 @@ payer:
                           : "Marcar pagado"
                       }
                     </button>
+                    <button
+  class="pay"
+  style="margin-top:6px;background:#ffe8e8;color:#b42318;"
+  onclick="deleteExpense(${x.id})"
+>
+  🗑️ Eliminar
+</button>
 
                   </div>
 
