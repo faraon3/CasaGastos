@@ -434,6 +434,31 @@ function paid(id){
 ========================= */
 
 function render(){
+  if(document.getElementById('shopping')){
+  const shoppingBox=document.getElementById('shopping');
+
+  shoppingBox.innerHTML=
+    S.map(x=>`
+      <div class="item">
+        <button
+          class="check ${x.done?'on':''}"
+          onclick="shopDone(${x.id})"
+        >
+          ${x.done?'✓':''}
+        </button>
+
+        <div class="ico">🛒</div>
+
+        <div class="grow">
+          <b>${x.p} × ${x.q}</b>
+          <div class="small">
+            ${x.d||'Sin descripción'} · ${x.by}
+          </div>
+        </div>
+      </div>
+    `).join('') ||
+    '<div class="empty">Lista vacía.</div>';
+}
 
   fill();
 
@@ -450,10 +475,10 @@ function render(){
     .sort((a,b)=>(a.date||'').localeCompare(b.date||''));
   
   let total=a.reduce(
-    (s,x)=>s+x.amount,
-    0
-  );
-
+  (s,x)=>s+(Number(x.amount)||0),
+  0
+);
+  
   let my=0,
       w=0,
       pm=0;
@@ -613,7 +638,7 @@ function render(){
   let c={};
 
   a.forEach(x=>{
-    c[x.cat]=(c[x.cat]||0)+x.amount
+    c[x.cat]=(c[x.cat]||0)+(Number(x.amount)||0)
   });
 
   let max=Math.max(
@@ -654,7 +679,7 @@ function render(){
 
       `).join('') ||
       '<div class="empty">Registra gastos.</div>';
-
+  }
 
   /* =========================
      LISTA DE COMPRAS
