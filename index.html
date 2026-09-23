@@ -97,8 +97,13 @@ button{
   margin-top:5px
 }
 
-.section{margin:18px}
-.section h2{font-size:16px}
+.section{
+  margin:18px
+}
+
+.section h2{
+  font-size:16px
+}
 
 .row{
   display:flex;
@@ -117,7 +122,9 @@ button{
   place-items:center
 }
 
-.grow{flex:1}
+.grow{
+  flex:1
+}
 
 .tag{
   font-size:10px;
@@ -187,7 +194,9 @@ button{
   font-weight:800
 }
 
-.screen{display:none}
+.screen{
+  display:none
+}
 
 .screen.active{
   display:block;
@@ -214,7 +223,9 @@ button{
   z-index:20
 }
 
-.modal.show{display:flex}
+.modal.show{
+  display:flex
+}
 
 .sheet{
   width:100%;
@@ -232,7 +243,9 @@ button{
   justify-content:space-between
 }
 
-.form{padding:18px}
+.form{
+  padding:18px
+}
 
 .form label{
   display:block;
@@ -251,7 +264,9 @@ button{
   background:#fff
 }
 
-.form textarea{min-height:70px}
+.form textarea{
+  min-height:70px
+}
 
 .tw{
   display:grid;
@@ -284,21 +299,6 @@ button{
   border-radius:15px;
   text-align:center;
   color:var(--muted)
-}
-
-.photoButtons{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:8px;
-  margin-top:10px
-}
-
-.photoButton{
-  padding:12px;
-  border-radius:12px;
-  background:var(--soft);
-  color:#076b5b;
-  font-weight:800
 }
 
 .photos{
@@ -532,30 +532,48 @@ CasaGastos • Finanzas del hogar
 <div id="home" class="screen active">
 
 <div class="top">
+
 <div>
+
 <div class="brand">🏠 CasaGastos</div>
+
 <div class="sub" id="month"></div>
+
 </div>
 
-<button class="icon" onclick="openM('expense')">＋</button>
+<button
+class="icon"
+onclick="openM('expense')"
+>＋</button>
+
 </div>
 
 <div class="hero">
+
 <small>Total del mes</small>
+
 <h1 id="total">$0</h1>
+
 <span id="pending">0 pendientes</span>
+
 </div>
 
 <div class="grid">
 
 <div class="card">
+
 <div class="small">👤 Tu parte</div>
+
 <div class="money" id="my">$0</div>
+
 </div>
 
 <div class="card">
+
 <div class="small">👩 Parte esposa</div>
+
 <div class="money" id="wife">$0</div>
+
 </div>
 
 </div>
@@ -566,9 +584,7 @@ CasaGastos • Finanzas del hogar
 
 <div class="money" id="bal">$0</div>
 
-<div class="small" id="balText">
-Todo equilibrado
-</div>
+<div class="small" id="balText">Todo equilibrado</div>
 
 </div>
 
@@ -670,7 +686,10 @@ La esposa solo visualiza y consulta
 
 </div>
 
-<button class="icon" onclick="openM('shop')">＋</button>
+<button
+class="icon"
+onclick="openM('shop')"
+>＋</button>
 
 </div>
 
@@ -753,12 +772,13 @@ Administrador: puede modificar gastos. Esposa: solo consulta gastos; ambos puede
 <button
 id="fab"
 class="fab"
-onclick="openM('expense')">
+onclick="openM('expense')"
+>
 ＋ Agregar gasto
 </button>
 
 
-<!-- NAV -->
+<!-- NAVEGACION -->
 
 <div class="nav">
 
@@ -799,13 +819,19 @@ onclick="openM('expense')">
 
 <b>Nuevo gasto</b>
 
-<button class="icon" onclick="closeM('expense')">
+<button
+class="icon"
+onclick="closeM('expense')"
+>
 ✕
 </button>
 
 </div>
 
-<form class="form" onsubmit="addExpense(event)">
+<form
+class="form"
+onsubmit="addExpense(event)"
+>
 
 <label>Categoría</label>
 
@@ -842,11 +868,17 @@ required
 
 <select id="split">
 
-<option value="shared">50/50</option>
+<option value="shared">
+50/50
+</option>
 
-<option value="mine">Solo mío</option>
+<option value="mine">
+Solo mío
+</option>
 
-<option value="wife">Solo esposa</option>
+<option value="wife">
+Solo esposa
+</option>
 
 </select>
 
@@ -859,9 +891,13 @@ required
 
 <select id="payer">
 
-<option value="me">Yo</option>
+<option value="me">
+Yo
+</option>
 
-<option value="wife">Mi esposa</option>
+<option value="wife">
+Mi esposa
+</option>
 
 </select>
 
@@ -870,24 +906,27 @@ required
 
 <div class="drop">
 
-<div>
-📷 Agregar factura o foto
-</div>
-
-<div class="photoButtons">
+<div style="
+display:flex;
+gap:10px;
+flex-wrap:wrap;
+justify-content:center;
+">
 
 <button
 type="button"
-class="photoButton"
-onclick="openCamera()">
+class="secondary"
+onclick="openCamera()"
+>
 📷 Tomar foto
 </button>
 
 <button
 type="button"
-class="photoButton"
-onclick="openGallery()">
-🖼️ Galería
+class="secondary"
+onclick="openGallery()"
+>
+🖼️ Elegir de galería
 </button>
 
 </div>
@@ -910,7 +949,10 @@ hidden
 onchange="previewPhotos(event)"
 >
 
-<div class="photos" id="preview"></div>
+<div
+class="photos"
+id="preview"
+></div>
 
 </div>
 
@@ -944,23 +986,27 @@ Guardar gasto
 
 <b>Agregar compra</b>
 
-<button class="icon" onclick="closeM('shopModal')">
+<button
+class="icon"
+onclick="closeM('shopModal')"
+>
 ✕
 </button>
 
 </div>
 
-<form class="form" onsubmit="addShop(event)">
+<form
+class="form"
+onsubmit="addShop(event)"
+>
 
 <label>Producto</label>
 
 <input id="prod" required>
 
-
 <label>Cantidad</label>
 
 <input id="qty" value="1">
-
 
 <label>Descripción</label>
 
@@ -968,7 +1014,6 @@ Guardar gasto
 id="desc"
 placeholder="Marca, tamaño, presentación..."
 ></textarea>
-
 
 <button class="primary">
 Agregar a la lista
@@ -1062,6 +1107,21 @@ new Date()
 
 function cats(){
 
+let locales = [];
+
+try{
+
+locales =
+JSON.parse(
+localStorage.getItem(CC)||'[]'
+);
+
+}catch(e){
+
+locales=[];
+
+}
+
 return [
 ...new Set([
 'Arriendo',
@@ -1072,9 +1132,7 @@ return [
 'Internet celular',
 'Mercado',
 'Otro',
-...JSON.parse(
-localStorage.getItem(CC)||'[]'
-)
+...locales
 ])
 ];
 
@@ -1090,44 +1148,24 @@ if(!catEl){
 return;
 }
 
-const currentValue =
+const actual =
 catEl.value;
 
 catEl.innerHTML =
 cats()
 .map(
-x=>`<option value="${escapeHtml(x)}">${escapeHtml(x)}</option>`
+x=>`<option value="${x}">${x}</option>`
 )
 .join('');
 
-if(
-currentValue &&
-cats().includes(currentValue)
-){
-
-catEl.value =
-currentValue;
-
+if(actual && cats().includes(actual)){
+catEl.value=actual;
 }
 
 }
 
 
-/* ESCAPAR HTML */
-
-function escapeHtml(value){
-
-return String(value ?? '')
-.replace(/&/g,'&amp;')
-.replace(/</g,'&lt;')
-.replace(/>/g,'&gt;')
-.replace(/"/g,'&quot;')
-.replace(/'/g,'&#039;');
-
-}
-
-
-/* NUEVA CATEGORIA */
+/* CATEGORIA NUEVA */
 
 document
 .getElementById('cat')
@@ -1138,9 +1176,7 @@ async ()=>{
 const catEl =
 document.getElementById('cat');
 
-if(
-catEl.value !== 'Otro'
-){
+if(catEl.value !== 'Otro'){
 return;
 }
 
@@ -1149,62 +1185,23 @@ prompt(
 'Nombre de la nueva categoría'
 );
 
-if(!n){
-
-fill();
-
+if(n===null){
 return;
-
 }
 
-n =
-n.trim();
+n=n.trim();
 
 if(!n){
-
 fill();
-
 return;
-
 }
 
 
-/*
-Guardamos localmente para que
-la categoría aparezca de inmediato.
-*/
-
-let localCats =
-JSON.parse(
-localStorage.getItem(CC)||'[]'
-);
-
-if(
-!localCats.includes(n)
-){
-
-localCats.push(n);
-
-localStorage.setItem(
-CC,
-JSON.stringify(localCats)
-);
-
-}
-
-
-/*
-Intentamos guardar también
-la categoría en Supabase.
-*/
-
-if(
-currentHouseholdId
-){
+/* Buscar categoría */
 
 const {
-data:existing,
-error:findError
+data:existente,
+error:buscarError
 } =
 await sb
 .from('categorias')
@@ -1213,49 +1210,97 @@ await sb
 .limit(1)
 .maybeSingle();
 
-if(findError){
+if(buscarError){
 
 console.error(
 'Error buscando categoría:',
-findError
+buscarError
 );
+
+alert(
+'No se pudo comprobar la categoría: '+
+buscarError.message
+);
+
+fill();
+return;
 
 }
 
-if(!existing){
+
+let categoria =
+existente;
+
+
+/* Crear */
+
+if(!categoria){
 
 const {
-error:insertError
+data:nueva,
+error:crearError
 } =
 await sb
 .from('categorias')
 .insert({
-nombre:n
-});
+nombre:n,
+icono:'🧾'
+})
+.select('id,nombre')
+.single();
 
-if(insertError){
+if(crearError){
 
 console.error(
 'Error creando categoría:',
-insertError
+crearError
 );
 
-}
+alert(
+'No se pudo crear la categoría: '+
+crearError.message
+);
+
+fill();
+return;
 
 }
 
+categoria=nueva;
+
 }
 
 
-/*
-Reconstruimos el select y
-mantenemos la nueva categoría.
-*/
+/* Guardar localmente */
+
+let locales=[];
+
+try{
+
+locales =
+JSON.parse(
+localStorage.getItem(CC)||'[]'
+);
+
+}catch(e){
+
+locales=[];
+
+}
+
+if(!locales.includes(categoria.nombre)){
+locales.push(categoria.nombre);
+}
+
+localStorage.setItem(
+CC,
+JSON.stringify(locales)
+);
 
 fill();
 
 catEl.value =
-n;
+categoria.nombre;
 
 }
 );
@@ -1281,10 +1326,7 @@ document
 .getElementById('loginMsg');
 
 
-if(
-!email ||
-!password
-){
+if(!email || !password){
 
 msg.textContent =
 'Escribe correo y contraseña';
@@ -1329,19 +1371,7 @@ currentUser =
 data.user;
 
 
-await loadMemberAndStart();
-
-}
-
-
-async function loadMemberAndStart(){
-
-if(!currentUser){
-
-return false;
-
-}
-
+/* Buscar hogar */
 
 const {
 data:member,
@@ -1358,10 +1388,7 @@ currentUser.id
 .maybeSingle();
 
 
-if(
-memberError ||
-!member
-){
+if(memberError || !member){
 
 console.error(
 'Error miembro:',
@@ -1370,12 +1397,10 @@ memberError
 
 await sb.auth.signOut();
 
-document
-.getElementById('loginMsg')
-.textContent =
+msg.textContent =
 'Este usuario no tiene un hogar configurado';
 
-return false;
+return;
 
 }
 
@@ -1398,15 +1423,13 @@ await loadShopping();
 
 render();
 
-return true;
-
 }
 
 
 /* CAMBIO DE SESION */
 
 sb.auth.onAuthStateChange(
-async(
+async (
 event,
 session
 )=>{
@@ -1416,19 +1439,38 @@ if(session?.user){
 currentUser =
 session.user;
 
-await loadMemberAndStart();
+const {
+data:member
+} =
+await sb
+.from('miembros_hogar')
+.select('hogar_id,rol')
+.eq(
+'usuario_id',
+currentUser.id
+)
+.limit(1)
+.maybeSingle();
 
-}
+if(member){
 
-else{
+currentRole =
+member.rol;
 
-currentUser = null;
-currentRole = null;
-currentHouseholdId = null;
+currentHouseholdId =
+member.hogar_id;
 
 document
 .getElementById('loginScreen')
-.style.display='flex';
+.style.display='none';
+
+await loadExpenses();
+
+await loadShopping();
+
+render();
+
+}
 
 }
 
@@ -1441,11 +1483,8 @@ document
 async function loadExpenses(){
 
 if(!currentHouseholdId){
-
 return;
-
 }
-
 
 const {
 data,
@@ -1465,7 +1504,6 @@ ascending:false
 }
 );
 
-
 if(error){
 
 console.error(
@@ -1478,8 +1516,59 @@ return;
 }
 
 
+const gastos =
+data||[];
+
+
+/* Buscar nombres de categorias */
+
+const categoriaIds = [
+...new Set(
+gastos
+.map(x=>x.categoria_id)
+.filter(id=>id!=null)
+)
+];
+
+let categoriasMap={};
+
+if(categoriaIds.length){
+
+const {
+data:categorias,
+error:catError
+} =
+await sb
+.from('categorias')
+.select('id,nombre')
+.in(
+'id',
+categoriaIds
+);
+
+if(catError){
+
+console.error(
+'Error cargando categorías:',
+catError
+);
+
+}else{
+
+(categorias||[])
+.forEach(
+c=>{
+categoriasMap[c.id]=c.nombre;
+}
+);
+
+}
+
+}
+
+
 E =
-(data||[]).map(
+gastos.map(
 x=>({
 
 id:x.id,
@@ -1488,9 +1577,14 @@ cat:
 x.cat ||
 x.categoria ||
 (
-x.categoria_id != null
-? 'Categoría '+x.categoria_id
-: 'Otro'
+x.categoria_id!=null
+?
+(
+categoriasMap[x.categoria_id] ||
+'Categoría '+x.categoria_id
+)
+:
+'Otro'
 ),
 
 amount:
@@ -1507,26 +1601,27 @@ x.fecha ??
 
 split:
 x.split ??
-'common',
+'shared',
 
 payer:
 x.payer ??
 'me',
 
 paid:
-Boolean(
-x.paid
-),
+Boolean(x.paid),
 
 note:
 x.note ??
 x.notas ??
 x.descripcion ??
-''
+'',
+
+photos:
+x.photos ??
+[]
 
 })
 );
-
 
 render();
 
@@ -1547,12 +1642,10 @@ return;
 
 }
 
-
 console.log(
 'Cargando compras del hogar:',
 currentHouseholdId
 );
-
 
 const {
 data,
@@ -1572,7 +1665,6 @@ ascending:false
 }
 );
 
-
 if(error){
 
 console.error(
@@ -1580,10 +1672,14 @@ console.error(
 error
 );
 
+alert(
+'Error cargando compras: '+
+error.message
+);
+
 return;
 
 }
-
 
 console.log(
 'COMPRAS ENCONTRADAS:',
@@ -1592,7 +1688,8 @@ data
 
 
 S =
-(data||[]).map(
+(data||[])
+.map(
 x=>({
 
 id:x.id,
@@ -1614,14 +1711,27 @@ x.comprado
 
 by:
 x.usuario_id === currentUser?.id
-? 'Yo'
-: 'Usuario'
+?
+'Yo'
+:
+'Usuario'
 
 })
 );
 
-
 render();
+
+}
+
+
+/* GUARDADO LOCAL */
+
+function save(){
+
+localStorage.setItem(
+EK,
+JSON.stringify(E)
+);
 
 }
 
@@ -1669,13 +1779,13 @@ const previewEl =
 document.getElementById('preview');
 
 
-const categoria =
+const categoriaTexto =
 catEl.value;
 
-const amount =
+const monto =
 Number(amountEl.value)||0;
 
-const date =
+const fecha =
 dateEl.value;
 
 const split =
@@ -1684,22 +1794,21 @@ splitEl.value;
 const payer =
 payerEl.value;
 
-const descripcion =
+const notas =
 noteEl.value.trim();
 
 
-if(!categoria){
+if(monto<=0){
 
 alert(
-'Selecciona una categoría.'
+'El valor debe ser mayor que 0.'
 );
 
 return;
 
 }
 
-
-if(!date){
+if(!fecha){
 
 alert(
 'Selecciona una fecha.'
@@ -1710,10 +1819,54 @@ return;
 }
 
 
-/*
-La tabla gastos necesita
-descripcion NOT NULL.
-*/
+/* Buscar categoria */
+
+const {
+data:categoria,
+error:catError
+} =
+await sb
+.from('categorias')
+.select('id,nombre')
+.eq(
+'nombre',
+categoriaTexto
+)
+.limit(1)
+.maybeSingle();
+
+
+if(catError){
+
+console.error(
+'Error buscando categoría:',
+catError
+);
+
+alert(
+'No se pudo identificar la categoría: '+
+catError.message
+);
+
+return;
+
+}
+
+
+if(!categoria){
+
+alert(
+'La categoría "'+
+categoriaTexto+
+'" no existe todavía.'
+);
+
+return;
+
+}
+
+
+/* GUARDAR GASTO */
 
 const {
 data,
@@ -1729,25 +1882,26 @@ currentHouseholdId,
 usuario_id:
 currentUser.id,
 
-categoria:
-categoria,
+categoria_id:
+categoria.id,
 
 monto:
-amount,
+monto,
 
 fecha:
-date,
-
-tipo:
-split,
-
-pagado_por:
-payer,
-
-pagado:false,
+fecha,
 
 descripcion:
-descripcion || 'Sin descripción'
+notas || 'Sin descripción',
+
+split:
+split,
+
+payer:
+payer,
+
+paid:
+false
 
 })
 .select()
@@ -1777,6 +1931,8 @@ data
 );
 
 
+/* Limpiar fotos */
+
 pics=[];
 
 previewEl.innerHTML='';
@@ -1785,15 +1941,11 @@ ev.target.reset();
 
 closeM('expense');
 
-
 await loadExpenses();
-
-render();
-
 
 notify(
 'Nuevo gasto',
-categoria
+categoriaTexto
 );
 
 }
@@ -1803,7 +1955,7 @@ categoria
 
 async function paid(id){
 
-let x =
+const x =
 E.find(
 a=>a.id===id
 );
@@ -1812,17 +1964,8 @@ if(!x){
 return;
 }
 
-
 const nuevoEstado =
 !x.paid;
-
-
-/*
-El registro puede utilizar
-pagado o pagado boolean.
-Intentamos actualizar
-pagado primero.
-*/
 
 const {
 error
@@ -1830,7 +1973,7 @@ error
 await sb
 .from('gastos')
 .update({
-pagado:nuevoEstado
+paid:nuevoEstado
 })
 .eq(
 'id',
@@ -1840,7 +1983,6 @@ id
 'hogar_id',
 currentHouseholdId
 );
-
 
 if(error){
 
@@ -1858,7 +2000,6 @@ return;
 
 }
 
-
 x.paid =
 nuevoEstado;
 
@@ -1866,10 +2007,14 @@ render();
 
 notify(
 nuevoEstado
-? 'Servicio pagado'
-: 'Pago pendiente',
+?
+'Servicio pagado'
+:
+'Pago pendiente',
 x.cat
 );
+
+}
 
 
 /* RENDER */
@@ -1898,29 +2043,25 @@ new Date()
 }
 
 
-/*
-GASTOS DEL MES
-*/
+/* GASTOS DEL MES */
 
 let a =
 E
 .filter(
-x =>
+x=>
 x.date &&
 x.date.startsWith(ym)
 )
 .sort(
 (a,b)=>
-(b.date||'')
+(a.date||'')
 .localeCompare(
-a.date||''
+b.date||''
 )
 );
 
 
-/*
-TOTAL
-*/
+/* TOTAL */
 
 let total =
 a.reduce(
@@ -1933,9 +2074,7 @@ Number(x.amount)||0
 );
 
 
-/*
-PARTES
-*/
+/* PARTES */
 
 let my=0;
 let w=0;
@@ -1947,43 +2086,23 @@ x=>{
 const amount =
 Number(x.amount)||0;
 
-if(
-x.split==='shared' ||
-x.split==='common'
-){
+if(x.split==='shared'){
 
-my +=
-amount/2;
+my+=amount/2;
+w+=amount/2;
 
-w +=
-amount/2;
+}else if(x.split==='mine'){
 
-}
+my+=amount;
 
-else if(
-x.split==='mine'
-){
+}else{
 
-my +=
-amount;
+w+=amount;
 
 }
 
-else{
-
-w +=
-amount;
-
-}
-
-
-if(
-x.payer==='me'
-){
-
-pm +=
-amount;
-
+if(x.payer==='me'){
+pm+=amount;
 }
 
 }
@@ -1994,9 +2113,7 @@ let d =
 pm-my;
 
 
-/*
-HOME
-*/
+/* HOME */
 
 const totalEl =
 document.getElementById('total');
@@ -2031,20 +2148,24 @@ money(w);
 
 if(balEl)
 balEl.textContent =
-money(Math.abs(d));
-
+money(
+Math.abs(d)
+);
 
 if(balTextEl){
 
 balTextEl.textContent =
 d>0
-? 'Tu esposa te debe este valor'
-: d<0
-? 'Tú debes este valor a tu esposa'
-: 'Todo equilibrado';
+?
+'Tu esposa te debe este valor'
+:
+d<0
+?
+'Tú debes este valor a tu esposa'
+:
+'Todo equilibrado';
 
 }
-
 
 if(pendingEl){
 
@@ -2057,9 +2178,7 @@ x=>!x.paid
 }
 
 
-/*
-LISTA DE GASTOS
-*/
+/* LISTA GASTOS */
 
 const listEl =
 document.getElementById('list');
@@ -2079,38 +2198,39 @@ ${icons[x.cat]||'🧾'}
 
 <div class="grow">
 
-<b>
-${escapeHtml(x.cat)}
-</b>
+<b>${x.cat}</b>
 
 <div class="small">
 
-${escapeHtml(x.date||'')} ·
+${x.date||''} ·
 
 ${
-x.split==='shared' ||
-x.split==='common'
-? '50/50'
-: x.split==='mine'
-? 'Tú'
-: 'Esposa'
+x.split==='shared'
+?
+'50/50'
+:
+x.split==='mine'
+?
+'Tú'
+:
+'Esposa'
 }
 
 </div>
 
 ${
 x.note
-? `<div class="small">${escapeHtml(x.note)}</div>`
-: ''
+?
+`<div class="small">${x.note}</div>`
+:
+''
 }
 
 </div>
 
 <div>
 
-<b>
-${money(x.amount)}
-</b>
+<b>${money(x.amount)}</b>
 
 <br>
 
@@ -2121,8 +2241,10 @@ onclick="paid(${x.id})"
 
 ${
 x.paid
-? '✓ Pagado'
-: 'Marcar pagado'
+?
+'✓ Pagado'
+:
+'Marcar pagado'
 }
 
 </button>
@@ -2140,9 +2262,7 @@ x.paid
 }
 
 
-/*
-PROXIMOS PAGOS
-*/
+/* PROXIMOS */
 
 const upEl =
 document.getElementById('up');
@@ -2167,19 +2287,15 @@ ${icons[x.cat]||'🧾'}
 
 <div class="grow">
 
-<b>
-${escapeHtml(x.cat)}
-</b>
+<b>${x.cat}</b>
 
 <div class="small">
-${escapeHtml(x.date||'')}
+${x.date||''}
 </div>
 
 </div>
 
-<b>
-${money(x.amount)}
-</b>
+<b>${money(x.amount)}</b>
 
 </div>
 
@@ -2192,9 +2308,7 @@ ${money(x.amount)}
 }
 
 
-/*
-CALENDARIO
-*/
+/* CALENDARIO */
 
 const calEl =
 document.getElementById('cal');
@@ -2217,12 +2331,10 @@ ${icons[x.cat]||'🧾'}
 
 <div class="grow">
 
-<b>
-${escapeHtml(x.cat)}
-</b>
+<b>${x.cat}</b>
 
 <div class="small">
-${escapeHtml(x.date||'')}
+${x.date||''}
 </div>
 
 </div>
@@ -2231,8 +2343,10 @@ ${escapeHtml(x.date||'')}
 
 ${
 x.paid
-? 'Pagado'
-: 'Pendiente'
+?
+'Pagado'
+:
+'Pendiente'
 }
 
 </span>
@@ -2240,7 +2354,8 @@ x.paid
 </div>
 
 `
-).join('') ||
+)
+.join('') ||
 
 '<div class="empty">Sin pagos.</div>'
 );
@@ -2248,9 +2363,7 @@ x.paid
 }
 
 
-/*
-ESTADISTICAS
-*/
+/* ESTADISTICAS */
 
 let c={};
 
@@ -2258,23 +2371,17 @@ a.forEach(
 x=>{
 
 c[x.cat] =
-(
-c[x.cat]||0
-)+
-(
-Number(x.amount)||0
-);
+(c[x.cat]||0)+
+(Number(x.amount)||0);
 
 }
 );
-
 
 let max =
 Math.max(
 ...Object.values(c),
 1
 );
-
 
 const statsEl =
 document.getElementById('statsbox');
@@ -2286,8 +2393,7 @@ statsEl.innerHTML =
 Object.entries(c)
 
 .sort(
-(a,b)=>
-b[1]-a[1]
+(a,b)=>b[1]-a[1]
 )
 
 .map(
@@ -2301,7 +2407,7 @@ justify-content:space-between
 ">
 
 <b>
-${icons[k]||'🧾'} ${escapeHtml(k)}
+${icons[k]||'🧾'} ${k}
 </b>
 
 <span>
@@ -2323,7 +2429,6 @@ style="width:${v/max*100}%"
 
 `
 )
-
 .join('') ||
 
 '<div class="empty">Registra gastos.</div>';
@@ -2331,9 +2436,7 @@ style="width:${v/max*100}%"
 }
 
 
-/*
-COMPRAS
-*/
+/* COMPRAS */
 
 const shoppingBox =
 document.getElementById('shopping');
@@ -2355,8 +2458,10 @@ onclick="shopDone(${x.id})"
 
 ${
 x.done
-? '✓'
-: ''
+?
+'✓'
+:
+''
 }
 
 </button>
@@ -2368,21 +2473,19 @@ x.done
 <div class="grow">
 
 <b>
-${escapeHtml(x.p)} × ${x.q}
+${x.p} × ${x.q}
 </b>
 
 <div class="small">
 
 ${
-escapeHtml(
 x.d ||
 'Sin descripción'
-)
 }
 
 ·
 
-${escapeHtml(x.by)}
+${x.by}
 
 </div>
 
@@ -2392,7 +2495,6 @@ ${escapeHtml(x.by)}
 
 `
 )
-
 .join('') ||
 
 '<div class="empty">Lista vacía.</div>';
@@ -2406,8 +2508,7 @@ ${escapeHtml(x.by)}
 
 function show(id,b){
 
-active =
-id;
+active=id;
 
 document
 .querySelectorAll('.screen')
@@ -2420,9 +2521,7 @@ const screen =
 document.getElementById(id);
 
 if(screen){
-
 screen.classList.add('active');
-
 }
 
 document
@@ -2433,9 +2532,7 @@ x.classList.remove('active')
 );
 
 if(b){
-
 b.classList.add('active');
-
 }
 
 const fabEl =
@@ -2445,15 +2542,15 @@ if(fabEl){
 
 fabEl.style.display =
 ['home','expenses'].includes(id)
-? 'block'
-: 'none';
+?
+'block'
+:
+'none';
 
 }
 
 if(id==='shop'){
-
 loadShopping();
-
 }
 
 render();
@@ -2485,16 +2582,16 @@ fill();
 
 const modalId =
 id==='shop'
-? 'shopModal'
-: id;
+?
+'shopModal'
+:
+id;
 
 const modal =
 document.getElementById(modalId);
 
 if(modal){
-
 modal.classList.add('show');
-
 }
 
 }
@@ -2506,9 +2603,7 @@ const modal =
 document.getElementById(id);
 
 if(modal){
-
 modal.classList.remove('show');
-
 }
 
 }
@@ -2518,28 +2613,18 @@ modal.classList.remove('show');
 
 function openCamera(){
 
-const input =
-document.getElementById('cameraInput');
-
-if(input){
-
-input.click();
-
-}
+document
+.getElementById('cameraInput')
+.click();
 
 }
 
 
 function openGallery(){
 
-const input =
-document.getElementById('photosInput');
-
-if(input){
-
-input.click();
-
-}
+document
+.getElementById('photosInput')
+.click();
 
 }
 
@@ -2550,9 +2635,7 @@ const previewEl =
 document.getElementById('preview');
 
 if(!previewEl){
-
 return;
-
 }
 
 
@@ -2561,39 +2644,36 @@ return;
 ].forEach(
 f=>{
 
-let r =
-new FileReader;
+const reader =
+new FileReader();
 
-r.onload =
+reader.onload =
 e=>{
 
 pics.push(
 e.target.result
 );
 
-let i =
+const img =
 document.createElement('img');
 
-i.src =
+img.src =
 e.target.result;
 
-i.className =
+img.className =
 'photo';
 
-previewEl.appendChild(i);
+previewEl.appendChild(img);
 
 };
 
-r.readAsDataURL(f);
+reader.readAsDataURL(f);
 
 }
 );
 
 
-/*
-Permite volver a seleccionar
-la misma imagen.
-*/
+/* Permitir volver a elegir */
 
 ev.target.value='';
 
@@ -2619,7 +2699,6 @@ return;
 
 }
 
-
 const producto =
 document
 .getElementById('prod')
@@ -2637,7 +2716,6 @@ document
 .value
 .trim();
 
-
 if(!producto){
 
 alert(
@@ -2647,7 +2725,6 @@ alert(
 return;
 
 }
-
 
 const {
 data,
@@ -2672,12 +2749,12 @@ Number(cantidad)||1,
 notas:
 descripcion,
 
-comprado:false
+comprado:
+false
 
 })
 .select()
 .single();
-
 
 if(error){
 
@@ -2695,12 +2772,10 @@ return;
 
 }
 
-
 console.log(
 'Compra guardada:',
 data
 );
-
 
 ev.target.reset();
 
@@ -2728,15 +2803,11 @@ a=>a.id===id
 );
 
 if(!x){
-
 return;
-
 }
-
 
 const nuevoEstado =
 !x.done;
-
 
 const {
 error
@@ -2758,7 +2829,6 @@ id
 currentHouseholdId
 );
 
-
 if(error){
 
 console.error(
@@ -2775,7 +2845,6 @@ return;
 
 }
 
-
 x.done =
 nuevoEstado;
 
@@ -2784,8 +2853,10 @@ render();
 notify(
 
 nuevoEstado
-? 'Producto comprado'
-: 'Producto pendiente',
+?
+'Producto comprado'
+:
+'Producto pendiente',
 
 x.p
 
@@ -2810,16 +2881,16 @@ return;
 
 }
 
-
-let p =
+const p =
 await Notification.requestPermission();
-
 
 alert(
 
 p==='granted'
-? 'Notificaciones activadas en este dispositivo'
-: 'Permiso no concedido'
+?
+'Notificaciones activadas en este dispositivo'
+:
+'Permiso no concedido'
 
 );
 
@@ -2838,13 +2909,10 @@ Notification.permission ===
 ){
 
 new Notification(
-
 t,
-
 {
 body:b
 }
-
 );
 
 }
@@ -2856,7 +2924,7 @@ body:b
 
 function exportData(){
 
-let b =
+const b =
 new Blob(
 
 [
@@ -2879,7 +2947,7 @@ type:'application/json'
 
 );
 
-let a =
+const a =
 document.createElement('a');
 
 a.href =
@@ -2897,8 +2965,6 @@ a.click();
 
 (async function(){
 
-try{
-
 const {
 data
 } =
@@ -2912,23 +2978,41 @@ data?.session?.user
 currentUser =
 data.session.user;
 
-await loadMemberAndStart();
+const {
+data:member
+} =
+await sb
+.from('miembros_hogar')
+.select('hogar_id,rol')
+.eq(
+'usuario_id',
+currentUser.id
+)
+.limit(1)
+.maybeSingle();
 
-}
+if(member){
 
-else{
+currentRole =
+member.rol;
+
+currentHouseholdId =
+member.hogar_id;
+
+document
+.getElementById('loginScreen')
+.style
+.display='none';
+
+await loadExpenses();
+
+await loadShopping();
 
 render();
 
 }
 
-}
-catch(error){
-
-console.error(
-'Error iniciando CasaGastos:',
-error
-);
+}else{
 
 render();
 
