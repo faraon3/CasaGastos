@@ -124,7 +124,8 @@ button{
 }
 
 .grow{
-  flex:1
+  flex:1;
+  min-width:0
 }
 
 .tag{
@@ -313,7 +314,25 @@ button{
   width:70px;
   height:70px;
   object-fit:cover;
-  border-radius:10px
+  border-radius:10px;
+  flex-shrink:0
+}
+
+.saved-photos{
+  display:flex;
+  gap:7px;
+  overflow:auto;
+  margin-top:9px
+}
+
+.saved-photo{
+  width:85px;
+  height:85px;
+  object-fit:cover;
+  border-radius:12px;
+  cursor:pointer;
+  border:1px solid var(--line);
+  flex-shrink:0
 }
 
 .item{
@@ -1320,7 +1339,6 @@ return;
 
 }
 
-
 let n =
 prompt(
 'Nombre de la nueva categoría'
@@ -1424,14 +1442,6 @@ return;
 categoria=nueva;
 
 }
-
-
-/*
-Guardamos ID + nombre.
-Así al guardar un gasto no dependemos
-de volver a encontrar la categoría solamente
-por el nombre.
-*/
 
 saveLocalCategory(categoria);
 
@@ -1783,11 +1793,6 @@ return;
 
 }
 
-console.log(
-'Cargando compras del hogar:',
-currentHouseholdId
-);
-
 const {
 data,
 error
@@ -1821,11 +1826,6 @@ error.message
 return;
 
 }
-
-console.log(
-'COMPRAS ENCONTRADAS:',
-data
-);
 
 
 S =
@@ -2082,7 +2082,7 @@ nuevaCategoria
 }
 
 
-/* SUBIR FOTOS A SUPABASE STORAGE */
+/* SUBIR FOTOS */
 
 let photoUrls = [];
 
@@ -2231,7 +2231,7 @@ data
 );
 
 
-/* LIMPIAR FOTOS */
+/* LIMPIAR */
 
 pics=[];
 
@@ -2490,7 +2490,37 @@ if(listEl){
 listEl.innerHTML =
 
 a.map(
-x=>`
+x=>{
+
+const fotos =
+Array.isArray(x.photos)
+?
+x.photos.filter(Boolean)
+:
+[];
+
+const fotosHTML =
+fotos.length
+?
+`
+<div class="saved-photos">
+${fotos.map(
+foto =>
+`
+<img
+src="${foto}"
+class="saved-photo"
+alt="Foto del gasto"
+onclick="openPhoto(this.src)"
+>
+`
+).join('')}
+</div>
+`
+:
+'';
+
+return `
 
 <div class="row">
 
@@ -2528,33 +2558,7 @@ x.note
 ''
 }
 
-
-/* FOTOS DEL GASTO */
-
-${
-x.photos && x.photos.length
-?
-`
-<div class="photos" style="margin-top:8px">
-
-${x.photos.map(
-foto=>
-`
-<img
-src="${foto}"
-class="photo"
-style="cursor:pointer"
-onclick="openPhoto('${foto}')"
-alt="Foto del gasto"
->
-`
-).join('')}
-
-</div>
-`
-:
-''
-}
+${fotosHTML}
 
 </div>
 
@@ -2583,7 +2587,9 @@ x.paid
 
 </div>
 
-`
+`;
+
+}
 )
 .join('') ||
 
@@ -3017,8 +3023,6 @@ reader.readAsDataURL(f);
 });
 
 
-/* Permitir volver a elegir */
-
 ev.target.value='';
 
 }
@@ -3131,11 +3135,6 @@ error.message
 return;
 
 }
-
-console.log(
-'Compra guardada:',
-data
-);
 
 ev.target.reset();
 
