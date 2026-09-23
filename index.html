@@ -1329,6 +1329,68 @@ document
       const catEl =
         document.getElementById('cat');
 
+
+      if(
+        catEl.value === 'Otro'
+      ){
+
+        let n =
+          prompt(
+            'Nombre de la nueva categoría'
+          );
+
+
+        if(n){
+
+          n =
+            n.trim();
+
+
+          if(!n){
+            return;
+          }
+
+
+          let a =
+            JSON.parse(
+              localStorage.getItem(CC)||'[]'
+            );
+
+
+          if(!a.includes(n)){
+
+            a.push(n);
+
+          }
+
+
+          localStorage.setItem(
+            CC,
+            JSON.stringify(a)
+          );
+
+
+          fill();
+
+
+          /*
+            Volvemos a seleccionar
+            inmediatamente la categoría
+            que acabamos de crear.
+          */
+
+          catEl.value=n;
+
+        }
+
+      }
+
+    }
+  );
+
+      const catEl =
+        document.getElementById('cat');
+
       if(
         catEl.value === 'Otro'
       ){
@@ -2705,14 +2767,12 @@ function openGallery(){
 }
 function previewPhotos(ev){
 
-  pics=[];
-
-
   const previewEl =
     document.getElementById('preview');
 
-
-  previewEl.innerHTML='';
+  if(!previewEl){
+    return;
+  }
 
 
   [
@@ -2733,13 +2793,12 @@ function previewPhotos(ev){
 
 
           let i =
-            document.createElement(
-              'img'
-            );
+            document.createElement('img');
 
 
           i.src =
             e.target.result;
+
 
           i.className =
             'photo';
@@ -2755,8 +2814,15 @@ function previewPhotos(ev){
     }
   );
 
-}
 
+  /*
+    Permitimos volver a elegir
+    la misma foto posteriormente.
+  */
+
+  ev.target.value='';
+
+}
 
 /* =========================
    AGREGAR COMPRA
