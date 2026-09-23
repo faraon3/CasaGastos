@@ -1,4 +1,3 @@
-```html
 <!doctype html>
 <html lang="es">
 <head>
@@ -1430,7 +1429,7 @@ let photoIndex = 0;
 
 
 /* =====================================================
-   ICONOS
+   ICONOS AUTOMATICOS POR CATEGORIA
 ===================================================== */
 
 const icons = {
@@ -1442,9 +1441,215 @@ const icons = {
   "Internet hogar":"🌐",
   "Internet celular":"📱",
   Mercado:"🛒",
+  Transporte:"🚗",
+  Gasolina:"⛽",
+  Salud:"💊",
+  Educación:"🎓",
+  Comida:"🍔",
+  Ropa:"👕",
+  Mascotas:"🐶",
+  Deudas:"💳",
   Otro:"🧾"
 
 };
+
+
+function getCategoryIcon(nombre){
+
+  const n =
+    String(nombre || "")
+      .toLowerCase()
+      .trim();
+
+
+  /* VIVIENDA */
+
+  if(
+    n.includes("arriendo") ||
+    n.includes("alquiler") ||
+    n.includes("vivienda") ||
+    n.includes("casa")
+  ){
+    return "🏠";
+  }
+
+
+  /* SERVICIOS */
+
+  if(
+    n === "luz" ||
+    n.includes("electric") ||
+    n.includes("energía") ||
+    n.includes("energia")
+  ){
+    return "💡";
+  }
+
+
+  if(
+    n === "gas" ||
+    n.includes("gas natural") ||
+    n.includes("gas hogar")
+  ){
+    return "🔥";
+  }
+
+
+  if(
+    n === "agua" ||
+    n.includes("acueducto") ||
+    n.includes("servicio de agua")
+  ){
+    return "💧";
+  }
+
+
+  /* INTERNET */
+
+  if(
+    n.includes("internet celular") ||
+    n.includes("internet movil") ||
+    n.includes("internet móvil") ||
+    n.includes("datos moviles") ||
+    n.includes("datos móviles") ||
+    n.includes("celular") ||
+    n.includes("telefono") ||
+    n.includes("teléfono")
+  ){
+    return "📱";
+  }
+
+
+  if(
+    n.includes("internet hogar") ||
+    n.includes("wifi") ||
+    n === "internet" ||
+    n.includes("internet hogar")
+  ){
+    return "🌐";
+  }
+
+
+  /* ALIMENTACION */
+
+  if(
+    n.includes("mercado") ||
+    n.includes("supermercado") ||
+    n.includes("compras de mercado")
+  ){
+    return "🛒";
+  }
+
+
+  if(
+    n.includes("comida") ||
+    n.includes("restaurante") ||
+    n.includes("alimentación") ||
+    n.includes("alimentacion") ||
+    n.includes("comer") ||
+    n.includes("domicilio")
+  ){
+    return "🍔";
+  }
+
+
+  /* TRANSPORTE */
+
+  if(
+    n.includes("transporte") ||
+    n.includes("bus") ||
+    n.includes("taxi") ||
+    n.includes("transmilenio") ||
+    n.includes("metro") ||
+    n.includes("moto") ||
+    n.includes("motocicleta")
+  ){
+    return "🚗";
+  }
+
+
+  if(
+    n.includes("gasolina") ||
+    n.includes("combustible") ||
+    n.includes("diésel") ||
+    n.includes("diesel")
+  ){
+    return "⛽";
+  }
+
+
+  /* SALUD */
+
+  if(
+    n.includes("salud") ||
+    n.includes("medic") ||
+    n.includes("farmacia") ||
+    n.includes("hospital") ||
+    n.includes("consulta") ||
+    n.includes("doctor")
+  ){
+    return "💊";
+  }
+
+
+  /* EDUCACION */
+
+  if(
+    n.includes("educ") ||
+    n.includes("colegio") ||
+    n.includes("universidad") ||
+    n.includes("estudio") ||
+    n.includes("curso") ||
+    n.includes("sena")
+  ){
+    return "🎓";
+  }
+
+
+  /* ROPA */
+
+  if(
+    n.includes("ropa") ||
+    n.includes("vestir") ||
+    n.includes("zapato") ||
+    n.includes("calzado")
+  ){
+    return "👕";
+  }
+
+
+  /* MASCOTAS */
+
+  if(
+    n.includes("mascota") ||
+    n.includes("perro") ||
+    n.includes("gato") ||
+    n.includes("veterinaria") ||
+    n.includes("veterinario")
+  ){
+    return "🐶";
+  }
+
+
+  /* DEUDAS */
+
+  if(
+    n.includes("deuda") ||
+    n.includes("credito") ||
+    n.includes("crédito") ||
+    n.includes("prestamo") ||
+    n.includes("préstamo") ||
+    n.includes("cuota")
+  ){
+    return "💳";
+  }
+
+
+  /* OTROS */
+
+  return "🧾";
+
+}
 
 
 /* =====================================================
@@ -1693,7 +1898,7 @@ function fill(){
     lista
       .map(
         x =>
-          `<option value="${x}">${x}</option>`
+          `<option value="${x}">${getCategoryIcon(x)} ${x}</option>`
       )
       .join("");
 
@@ -1790,7 +1995,7 @@ document
             .from("categorias")
             .insert({
               nombre:n,
-              icono:"🧾"
+              icono:getCategoryIcon(n)
             })
             .select("id,nombre")
             .single();
@@ -2656,7 +2861,9 @@ async function addExpense(ev){
               categoriaTexto,
 
             icono:
-              "🧾"
+              getCategoryIcon(
+                categoriaTexto
+              )
 
           })
           .select(
@@ -3271,7 +3478,7 @@ function render(){
               <div class="row">
 
                 <div class="ico">
-                  ${icons[x.cat] || "🧾"}
+                  ${getCategoryIcon(x.cat)}
                 </div>
 
                 <div class="grow">
@@ -3382,7 +3589,7 @@ function render(){
             <div class="row">
 
               <div class="ico">
-                ${icons[x.cat] || "🧾"}
+                ${getCategoryIcon(x.cat)}
               </div>
 
               <div class="grow">
@@ -3438,7 +3645,7 @@ function render(){
               <div class="row">
 
                 <div class="ico">
-                  ${icons[x.cat] || "🧾"}
+                  ${getCategoryIcon(x.cat)}
                 </div>
 
                 <div class="grow">
@@ -3535,7 +3742,7 @@ function render(){
               ">
 
                 <b>
-                  ${icons[k] || "🧾"} ${k}
+                  ${getCategoryIcon(k)} ${k}
                 </b>
 
                 <span>
@@ -4634,4 +4841,3 @@ function exportData(){
 
 </body>
 </html>
-```
