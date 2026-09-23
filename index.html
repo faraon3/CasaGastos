@@ -119,7 +119,8 @@ button{
   border-radius:13px;
   background:var(--soft);
   display:grid;
-  place-items:center
+  place-items:center;
+  flex-shrink:0
 }
 
 .grow{
@@ -1122,12 +1123,6 @@ locales=[];
 
 }
 
-/*
-Las categorías antiguas se mantienen.
-Las categorías personalizadas pueden estar guardadas
-como nombres o como objetos {id,nombre}.
-*/
-
 const nombresLocales =
 locales.map(
 x =>
@@ -1206,12 +1201,6 @@ localStorage.getItem(CC)||'[]'
 locales=[];
 
 }
-
-
-/*
-Convertimos categorías antiguas guardadas
-como texto a objetos cuando sea necesario.
-*/
 
 const existe =
 locales.some(
@@ -1438,7 +1427,6 @@ categoria=nueva;
 
 
 /*
-IMPORTANTE:
 Guardamos ID + nombre.
 Así al guardar un gasto no dependemos
 de volver a encontrar la categoría solamente
@@ -1454,6 +1442,7 @@ categoria.nombre;
 
 }
 );
+
 
 /* LOGIN */
 
@@ -1766,7 +1755,10 @@ x.descripcion ??
 '',
 
 photos:
-x.photos ??
+Array.isArray(x.photos)
+?
+x.photos
+:
 []
 
 })
@@ -1980,22 +1972,13 @@ return;
 }
 
 
-/*
-PRIMERO:
-Intentamos obtener el ID que guardamos
-cuando se creó la categoría.
-*/
+/* OBTENER ID DE CATEGORIA */
 
 let categoriaId =
 getLocalCategoryId(
 categoriaTexto
 );
 
-
-/*
-Si ya tenemos el ID local, no necesitamos
-buscar nuevamente la categoría por nombre.
-*/
 
 if(!categoriaId){
 
@@ -2045,13 +2028,7 @@ categoria
 }
 
 
-/*
-SEGURIDAD:
-Si todavía no tenemos ID, intentamos crear
-la categoría automáticamente.
-Esto evita que una categoría personalizada
-bloquee el guardado del gasto.
-*/
+/* CREAR CATEGORIA SI NO EXISTE */
 
 if(!categoriaId){
 
@@ -2105,6 +2082,86 @@ nuevaCategoria
 }
 
 
+/* SUBIR FOTOS A SUPABASE STORAGE */
+
+let photoUrls = [];
+
+for(const foto of pics){
+
+if(!foto || !foto.file){
+continue;
+}
+
+const extension =
+(
+foto.file.name
+.split('.')
+.pop() ||
+'jpg'
+)
+.toLowerCase();
+
+const fileName =
+`${currentHouseholdId}/${currentUser.id}/${Date.now()}-${Math.random().toString(36).substring(2)}.${extension}`;
+
+const {
+error:uploadError
+} =
+await sb
+.storage
+.from('gastos-fotos')
+.upload(
+fileName,
+foto.file,
+{
+contentType:
+foto.file.type ||
+'image/jpeg',
+upsert:false
+}
+);
+
+if(uploadError){
+
+console.error(
+'Error subiendo foto:',
+uploadError
+);
+
+alert(
+'No se pudo subir una foto: '+
+uploadError.message
+);
+
+return;
+
+}
+
+
+const {
+data:publicUrlData
+} =
+sb
+.storage
+.from('gastos-fotos')
+.getPublicUrl(
+fileName
+);
+
+if(
+publicUrlData &&
+publicUrlData.publicUrl
+){
+
+photoUrls.push(
+publicUrlData.publicUrl
+);
+
+}
+
+}
+
+
 /* GUARDAR GASTO */
 
 const {
@@ -2141,7 +2198,10 @@ payer:
 payer,
 
 paid:
-false
+false,
+
+photos:
+photoUrls
 
 })
 .select()
@@ -2171,7 +2231,7 @@ data
 );
 
 
-/* Limpiar fotos */
+/* LIMPIAR FOTOS */
 
 pics=[];
 
@@ -2179,15 +2239,7 @@ previewEl.innerHTML='';
 
 ev.target.reset();
 
-
-/*
-Después de resetear el formulario,
-volvemos a cargar las categorías para
-mantener disponibles las personalizadas.
-*/
-
 fill();
-
 
 closeM('expense');
 
@@ -2199,7 +2251,9 @@ categoriaTexto
 );
 
 }
-  /* PAGAR GASTO */
+
+
+/* PAGAR GASTO */
 
 async function paid(id){
 
@@ -2470,6 +2524,34 @@ ${
 x.note
 ?
 `<div class="small">${x.note}</div>`
+:
+''
+}
+
+
+/* FOTOS DEL GASTO */
+
+${
+x.photos && x.photos.length
+?
+`
+<div class="photos" style="margin-top:8px">
+
+${x.photos.map(
+foto=>
+`
+<img
+src="${foto}"
+class="photo"
+style="cursor:pointer"
+onclick="openPhoto('${foto}')"
+alt="Foto del gasto"
+>
+`
+).join('')}
+
+</div>
+`
 :
 ''
 }
@@ -2861,21 +2943,29 @@ modal.classList.remove('show');
 
 function openCamera(){
 
-document
-.getElementById('cameraInput')
-.click();
+const input =
+document.getElementById('cameraInput');
+
+if(input){
+input.click();
+}
 
 }
 
 
 function openGallery(){
 
-document
-.getElementById('photosInput')
-.click();
+const input =
+document.getElementById('photosInput');
+
+if(input){
+input.click();
+}
 
 }
 
+
+/* PREVISUALIZAR FOTOS */
 
 function previewPhotos(ev){
 
@@ -2886,11 +2976,14 @@ if(!previewEl){
 return;
 }
 
-
 [
 ...ev.target.files
 ].forEach(
 f=>{
+
+if(!f.type.startsWith('image/')){
+return;
+}
 
 const reader =
 new FileReader();
@@ -2898,9 +2991,10 @@ new FileReader();
 reader.onload =
 e=>{
 
-pics.push(
-e.target.result
-);
+pics.push({
+file:f,
+preview:e.target.result
+});
 
 const img =
 document.createElement('img');
@@ -2911,19 +3005,37 @@ e.target.result;
 img.className =
 'photo';
 
+img.title =
+'Foto seleccionada';
+
 previewEl.appendChild(img);
 
 };
 
 reader.readAsDataURL(f);
 
-}
-);
+});
 
 
 /* Permitir volver a elegir */
 
 ev.target.value='';
+
+}
+
+
+/* ABRIR FOTO GUARDADA */
+
+function openPhoto(url){
+
+if(!url){
+return;
+}
+
+window.open(
+url,
+'_blank'
+);
 
 }
 
