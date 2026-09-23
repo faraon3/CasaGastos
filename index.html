@@ -110,7 +110,8 @@ button{
   gap:11px;
   align-items:center;
   padding:13px 0;
-  border-bottom:1px solid var(--line)
+  border-bottom:1px solid var(--line);
+  min-width:0
 }
 
 .ico{
@@ -125,7 +126,8 @@ button{
 
 .grow{
   flex:1;
-  min-width:0
+  min-width:0;
+  overflow:hidden
 }
 
 .tag{
@@ -306,8 +308,12 @@ button{
 .photos{
   display:flex;
   gap:7px;
-  overflow:auto;
-  margin-top:8px
+  overflow-x:auto;
+  overflow-y:hidden;
+  margin-top:8px;
+  padding-bottom:3px;
+  max-width:100%;
+  scrollbar-width:thin
 }
 
 .photo{
@@ -318,21 +324,94 @@ button{
   flex-shrink:0
 }
 
+/* FOTOS GUARDADAS */
+
 .saved-photos{
   display:flex;
-  gap:7px;
-  overflow:auto;
-  margin-top:9px
+  gap:8px;
+  overflow-x:auto;
+  overflow-y:hidden;
+  max-width:100%;
+  margin-top:9px;
+  padding:2px 1px 5px;
+  scrollbar-width:thin;
+  -webkit-overflow-scrolling:touch
 }
 
 .saved-photo{
-  width:85px;
-  height:85px;
+  width:68px;
+  height:68px;
+  min-width:68px;
   object-fit:cover;
-  border-radius:12px;
+  border-radius:11px;
   cursor:pointer;
   border:1px solid var(--line);
-  flex-shrink:0
+  display:block;
+  background:#edf3f1;
+  transition:transform .15s ease
+}
+
+.saved-photo:active{
+  transform:scale(.95)
+}
+
+/* VISOR DE FOTO */
+
+.photo-viewer{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.94);
+  z-index:10000;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+  touch-action:manipulation
+}
+
+.photo-viewer.show{
+  display:flex
+}
+
+.photo-viewer img{
+  max-width:94vw;
+  max-height:88vh;
+  width:auto;
+  height:auto;
+  object-fit:contain;
+  border-radius:10px;
+  box-shadow:0 10px 40px rgba(0,0,0,.45);
+  user-select:none;
+  -webkit-user-select:none
+}
+
+.photo-close{
+  position:fixed;
+  top:18px;
+  right:18px;
+  width:44px;
+  height:44px;
+  border-radius:50%;
+  background:rgba(255,255,255,.16);
+  color:#fff;
+  font-size:24px;
+  display:grid;
+  place-items:center;
+  z-index:10001;
+  backdrop-filter:blur(8px)
+}
+
+.photo-hint{
+  position:fixed;
+  bottom:18px;
+  left:50%;
+  transform:translateX(-50%);
+  color:rgba(255,255,255,.75);
+  font-size:11px;
+  background:rgba(0,0,0,.35);
+  padding:7px 12px;
+  border-radius:20px;
+  pointer-events:none
 }
 
 .item{
@@ -1041,6 +1120,36 @@ Agregar a la lista
 
 </form>
 
+</div>
+
+</div>
+
+
+<!-- VISOR DE FOTOS -->
+
+<div
+id="photoViewer"
+class="photo-viewer"
+onclick="closePhoto()"
+>
+
+<button
+type="button"
+class="photo-close"
+onclick="event.stopPropagation();closePhoto()"
+>
+✕
+</button>
+
+<img
+id="photoViewerImg"
+src=""
+alt="Foto del gasto"
+onclick="event.stopPropagation()"
+>
+
+<div class="photo-hint">
+Toca ✕ o el fondo para cerrar
 </div>
 
 </div>
@@ -2511,6 +2620,7 @@ foto =>
 src="${foto}"
 class="saved-photo"
 alt="Foto del gasto"
+loading="lazy"
 onclick="openPhoto(this.src)"
 >
 `
@@ -2562,7 +2672,7 @@ ${fotosHTML}
 
 </div>
 
-<div>
+<div style="flex-shrink:0;text-align:right">
 
 <b>${money(x.amount)}</b>
 
@@ -3028,7 +3138,7 @@ ev.target.value='';
 }
 
 
-/* ABRIR FOTO GUARDADA */
+/* ABRIR FOTO EN VISOR */
 
 function openPhoto(url){
 
@@ -3036,12 +3146,68 @@ if(!url){
 return;
 }
 
-window.open(
-url,
-'_blank'
-);
+const viewer =
+document.getElementById('photoViewer');
+
+const image =
+document.getElementById('photoViewerImg');
+
+if(!viewer || !image){
+return;
+}
+
+image.src = url;
+
+viewer.classList.add('show');
+
+document.body.style.overflow='hidden';
 
 }
+
+
+/* CERRAR FOTO */
+
+function closePhoto(){
+
+const viewer =
+document.getElementById('photoViewer');
+
+const image =
+document.getElementById('photoViewerImg');
+
+if(viewer){
+
+viewer.classList.remove('show');
+
+}
+
+if(image){
+
+image.src='';
+
+}
+
+document.body.style.overflow='';
+
+}
+
+
+/* ESC PARA CERRAR */
+
+document.addEventListener(
+'keydown',
+ev=>{
+
+if(
+ev.key==='Escape'
+){
+
+closePhoto();
+
+}
+
+}
+);
 
 
 /* AGREGAR COMPRA */
