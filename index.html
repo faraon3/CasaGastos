@@ -1122,6 +1122,22 @@ locales=[];
 
 }
 
+/*
+Las categorías antiguas se mantienen.
+Las categorías personalizadas pueden estar guardadas
+como nombres o como objetos {id,nombre}.
+*/
+
+const nombresLocales =
+locales.map(
+x =>
+typeof x === 'string'
+?
+x
+:
+x?.nombre
+).filter(Boolean);
+
 return [
 ...new Set([
 'Arriendo',
@@ -1132,12 +1148,134 @@ return [
 'Internet celular',
 'Mercado',
 'Otro',
-...locales
+...nombresLocales
 ])
 ];
 
 }
 
+
+/* OBTENER ID LOCAL DE CATEGORIA */
+
+function getLocalCategoryId(nombre){
+
+let locales = [];
+
+try{
+
+locales =
+JSON.parse(
+localStorage.getItem(CC)||'[]'
+);
+
+}catch(e){
+
+locales=[];
+
+}
+
+const encontrada =
+locales.find(
+x =>
+typeof x === 'object' &&
+x !== null &&
+x.nombre === nombre &&
+x.id
+);
+
+return encontrada?.id || null;
+
+}
+
+
+/* GUARDAR CATEGORIA LOCAL */
+
+function saveLocalCategory(categoria){
+
+let locales = [];
+
+try{
+
+locales =
+JSON.parse(
+localStorage.getItem(CC)||'[]'
+);
+
+}catch(e){
+
+locales=[];
+
+}
+
+
+/*
+Convertimos categorías antiguas guardadas
+como texto a objetos cuando sea necesario.
+*/
+
+const existe =
+locales.some(
+x =>
+(
+typeof x === 'string'
+?
+x
+:
+x?.nombre
+) === categoria.nombre
+);
+
+if(!existe){
+
+locales.push({
+
+id:categoria.id,
+
+nombre:categoria.nombre
+
+});
+
+}else{
+
+locales =
+locales.map(
+x => {
+
+const nombre =
+typeof x === 'string'
+?
+x
+:
+x?.nombre;
+
+if(nombre === categoria.nombre){
+
+return {
+
+id:categoria.id || x?.id || null,
+
+nombre:categoria.nombre
+
+};
+
+}
+
+return x;
+
+}
+);
+
+}
+
+localStorage.setItem(
+CC,
+JSON.stringify(locales)
+);
+
+}
+
+
+/* LLENAR SELECT */
 
 function fill(){
 
@@ -1151,15 +1289,24 @@ return;
 const actual =
 catEl.value;
 
+const lista =
+cats();
+
 catEl.innerHTML =
-cats()
+lista
 .map(
-x=>`<option value="${x}">${x}</option>`
+x =>
+`<option value="${x}">${x}</option>`
 )
 .join('');
 
-if(actual && cats().includes(actual)){
+if(
+actual &&
+lista.includes(actual)
+){
+
 catEl.value=actual;
+
 }
 
 }
@@ -1176,9 +1323,14 @@ async ()=>{
 const catEl =
 document.getElementById('cat');
 
-if(catEl.value !== 'Otro'){
+if(
+catEl.value !== 'Otro'
+){
+
 return;
+
 }
+
 
 let n =
 prompt(
@@ -1186,18 +1338,25 @@ prompt(
 );
 
 if(n===null){
+
+fill();
+
 return;
+
 }
 
 n=n.trim();
 
 if(!n){
+
 fill();
+
 return;
+
 }
 
 
-/* Buscar categoría */
+/* Buscar categoría existente */
 
 const {
 data:existente,
@@ -1209,6 +1368,7 @@ await sb
 .eq('nombre',n)
 .limit(1)
 .maybeSingle();
+
 
 if(buscarError){
 
@@ -1223,6 +1383,7 @@ buscarError.message
 );
 
 fill();
+
 return;
 
 }
@@ -1232,7 +1393,7 @@ let categoria =
 existente;
 
 
-/* Crear */
+/* Crear categoría si no existe */
 
 if(!categoria){
 
@@ -1243,11 +1404,15 @@ error:crearError
 await sb
 .from('categorias')
 .insert({
+
 nombre:n,
+
 icono:'🧾'
+
 })
 .select('id,nombre')
 .single();
+
 
 if(crearError){
 
@@ -1262,6 +1427,7 @@ crearError.message
 );
 
 fill();
+
 return;
 
 }
@@ -1271,31 +1437,15 @@ categoria=nueva;
 }
 
 
-/* Guardar localmente */
+/*
+IMPORTANTE:
+Guardamos ID + nombre.
+Así al guardar un gasto no dependemos
+de volver a encontrar la categoría solamente
+por el nombre.
+*/
 
-let locales=[];
-
-try{
-
-locales =
-JSON.parse(
-localStorage.getItem(CC)||'[]'
-);
-
-}catch(e){
-
-locales=[];
-
-}
-
-if(!locales.includes(categoria.nombre)){
-locales.push(categoria.nombre);
-}
-
-localStorage.setItem(
-CC,
-JSON.stringify(locales)
-);
+saveLocalCategory(categoria);
 
 fill();
 
@@ -1304,7 +1454,6 @@ categoria.nombre;
 
 }
 );
-
 
 /* LOGIN */
 
@@ -1780,7 +1929,7 @@ document.getElementById('preview');
 
 
 const categoriaTexto =
-catEl.value;
+catEl.value.trim();
 
 const monto =
 Number(amountEl.value)||0;
@@ -1798,6 +1947,17 @@ const notas =
 noteEl.value.trim();
 
 
+if(!categoriaTexto){
+
+alert(
+'Selecciona una categoría.'
+);
+
+return;
+
+}
+
+
 if(monto<=0){
 
 alert(
@@ -1807,6 +1967,7 @@ alert(
 return;
 
 }
+
 
 if(!fecha){
 
@@ -1819,7 +1980,24 @@ return;
 }
 
 
-/* Buscar categoria */
+/*
+PRIMERO:
+Intentamos obtener el ID que guardamos
+cuando se creó la categoría.
+*/
+
+let categoriaId =
+getLocalCategoryId(
+categoriaTexto
+);
+
+
+/*
+Si ya tenemos el ID local, no necesitamos
+buscar nuevamente la categoría por nombre.
+*/
+
+if(!categoriaId){
 
 const {
 data:categoria,
@@ -1853,15 +2031,76 @@ return;
 }
 
 
-if(!categoria){
+if(categoria){
+
+categoriaId =
+categoria.id;
+
+saveLocalCategory(
+categoria
+);
+
+}
+
+}
+
+
+/*
+SEGURIDAD:
+Si todavía no tenemos ID, intentamos crear
+la categoría automáticamente.
+Esto evita que una categoría personalizada
+bloquee el guardado del gasto.
+*/
+
+if(!categoriaId){
+
+const {
+data:nuevaCategoria,
+error:crearCategoriaError
+} =
+await sb
+.from('categorias')
+.insert({
+
+nombre:
+categoriaTexto,
+
+icono:
+'🧾'
+
+})
+.select('id,nombre')
+.single();
+
+
+if(
+crearCategoriaError
+){
+
+console.error(
+'Error creando categoría automáticamente:',
+crearCategoriaError
+);
 
 alert(
-'La categoría "'+
+'No se pudo guardar la categoría "'+
 categoriaTexto+
-'" no existe todavía.'
+'": '+
+crearCategoriaError.message
 );
 
 return;
+
+}
+
+
+categoriaId =
+nuevaCategoria.id;
+
+saveLocalCategory(
+nuevaCategoria
+);
 
 }
 
@@ -1883,7 +2122,7 @@ usuario_id:
 currentUser.id,
 
 categoria_id:
-categoria.id,
+categoriaId,
 
 monto:
 monto,
@@ -1892,7 +2131,8 @@ fecha:
 fecha,
 
 descripcion:
-notas || 'Sin descripción',
+notas ||
+'Sin descripción',
 
 split:
 split,
@@ -1939,6 +2179,16 @@ previewEl.innerHTML='';
 
 ev.target.reset();
 
+
+/*
+Después de resetear el formulario,
+volvemos a cargar las categorías para
+mantener disponibles las personalizadas.
+*/
+
+fill();
+
+
 closeM('expense');
 
 await loadExpenses();
@@ -1949,9 +2199,7 @@ categoriaTexto
 );
 
 }
-
-
-/* PAGAR GASTO */
+  /* PAGAR GASTO */
 
 async function paid(id){
 
