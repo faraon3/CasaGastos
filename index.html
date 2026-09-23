@@ -1,16 +1,13 @@
 <!doctype html>
 <html lang="es">
 <head>
-
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#0b8f78">
 <link rel="manifest" href="manifest.json">
-
 <title>CasaGastos</title>
 
 <style>
-
 :root{
   --bg:#f4f8f7;
   --card:#fff;
@@ -22,9 +19,7 @@
   --shadow:0 10px 28px #164f4215
 }
 
-*{
-  box-sizing:border-box
-}
+*{box-sizing:border-box}
 
 body{
   margin:0;
@@ -102,13 +97,8 @@ button{
   margin-top:5px
 }
 
-.section{
-  margin:18px
-}
-
-.section h2{
-  font-size:16px
-}
+.section{margin:18px}
+.section h2{font-size:16px}
 
 .row{
   display:flex;
@@ -127,9 +117,7 @@ button{
   place-items:center
 }
 
-.grow{
-  flex:1
-}
+.grow{flex:1}
 
 .tag{
   font-size:10px;
@@ -199,9 +187,7 @@ button{
   font-weight:800
 }
 
-.screen{
-  display:none
-}
+.screen{display:none}
 
 .screen.active{
   display:block;
@@ -228,9 +214,7 @@ button{
   z-index:20
 }
 
-.modal.show{
-  display:flex
-}
+.modal.show{display:flex}
 
 .sheet{
   width:100%;
@@ -248,9 +232,7 @@ button{
   justify-content:space-between
 }
 
-.form{
-  padding:18px
-}
+.form{padding:18px}
 
 .form label{
   display:block;
@@ -269,9 +251,7 @@ button{
   background:#fff
 }
 
-.form textarea{
-  min-height:70px
-}
+.form textarea{min-height:70px}
 
 .tw{
   display:grid;
@@ -304,6 +284,21 @@ button{
   border-radius:15px;
   text-align:center;
   color:var(--muted)
+}
+
+.photoButtons{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:8px;
+  margin-top:10px
+}
+
+.photoButton{
+  padding:12px;
+  border-radius:12px;
+  background:var(--soft);
+  color:#076b5b;
+  font-weight:800
 }
 
 .photos{
@@ -369,853 +364,650 @@ button{
   border-radius:11px;
   margin-top:10px
 }
-
 </style>
 </head>
 
 <body>
 
-<!-- =========================
-     LOGIN
-========================= -->
+<!-- LOGIN -->
 
 <div id="loginScreen" style="
-  position:fixed;
-  inset:0;
-  z-index:9999;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  padding:24px;
-  box-sizing:border-box;
-  background:linear-gradient(145deg,#071f1b,#0b8f78);
-  font-family:Arial,sans-serif;
+position:fixed;
+inset:0;
+z-index:9999;
+display:flex;
+align-items:center;
+justify-content:center;
+padding:24px;
+box-sizing:border-box;
+background:linear-gradient(145deg,#071f1b,#0b8f78);
+font-family:Arial,sans-serif;
 ">
 
-  <div style="
-    width:100%;
-    max-width:390px;
-    box-sizing:border-box;
-    background:rgba(255,255,255,.97);
-    border-radius:28px;
-    padding:34px 26px 28px;
-    box-shadow:0 25px 60px rgba(0,0,0,.25);
-  ">
+<div style="
+width:100%;
+max-width:390px;
+box-sizing:border-box;
+background:rgba(255,255,255,.97);
+border-radius:28px;
+padding:34px 26px 28px;
+box-shadow:0 25px 60px rgba(0,0,0,.25);
+">
 
-    <div style="text-align:center;margin-bottom:28px">
+<div style="text-align:center;margin-bottom:28px">
 
-      <div style="
-        width:68px;
-        height:68px;
-        margin:0 auto 16px;
-        border-radius:20px;
-        background:#0b8f78;
-        display:flex;
-        align-items:center;
-        justify-content:center;
-        color:white;
-        font-size:30px;
-        font-weight:bold;
-      ">C</div>
+<div style="
+width:68px;
+height:68px;
+margin:0 auto 16px;
+border-radius:20px;
+background:#0b8f78;
+display:flex;
+align-items:center;
+justify-content:center;
+color:white;
+font-size:30px;
+font-weight:bold;
+">C</div>
 
-      <h1 style="
-        margin:0;
-        font-size:29px;
-        color:#10201d;
-        letter-spacing:-1px;
-      ">CasaGastos</h1>
+<h1 style="
+margin:0;
+font-size:29px;
+color:#10201d;
+letter-spacing:-1px;
+">CasaGastos</h1>
 
-      <p style="
-        margin:8px 0 0;
-        color:#71807d;
-        font-size:14px;
-      ">Tus finanzas, en un solo lugar</p>
-
-    </div>
-
-    <div style="margin-bottom:16px">
-
-      <label style="
-        display:block;
-        margin-bottom:7px;
-        font-size:13px;
-        font-weight:bold;
-        color:#34433f;
-      ">Correo electrónico</label>
-
-      <input
-        id="loginEmail"
-        type="email"
-        placeholder="tu correo"
-        autocomplete="email"
-        style="
-          width:100%;
-          height:52px;
-          padding:0 16px;
-          box-sizing:border-box;
-          border:1px solid #dce5e2;
-          border-radius:14px;
-          outline:none;
-          font-size:15px;
-          background:#f8faf9;
-        "
-      >
-
-    </div>
-
-    <div style="margin-bottom:18px">
-
-      <label style="
-        display:block;
-        margin-bottom:7px;
-        font-size:13px;
-        font-weight:bold;
-        color:#34433f;
-      ">Contraseña</label>
-
-      <input
-        id="loginPassword"
-        type="password"
-        placeholder="Tu contraseña"
-        autocomplete="current-password"
-        style="
-          width:100%;
-          height:52px;
-          padding:0 16px;
-          box-sizing:border-box;
-          border:1px solid #dce5e2;
-          border-radius:14px;
-          outline:none;
-          font-size:15px;
-          background:#f8faf9;
-        "
-      >
-
-    </div>
-
-    <button
-      onclick="login()"
-      style="
-        width:100%;
-        height:54px;
-        border:0;
-        border-radius:15px;
-        background:#0b8f78;
-        color:white;
-        font-size:16px;
-        font-weight:bold;
-        cursor:pointer;
-        box-shadow:0 8px 20px rgba(11,143,120,.25);
-      "
-    >Iniciar sesión</button>
-
-    <p id="loginMsg" style="
-      min-height:20px;
-      margin:14px 0 0;
-      text-align:center;
-      color:#d44;
-      font-size:13px;
-    "></p>
-
-    <div style="
-      margin-top:22px;
-      padding-top:18px;
-      border-top:1px solid #edf1f0;
-      text-align:center;
-      color:#9aa6a3;
-      font-size:12px;
-    ">CasaGastos • Finanzas del hogar</div>
-
-  </div>
+<p style="
+margin:8px 0 0;
+color:#71807d;
+font-size:14px;
+">Tus finanzas, en un solo lugar</p>
 
 </div>
 
+<div style="margin-bottom:16px">
 
-<!-- =========================
-     APP
-========================= -->
+<label style="
+display:block;
+margin-bottom:7px;
+font-size:13px;
+font-weight:bold;
+color:#34433f;
+">Correo electrónico</label>
+
+<input
+id="loginEmail"
+type="email"
+placeholder="tu correo"
+autocomplete="email"
+style="
+width:100%;
+height:52px;
+padding:0 16px;
+box-sizing:border-box;
+border:1px solid #dce5e2;
+border-radius:14px;
+outline:none;
+font-size:15px;
+background:#f8faf9;
+">
+
+</div>
+
+<div style="margin-bottom:18px">
+
+<label style="
+display:block;
+margin-bottom:7px;
+font-size:13px;
+font-weight:bold;
+color:#34433f;
+">Contraseña</label>
+
+<input
+id="loginPassword"
+type="password"
+placeholder="Tu contraseña"
+autocomplete="current-password"
+style="
+width:100%;
+height:52px;
+padding:0 16px;
+box-sizing:border-box;
+border:1px solid #dce5e2;
+border-radius:14px;
+outline:none;
+font-size:15px;
+background:#f8faf9;
+">
+
+</div>
+
+<button
+onclick="login()"
+style="
+width:100%;
+height:54px;
+border:0;
+border-radius:15px;
+background:#0b8f78;
+color:white;
+font-size:16px;
+font-weight:bold;
+cursor:pointer;
+box-shadow:0 8px 20px rgba(11,143,120,.25);
+">
+Iniciar sesión
+</button>
+
+<p id="loginMsg" style="
+min-height:20px;
+margin:14px 0 0;
+text-align:center;
+color:#d44;
+font-size:13px;
+"></p>
+
+<div style="
+margin-top:22px;
+padding-top:18px;
+border-top:1px solid #edf1f0;
+text-align:center;
+color:#9aa6a3;
+font-size:12px;
+">
+CasaGastos • Finanzas del hogar
+</div>
+
+</div>
+</div>
+
+
+<!-- APP -->
 
 <div class="app">
 
-  <!-- INICIO -->
+<!-- INICIO -->
 
-  <div id="home" class="screen active">
+<div id="home" class="screen active">
 
-    <div class="top">
+<div class="top">
+<div>
+<div class="brand">🏠 CasaGastos</div>
+<div class="sub" id="month"></div>
+</div>
 
-      <div>
+<button class="icon" onclick="openM('expense')">＋</button>
+</div>
 
-        <div class="brand">
-          🏠 CasaGastos
-        </div>
+<div class="hero">
+<small>Total del mes</small>
+<h1 id="total">$0</h1>
+<span id="pending">0 pendientes</span>
+</div>
 
-        <div class="sub" id="month"></div>
+<div class="grid">
 
-      </div>
+<div class="card">
+<div class="small">👤 Tu parte</div>
+<div class="money" id="my">$0</div>
+</div>
 
-      <button
-        class="icon"
-        onclick="openM('expense')"
-      >＋</button>
+<div class="card">
+<div class="small">👩 Parte esposa</div>
+<div class="money" id="wife">$0</div>
+</div>
 
-    </div>
+</div>
 
-    <div class="hero">
+<div class="card" style="margin:14px 18px">
 
-      <small>Total del mes</small>
+<div class="small">⚖️ Saldo entre los dos</div>
 
-      <h1 id="total">$0</h1>
+<div class="money" id="bal">$0</div>
 
-      <span id="pending">
-        0 pendientes
-      </span>
+<div class="small" id="balText">
+Todo equilibrado
+</div>
 
-    </div>
+</div>
 
-    <div class="grid">
+<div class="section">
 
-      <div class="card">
+<h2>Próximos pagos</h2>
 
-        <div class="small">
-          👤 Tu parte
-        </div>
+<div id="up"></div>
 
-        <div
-          class="money"
-          id="my"
-        >$0</div>
-
-      </div>
-
-      <div class="card">
-
-        <div class="small">
-          👩 Parte esposa
-        </div>
-
-        <div
-          class="money"
-          id="wife"
-        >$0</div>
-
-      </div>
-
-    </div>
-
-    <div
-      class="card"
-      style="margin:14px 18px"
-    >
-
-      <div class="small">
-        ⚖️ Saldo entre los dos
-      </div>
-
-      <div
-        class="money"
-        id="bal"
-      >$0</div>
-
-      <div
-        class="small"
-        id="balText"
-      >Todo equilibrado</div>
-
-    </div>
-
-    <div class="section">
-
-      <h2>
-        Próximos pagos
-      </h2>
-
-      <div id="up"></div>
-
-    </div>
-
-  </div>
-
-
-  <!-- GASTOS -->
-
-  <div
-    id="expenses"
-    class="screen"
-  >
-
-    <div class="top">
-
-      <div>
-
-        <div class="brand">
-          💰 Gastos
-        </div>
-
-        <div class="sub">
-          La esposa solo visualiza y consulta
-        </div>
-
-      </div>
-
-    </div>
-
-    <div
-      class="section"
-      id="list"
-    ></div>
-
-  </div>
-
-
-  <!-- CALENDARIO -->
-
-  <div
-    id="calendar"
-    class="screen"
-  >
-
-    <div class="top">
-
-      <div>
-
-        <div class="brand">
-          📅 Calendario
-        </div>
-
-        <div class="sub">
-          Pagos y vencimientos
-        </div>
-
-      </div>
-
-    </div>
-
-    <div class="section">
-
-      <div
-        class="card"
-        id="cal"
-      ></div>
-
-    </div>
-
-  </div>
-
-
-  <!-- ESTADISTICAS -->
-
-  <div
-    id="stats"
-    class="screen"
-  >
-
-    <div class="top">
-
-      <div>
-
-        <div class="brand">
-          📊 Estadísticas
-        </div>
-
-        <div class="sub">
-          Gastos por categoría
-        </div>
-
-      </div>
-
-    </div>
-
-    <div class="section">
-
-      <div
-        class="card"
-        id="statsbox"
-      ></div>
-
-    </div>
-
-  </div>
-
-
-  <!-- COMPRAS -->
-
-  <div
-    id="shop"
-    class="screen"
-  >
-
-    <div class="top">
-
-      <div>
-
-        <div class="brand">
-          🛒 Compras
-        </div>
-
-        <div class="sub">
-          Lista compartida
-        </div>
-
-      </div>
-
-      <button
-        class="icon"
-        onclick="openM('shop')"
-      >＋</button>
-
-    </div>
-
-    <div class="section">
-
-      <div
-        class="card"
-        id="shopping"
-      ></div>
-
-      <div class="notice">
-        Para ver cambios en vivo en ambos teléfonos hace falta conectar una base de datos en la nube.
-      </div>
-
-    </div>
-
-  </div>
-
-
-  <!-- MAS -->
-
-  <div
-    id="more"
-    class="screen"
-  >
-
-    <div class="top">
-
-      <div>
-
-        <div class="brand">
-          ⚙️ Más
-        </div>
-
-        <div class="sub">
-          Configuración
-        </div>
-
-      </div>
-
-    </div>
-
-    <div class="section">
-
-      <div class="card">
-
-        <h2>
-          🔔 Recordatorios
-        </h2>
-
-        <p class="small">
-          1 día antes · día del pago · seguimiento posterior.
-        </p>
-
-        <button
-          class="secondary"
-          onclick="notif()"
-        >
-          Activar notificaciones
-        </button>
-
-        <div class="notice">
-          Las alarmas garantizadas en ambos teléfonos requieren notificaciones push desde un servidor.
-        </div>
-
-      </div>
-
-      <div
-        class="card"
-        style="margin-top:12px"
-      >
-
-        <h2>
-          👥 Acceso
-        </h2>
-
-        <p class="small">
-          Administrador: puede modificar gastos. Esposa: solo consulta gastos; ambos pueden usar Compras.
-        </p>
-
-      </div>
-
-      <div
-        class="card"
-        style="margin-top:12px"
-      >
-
-        <button
-          class="secondary"
-          onclick="exportData()"
-        >
-          💾 Exportar respaldo
-        </button>
-
-      </div>
-
-    </div>
-
-  </div>
+</div>
 
 </div>
 
 
-<!-- =========================
-     BOTON AGREGAR GASTO
-========================= -->
+<!-- GASTOS -->
+
+<div id="expenses" class="screen">
+
+<div class="top">
+
+<div>
+
+<div class="brand">💰 Gastos</div>
+
+<div class="sub">
+La esposa solo visualiza y consulta
+</div>
+
+</div>
+
+</div>
+
+<div class="section" id="list"></div>
+
+</div>
+
+
+<!-- CALENDARIO -->
+
+<div id="calendar" class="screen">
+
+<div class="top">
+
+<div>
+
+<div class="brand">📅 Calendario</div>
+
+<div class="sub">Pagos y vencimientos</div>
+
+</div>
+
+</div>
+
+<div class="section">
+
+<div class="card" id="cal"></div>
+
+</div>
+
+</div>
+
+
+<!-- ESTADISTICAS -->
+
+<div id="stats" class="screen">
+
+<div class="top">
+
+<div>
+
+<div class="brand">📊 Estadísticas</div>
+
+<div class="sub">Gastos por categoría</div>
+
+</div>
+
+</div>
+
+<div class="section">
+
+<div class="card" id="statsbox"></div>
+
+</div>
+
+</div>
+
+
+<!-- COMPRAS -->
+
+<div id="shop" class="screen">
+
+<div class="top">
+
+<div>
+
+<div class="brand">🛒 Compras</div>
+
+<div class="sub">Lista compartida</div>
+
+</div>
+
+<button class="icon" onclick="openM('shop')">＋</button>
+
+</div>
+
+<div class="section">
+
+<div class="card" id="shopping"></div>
+
+<div class="notice">
+Para ver cambios en vivo en ambos teléfonos hace falta conectar una base de datos en la nube.
+</div>
+
+</div>
+
+</div>
+
+
+<!-- MAS -->
+
+<div id="more" class="screen">
+
+<div class="top">
+
+<div>
+
+<div class="brand">⚙️ Más</div>
+
+<div class="sub">Configuración</div>
+
+</div>
+
+</div>
+
+<div class="section">
+
+<div class="card">
+
+<h2>🔔 Recordatorios</h2>
+
+<p class="small">
+1 día antes · día del pago · seguimiento posterior.
+</p>
+
+<button class="secondary" onclick="notif()">
+Activar notificaciones
+</button>
+
+<div class="notice">
+Las alarmas garantizadas en ambos teléfonos requieren notificaciones push desde un servidor.
+</div>
+
+</div>
+
+<div class="card" style="margin-top:12px">
+
+<h2>👥 Acceso</h2>
+
+<p class="small">
+Administrador: puede modificar gastos. Esposa: solo consulta gastos; ambos pueden usar Compras.
+</p>
+
+</div>
+
+<div class="card" style="margin-top:12px">
+
+<button class="secondary" onclick="exportData()">
+💾 Exportar respaldo
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+
+<!-- FAB -->
 
 <button
-  id="fab"
-  class="fab"
-  onclick="openM('expense')"
->
-  ＋ Agregar gasto
+id="fab"
+class="fab"
+onclick="openM('expense')">
+＋ Agregar gasto
 </button>
 
 
-<!-- =========================
-     NAVEGACION
-========================= -->
+<!-- NAV -->
 
 <div class="nav">
 
-  <button
-    class="active"
-    onclick="show('home',this)"
-  >
-    🏠<br>Inicio
-  </button>
+<button class="active" onclick="show('home',this)">
+🏠<br>Inicio
+</button>
 
-  <button
-    onclick="show('expenses',this)"
-  >
-    💰<br>Gastos
-  </button>
+<button onclick="show('expenses',this)">
+💰<br>Gastos
+</button>
 
-  <button
-    onclick="show('calendar',this)"
-  >
-    📅<br>Calendario
-  </button>
+<button onclick="show('calendar',this)">
+📅<br>Calendario
+</button>
 
-  <button
-    onclick="show('shop',this)"
-  >
-    🛒<br>Compras
-  </button>
+<button onclick="show('shop',this)">
+🛒<br>Compras
+</button>
 
-  <button
-    onclick="show('stats',this)"
-  >
-    📊<br>Stats
-  </button>
+<button onclick="show('stats',this)">
+📊<br>Stats
+</button>
 
-  <button
-    onclick="show('more',this)"
-  >
-    ⚙️<br>Más
-  </button>
+<button onclick="show('more',this)">
+⚙️<br>Más
+</button>
 
 </div>
 
 
-<!-- =========================
-     MODAL GASTO
-========================= -->
+<!-- MODAL GASTO -->
 
-<div
-  id="expense"
-  class="modal"
+<div id="expense" class="modal">
+
+<div class="sheet">
+
+<div class="head">
+
+<b>Nuevo gasto</b>
+
+<button class="icon" onclick="closeM('expense')">
+✕
+</button>
+
+</div>
+
+<form class="form" onsubmit="addExpense(event)">
+
+<label>Categoría</label>
+
+<select id="cat"></select>
+
+
+<label>Valor</label>
+
+<input
+id="amount"
+type="number"
+min="0"
+required
 >
 
-  <div class="sheet">
 
-    <div class="head">
+<div class="tw">
 
-      <b>
-        Nuevo gasto
-      </b>
+<div>
 
-      <button
-        class="icon"
-        onclick="closeM('expense')"
-      >
-        ✕
-      </button>
+<label>Fecha</label>
 
-    </div>
-
-    <form
-      class="form"
-      onsubmit="addExpense(event)"
-    >
-
-      <label>
-        Categoría
-      </label>
-
-      <select id="cat"></select>
-
-
-      <label>
-        Valor
-      </label>
-
-      <input
-        id="amount"
-        type="number"
-        min="0"
-        required
-      >
-
-
-      <div class="tw">
-
-        <div>
-
-          <label>
-            Fecha
-          </label>
-
-          <input
-            id="date"
-            type="date"
-            required
-          >
-
-        </div>
-
-        <div>
-
-          <label>
-            Tipo
-          </label>
-
-          <select id="split">
-
-            <option value="shared">
-              50/50
-            </option>
-
-            <option value="mine">
-              Solo mío
-            </option>
-
-            <option value="wife">
-              Solo esposa
-            </option>
-
-          </select>
-
-        </div>
-
-      </div>
-
-
-      <label>
-        ¿Quién pagó?
-      </label>
-
-      <select id="payer">
-
-        <option value="me">
-          Yo
-        </option>
-
-        <option value="wife">
-          Mi esposa
-        </option>
-
-      </select>
-
-
-      <label>
-        Fotos
-      </label>
-
-      <div class="drop">
-
-  <div style="
-    display:flex;
-    gap:10px;
-    flex-wrap:wrap;
-    justify-content:center;
-  ">
-
-    <button
-      type="button"
-      class="secondary"
-      onclick="openCamera()"
-    >
-      📷 Tomar foto
-    </button>
-
-    <button
-      type="button"
-      class="secondary"
-      onclick="openGallery()"
-    >
-      🖼️ Elegir de galería
-    </button>
-
-  </div>
-
-  <input
-    id="cameraInput"
-    type="file"
-    accept="image/*"
-    capture="environment"
-    hidden
-    onchange="previewPhotos(event)"
-  >
-
-  <input
-    id="photosInput"
-    type="file"
-    accept="image/*"
-    multiple
-    hidden
-    onchange="previewPhotos(event)"
-  >
-
-  <div
-    class="photos"
-    id="preview"
-  ></div>
-
-</div>
-
-      <label>
-        Descripción
-      </label>
-
-      <textarea
-        id="note"
-        placeholder="Factura, marca, detalle..."
-      ></textarea>
-
-
-      <button class="primary">
-        Guardar gasto
-      </button>
-
-    </form>
-
-  </div>
-
-</div>
-
-
-<!-- =========================
-     MODAL COMPRAS
-========================= -->
-
-<div
-  id="shopModal"
-  class="modal"
+<input
+id="date"
+type="date"
+required
 >
 
-  <div class="sheet">
+</div>
 
-    <div class="head">
+<div>
 
-      <b>
-        Agregar compra
-      </b>
+<label>Tipo</label>
 
-      <button
-        class="icon"
-        onclick="closeM('shopModal')"
-      >
-        ✕
-      </button>
+<select id="split">
 
-    </div>
+<option value="shared">50/50</option>
 
-    <form
-      class="form"
-      onsubmit="addShop(event)"
-    >
+<option value="mine">Solo mío</option>
 
-      <label>
-        Producto
-      </label>
+<option value="wife">Solo esposa</option>
 
-      <input
-        id="prod"
-        required
-      >
+</select>
 
-
-      <label>
-        Cantidad
-      </label>
-
-      <input
-        id="qty"
-        value="1"
-      >
-
-
-      <label>
-        Descripción
-      </label>
-
-      <textarea
-        id="desc"
-        placeholder="Marca, tamaño, presentación..."
-      ></textarea>
-
-
-      <button class="primary">
-        Agregar a la lista
-      </button>
-
-    </form>
-
-  </div>
+</div>
 
 </div>
 
 
-<!-- =========================
-     SUPABASE
-========================= -->
+<label>¿Quién pagó?</label>
+
+<select id="payer">
+
+<option value="me">Yo</option>
+
+<option value="wife">Mi esposa</option>
+
+</select>
+
+
+<label>Fotos</label>
+
+<div class="drop">
+
+<div>
+📷 Agregar factura o foto
+</div>
+
+<div class="photoButtons">
+
+<button
+type="button"
+class="photoButton"
+onclick="openCamera()">
+📷 Tomar foto
+</button>
+
+<button
+type="button"
+class="photoButton"
+onclick="openGallery()">
+🖼️ Galería
+</button>
+
+</div>
+
+<input
+id="cameraInput"
+type="file"
+accept="image/*"
+capture="environment"
+hidden
+onchange="previewPhotos(event)"
+>
+
+<input
+id="photosInput"
+type="file"
+accept="image/*"
+multiple
+hidden
+onchange="previewPhotos(event)"
+>
+
+<div class="photos" id="preview"></div>
+
+</div>
+
+
+<label>Descripción</label>
+
+<textarea
+id="note"
+placeholder="Factura, marca, detalle..."
+></textarea>
+
+
+<button class="primary">
+Guardar gasto
+</button>
+
+</form>
+
+</div>
+
+</div>
+
+
+<!-- MODAL COMPRAS -->
+
+<div id="shopModal" class="modal">
+
+<div class="sheet">
+
+<div class="head">
+
+<b>Agregar compra</b>
+
+<button class="icon" onclick="closeM('shopModal')">
+✕
+</button>
+
+</div>
+
+<form class="form" onsubmit="addShop(event)">
+
+<label>Producto</label>
+
+<input id="prod" required>
+
+
+<label>Cantidad</label>
+
+<input id="qty" value="1">
+
+
+<label>Descripción</label>
+
+<textarea
+id="desc"
+placeholder="Marca, tamaño, presentación..."
+></textarea>
+
+
+<button class="primary">
+Agregar a la lista
+</button>
+
+</form>
+
+</div>
+
+</div>
+
+
+<!-- SUPABASE -->
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script>
 
 const SUPABASE_URL =
-  "https://knpmkqursxxnomwgmswt.supabase.co";
+"https://knpmkqursxxnomwgmswt.supabase.co";
 
 const SUPABASE_KEY =
-  "sb_publishable_ch91p7gNPmY48rFK7VZWdg_3LSTz4Hw";
+"sb_publishable_ch91p7gNPmY48rFK7VZWdg_3LSTz4Hw";
 
 const sb =
-  supabase.createClient(
-    SUPABASE_URL,
-    SUPABASE_KEY
-  );
+supabase.createClient(
+SUPABASE_URL,
+SUPABASE_KEY
+);
 
 
-/* =========================
-   SESION
-========================= */
+/* SESION */
 
 let currentUser = null;
 let currentRole = null;
 let currentHouseholdId = null;
 
 
-/* =========================
-   VARIABLES
-========================= */
+/* VARIABLES */
 
 const EK = 'cg2_exp';
 const CC = 'cg2_cats';
@@ -1226,1994 +1018,1921 @@ let pics = [];
 let active = 'home';
 
 
-/* =========================
-   ICONOS
-========================= */
+/* ICONOS */
 
 const icons = {
 
-  Arriendo:'🏠',
-  Luz:'💡',
-  Gas:'🔥',
-  Agua:'💧',
-  'Internet hogar':'🌐',
-  'Internet celular':'📱',
-  Mercado:'🛒',
-  Otro:'🧾'
+Arriendo:'🏠',
+Luz:'💡',
+Gas:'🔥',
+Agua:'💧',
+'Internet hogar':'🌐',
+'Internet celular':'📱',
+Mercado:'🛒',
+Otro:'🧾'
 
 };
 
 
-/* =========================
-   DINERO
-========================= */
+/* DINERO */
 
 const money = n =>
 
-  new Intl.NumberFormat(
-    'es-CO',
-    {
-      style:'currency',
-      currency:'COP',
-      maximumFractionDigits:0
-    }
-  ).format(
-    Number(n)||0
-  );
+new Intl.NumberFormat(
+'es-CO',
+{
+style:'currency',
+currency:'COP',
+maximumFractionDigits:0
+}
+).format(
+Number(n)||0
+);
 
 
-/* =========================
-   MES ACTUAL
-========================= */
+/* MES */
 
 const ym =
-  new Date()
-    .toISOString()
-    .slice(0,7);
+new Date()
+.toISOString()
+.slice(0,7);
 
 
-/* =========================
-   CATEGORIAS
-========================= */
+/* CATEGORIAS */
 
 function cats(){
 
-  return [
-    ...new Set([
-      'Arriendo',
-      'Luz',
-      'Gas',
-      'Agua',
-      'Internet hogar',
-      'Internet celular',
-      'Mercado',
-      'Otro',
-      ...JSON.parse(
-        localStorage.getItem(CC)||'[]'
-      )
-    ])
-  ];
+return [
+...new Set([
+'Arriendo',
+'Luz',
+'Gas',
+'Agua',
+'Internet hogar',
+'Internet celular',
+'Mercado',
+'Otro',
+...JSON.parse(
+localStorage.getItem(CC)||'[]'
+)
+])
+];
 
 }
 
 
 function fill(){
 
-  const catEl =
-    document.getElementById('cat');
+const catEl =
+document.getElementById('cat');
 
-  if(!catEl){
-    return;
-  }
+if(!catEl){
+return;
+}
 
-  catEl.innerHTML =
-    cats()
-      .map(
-        x=>`<option>${x}</option>`
-      )
-      .join('');
+const currentValue =
+catEl.value;
+
+catEl.innerHTML =
+cats()
+.map(
+x=>`<option value="${escapeHtml(x)}">${escapeHtml(x)}</option>`
+)
+.join('');
+
+if(
+currentValue &&
+cats().includes(currentValue)
+){
+
+catEl.value =
+currentValue;
+
+}
 
 }
 
 
-/* =========================
-   CATEGORIA NUEVA
-========================= */
+/* ESCAPAR HTML */
+
+function escapeHtml(value){
+
+return String(value ?? '')
+.replace(/&/g,'&amp;')
+.replace(/</g,'&lt;')
+.replace(/>/g,'&gt;')
+.replace(/"/g,'&quot;')
+.replace(/'/g,'&#039;');
+
+}
+
+
+/* NUEVA CATEGORIA */
 
 document
-  .getElementById('cat')
-  ?.addEventListener(
-    'change',
-    ()=>{
+.getElementById('cat')
+?.addEventListener(
+'change',
+async ()=>{
 
-      const catEl =
-        document.getElementById('cat');
+const catEl =
+document.getElementById('cat');
 
+if(
+catEl.value !== 'Otro'
+){
+return;
+}
 
-      if(
-        catEl.value === 'Otro'
-      ){
+let n =
+prompt(
+'Nombre de la nueva categoría'
+);
 
-        let n =
-          prompt(
-            'Nombre de la nueva categoría'
-          );
+if(!n){
 
+fill();
 
-        if(n){
+return;
 
-          n =
-            n.trim();
+}
 
+n =
+n.trim();
 
-          if(!n){
-            return;
-          }
+if(!n){
 
+fill();
 
-          let a =
-            JSON.parse(
-              localStorage.getItem(CC)||'[]'
-            );
-
-
-          if(!a.includes(n)){
-
-            a.push(n);
-
-          }
-
-
-          localStorage.setItem(
-            CC,
-            JSON.stringify(a)
-          );
-
-
-          fill();
-
-
-          /*
-            Volvemos a seleccionar
-            inmediatamente la categoría
-            que acabamos de crear.
-          */
-
-          catEl.value=n;
-
-        }
-
-      }
-
-    }
-  );
-
-      const catEl =
-        document.getElementById('cat');
-
-      if(
-        catEl.value === 'Otro'
-      ){
-
-        let n =
-          prompt(
-            'Nombre de la nueva categoría'
-          );
-
-        if(n){
-
-          let a =
-            JSON.parse(
-              localStorage.getItem(CC)||'[]'
-            );
-
-          if(!a.includes(n)){
-            a.push(n);
-          }
-
-          localStorage.setItem(
-            CC,
-            JSON.stringify(a)
-          );
-
-          fill();
-
-          catEl.value=n;
-
-        }
-
-      }
-
-    }
-  );
-
-
-/* =========================
-   LOGIN
-========================= */
-
-async function login(){
-
-  const email =
-    document
-      .getElementById('loginEmail')
-      .value
-      .trim();
-
-  const password =
-    document
-      .getElementById('loginPassword')
-      .value;
-
-  const msg =
-    document
-      .getElementById('loginMsg');
-
-
-  if(
-    !email ||
-    !password
-  ){
-
-    msg.textContent =
-      'Escribe correo y contraseña';
-
-    return;
-
-  }
-
-
-  msg.textContent =
-    'Iniciando sesión...';
-
-
-  const {
-    data,
-    error
-  } =
-    await sb.auth.signInWithPassword({
-
-      email:email,
-      password:password
-
-    });
-
-
-  if(error){
-
-    console.error(
-      'Error de inicio de sesión:',
-      error
-    );
-
-    msg.textContent =
-      'Correo o contraseña incorrectos';
-
-    return;
-
-  }
-
-
-  currentUser =
-    data.user;
-
-
-  const {
-    data:member,
-    error:memberError
-  } =
-    await sb
-      .from('miembros_hogar')
-      .select('hogar_id,rol')
-      .eq(
-        'usuario_id',
-        currentUser.id
-      )
-      .limit(1)
-      .maybeSingle();
-
-
-  if(
-    memberError ||
-    !member
-  ){
-
-    console.error(
-      'Error miembro:',
-      memberError
-    );
-
-    await sb.auth.signOut();
-
-    msg.textContent =
-      'Este usuario no tiene un hogar configurado';
-
-    return;
-
-  }
-
-
-  currentRole =
-    member.rol;
-
-  currentHouseholdId =
-    member.hogar_id;
-
-
-  document
-    .getElementById('loginScreen')
-    .style.display='none';
-
-
-  await loadExpenses();
-
-  await loadShopping();
-
-  render();
+return;
 
 }
 
 
-/* =========================
-   CAMBIO DE SESION
-========================= */
+/*
+Guardamos localmente para que
+la categoría aparezca de inmediato.
+*/
 
-sb.auth.onAuthStateChange(
-  async (
-    event,
-    session
-  ) => {
+let localCats =
+JSON.parse(
+localStorage.getItem(CC)||'[]'
+);
 
-    if(session?.user){
+if(
+!localCats.includes(n)
+){
 
-      currentUser =
-        session.user;
+localCats.push(n);
 
+localStorage.setItem(
+CC,
+JSON.stringify(localCats)
+);
 
-      const {
-        data:member
-      } =
-        await sb
-          .from('miembros_hogar')
-          .select('hogar_id,rol')
-          .eq(
-            'usuario_id',
-            currentUser.id
-          )
-          .limit(1)
-          .maybeSingle();
+}
 
 
-      if(member){
+/*
+Intentamos guardar también
+la categoría en Supabase.
+*/
 
-        currentRole =
-          member.rol;
+if(
+currentHouseholdId
+){
 
-        currentHouseholdId =
-          member.hogar_id;
+const {
+data:existing,
+error:findError
+} =
+await sb
+.from('categorias')
+.select('id,nombre')
+.eq('nombre',n)
+.limit(1)
+.maybeSingle();
+
+if(findError){
+
+console.error(
+'Error buscando categoría:',
+findError
+);
+
+}
+
+if(!existing){
+
+const {
+error:insertError
+} =
+await sb
+.from('categorias')
+.insert({
+nombre:n
+});
+
+if(insertError){
+
+console.error(
+'Error creando categoría:',
+insertError
+);
+
+}
+
+}
+
+}
 
 
-        document
-          .getElementById(
-            'loginScreen'
-          )
-          .style.display='none';
+/*
+Reconstruimos el select y
+mantenemos la nueva categoría.
+*/
 
+fill();
 
-        await loadExpenses();
+catEl.value =
+n;
 
-        await loadShopping();
-
-        render();
-
-      }
-
-    }
-
-  }
+}
 );
 
 
-/* =========================
-   CARGAR GASTOS
-   SUPABASE -> INTERFAZ
-========================= */
+/* LOGIN */
 
-async function loadExpenses(){
-  if(!currentHouseholdId){
-    return;
-  }
+async function login(){
 
-  const {data,error}=await sb
-    .from('gastos')
-    .select('*')
-    .eq('hogar_id',currentHouseholdId)
-    .order('fecha',{ascending:false});
+const email =
+document
+.getElementById('loginEmail')
+.value
+.trim();
 
-  if(error){
-    console.error('Error cargando gastos:',error);
-    return;
-  }
+const password =
+document
+.getElementById('loginPassword')
+.value;
 
-  const gastos=data||[];
+const msg =
+document
+.getElementById('loginMsg');
 
-  // Obtener las categorías utilizadas en los gastos
-  const categoriaIds=[
-    ...new Set(
-      gastos
-        .map(x=>x.categoria_id)
-        .filter(id=>id!=null)
-    )
-  ];
 
-  let categoriasMap={};
+if(
+!email ||
+!password
+){
 
-  if(categoriaIds.length){
-    const {data:categorias,error:catError}=await sb
-      .from('categorias')
-      .select('id,nombre')
-      .in('id',categoriaIds);
+msg.textContent =
+'Escribe correo y contraseña';
 
-    if(catError){
-      console.error('Error cargando categorías:',catError);
-    }else{
-      (categorias||[]).forEach(c=>{
-        categoriasMap[c.id]=c.nombre;
-      });
-    }
-  }
+return;
 
-  E=gastos.map(x=>({
-    id:x.id,
-    cat:
-      x.cat ||
-      x.categoria ||
-      (x.categoria_id!=null
-        ? (categoriasMap[x.categoria_id] || 'Categoría '+x.categoria_id)
-        : 'Otro'),
-    amount:Number(x.amount??x.monto??0),
-    date:x.date??x.fecha??'',
-    split:x.split??'shared',
-    payer:x.payer??'me',
-    paid:Boolean(x.paid),
-    note:x.note??x.notas??x.descripcion??'',
-    photos:x.photos??[]
-  }));
-
-  render();
 }
 
-/* =========================
-   CARGAR COMPRAS
-   SUPABASE
-========================= */
+
+msg.textContent =
+'Iniciando sesión...';
+
+
+const {
+data,
+error
+} =
+await sb.auth.signInWithPassword({
+
+email:email,
+password:password
+
+});
+
+
+if(error){
+
+console.error(
+'Error de inicio de sesión:',
+error
+);
+
+msg.textContent =
+'Correo o contraseña incorrectos';
+
+return;
+
+}
+
+
+currentUser =
+data.user;
+
+
+await loadMemberAndStart();
+
+}
+
+
+async function loadMemberAndStart(){
+
+if(!currentUser){
+
+return false;
+
+}
+
+
+const {
+data:member,
+error:memberError
+} =
+await sb
+.from('miembros_hogar')
+.select('hogar_id,rol')
+.eq(
+'usuario_id',
+currentUser.id
+)
+.limit(1)
+.maybeSingle();
+
+
+if(
+memberError ||
+!member
+){
+
+console.error(
+'Error miembro:',
+memberError
+);
+
+await sb.auth.signOut();
+
+document
+.getElementById('loginMsg')
+.textContent =
+'Este usuario no tiene un hogar configurado';
+
+return false;
+
+}
+
+
+currentRole =
+member.rol;
+
+currentHouseholdId =
+member.hogar_id;
+
+
+document
+.getElementById('loginScreen')
+.style.display='none';
+
+
+await loadExpenses();
+
+await loadShopping();
+
+render();
+
+return true;
+
+}
+
+
+/* CAMBIO DE SESION */
+
+sb.auth.onAuthStateChange(
+async(
+event,
+session
+)=>{
+
+if(session?.user){
+
+currentUser =
+session.user;
+
+await loadMemberAndStart();
+
+}
+
+else{
+
+currentUser = null;
+currentRole = null;
+currentHouseholdId = null;
+
+document
+.getElementById('loginScreen')
+.style.display='flex';
+
+}
+
+}
+);
+
+
+/* CARGAR GASTOS */
+
+async function loadExpenses(){
+
+if(!currentHouseholdId){
+
+return;
+
+}
+
+
+const {
+data,
+error
+} =
+await sb
+.from('gastos')
+.select('*')
+.eq(
+'hogar_id',
+currentHouseholdId
+)
+.order(
+'fecha',
+{
+ascending:false
+}
+);
+
+
+if(error){
+
+console.error(
+'Error cargando gastos:',
+error
+);
+
+return;
+
+}
+
+
+E =
+(data||[]).map(
+x=>({
+
+id:x.id,
+
+cat:
+x.cat ||
+x.categoria ||
+(
+x.categoria_id != null
+? 'Categoría '+x.categoria_id
+: 'Otro'
+),
+
+amount:
+Number(
+x.amount ??
+x.monto ??
+0
+),
+
+date:
+x.date ??
+x.fecha ??
+'',
+
+split:
+x.split ??
+'common',
+
+payer:
+x.payer ??
+'me',
+
+paid:
+Boolean(
+x.paid
+),
+
+note:
+x.note ??
+x.notas ??
+x.descripcion ??
+''
+
+})
+);
+
+
+render();
+
+}
+
+
+/* CARGAR COMPRAS */
 
 async function loadShopping(){
 
-  if(!currentHouseholdId){
+if(!currentHouseholdId){
 
-    console.log(
-      'No hay hogar_id'
-    );
+console.log(
+'No hay hogar_id'
+);
 
-    return;
-
-  }
-
-
-  console.log(
-    'Cargando compras del hogar:',
-    currentHouseholdId
-  );
-
-
-  const {
-    data,
-    error
-  } =
-    await sb
-      .from('compras')
-      .select('*')
-      .eq(
-        'hogar_id',
-        currentHouseholdId
-      )
-      .order(
-        'created_at',
-        {
-          ascending:false
-        }
-      );
-
-
-  if(error){
-
-    console.error(
-      'ERROR COMPRAS:',
-      error
-    );
-
-    alert(
-      'Error cargando compras: '+
-      error.message
-    );
-
-    return;
-
-  }
-
-
-  console.log(
-    'COMPRAS ENCONTRADAS:',
-    data
-  );
-
-
-  S =
-    (data||[]).map(
-      x=>({
-
-        id:x.id,
-
-        p:x.producto,
-
-        q:
-          Number(
-            x.cantidad||1
-          ),
-
-        d:
-          x.notas||'',
-
-        done:
-          Boolean(
-            x.comprado
-          ),
-
-        by:
-          x.usuario_id === currentUser?.id
-            ? 'Yo'
-            : 'Usuario'
-
-      })
-    );
-
-
-  render();
+return;
 
 }
 
 
-/* =========================
-   GUARDADO LOCAL
-   SOLO PARA GASTOS NUEVOS
-========================= */
+console.log(
+'Cargando compras del hogar:',
+currentHouseholdId
+);
 
-function save(){
 
-  localStorage.setItem(
-    EK,
-    JSON.stringify(E)
-  );
+const {
+data,
+error
+} =
+await sb
+.from('compras')
+.select('*')
+.eq(
+'hogar_id',
+currentHouseholdId
+)
+.order(
+'created_at',
+{
+ascending:false
+}
+);
+
+
+if(error){
+
+console.error(
+'ERROR COMPRAS:',
+error
+);
+
+return;
 
 }
 
 
-/* =========================
-   AGREGAR GASTO
-========================= */
+console.log(
+'COMPRAS ENCONTRADAS:',
+data
+);
+
+
+S =
+(data||[]).map(
+x=>({
+
+id:x.id,
+
+p:x.producto,
+
+q:
+Number(
+x.cantidad||1
+),
+
+d:
+x.notas||'',
+
+done:
+Boolean(
+x.comprado
+),
+
+by:
+x.usuario_id === currentUser?.id
+? 'Yo'
+: 'Usuario'
+
+})
+);
+
+
+render();
+
+}
+
+
+/* AGREGAR GASTO */
 
 async function addExpense(ev){
 
-  ev.preventDefault();
-
-  if(!currentUser || !currentHouseholdId){
-
-    alert('No hay una sesión activa.');
-
-    return;
-
-  }
-
-  const catEl =
-    document.getElementById('cat');
-
-  const amountEl =
-    document.getElementById('amount');
-
-  const dateEl =
-    document.getElementById('date');
-
-  const splitEl =
-    document.getElementById('split');
-
-  const payerEl =
-    document.getElementById('payer');
-
-  const noteEl =
-    document.getElementById('note');
-
-  const previewEl =
-    document.getElementById('preview');
+ev.preventDefault();
 
 
-  const categoriaTexto =
-    catEl.value;
+if(
+!currentUser ||
+!currentHouseholdId
+){
 
-  const monto =
-    Number(amountEl.value) || 0;
+alert(
+'No hay una sesión activa.'
+);
 
-  const fecha =
-    dateEl.value;
-
-  const split =
-    splitEl.value;
-
-  const payer =
-    payerEl.value;
-
-  const notas =
-    noteEl.value.trim();
-
-
-  if(monto <= 0){
-
-    alert('El valor debe ser mayor que 0.');
-
-    return;
-
-  }
-
-
-  if(!fecha){
-
-    alert('Selecciona una fecha.');
-
-    return;
-
-  }
-
-
-  const {
-    data:categoria,
-    error:catError
-  } =
-    await sb
-      .from('categorias')
-      .select('id,nombre')
-      .eq(
-        'nombre',
-        categoriaTexto
-      )
-      .limit(1)
-      .maybeSingle();
-
-
-  if(catError){
-
-    console.error(
-      'Error buscando categoría:',
-      catError
-    );
-
-    alert(
-      'No se pudo identificar la categoría: '+
-      catError.message
-    );
-
-    return;
-
-  }
-
-
-  if(!categoria){
-
-    alert(
-      'La categoría "'+
-      categoriaTexto+
-      '" no existe todavía en la tabla de categorías.'
-    );
-
-    return;
-
-  }
-
-
-  const {data,error}=await sb.from('gastos').insert({
-  hogar_id: currentHouseholdId,
-  usuario_id: currentUser.id,
-  categoria_id: categoria.id,
-  monto: monto,
-  fecha: fecha,
-  descripcion: notas || 'Sin descripción',
-  split: split,
-  payer: payer,
-  paid: false
-}).select().single();
-
-  if(error){
-
-    console.error(
-      'Error guardando gasto en Supabase:',
-      error
-    );
-
-    alert(
-      'No se pudo guardar el gasto: '+
-      error.message
-    );
-
-    return;
-
-  }
-
-
-  console.log(
-    'Gasto guardado en Supabase:',
-    data
-  );
-
-
-  pics = [];
-
-  previewEl.innerHTML = '';
-
-  ev.target.reset();
-
-  closeM('expense');
-
-
-  await loadExpenses();
-
-
-  notify(
-    'Nuevo gasto',
-    categoriaTexto
-  );
+return;
 
 }
 
-/* =========================
-   PAGAR GASTO
-========================= */
+
+const catEl =
+document.getElementById('cat');
+
+const amountEl =
+document.getElementById('amount');
+
+const dateEl =
+document.getElementById('date');
+
+const splitEl =
+document.getElementById('split');
+
+const payerEl =
+document.getElementById('payer');
+
+const noteEl =
+document.getElementById('note');
+
+const previewEl =
+document.getElementById('preview');
+
+
+const categoria =
+catEl.value;
+
+const amount =
+Number(amountEl.value)||0;
+
+const date =
+dateEl.value;
+
+const split =
+splitEl.value;
+
+const payer =
+payerEl.value;
+
+const descripcion =
+noteEl.value.trim();
+
+
+if(!categoria){
+
+alert(
+'Selecciona una categoría.'
+);
+
+return;
+
+}
+
+
+if(!date){
+
+alert(
+'Selecciona una fecha.'
+);
+
+return;
+
+}
+
+
+/*
+La tabla gastos necesita
+descripcion NOT NULL.
+*/
+
+const {
+data,
+error
+} =
+await sb
+.from('gastos')
+.insert({
+
+hogar_id:
+currentHouseholdId,
+
+usuario_id:
+currentUser.id,
+
+categoria:
+categoria,
+
+monto:
+amount,
+
+fecha:
+date,
+
+tipo:
+split,
+
+pagado_por:
+payer,
+
+pagado:false,
+
+descripcion:
+descripcion || 'Sin descripción'
+
+})
+.select()
+.single();
+
+
+if(error){
+
+console.error(
+'Error guardando gasto:',
+error
+);
+
+alert(
+'No se pudo guardar el gasto: '+
+error.message
+);
+
+return;
+
+}
+
+
+console.log(
+'Gasto guardado:',
+data
+);
+
+
+pics=[];
+
+previewEl.innerHTML='';
+
+ev.target.reset();
+
+closeM('expense');
+
+
+await loadExpenses();
+
+render();
+
+
+notify(
+'Nuevo gasto',
+categoria
+);
+
+}
+
+
+/* PAGAR GASTO */
 
 async function paid(id){
 
-  const x =
-    E.find(
-      a => a.id === id
-    );
+let x =
+E.find(
+a=>a.id===id
+);
+
+if(!x){
+return;
+}
 
 
-  if(!x){
-
-    return;
-
-  }
+const nuevoEstado =
+!x.paid;
 
 
-  const nuevoEstado =
-    !x.paid;
+/*
+El registro puede utilizar
+pagado o pagado boolean.
+Intentamos actualizar
+pagado primero.
+*/
+
+const {
+error
+} =
+await sb
+.from('gastos')
+.update({
+pagado:nuevoEstado
+})
+.eq(
+'id',
+id
+)
+.eq(
+'hogar_id',
+currentHouseholdId
+);
 
 
-  const {
-    error
-  } =
-    await sb
-      .from('gastos')
-      .update({
+if(error){
 
-        paid:
-          nuevoEstado
+console.error(
+'Error actualizando gasto:',
+error
+);
 
-      })
-      .eq(
-        'id',
-        id
-      )
-      .eq(
-        'hogar_id',
-        currentHouseholdId
-      );
+alert(
+'No se pudo actualizar el pago: '+
+error.message
+);
 
-
-  if(error){
-
-    console.error(
-      'Error actualizando gasto:',
-      error
-    );
-
-    alert(
-      'No se pudo actualizar el pago: '+
-      error.message
-    );
-
-    return;
-
-  }
-
-
-  x.paid =
-    nuevoEstado;
-
-
-  render();
-
-
-  notify(
-
-    nuevoEstado
-      ? 'Servicio pagado'
-      : 'Pago pendiente',
-
-    x.cat
-
-  );
+return;
 
 }
 
-/* =========================
-   RENDER
-========================= */
+
+x.paid =
+nuevoEstado;
+
+render();
+
+notify(
+nuevoEstado
+? 'Servicio pagado'
+: 'Pago pendiente',
+x.cat
+);
+
+
+/* RENDER */
 
 function render(){
 
-  fill();
-
-
-  const monthEl =
-    document.getElementById('month');
-
-  if(monthEl){
-
-    monthEl.textContent =
-      new Intl.DateTimeFormat(
-        'es-CO',
-        {
-          month:'long',
-          year:'numeric'
-        }
-      ).format(
-        new Date()
-      );
-
-  }
-
-
-  /*
-    GASTOS DEL MES
-  */
-
-  let a =
-    E
-      .filter(
-        x =>
-          x.date &&
-          x.date.startsWith(ym)
-      )
-      .sort(
-        (a,b)=>
-          (a.date||'')
-            .localeCompare(
-              b.date||''
-            )
-      );
-
-
-  /*
-    TOTAL
-  */
-
-  let total =
-    a.reduce(
-      (s,x)=>
-        s+
-        (
-          Number(x.amount)||0
-        ),
-      0
-    );
-
-
-  /*
-    PARTES
-  */
-
-  let my=0;
-  let w=0;
-  let pm=0;
-
-
-  a.forEach(
-    x=>{
-
-      const amount =
-        Number(x.amount)||0;
-
-
-      if(
-        x.split==='shared'
-      ){
-
-        my +=
-          amount/2;
-
-        w +=
-          amount/2;
-
-      }
-
-      else if(
-        x.split==='mine'
-      ){
-
-        my +=
-          amount;
-
-      }
-
-      else{
-
-        w +=
-          amount;
-
-      }
-
-
-      if(
-        x.payer==='me'
-      ){
-
-        pm +=
-          amount;
-
-      }
-
-    }
-  );
-
-
-  let d =
-    pm-my;
-
-
-  /*
-    HOME
-  */
-
-  const totalEl =
-    document.getElementById('total');
-
-  const myEl =
-    document.getElementById('my');
-
-  const wifeEl =
-    document.getElementById('wife');
-
-  const balEl =
-    document.getElementById('bal');
-
-  const balTextEl =
-    document.getElementById('balText');
-
-  const pendingEl =
-    document.getElementById('pending');
-
-
-  if(totalEl)
-    totalEl.textContent =
-      money(total);
-
-  if(myEl)
-    myEl.textContent =
-      money(my);
-
-  if(wifeEl)
-    wifeEl.textContent =
-      money(w);
-
-  if(balEl)
-    balEl.textContent =
-      money(
-        Math.abs(d)
-      );
-
-
-  if(balTextEl){
-
-    balTextEl.textContent =
-      d>0
-        ? 'Tu esposa te debe este valor'
-        : d<0
-          ? 'Tú debes este valor a tu esposa'
-          : 'Todo equilibrado';
-
-  }
-
-
-  if(pendingEl){
-
-    pendingEl.textContent =
-      a.filter(
-        x=>!x.paid
-      ).length+
-      ' pendientes';
-
-  }
-
-
-  /*
-    LISTA DE GASTOS
-  */
-
-  const listEl =
-    document.getElementById('list');
-
-
-  if(listEl){
-
-    listEl.innerHTML =
-
-      a.map(
-        x=>`
-
-          <div class="row">
-
-            <div class="ico">
-              ${icons[x.cat]||'🧾'}
-            </div>
-
-            <div class="grow">
-
-              <b>
-                ${x.cat}
-              </b>
-
-              <div class="small">
-
-                ${x.date||''} ·
-
-                ${
-                  x.split==='shared'
-                    ? '50/50'
-                    : x.split==='mine'
-                      ? 'Tú'
-                      : 'Esposa'
-                }
-
-              </div>
-
-              ${
-                x.note
-                  ? `<div class="small">${x.note}</div>`
-                  : ''
-              }
-
-            </div>
-
-            <div>
-
-              <b>
-                ${money(x.amount)}
-              </b>
-
-              <br>
-
-              <button
-                class="pay ${x.paid?'ok':''}"
-                onclick="paid(${x.id})"
-              >
-
-                ${
-                  x.paid
-                    ? '✓ Pagado'
-                    : 'Marcar pagado'
-                }
-
-              </button>
-
-            </div>
-
-          </div>
-
-        `
-      ).join('') ||
-
-      '<div class="empty">No hay gastos este mes.</div>';
-
-  }
-
-
-  /*
-    PROXIMOS PAGOS
-  */
-
-  const upEl =
-    document.getElementById('up');
-
-
-  if(upEl){
-
-    upEl.innerHTML =
-
-      a
-        .filter(
-          x=>!x.paid
-        )
-        .slice(0,6)
-        .map(
-          x=>`
-
-            <div class="row">
-
-              <div class="ico">
-                ${icons[x.cat]||'🧾'}
-              </div>
-
-              <div class="grow">
-
-                <b>
-                  ${x.cat}
-                </b>
-
-                <div class="small">
-                  ${x.date||''}
-                </div>
-
-              </div>
-
-              <b>
-                ${money(x.amount)}
-              </b>
-
-            </div>
-
-          `
-        )
-        .join('') ||
-
-        '<div class="empty">No hay pendientes 🎉</div>';
-
-  }
-
-
-  /*
-    CALENDARIO
-  */
-
-  const calEl =
-    document.getElementById('cal');
-
-
-  if(calEl){
-
-    calEl.innerHTML =
-
-      '<h2>Vencimientos</h2>'+
-
-      (
-        a.map(
-          x=>`
-
-            <div class="row">
-
-              <div class="ico">
-                ${icons[x.cat]||'🧾'}
-              </div>
-
-              <div class="grow">
-
-                <b>
-                  ${x.cat}
-                </b>
-
-                <div class="small">
-                  ${x.date||''}
-                </div>
-
-              </div>
-
-              <span
-                class="tag ${x.paid?'ok':''}"
-              >
-
-                ${
-                  x.paid
-                    ? 'Pagado'
-                    : 'Pendiente'
-                }
-
-              </span>
-
-            </div>
-
-          `
-        ).join('') ||
-
-        '<div class="empty">Sin pagos.</div>'
-      );
-
-  }
-
-
-  /*
-    ESTADISTICAS
-  */
-
-  let c={};
-
-
-  a.forEach(
-    x=>{
-
-      c[x.cat] =
-        (
-          c[x.cat]||0
-        )+
-        (
-          Number(x.amount)||0
-        );
-
-    }
-  );
-
-
-  let max =
-    Math.max(
-      ...Object.values(c),
-      1
-    );
-
-
-  const statsEl =
-    document.getElementById('statsbox');
-
-
-  if(statsEl){
-
-    statsEl.innerHTML =
-
-      Object.entries(c)
-
-        .sort(
-          (a,b)=>
-            b[1]-a[1]
-        )
-
-        .map(
-          ([k,v])=>`
-
-            <div
-              style="margin:13px 0"
-            >
-
-              <div
-                style="
-                  display:flex;
-                  justify-content:space-between
-                "
-              >
-
-                <b>
-                  ${icons[k]||'🧾'} ${k}
-                </b>
-
-                <span>
-                  ${money(v)}
-                </span>
-
-              </div>
-
-              <div class="bar">
-
-                <div
-                  class="fill"
-                  style="width:${v/max*100}%"
-                ></div>
-
-              </div>
-
-            </div>
-
-          `
-        )
-
-        .join('') ||
-
-        '<div class="empty">Registra gastos.</div>';
-
-  }
-
-
-  /*
-    =========================
-    LISTA DE COMPRAS
-    =========================
-
-    IMPORTANTE:
-    Este bloque está DENTRO de render().
-  */
-
-  const shoppingBox =
-    document.getElementById('shopping');
-
-
-  if(shoppingBox){
-
-    shoppingBox.innerHTML =
-
-      S
-        .map(
-          x=>`
-
-            <div class="item">
-
-              <button
-                class="check ${x.done?'on':''}"
-                onclick="shopDone(${x.id})"
-              >
-
-                ${
-                  x.done
-                    ? '✓'
-                    : ''
-                }
-
-              </button>
-
-              <div class="ico">
-                🛒
-              </div>
-
-              <div class="grow">
-
-                <b>
-                  ${x.p} × ${x.q}
-                </b>
-
-                <div class="small">
-
-                  ${
-                    x.d ||
-                    'Sin descripción'
-                  }
-
-                  ·
-
-                  ${x.by}
-
-                </div>
-
-              </div>
-
-            </div>
-
-          `
-        )
-
-        .join('') ||
-
-        '<div class="empty">Lista vacía.</div>';
-
-  }
+fill();
+
+
+const monthEl =
+document.getElementById('month');
+
+if(monthEl){
+
+monthEl.textContent =
+new Intl.DateTimeFormat(
+'es-CO',
+{
+month:'long',
+year:'numeric'
+}
+).format(
+new Date()
+);
 
 }
 
 
-/* =========================
-   CAMBIAR PANTALLA
-========================= */
+/*
+GASTOS DEL MES
+*/
+
+let a =
+E
+.filter(
+x =>
+x.date &&
+x.date.startsWith(ym)
+)
+.sort(
+(a,b)=>
+(b.date||'')
+.localeCompare(
+a.date||''
+)
+);
+
+
+/*
+TOTAL
+*/
+
+let total =
+a.reduce(
+(s,x)=>
+s+
+(
+Number(x.amount)||0
+),
+0
+);
+
+
+/*
+PARTES
+*/
+
+let my=0;
+let w=0;
+let pm=0;
+
+a.forEach(
+x=>{
+
+const amount =
+Number(x.amount)||0;
+
+if(
+x.split==='shared' ||
+x.split==='common'
+){
+
+my +=
+amount/2;
+
+w +=
+amount/2;
+
+}
+
+else if(
+x.split==='mine'
+){
+
+my +=
+amount;
+
+}
+
+else{
+
+w +=
+amount;
+
+}
+
+
+if(
+x.payer==='me'
+){
+
+pm +=
+amount;
+
+}
+
+}
+);
+
+
+let d =
+pm-my;
+
+
+/*
+HOME
+*/
+
+const totalEl =
+document.getElementById('total');
+
+const myEl =
+document.getElementById('my');
+
+const wifeEl =
+document.getElementById('wife');
+
+const balEl =
+document.getElementById('bal');
+
+const balTextEl =
+document.getElementById('balText');
+
+const pendingEl =
+document.getElementById('pending');
+
+
+if(totalEl)
+totalEl.textContent =
+money(total);
+
+if(myEl)
+myEl.textContent =
+money(my);
+
+if(wifeEl)
+wifeEl.textContent =
+money(w);
+
+if(balEl)
+balEl.textContent =
+money(Math.abs(d));
+
+
+if(balTextEl){
+
+balTextEl.textContent =
+d>0
+? 'Tu esposa te debe este valor'
+: d<0
+? 'Tú debes este valor a tu esposa'
+: 'Todo equilibrado';
+
+}
+
+
+if(pendingEl){
+
+pendingEl.textContent =
+a.filter(
+x=>!x.paid
+).length+
+' pendientes';
+
+}
+
+
+/*
+LISTA DE GASTOS
+*/
+
+const listEl =
+document.getElementById('list');
+
+if(listEl){
+
+listEl.innerHTML =
+
+a.map(
+x=>`
+
+<div class="row">
+
+<div class="ico">
+${icons[x.cat]||'🧾'}
+</div>
+
+<div class="grow">
+
+<b>
+${escapeHtml(x.cat)}
+</b>
+
+<div class="small">
+
+${escapeHtml(x.date||'')} ·
+
+${
+x.split==='shared' ||
+x.split==='common'
+? '50/50'
+: x.split==='mine'
+? 'Tú'
+: 'Esposa'
+}
+
+</div>
+
+${
+x.note
+? `<div class="small">${escapeHtml(x.note)}</div>`
+: ''
+}
+
+</div>
+
+<div>
+
+<b>
+${money(x.amount)}
+</b>
+
+<br>
+
+<button
+class="pay ${x.paid?'ok':''}"
+onclick="paid(${x.id})"
+>
+
+${
+x.paid
+? '✓ Pagado'
+: 'Marcar pagado'
+}
+
+</button>
+
+</div>
+
+</div>
+
+`
+)
+.join('') ||
+
+'<div class="empty">No hay gastos este mes.</div>';
+
+}
+
+
+/*
+PROXIMOS PAGOS
+*/
+
+const upEl =
+document.getElementById('up');
+
+if(upEl){
+
+upEl.innerHTML =
+
+a
+.filter(
+x=>!x.paid
+)
+.slice(0,6)
+.map(
+x=>`
+
+<div class="row">
+
+<div class="ico">
+${icons[x.cat]||'🧾'}
+</div>
+
+<div class="grow">
+
+<b>
+${escapeHtml(x.cat)}
+</b>
+
+<div class="small">
+${escapeHtml(x.date||'')}
+</div>
+
+</div>
+
+<b>
+${money(x.amount)}
+</b>
+
+</div>
+
+`
+)
+.join('') ||
+
+'<div class="empty">No hay pendientes 🎉</div>';
+
+}
+
+
+/*
+CALENDARIO
+*/
+
+const calEl =
+document.getElementById('cal');
+
+if(calEl){
+
+calEl.innerHTML =
+
+'<h2>Vencimientos</h2>'+
+
+(
+a.map(
+x=>`
+
+<div class="row">
+
+<div class="ico">
+${icons[x.cat]||'🧾'}
+</div>
+
+<div class="grow">
+
+<b>
+${escapeHtml(x.cat)}
+</b>
+
+<div class="small">
+${escapeHtml(x.date||'')}
+</div>
+
+</div>
+
+<span class="tag ${x.paid?'ok':''}">
+
+${
+x.paid
+? 'Pagado'
+: 'Pendiente'
+}
+
+</span>
+
+</div>
+
+`
+).join('') ||
+
+'<div class="empty">Sin pagos.</div>'
+);
+
+}
+
+
+/*
+ESTADISTICAS
+*/
+
+let c={};
+
+a.forEach(
+x=>{
+
+c[x.cat] =
+(
+c[x.cat]||0
+)+
+(
+Number(x.amount)||0
+);
+
+}
+);
+
+
+let max =
+Math.max(
+...Object.values(c),
+1
+);
+
+
+const statsEl =
+document.getElementById('statsbox');
+
+if(statsEl){
+
+statsEl.innerHTML =
+
+Object.entries(c)
+
+.sort(
+(a,b)=>
+b[1]-a[1]
+)
+
+.map(
+([k,v])=>`
+
+<div style="margin:13px 0">
+
+<div style="
+display:flex;
+justify-content:space-between
+">
+
+<b>
+${icons[k]||'🧾'} ${escapeHtml(k)}
+</b>
+
+<span>
+${money(v)}
+</span>
+
+</div>
+
+<div class="bar">
+
+<div
+class="fill"
+style="width:${v/max*100}%"
+></div>
+
+</div>
+
+</div>
+
+`
+)
+
+.join('') ||
+
+'<div class="empty">Registra gastos.</div>';
+
+}
+
+
+/*
+COMPRAS
+*/
+
+const shoppingBox =
+document.getElementById('shopping');
+
+if(shoppingBox){
+
+shoppingBox.innerHTML =
+
+S
+.map(
+x=>`
+
+<div class="item">
+
+<button
+class="check ${x.done?'on':''}"
+onclick="shopDone(${x.id})"
+>
+
+${
+x.done
+? '✓'
+: ''
+}
+
+</button>
+
+<div class="ico">
+🛒
+</div>
+
+<div class="grow">
+
+<b>
+${escapeHtml(x.p)} × ${x.q}
+</b>
+
+<div class="small">
+
+${
+escapeHtml(
+x.d ||
+'Sin descripción'
+)
+}
+
+·
+
+${escapeHtml(x.by)}
+
+</div>
+
+</div>
+
+</div>
+
+`
+)
+
+.join('') ||
+
+'<div class="empty">Lista vacía.</div>';
+
+}
+
+}
+
+
+/* CAMBIAR PANTALLA */
 
 function show(id,b){
 
-  active =
-    id;
+active =
+id;
 
+document
+.querySelectorAll('.screen')
+.forEach(
+x=>
+x.classList.remove('active')
+);
 
-  document
-    .querySelectorAll('.screen')
-    .forEach(
-      x=>
-        x.classList.remove(
-          'active'
-        )
-    );
+const screen =
+document.getElementById(id);
 
+if(screen){
 
-  const screen =
-    document.getElementById(id);
+screen.classList.add('active');
 
+}
 
-  if(screen){
+document
+.querySelectorAll('.nav button')
+.forEach(
+x=>
+x.classList.remove('active')
+);
 
-    screen.classList.add(
-      'active'
-    );
+if(b){
 
-  }
+b.classList.add('active');
 
+}
 
-  document
-    .querySelectorAll('.nav button')
-    .forEach(
-      x=>
-        x.classList.remove(
-          'active'
-        )
-    );
+const fabEl =
+document.getElementById('fab');
 
+if(fabEl){
 
-  if(b){
+fabEl.style.display =
+['home','expenses'].includes(id)
+? 'block'
+: 'none';
 
-    b.classList.add(
-      'active'
-    );
+}
 
-  }
+if(id==='shop'){
 
+loadShopping();
 
-  const fabEl =
-    document.getElementById('fab');
+}
 
-
-  if(fabEl){
-
-    fabEl.style.display =
-      ['home','expenses'].includes(id)
-        ? 'block'
-        : 'none';
-
-  }
-
-
-  if(id==='shop'){
-
-    loadShopping();
-
-  }
-
-
-  render();
+render();
 
 }
 
 
-/* =========================
-   MODALES
-========================= */
+/* MODALES */
 
 function openM(id){
 
-  if(id==='expense'){
+if(id==='expense'){
 
-    const dateEl =
-      document.getElementById('date');
+const dateEl =
+document.getElementById('date');
 
+if(dateEl){
 
-    if(dateEl){
+dateEl.value =
+new Date()
+.toISOString()
+.slice(0,10);
 
-      dateEl.value =
-        new Date()
-          .toISOString()
-          .slice(0,10);
+}
 
-    }
+fill();
 
+}
 
-    fill();
+const modalId =
+id==='shop'
+? 'shopModal'
+: id;
 
-  }
+const modal =
+document.getElementById(modalId);
 
+if(modal){
 
-  const modalId =
-    id==='shop'
-      ? 'shopModal'
-      : id;
+modal.classList.add('show');
 
-
-  const modal =
-    document.getElementById(
-      modalId
-    );
-
-
-  if(modal){
-
-    modal.classList.add(
-      'show'
-    );
-
-  }
+}
 
 }
 
 
 function closeM(id){
 
-  const modal =
-    document.getElementById(id);
+const modal =
+document.getElementById(id);
 
+if(modal){
 
-  if(modal){
+modal.classList.remove('show');
 
-    modal.classList.remove(
-      'show'
-    );
-
-  }
+}
 
 }
 
 
-/* =========================
-   FOTOS
-========================= */
+/* FOTOS */
+
 function openCamera(){
 
-  document
-    .getElementById('cameraInput')
-    .click();
+const input =
+document.getElementById('cameraInput');
+
+if(input){
+
+input.click();
+
+}
 
 }
 
 
 function openGallery(){
 
-  document
-    .getElementById('photosInput')
-    .click();
+const input =
+document.getElementById('photosInput');
+
+if(input){
+
+input.click();
 
 }
+
+}
+
+
 function previewPhotos(ev){
 
-  const previewEl =
-    document.getElementById('preview');
+const previewEl =
+document.getElementById('preview');
 
-  if(!previewEl){
-    return;
-  }
+if(!previewEl){
 
-
-  [
-    ...ev.target.files
-  ].forEach(
-    f=>{
-
-      let r =
-        new FileReader;
-
-
-      r.onload =
-        e=>{
-
-          pics.push(
-            e.target.result
-          );
-
-
-          let i =
-            document.createElement('img');
-
-
-          i.src =
-            e.target.result;
-
-
-          i.className =
-            'photo';
-
-
-          previewEl.appendChild(i);
-
-        };
-
-
-      r.readAsDataURL(f);
-
-    }
-  );
-
-
-  /*
-    Permitimos volver a elegir
-    la misma foto posteriormente.
-  */
-
-  ev.target.value='';
+return;
 
 }
 
-/* =========================
-   AGREGAR COMPRA
-========================= */
+
+[
+...ev.target.files
+].forEach(
+f=>{
+
+let r =
+new FileReader;
+
+r.onload =
+e=>{
+
+pics.push(
+e.target.result
+);
+
+let i =
+document.createElement('img');
+
+i.src =
+e.target.result;
+
+i.className =
+'photo';
+
+previewEl.appendChild(i);
+
+};
+
+r.readAsDataURL(f);
+
+}
+);
+
+
+/*
+Permite volver a seleccionar
+la misma imagen.
+*/
+
+ev.target.value='';
+
+}
+
+
+/* AGREGAR COMPRA */
 
 async function addShop(ev){
 
-  ev.preventDefault();
+ev.preventDefault();
 
+if(
+!currentUser ||
+!currentHouseholdId
+){
 
-  if(
-    !currentUser ||
-    !currentHouseholdId
-  ){
+alert(
+'No hay una sesión activa.'
+);
 
-    alert(
-      'No hay una sesión activa.'
-    );
-
-    return;
-
-  }
-
-
-  const producto =
-    document
-      .getElementById('prod')
-      .value
-      .trim();
-
-
-  const cantidad =
-    document
-      .getElementById('qty')
-      .value;
-
-
-  const descripcion =
-    document
-      .getElementById('desc')
-      .value
-      .trim();
-
-
-  if(!producto){
-
-    alert(
-      'Escribe el producto.'
-    );
-
-    return;
-
-  }
-
-
-  const {
-    data,
-    error
-  } =
-    await sb
-      .from('compras')
-      .insert({
-
-        hogar_id:
-          currentHouseholdId,
-
-        usuario_id:
-          currentUser.id,
-
-        producto:
-          producto,
-
-        cantidad:
-          Number(cantidad)||1,
-
-        notas:
-          descripcion,
-
-        comprado:
-          false
-
-      })
-      .select()
-      .single();
-
-
-  if(error){
-
-    console.error(
-      'Error guardando compra:',
-      error
-    );
-
-
-    alert(
-      'No se pudo guardar la compra: '+
-      error.message
-    );
-
-
-    return;
-
-  }
-
-
-  console.log(
-    'Compra guardada:',
-    data
-  );
-
-
-  ev.target.reset();
-
-
-  closeM(
-    'shopModal'
-  );
-
-
-  await loadShopping();
-
-
-  render();
-
-
-  notify(
-    'Nueva compra',
-    producto
-  );
+return;
 
 }
 
 
-/* =========================
-   MARCAR COMPRA
-========================= */
+const producto =
+document
+.getElementById('prod')
+.value
+.trim();
+
+const cantidad =
+document
+.getElementById('qty')
+.value;
+
+const descripcion =
+document
+.getElementById('desc')
+.value
+.trim();
+
+
+if(!producto){
+
+alert(
+'Escribe el producto.'
+);
+
+return;
+
+}
+
+
+const {
+data,
+error
+} =
+await sb
+.from('compras')
+.insert({
+
+hogar_id:
+currentHouseholdId,
+
+usuario_id:
+currentUser.id,
+
+producto:
+producto,
+
+cantidad:
+Number(cantidad)||1,
+
+notas:
+descripcion,
+
+comprado:false
+
+})
+.select()
+.single();
+
+
+if(error){
+
+console.error(
+'Error guardando compra:',
+error
+);
+
+alert(
+'No se pudo guardar la compra: '+
+error.message
+);
+
+return;
+
+}
+
+
+console.log(
+'Compra guardada:',
+data
+);
+
+
+ev.target.reset();
+
+closeM('shopModal');
+
+await loadShopping();
+
+render();
+
+notify(
+'Nueva compra',
+producto
+);
+
+}
+
+
+/* MARCAR COMPRA */
 
 async function shopDone(id){
 
-  let x =
-    S.find(
-      a=>a.id===id
-    );
+let x =
+S.find(
+a=>a.id===id
+);
 
+if(!x){
 
-  if(!x){
-
-    return;
-
-  }
-
-
-  const nuevoEstado =
-    !x.done;
-
-
-  const {
-    error
-  } =
-    await sb
-      .from('compras')
-      .update({
-
-        comprado:
-          nuevoEstado
-
-      })
-      .eq(
-        'id',
-        id
-      )
-      .eq(
-        'hogar_id',
-        currentHouseholdId
-      );
-
-
-  if(error){
-
-    console.error(
-      'Error actualizando compra:',
-      error
-    );
-
-
-    alert(
-      'No se pudo actualizar la compra: '+
-      error.message
-    );
-
-
-    return;
-
-  }
-
-
-  x.done =
-    nuevoEstado;
-
-
-  render();
-
-
-  notify(
-
-    nuevoEstado
-      ? 'Producto comprado'
-      : 'Producto pendiente',
-
-    x.p
-
-  );
+return;
 
 }
 
 
-/* =========================
-   NOTIFICACIONES
-========================= */
+const nuevoEstado =
+!x.done;
+
+
+const {
+error
+} =
+await sb
+.from('compras')
+.update({
+
+comprado:
+nuevoEstado
+
+})
+.eq(
+'id',
+id
+)
+.eq(
+'hogar_id',
+currentHouseholdId
+);
+
+
+if(error){
+
+console.error(
+'Error actualizando compra:',
+error
+);
+
+alert(
+'No se pudo actualizar la compra: '+
+error.message
+);
+
+return;
+
+}
+
+
+x.done =
+nuevoEstado;
+
+render();
+
+notify(
+
+nuevoEstado
+? 'Producto comprado'
+: 'Producto pendiente',
+
+x.p
+
+);
+
+}
+
+
+/* NOTIFICACIONES */
 
 async function notif(){
 
-  if(
-    !('Notification' in window)
-  ){
+if(
+!('Notification' in window)
+){
 
-    alert(
-      'Tu navegador no permite notificaciones'
-    );
+alert(
+'Tu navegador no permite notificaciones'
+);
 
-    return;
+return;
 
-  }
-
-
-  let p =
-    await Notification.requestPermission();
+}
 
 
-  alert(
+let p =
+await Notification.requestPermission();
 
-    p==='granted'
-      ? 'Notificaciones activadas en este dispositivo'
-      : 'Permiso no concedido'
 
-  );
+alert(
+
+p==='granted'
+? 'Notificaciones activadas en este dispositivo'
+: 'Permiso no concedido'
+
+);
 
 }
 
 
 function notify(t,b){
 
-  if(
+if(
 
-    'Notification' in window &&
+'Notification' in window &&
 
-    Notification.permission ===
-      'granted'
+Notification.permission ===
+'granted'
 
-  ){
+){
 
-    new Notification(
+new Notification(
 
-      t,
+t,
 
-      {
-        body:b
-      }
+{
+body:b
+}
 
-    );
+);
 
-  }
+}
 
 }
 
 
-/* =========================
-   EXPORTAR
-========================= */
+/* EXPORTAR */
 
 function exportData(){
 
-  let b =
-    new Blob(
+let b =
+new Blob(
 
-      [
-        JSON.stringify(
+[
+JSON.stringify(
 
-          {
-            gastos:E,
-            compras:S
-          },
+{
+gastos:E,
+compras:S
+},
 
-          null,
-          2
+null,
+2
 
-        )
-      ],
+)
+],
 
-      {
-        type:'application/json'
-      }
+{
+type:'application/json'
+}
 
-    );
+);
 
+let a =
+document.createElement('a');
 
-  let a =
-    document.createElement(
-      'a'
-    );
+a.href =
+URL.createObjectURL(b);
 
+a.download =
+'casagastos-respaldo.json';
 
-  a.href =
-    URL.createObjectURL(b);
-
-
-  a.download =
-    'casagastos-respaldo.json';
-
-
-  a.click();
+a.click();
 
 }
 
 
-/* =========================
-   INICIO
-========================= */
+/* INICIO */
 
 (async function(){
 
-  const {
-    data
-  } =
-    await sb.auth.getSession();
+try{
+
+const {
+data
+} =
+await sb.auth.getSession();
 
 
-  if(
-    data?.session?.user
-  ){
+if(
+data?.session?.user
+){
 
-    currentUser =
-      data.session.user;
+currentUser =
+data.session.user;
 
+await loadMemberAndStart();
 
-    const {
-      data:member
-    } =
-      await sb
-        .from('miembros_hogar')
-        .select('hogar_id,rol')
-        .eq(
-          'usuario_id',
-          currentUser.id
-        )
-        .limit(1)
-        .maybeSingle();
+}
 
+else{
 
-    if(member){
+render();
 
-      currentRole =
-        member.rol;
+}
 
-      currentHouseholdId =
-        member.hogar_id;
+}
+catch(error){
 
+console.error(
+'Error iniciando CasaGastos:',
+error
+);
 
-      document
-        .getElementById(
-          'loginScreen'
-        )
-        .style
-        .display='none';
+render();
 
-
-      await loadExpenses();
-
-      await loadShopping();
-
-      render();
-
-    }
-
-  }
-
-  else{
-
-    render();
-
-  }
+}
 
 })();
 
