@@ -164,6 +164,22 @@ button:disabled{
   color:#08755f;
 }
 
+.edit-btn{
+  display:block;
+  margin-top:6px;
+  padding:8px 10px;
+  border-radius:11px;
+  background:var(--soft);
+  color:#076b5b;
+  font-size:10px;
+  font-weight:800;
+}
+
+.edit-btn:active{
+  opacity:.8;
+  transform:scale(.97);
+}
+
 .fab{
   position:fixed;
   bottom:73px;
@@ -958,7 +974,7 @@ button:disabled{
         </h2>
 
         <p class="small">
-          Administrador: puede modificar gastos.
+          Administrador: puede agregar y modificar gastos.
           Esposa: solo consulta gastos; ambos pueden usar Compras.
         </p>
 
@@ -1062,7 +1078,7 @@ button:disabled{
 
     <div class="head">
 
-      <b>
+      <b id="expenseModalTitle">
         Nuevo gasto
       </b>
 
@@ -1161,6 +1177,34 @@ button:disabled{
       </select>
 
 
+      <!-- ESTADO DEL PAGO SOLO EN EDICION -->
+
+      <div
+        id="paidField"
+        style="display:none"
+      >
+
+        <label>
+          Estado del pago
+        </label>
+
+        <select id="paidStatus">
+
+          <option value="false">
+            Pendiente
+          </option>
+
+          <option value="true">
+            Pagado
+          </option>
+
+        </select>
+
+      </div>
+
+
+      <!-- FOTOS -->
+
       <label>
         Fotos
       </label>
@@ -1212,9 +1256,30 @@ button:disabled{
           onchange="previewPhotos(event)"
         >
 
+        <!-- FOTOS NUEVAS -->
+
         <div
           class="photos"
           id="preview"
+        ></div>
+
+      </div>
+
+
+      <!-- FOTOS YA GUARDADAS -->
+
+      <div
+        id="existingPhotosBox"
+        style="display:none"
+      >
+
+        <label>
+          Fotos guardadas
+        </label>
+
+        <div
+          class="saved-photos"
+          id="existingPhotos"
         ></div>
 
       </div>
@@ -1429,6 +1494,40 @@ let photoIndex = 0;
 
 
 /* =====================================================
+   VARIABLES DE EDICION
+===================================================== */
+
+let editingExpenseId = null;
+let editingExistingPhotos = [];
+
+
+/* =====================================================
+   PERMISOS
+===================================================== */
+
+function canEditExpenses(){
+
+  const role =
+    String(
+      currentRole || ""
+    )
+    .toLowerCase()
+    .trim();
+
+  return [
+    "admin",
+    "administrador",
+    "administrator",
+    "superadmin",
+    "owner",
+    "dueño",
+    "dueno"
+  ].includes(role);
+
+}
+
+
+/* =====================================================
    ICONOS AUTOMATICOS POR CATEGORIA
 ===================================================== */
 
@@ -1523,8 +1622,7 @@ function getCategoryIcon(nombre){
   if(
     n.includes("internet hogar") ||
     n.includes("wifi") ||
-    n === "internet" ||
-    n.includes("internet hogar")
+    n === "internet"
   ){
     return "🌐";
   }
@@ -1684,14 +1782,21 @@ const ym =
    FECHA Y HORA
 ===================================================== */
 
-function formatDateTime(value, fallbackDate){
+function formatDateTime(
+  value,
+  fallbackDate
+){
 
   if(value){
 
     const d =
       new Date(value);
 
-    if(!Number.isNaN(d.getTime())){
+    if(
+      !Number.isNaN(
+        d.getTime()
+      )
+    ){
 
       return new Intl.DateTimeFormat(
         "es-CO",
@@ -1907,7 +2012,8 @@ function fill(){
     lista.includes(actual)
   ){
 
-    catEl.value = actual;
+    catEl.value =
+      actual;
 
   }
 
@@ -1945,7 +2051,8 @@ document
 
       }
 
-      n = n.trim();
+      n =
+        n.trim();
 
       if(!n){
 
@@ -2017,7 +2124,8 @@ document
 
         }
 
-        categoria = nueva;
+        categoria =
+          nueva;
 
       }
 
@@ -2068,12 +2176,14 @@ async function login(){
 
   }
 
-  button.disabled = true;
+  button.disabled =
+    true;
 
   button.textContent =
     "Iniciando sesión...";
 
-  msg.textContent = "";
+  msg.textContent =
+    "";
 
   try{
 
@@ -2144,9 +2254,11 @@ async function login(){
 
     document
       .getElementById("loginScreen")
-      .style.display = "none";
+      .style.display =
+      "none";
 
     await loadExpenses();
+
     await loadShopping();
 
     render();
@@ -2163,7 +2275,8 @@ async function login(){
 
   }finally{
 
-    button.disabled = false;
+    button.disabled =
+      false;
 
     button.textContent =
       "Iniciar sesión";
@@ -2211,9 +2324,11 @@ sb.auth.onAuthStateChange(
 
         document
           .getElementById("loginScreen")
-          .style.display = "none";
+          .style.display =
+          "none";
 
         await loadExpenses();
+
         await loadShopping();
 
         render();
@@ -2276,10 +2391,12 @@ async function loadExpenses(){
       ...new Set(
         gastos
           .map(
-            x => x.categoria_id
+            x =>
+              x.categoria_id
           )
           .filter(
-            id => id != null
+            id =>
+              id != null
           )
       )
     ];
@@ -2385,7 +2502,9 @@ async function loadExpenses(){
           "",
 
         photos:
-          Array.isArray(x.photos)
+          Array.isArray(
+            x.photos
+          )
             ?
             x.photos
             :
@@ -2395,7 +2514,7 @@ async function loadExpenses(){
     );
 
 
-  /* ORDENAR: MAS NUEVO PRIMERO */
+  /* ORDENAR */
 
   E.sort(
     (a,b) => {
@@ -2552,17 +2671,22 @@ function compressImage(
               let height =
                 img.height;
 
-              if(width > maxWidth){
+              if(
+                width >
+                maxWidth
+              ){
 
                 const ratio =
-                  maxWidth / width;
+                  maxWidth /
+                  width;
 
                 width =
                   maxWidth;
 
                 height =
                   Math.round(
-                    height * ratio
+                    height *
+                    ratio
                   );
 
               }
@@ -2648,7 +2772,7 @@ function compressImage(
 
 
 /* =====================================================
-   AGREGAR GASTO
+   AGREGAR / EDITAR GASTO
 ===================================================== */
 
 async function addExpense(ev){
@@ -2679,11 +2803,42 @@ async function addExpense(ev){
   }
 
 
+  /* SI ES EDICION, SOLO ADMIN */
+
+  if(
+    editingExpenseId !== null &&
+    !canEditExpenses()
+  ){
+
+    alert(
+      "Solo el administrador puede editar gastos."
+    );
+
+    return;
+
+  }
+
+
+  /* NUEVO GASTO TAMBIEN SOLO ADMIN */
+
+  if(
+    editingExpenseId === null &&
+    !canEditExpenses()
+  ){
+
+    alert(
+      "Solo el administrador puede agregar gastos."
+    );
+
+    return;
+
+  }
+
+
   const saveButton =
-    document
-      .getElementById(
-        "saveExpenseButton"
-      );
+    document.getElementById(
+      "saveExpenseButton"
+    );
 
 
   const catEl =
@@ -2778,14 +2933,20 @@ async function addExpense(ev){
 
   /* BLOQUEAR BOTON */
 
-  savingExpense = true;
+  savingExpense =
+    true;
 
   if(saveButton){
 
-    saveButton.disabled = true;
+    saveButton.disabled =
+      true;
 
     saveButton.textContent =
-      "Guardando...";
+      editingExpenseId !== null
+        ?
+        "Guardando cambios..."
+        :
+        "Guardando...";
 
   }
 
@@ -2893,8 +3054,7 @@ async function addExpense(ev){
 
 
     /* =================================================
-       FOTOS
-       SE COMPRIMEN Y SE SUBEN EN PARALELO
+       FOTOS NUEVAS
     ================================================= */
 
     let photoUrls = [];
@@ -2989,67 +3149,189 @@ async function addExpense(ev){
 
 
     /* =================================================
-       GUARDAR GASTO
+       FOTOS FINALES
     ================================================= */
 
-    const {
-      data,
-      error
-    } =
-      await sb
-        .from("gastos")
-        .insert({
-
-          hogar_id:
-            currentHouseholdId,
-
-          usuario_id:
-            currentUser.id,
-
-          categoria_id:
-            categoriaId,
-
-          monto:
-            monto,
-
-          fecha:
-            fecha,
-
-          descripcion:
-            notas ||
-            "Sin descripción",
-
-          split:
-            split,
-
-          payer:
-            payer,
-
-          paid:
-            false,
-
-          photos:
-            photoUrls
-
-        })
-        .select()
-        .single();
+    const finalPhotos =
+      editingExpenseId !== null
+        ?
+        [
+          ...editingExistingPhotos,
+          ...photoUrls
+        ]
+        :
+        photoUrls;
 
 
-    if(error){
+    /* =================================================
+       ESTADO PAGADO
+    ================================================= */
 
-      throw new Error(
-        "No se pudo guardar el gasto: " +
-        error.message
+    const paidStatus =
+      document.getElementById(
+        "paidStatus"
+      );
+
+
+    const estadoPagado =
+      editingExpenseId !== null
+        ?
+        (
+          paidStatus
+            ?
+            paidStatus.value === "true"
+            :
+            false
+        )
+        :
+        false;
+
+
+    /* =================================================
+       EDITAR GASTO EXISTENTE
+    ================================================= */
+
+    if(editingExpenseId !== null){
+
+      const {
+        data,
+        error
+      } =
+        await sb
+          .from("gastos")
+          .update({
+
+            categoria_id:
+              categoriaId,
+
+            monto:
+              monto,
+
+            fecha:
+              fecha,
+
+            descripcion:
+              notas ||
+              "Sin descripción",
+
+            split:
+              split,
+
+            payer:
+              payer,
+
+            paid:
+              estadoPagado,
+
+            photos:
+              finalPhotos
+
+          })
+          .eq(
+            "id",
+            editingExpenseId
+          )
+          .eq(
+            "hogar_id",
+            currentHouseholdId
+          )
+          .select()
+          .single();
+
+
+      if(error){
+
+        throw new Error(
+          "No se pudo actualizar el gasto: " +
+          error.message
+        );
+
+      }
+
+
+      console.log(
+        "Gasto actualizado:",
+        data
+      );
+
+
+      notify(
+        "Gasto actualizado",
+        categoriaTexto
+      );
+
+    }else{
+
+      /* =================================================
+         NUEVO GASTO
+      ================================================= */
+
+      const {
+        data,
+        error
+      } =
+        await sb
+          .from("gastos")
+          .insert({
+
+            hogar_id:
+              currentHouseholdId,
+
+            usuario_id:
+              currentUser.id,
+
+            categoria_id:
+              categoriaId,
+
+            monto:
+              monto,
+
+            fecha:
+              fecha,
+
+            descripcion:
+              notas ||
+              "Sin descripción",
+
+            split:
+              split,
+
+            payer:
+              payer,
+
+            paid:
+              false,
+
+            photos:
+              finalPhotos
+
+          })
+          .select()
+          .single();
+
+
+      if(error){
+
+        throw new Error(
+          "No se pudo guardar el gasto: " +
+          error.message
+        );
+
+      }
+
+
+      console.log(
+        "Gasto guardado:",
+        data
+      );
+
+
+      notify(
+        "Nuevo gasto",
+        categoriaTexto
       );
 
     }
-
-
-    console.log(
-      "Gasto guardado:",
-      data
-    );
 
 
     /* =================================================
@@ -3058,11 +3340,95 @@ async function addExpense(ev){
 
     pics = [];
 
-    previewEl.innerHTML = "";
+    editingExpenseId =
+      null;
+
+    editingExistingPhotos =
+      [];
+
+
+    if(previewEl){
+
+      previewEl.innerHTML =
+        "";
+
+    }
+
+
+    const existingPhotosBox =
+      document.getElementById(
+        "existingPhotosBox"
+      );
+
+    if(existingPhotosBox){
+
+      existingPhotosBox.style.display =
+        "none";
+
+    }
+
+
+    const existingPhotos =
+      document.getElementById(
+        "existingPhotos"
+      );
+
+    if(existingPhotos){
+
+      existingPhotos.innerHTML =
+        "";
+
+    }
+
 
     ev.target.reset();
 
     fill();
+
+
+    /* RESTAURAR TITULO */
+
+    const title =
+      document.getElementById(
+        "expenseModalTitle"
+      );
+
+    if(title){
+
+      title.textContent =
+        "Nuevo gasto";
+
+    }
+
+
+    /* RESTAURAR BOTON */
+
+    const saveButton2 =
+      document.getElementById(
+        "saveExpenseButton"
+      );
+
+    if(saveButton2){
+
+      saveButton2.textContent =
+        "Guardar gasto";
+
+    }
+
+
+    /* OCULTAR ESTADO */
+
+    const paidField =
+      document.getElementById(
+        "paidField"
+      );
+
+    if(paidField){
+
+      paidField.style.display =
+        "none";
+
+    }
 
 
     /* CERRAR */
@@ -3072,24 +3438,17 @@ async function addExpense(ev){
     );
 
 
-    /* RECARGAR DESDE SUPABASE */
+    /* RECARGAR */
 
     await loadExpenses();
 
-
     render();
-
-
-    notify(
-      "Nuevo gasto",
-      categoriaTexto
-    );
 
 
   }catch(error){
 
     console.error(
-      "Error guardando gasto:",
+      "Error guardando/actualizando gasto:",
       error
     );
 
@@ -3098,19 +3457,497 @@ async function addExpense(ev){
       "No se pudo guardar el gasto."
     );
 
-
   }finally{
 
-    savingExpense = false;
+    savingExpense =
+      false;
 
     if(saveButton){
 
-      saveButton.disabled = false;
+      saveButton.disabled =
+        false;
 
       saveButton.textContent =
-        "Guardar gasto";
+        editingExpenseId !== null
+          ?
+          "Guardar cambios"
+          :
+          "Guardar gasto";
 
     }
+
+  }
+
+}
+
+
+/* =====================================================
+   PREPARAR NUEVO GASTO
+===================================================== */
+
+function prepareNewExpense(){
+
+  editingExpenseId =
+    null;
+
+  editingExistingPhotos =
+    [];
+
+  pics = [];
+
+
+  const form =
+    document.getElementById(
+      "expenseForm"
+    );
+
+  if(form){
+
+    form.reset();
+
+  }
+
+
+  const title =
+    document.getElementById(
+      "expenseModalTitle"
+    );
+
+  if(title){
+
+    title.textContent =
+      "Nuevo gasto";
+
+  }
+
+
+  const button =
+    document.getElementById(
+      "saveExpenseButton"
+    );
+
+  if(button){
+
+    button.textContent =
+      "Guardar gasto";
+
+  }
+
+
+  const paidField =
+    document.getElementById(
+      "paidField"
+    );
+
+  if(paidField){
+
+    paidField.style.display =
+      "none";
+
+  }
+
+
+  const preview =
+    document.getElementById(
+      "preview"
+    );
+
+  if(preview){
+
+    preview.innerHTML =
+      "";
+
+  }
+
+
+  const existingPhotosBox =
+    document.getElementById(
+      "existingPhotosBox"
+    );
+
+  if(existingPhotosBox){
+
+    existingPhotosBox.style.display =
+      "none";
+
+  }
+
+
+  const existingPhotos =
+    document.getElementById(
+      "existingPhotos"
+    );
+
+  if(existingPhotos){
+
+    existingPhotos.innerHTML =
+      "";
+
+  }
+
+
+  const dateEl =
+    document.getElementById(
+      "date"
+    );
+
+  if(dateEl){
+
+    dateEl.value =
+      new Date()
+        .toISOString()
+        .slice(0,10);
+
+  }
+
+
+  fill();
+
+}
+
+
+/* =====================================================
+   MOSTRAR FOTOS EXISTENTES
+===================================================== */
+
+function renderExistingPhotos(){
+
+  const box =
+    document.getElementById(
+      "existingPhotosBox"
+    );
+
+  const container =
+    document.getElementById(
+      "existingPhotos"
+    );
+
+  if(
+    !box ||
+    !container
+  ){
+
+    return;
+
+  }
+
+
+  container.innerHTML =
+    "";
+
+
+  if(
+    !editingExistingPhotos.length
+  ){
+
+    box.style.display =
+      "none";
+
+    return;
+
+  }
+
+
+  box.style.display =
+    "block";
+
+
+  editingExistingPhotos
+    .filter(Boolean)
+    .forEach(
+      (
+        foto,
+        index
+      ) => {
+
+        const img =
+          document.createElement(
+            "img"
+          );
+
+        img.src =
+          foto;
+
+        img.className =
+          "saved-photo";
+
+        img.alt =
+          "Foto guardada";
+
+        img.title =
+          "Foto guardada";
+
+
+        img.onclick =
+          () =>
+            openPhotoFromExpense(
+              editingExistingPhotos,
+              index
+            );
+
+
+        container.appendChild(
+          img
+        );
+
+      }
+    );
+
+}
+
+
+/* =====================================================
+   EDITAR GASTO
+===================================================== */
+
+function openEditExpense(id){
+
+  if(!canEditExpenses()){
+
+    alert(
+      "Solo el administrador puede editar gastos."
+    );
+
+    return;
+
+  }
+
+
+  const gasto =
+    E.find(
+      x =>
+        String(x.id) ===
+        String(id)
+    );
+
+
+  if(!gasto){
+
+    alert(
+      "No se encontró el gasto."
+    );
+
+    return;
+
+  }
+
+
+  editingExpenseId =
+    gasto.id;
+
+
+  editingExistingPhotos =
+    Array.isArray(
+      gasto.photos
+    )
+      ?
+      [
+        ...gasto.photos
+      ]
+      :
+      [];
+
+
+  pics = [];
+
+
+  fill();
+
+
+  const catEl =
+    document.getElementById(
+      "cat"
+    );
+
+
+  if(
+    catEl &&
+    gasto.cat &&
+    ![
+      ...catEl.options
+    ].some(
+      option =>
+        option.value ===
+        gasto.cat
+    )
+  ){
+
+    const option =
+      document.createElement(
+        "option"
+      );
+
+    option.value =
+      gasto.cat;
+
+    option.textContent =
+      `${getCategoryIcon(gasto.cat)} ${gasto.cat}`;
+
+    catEl.appendChild(
+      option
+    );
+
+  }
+
+
+  if(catEl){
+
+    catEl.value =
+      gasto.cat ||
+      "Otro";
+
+  }
+
+
+  const amountEl =
+    document.getElementById(
+      "amount"
+    );
+
+  if(amountEl){
+
+    amountEl.value =
+      gasto.amount || "";
+
+  }
+
+
+  const dateEl =
+    document.getElementById(
+      "date"
+    );
+
+  if(dateEl){
+
+    dateEl.value =
+      gasto.date || "";
+
+  }
+
+
+  const splitEl =
+    document.getElementById(
+      "split"
+    );
+
+  if(splitEl){
+
+    splitEl.value =
+      gasto.split ||
+      "shared";
+
+  }
+
+
+  const payerEl =
+    document.getElementById(
+      "payer"
+    );
+
+  if(payerEl){
+
+    payerEl.value =
+      gasto.payer ||
+      "me";
+
+  }
+
+
+  const paidStatus =
+    document.getElementById(
+      "paidStatus"
+    );
+
+  if(paidStatus){
+
+    paidStatus.value =
+      gasto.paid
+        ?
+        "true"
+        :
+        "false";
+
+  }
+
+
+  const noteEl =
+    document.getElementById(
+      "note"
+    );
+
+  if(noteEl){
+
+    noteEl.value =
+      gasto.note || "";
+
+  }
+
+
+  const preview =
+    document.getElementById(
+      "preview"
+    );
+
+  if(preview){
+
+    preview.innerHTML =
+      "";
+
+  }
+
+
+  const title =
+    document.getElementById(
+      "expenseModalTitle"
+    );
+
+  if(title){
+
+    title.textContent =
+      "Editar gasto";
+
+  }
+
+
+  const button =
+    document.getElementById(
+      "saveExpenseButton"
+    );
+
+  if(button){
+
+    button.textContent =
+      "Guardar cambios";
+
+  }
+
+
+  const paidField =
+    document.getElementById(
+      "paidField"
+    );
+
+  if(paidField){
+
+    paidField.style.display =
+      "block";
+
+  }
+
+
+  renderExistingPhotos();
+
+
+  const modal =
+    document.getElementById(
+      "expense"
+    );
+
+  if(modal){
+
+    modal.classList.add(
+      "show"
+    );
 
   }
 
@@ -3123,14 +3960,31 @@ async function addExpense(ev){
 
 async function paid(id){
 
-  const x =
-    E.find(
-      a => a.id === id
+  if(!canEditExpenses()){
+
+    alert(
+      "Solo el administrador puede modificar gastos."
     );
 
-  if(!x){
     return;
+
   }
+
+
+  const x =
+    E.find(
+      a =>
+        String(a.id) ===
+        String(id)
+    );
+
+
+  if(!x){
+
+    return;
+
+  }
+
 
   const nuevoEstado =
     !x.paid;
@@ -3142,8 +3996,10 @@ async function paid(id){
     await sb
       .from("gastos")
       .update({
+
         paid:
           nuevoEstado
+
       })
       .eq(
         "id",
@@ -3206,6 +4062,7 @@ function render(){
       "month"
     );
 
+
   if(monthEl){
 
     monthEl.textContent =
@@ -3225,12 +4082,13 @@ function render(){
   /* GASTOS DEL MES */
 
   let a =
-    E
-      .filter(
-        x =>
-          x.date &&
-          x.date.startsWith(ym)
-      );
+    E.filter(
+      x =>
+        x.date &&
+        x.date.startsWith(
+          ym
+        )
+    );
 
 
   /* ORDEN NUEVO PRIMERO */
@@ -3265,7 +4123,9 @@ function render(){
       (s,x) =>
         s +
         (
-          Number(x.amount) ||
+          Number(
+            x.amount
+          ) ||
           0
         ),
       0
@@ -3283,7 +4143,9 @@ function render(){
     x => {
 
       const amount =
-        Number(x.amount) ||
+        Number(
+          x.amount
+        ) ||
         0;
 
 
@@ -3365,26 +4227,38 @@ function render(){
     );
 
 
-  if(totalEl)
+  if(totalEl){
+
     totalEl.textContent =
       money(total);
 
+  }
 
-  if(myEl)
+
+  if(myEl){
+
     myEl.textContent =
       money(my);
 
+  }
 
-  if(wifeEl)
+
+  if(wifeEl){
+
     wifeEl.textContent =
       money(w);
 
+  }
 
-  if(balEl)
+
+  if(balEl){
+
     balEl.textContent =
       money(
         Math.abs(d)
       );
+
+  }
 
 
   if(balTextEl){
@@ -3407,7 +4281,8 @@ function render(){
 
     pendingEl.textContent =
       a.filter(
-        x => !x.paid
+        x =>
+          !x.paid
       ).length +
       " pendientes";
 
@@ -3437,7 +4312,9 @@ function render(){
                 x.photos
               )
                 ?
-                x.photos.filter(Boolean)
+                x.photos.filter(
+                  Boolean
+                )
                 :
                 [];
 
@@ -3449,7 +4326,10 @@ function render(){
                 <div class="saved-photos">
 
                   ${fotos.map(
-                    (foto,index) =>
+                    (
+                      foto,
+                      index
+                    ) =>
                       `
                       <img
                         src="${foto}"
@@ -3471,6 +4351,54 @@ function render(){
                 x.createdAt,
                 x.date
               );
+
+
+            /* BOTONES SEGUN ROL */
+
+            const acciones =
+              canEditExpenses()
+                ?
+                `
+                  <button
+                    class="pay ${x.paid ? "ok" : ""}"
+                    type="button"
+                    onclick='paid(${JSON.stringify(x.id)})'
+                  >
+
+                    ${
+                      x.paid
+                        ?
+                        "✓ Pagado"
+                        :
+                        "Marcar pagado"
+                    }
+
+                  </button>
+
+                  <button
+                    class="edit-btn"
+                    type="button"
+                    onclick='openEditExpense(${JSON.stringify(x.id)})'
+                  >
+                    ✏️ Editar
+                  </button>
+                `
+                :
+                `
+                  <span
+                    class="tag ${x.paid ? "ok" : ""}"
+                  >
+
+                    ${
+                      x.paid
+                        ?
+                        "Pagado"
+                        :
+                        "Pendiente"
+                    }
+
+                  </span>
+                `;
 
 
             return `
@@ -3531,21 +4459,7 @@ function render(){
 
                   <br>
 
-                  <button
-                    class="pay ${x.paid ? "ok" : ""}"
-                    type="button"
-                    onclick="paid('${x.id}')"
-                  >
-
-                    ${
-                      x.paid
-                        ?
-                        "✓ Pagado"
-                        :
-                        "Marcar pagado"
-                    }
-
-                  </button>
+                  ${acciones}
 
                 </div>
 
@@ -3580,9 +4494,13 @@ function render(){
 
       a
         .filter(
-          x => !x.paid
+          x =>
+            !x.paid
         )
-        .slice(0,6)
+        .slice(
+          0,
+          6
+        )
         .map(
           x => `
 
@@ -3660,7 +4578,9 @@ function render(){
 
                 </div>
 
-                <span class="tag ${x.paid ? "ok" : ""}">
+                <span
+                  class="tag ${x.paid ? "ok" : ""}"
+                >
 
                   ${
                     x.paid
@@ -3699,7 +4619,9 @@ function render(){
       c[x.cat] =
         (c[x.cat] || 0) +
         (
-          Number(x.amount) ||
+          Number(
+            x.amount
+          ) ||
           0
         );
 
@@ -3734,12 +4656,16 @@ function render(){
         .map(
           ([k,v]) => `
 
-            <div style="margin:13px 0">
+            <div
+              style="margin:13px 0"
+            >
 
-              <div style="
+              <div
+                style="
                 display:flex;
                 justify-content:space-between
-              ">
+                "
+              >
 
                 <b>
                   ${getCategoryIcon(k)} ${k}
@@ -3796,7 +4722,7 @@ function render(){
               <button
                 class="check ${x.done ? "on" : ""}"
                 type="button"
-                onclick="shopDone('${x.id}')"
+                onclick='shopDone(${JSON.stringify(x.id)})'
               >
 
                 ${
@@ -3946,23 +4872,22 @@ function show(id,b){
 
 function openM(id){
 
+  /* GASTOS: SOLO ADMIN */
+
   if(id === "expense"){
 
-    const dateEl =
-      document.getElementById(
-        "date"
+    if(!canEditExpenses()){
+
+      alert(
+        "Solo el administrador puede agregar o editar gastos."
       );
 
-    if(dateEl){
-
-      dateEl.value =
-        new Date()
-          .toISOString()
-          .slice(0,10);
+      return;
 
     }
 
-    fill();
+
+    prepareNewExpense();
 
   }
 
@@ -3992,6 +4917,10 @@ function openM(id){
 }
 
 
+/* =====================================================
+   CERRAR MODAL
+===================================================== */
+
 function closeM(id){
 
   const modal =
@@ -4005,6 +4934,84 @@ function closeM(id){
     modal.classList.remove(
       "show"
     );
+
+  }
+
+
+  if(id === "expense"){
+
+    editingExpenseId =
+      null;
+
+    editingExistingPhotos =
+      [];
+
+    pics = [];
+
+
+    const title =
+      document.getElementById(
+        "expenseModalTitle"
+      );
+
+    if(title){
+
+      title.textContent =
+        "Nuevo gasto";
+
+    }
+
+
+    const button =
+      document.getElementById(
+        "saveExpenseButton"
+      );
+
+    if(button){
+
+      button.textContent =
+        "Guardar gasto";
+
+    }
+
+
+    const paidField =
+      document.getElementById(
+        "paidField"
+      );
+
+    if(paidField){
+
+      paidField.style.display =
+        "none";
+
+    }
+
+
+    const existingBox =
+      document.getElementById(
+        "existingPhotosBox"
+      );
+
+    if(existingBox){
+
+      existingBox.style.display =
+        "none";
+
+    }
+
+
+    const existingPhotos =
+      document.getElementById(
+        "existingPhotos"
+      );
+
+    if(existingPhotos){
+
+      existingPhotos.innerHTML =
+        "";
+
+    }
 
   }
 
@@ -4062,7 +5069,9 @@ function previewPhotos(ev){
 
 
   if(!previewEl){
+
     return;
+
   }
 
 
@@ -4131,7 +5140,8 @@ function previewPhotos(ev){
   );
 
 
-  ev.target.value = "";
+  ev.target.value =
+    "";
 
 }
 
@@ -4160,12 +5170,14 @@ function openPhotoFromExpense(
 
 
   photoIndex =
-    Number(index) || 0;
+    Number(index) ||
+    0;
 
 
   if(photoIndex < 0){
 
-    photoIndex = 0;
+    photoIndex =
+      0;
 
   }
 
@@ -4210,7 +5222,9 @@ function openPhotoFromExpense(
 function openPhoto(url){
 
   if(!url){
+
     return;
+
   }
 
   openPhotoFromExpense(
@@ -4221,7 +5235,9 @@ function openPhoto(url){
 }
 
 
-/* ACTUALIZAR VISOR */
+/* =====================================================
+   ACTUALIZAR VISOR
+===================================================== */
 
 function updatePhotoViewer(){
 
@@ -4279,7 +5295,9 @@ function updatePhotoViewer(){
 }
 
 
-/* SIGUIENTE */
+/* =====================================================
+   SIGUIENTE
+===================================================== */
 
 function nextPhoto(){
 
@@ -4300,7 +5318,8 @@ function nextPhoto(){
     photoList.length
   ){
 
-    photoIndex = 0;
+    photoIndex =
+      0;
 
   }
 
@@ -4310,7 +5329,9 @@ function nextPhoto(){
 }
 
 
-/* ANTERIOR */
+/* =====================================================
+   ANTERIOR
+===================================================== */
 
 function previousPhoto(){
 
@@ -4339,7 +5360,9 @@ function previousPhoto(){
 }
 
 
-/* CERRAR */
+/* =====================================================
+   CERRAR FOTO
+===================================================== */
 
 function closePhoto(){
 
@@ -4365,7 +5388,8 @@ function closePhoto(){
 
   if(image){
 
-    image.src = "";
+    image.src =
+      "";
 
   }
 
@@ -4374,12 +5398,15 @@ function closePhoto(){
 
   photoIndex = 0;
 
-  document.body.style.overflow = "";
+  document.body.style.overflow =
+    "";
 
 }
 
 
-/* TECLADO */
+/* =====================================================
+   TECLADO
+===================================================== */
 
 document.addEventListener(
   "keydown",
@@ -4403,7 +5430,10 @@ document.addEventListener(
     }
 
 
-    if(ev.key === "Escape"){
+    if(
+      ev.key ===
+      "Escape"
+    ){
 
       closePhoto();
 
@@ -4575,12 +5605,16 @@ async function shopDone(id){
 
   const x =
     S.find(
-      a => String(a.id) === String(id)
+      a =>
+        String(a.id) ===
+        String(id)
     );
 
 
   if(!x){
+
     return;
+
   }
 
 
@@ -4594,8 +5628,10 @@ async function shopDone(id){
     await sb
       .from("compras")
       .update({
+
         comprado:
           nuevoEstado
+
       })
       .eq(
         "id",
@@ -4803,7 +5839,8 @@ function exportData(){
             "loginScreen"
           )
           .style
-          .display = "none";
+          .display =
+          "none";
 
 
         await loadExpenses();
