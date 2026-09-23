@@ -16,43 +16,51 @@
   --p:#0b8f78;
   --soft:#e7f7f3;
   --line:#e4ece9;
-  --shadow:0 10px 28px #164f4215
+  --shadow:0 10px 28px #164f4215;
 }
 
-*{box-sizing:border-box}
+*{
+  box-sizing:border-box;
+}
 
 body{
   margin:0;
   background:var(--bg);
   color:var(--ink);
-  font-family:system-ui,-apple-system,Segoe UI,sans-serif
+  font-family:system-ui,-apple-system,Segoe UI,sans-serif;
 }
 
 .app{
   max-width:540px;
   margin:auto;
-  padding-bottom:90px
+  padding-bottom:90px;
 }
 
 .top{
   padding:20px 18px 10px;
   display:flex;
-  justify-content:space-between
+  justify-content:space-between;
 }
 
 .brand{
   font-size:23px;
-  font-weight:850
+  font-weight:850;
 }
 
-.sub,.small{
+.sub,
+.small{
   font-size:11px;
-  color:var(--muted)
+  color:var(--muted);
 }
 
 button{
   border:0;
-  cursor:pointer
+  cursor:pointer;
+}
+
+button:disabled{
+  opacity:.65;
+  cursor:not-allowed;
 }
 
 .icon{
@@ -60,7 +68,7 @@ button{
   height:42px;
   border-radius:14px;
   background:#fff;
-  box-shadow:var(--shadow)
+  box-shadow:var(--shadow);
 }
 
 .hero{
@@ -69,40 +77,40 @@ button{
   border-radius:25px;
   background:linear-gradient(135deg,#0b8f78,#08725f);
   color:white;
-  box-shadow:var(--shadow)
+  box-shadow:var(--shadow);
 }
 
 .hero h1{
   font-size:31px;
-  margin:8px 0
+  margin:8px 0;
 }
 
 .grid{
   display:grid;
   grid-template-columns:1fr 1fr;
   gap:12px;
-  margin:14px 18px
+  margin:14px 18px;
 }
 
 .card{
   background:var(--card);
   border-radius:20px;
   padding:16px;
-  box-shadow:var(--shadow)
+  box-shadow:var(--shadow);
 }
 
 .money{
   font-size:20px;
   font-weight:850;
-  margin-top:5px
+  margin-top:5px;
 }
 
 .section{
-  margin:18px
+  margin:18px;
 }
 
 .section h2{
-  font-size:16px
+  font-size:16px;
 }
 
 .row{
@@ -110,7 +118,7 @@ button{
   gap:11px;
   align-items:center;
   padding:13px 0;
-  border-bottom:1px solid var(--line)
+  border-bottom:1px solid var(--line);
 }
 
 .ico{
@@ -120,12 +128,12 @@ button{
   background:var(--soft);
   display:grid;
   place-items:center;
-  flex-shrink:0
+  flex-shrink:0;
 }
 
 .grow{
   flex:1;
-  min-width:0
+  min-width:0;
 }
 
 .tag{
@@ -133,12 +141,12 @@ button{
   padding:5px 8px;
   border-radius:9px;
   background:#fff0d6;
-  color:#8b6418
+  color:#8b6418;
 }
 
 .ok{
   background:#e5f8f1;
-  color:#08755f
+  color:#08755f;
 }
 
 .pay{
@@ -147,12 +155,12 @@ button{
   background:#fff0f3;
   color:#b73952;
   font-size:10px;
-  font-weight:800
+  font-weight:800;
 }
 
 .pay.ok{
   background:#e5f8f1;
-  color:#08755f
+  color:#08755f;
 }
 
 .fab{
@@ -167,7 +175,7 @@ button{
   padding:15px;
   border-radius:16px;
   font-weight:800;
-  box-shadow:0 12px 25px #0b8f7845
+  box-shadow:0 12px 25px #0b8f7845;
 }
 
 .nav{
@@ -179,7 +187,7 @@ button{
   border-top:1px solid var(--line);
   display:flex;
   justify-content:center;
-  z-index:5
+  z-index:5;
 }
 
 .nav button{
@@ -188,31 +196,31 @@ button{
   background:none;
   color:var(--muted);
   padding:9px 1px;
-  font-size:10px
+  font-size:10px;
 }
 
 .nav .active{
   color:var(--p);
-  font-weight:800
+  font-weight:800;
 }
 
 .screen{
-  display:none
+  display:none;
 }
 
 .screen.active{
   display:block;
-  animation:in .2s
+  animation:in .2s;
 }
 
 @keyframes in{
   from{
     opacity:0;
-    transform:translateY(5px)
+    transform:translateY(5px);
   }
   to{
     opacity:1;
-    transform:none
+    transform:none;
   }
 }
 
@@ -222,11 +230,11 @@ button{
   background:#04141166;
   display:none;
   align-items:end;
-  z-index:20
+  z-index:20;
 }
 
 .modal.show{
-  display:flex
+  display:flex;
 }
 
 .sheet{
@@ -236,24 +244,24 @@ button{
   background:var(--bg);
   border-radius:25px 25px 0 0;
   max-height:92vh;
-  overflow:auto
+  overflow:auto;
 }
 
 .head{
   padding:16px 18px;
   display:flex;
-  justify-content:space-between
+  justify-content:space-between;
 }
 
 .form{
-  padding:18px
+  padding:18px;
 }
 
 .form label{
   display:block;
   font-size:12px;
   color:var(--muted);
-  margin:11px 0 5px
+  margin:11px 0 5px;
 }
 
 .form input,
@@ -263,36 +271,36 @@ button{
   padding:13px;
   border:1px solid var(--line);
   border-radius:12px;
-  background:#fff
+  background:#fff;
 }
 
 .form textarea{
-  min-height:70px
+  min-height:70px;
 }
 
 .tw{
   display:grid;
   grid-template-columns:1fr 1fr;
-  gap:9px
+  gap:9px;
 }
 
 .primary,
 .secondary{
   padding:13px;
   border-radius:13px;
-  font-weight:800
+  font-weight:800;
 }
 
 .primary{
   width:100%;
   background:var(--p);
   color:#fff;
-  margin-top:15px
+  margin-top:15px;
 }
 
 .secondary{
   background:var(--soft);
-  color:#076b5b
+  color:#076b5b;
 }
 
 .drop{
@@ -300,14 +308,14 @@ button{
   border:2px dashed #c7dcd7;
   border-radius:15px;
   text-align:center;
-  color:var(--muted)
+  color:var(--muted);
 }
 
 .photos{
   display:flex;
   gap:7px;
   overflow:auto;
-  margin-top:8px
+  margin-top:8px;
 }
 
 .photo{
@@ -315,14 +323,14 @@ button{
   height:70px;
   object-fit:cover;
   border-radius:10px;
-  flex-shrink:0
+  flex-shrink:0;
 }
 
 .saved-photos{
   display:flex;
   gap:7px;
   overflow:auto;
-  margin-top:9px
+  margin-top:9px;
 }
 
 .saved-photo{
@@ -332,7 +340,7 @@ button{
   border-radius:12px;
   cursor:pointer;
   border:1px solid var(--line);
-  flex-shrink:0
+  flex-shrink:0;
 }
 
 .item{
@@ -340,7 +348,7 @@ button{
   gap:10px;
   align-items:center;
   padding:12px 0;
-  border-bottom:1px solid var(--line)
+  border-bottom:1px solid var(--line);
 }
 
 .check{
@@ -348,32 +356,32 @@ button{
   height:27px;
   border-radius:9px;
   border:2px solid #c6d7d2;
-  background:white
+  background:white;
 }
 
 .check.on{
   background:var(--p);
-  color:white
+  color:white;
 }
 
 .bar{
   height:9px;
   background:#edf1f0;
   border-radius:20px;
-  margin-top:6px
+  margin-top:6px;
 }
 
 .fill{
   height:100%;
   background:var(--p);
   border-radius:20px;
-  transition:width .4s
+  transition:width .4s;
 }
 
 .empty{
   text-align:center;
   color:var(--muted);
-  padding:25px
+  padding:25px;
 }
 
 .notice{
@@ -382,13 +390,11 @@ button{
   background:#edf6f3;
   padding:10px;
   border-radius:11px;
-  margin-top:10px
+  margin-top:10px;
 }
 
 
-/* =================================================
-   VISOR DE FOTOS
-================================================= */
+/* VISOR DE FOTOS */
 
 .photo-viewer{
   position:fixed;
@@ -399,11 +405,11 @@ button{
   justify-content:center;
   padding:20px;
   z-index:10000;
-  touch-action:manipulation
+  touch-action:manipulation;
 }
 
 .photo-viewer.show{
-  display:flex
+  display:flex;
 }
 
 .photo-viewer img{
@@ -415,7 +421,7 @@ button{
   border-radius:10px;
   box-shadow:0 10px 40px rgba(0,0,0,.45);
   user-select:none;
-  -webkit-user-select:none
+  -webkit-user-select:none;
 }
 
 .photo-close{
@@ -430,7 +436,7 @@ button{
   font-size:24px;
   display:grid;
   place-items:center;
-  z-index:10002
+  z-index:10002;
 }
 
 .photo-nav{
@@ -442,7 +448,7 @@ button{
   align-items:center;
   justify-content:center;
   gap:8px;
-  z-index:10002
+  z-index:10002;
 }
 
 .photo-nav button{
@@ -452,11 +458,11 @@ button{
   color:#fff;
   font-size:12px;
   font-weight:800;
-  backdrop-filter:blur(8px)
+  backdrop-filter:blur(8px);
 }
 
 .photo-nav button:active{
-  background:rgba(255,255,255,.30)
+  background:rgba(255,255,255,.30);
 }
 
 .photo-counter{
@@ -466,7 +472,7 @@ button{
   color:#fff;
   font-size:11px;
   min-width:45px;
-  text-align:center
+  text-align:center;
 }
 
 .photo-hint{
@@ -476,9 +482,8 @@ button{
   transform:translateX(-50%);
   color:rgba(255,255,255,.55);
   font-size:9px;
-  pointer-events:none
+  pointer-events:none;
 }
-
 </style>
 </head>
 
@@ -599,6 +604,7 @@ background:#f8faf9;
 </div>
 
 <button
+id="loginButton"
 onclick="login()"
 style="
 width:100%;
@@ -649,11 +655,8 @@ CasaGastos • Finanzas del hogar
 <div class="top">
 
 <div>
-
 <div class="brand">🏠 CasaGastos</div>
-
 <div class="sub" id="month"></div>
-
 </div>
 
 <button
@@ -944,6 +947,7 @@ onclick="closeM('expense')"
 </div>
 
 <form
+id="expenseForm"
 class="form"
 onsubmit="addExpense(event)"
 >
@@ -951,7 +955,6 @@ onsubmit="addExpense(event)"
 <label>Categoría</label>
 
 <select id="cat"></select>
-
 
 <label>Valor</label>
 
@@ -961,7 +964,6 @@ type="number"
 min="0"
 required
 >
-
 
 <div class="tw">
 
@@ -1001,7 +1003,6 @@ Solo esposa
 
 </div>
 
-
 <label>¿Quién pagó?</label>
 
 <select id="payer">
@@ -1015,7 +1016,6 @@ Mi esposa
 </option>
 
 </select>
-
 
 <label>Fotos</label>
 
@@ -1071,7 +1071,6 @@ id="preview"
 
 </div>
 
-
 <label>Descripción</label>
 
 <textarea
@@ -1079,8 +1078,11 @@ id="note"
 placeholder="Factura, marca, detalle..."
 ></textarea>
 
-
-<button class="primary">
+<button
+id="saveExpenseButton"
+class="primary"
+type="submit"
+>
 Guardar gasto
 </button>
 
@@ -1130,7 +1132,7 @@ id="desc"
 placeholder="Marca, tamaño, presentación..."
 ></textarea>
 
-<button class="primary">
+<button class="primary" type="submit">
 Agregar a la lista
 </button>
 
@@ -1141,9 +1143,7 @@ Agregar a la lista
 </div>
 
 
-<!-- =================================================
-     VISOR DE FOTOS
-================================================= -->
+<!-- VISOR DE FOTOS -->
 
 <div
 id="photoViewer"
@@ -1221,14 +1221,18 @@ SUPABASE_KEY
 );
 
 
-/* SESION */
+/* =========================
+   SESION
+========================= */
 
 let currentUser = null;
 let currentRole = null;
 let currentHouseholdId = null;
 
 
-/* VARIABLES */
+/* =========================
+   VARIABLES
+========================= */
 
 const EK = 'cg2_exp';
 const CC = 'cg2_cats';
@@ -1238,46 +1242,56 @@ let S = [];
 let pics = [];
 let active = 'home';
 
+let savingExpense = false;
 
-/* VARIABLES DEL VISOR DE FOTOS */
+
+/* =========================
+   VISOR DE FOTOS
+========================= */
 
 let photoList = [];
 let photoIndex = 0;
 
 
-/* ICONOS */
+/* =========================
+   ICONOS
+========================= */
 
 const icons = {
 
-Arriendo:'🏠',
-Luz:'💡',
-Gas:'🔥',
-Agua:'💧',
-'Internet hogar':'🌐',
-'Internet celular':'📱',
-Mercado:'🛒',
-Otro:'🧾'
+  Arriendo:'🏠',
+  Luz:'💡',
+  Gas:'🔥',
+  Agua:'💧',
+  'Internet hogar':'🌐',
+  'Internet celular':'📱',
+  Mercado:'🛒',
+  Otro:'🧾'
 
 };
 
 
-/* DINERO */
+/* =========================
+   DINERO
+========================= */
 
 const money = n =>
 
 new Intl.NumberFormat(
 'es-CO',
 {
-style:'currency',
-currency:'COP',
-maximumFractionDigits:0
+  style:'currency',
+  currency:'COP',
+  maximumFractionDigits:0
 }
 ).format(
 Number(n)||0
 );
 
 
-/* MES */
+/* =========================
+   MES
+========================= */
 
 const ym =
 new Date()
@@ -1285,7 +1299,9 @@ new Date()
 .slice(0,7);
 
 
-/* CATEGORIAS */
+/* =========================
+   CATEGORIAS
+========================= */
 
 function cats(){
 
@@ -1293,45 +1309,49 @@ let locales = [];
 
 try{
 
-locales =
-JSON.parse(
-localStorage.getItem(CC)||'[]'
-);
+  locales =
+  JSON.parse(
+    localStorage.getItem(CC)||'[]'
+  );
 
 }catch(e){
 
-locales=[];
+  locales=[];
 
 }
 
 const nombresLocales =
-locales.map(
+locales
+.map(
 x =>
 typeof x === 'string'
 ?
 x
 :
 x?.nombre
-).filter(Boolean);
+)
+.filter(Boolean);
 
 return [
-...new Set([
-'Arriendo',
-'Luz',
-'Gas',
-'Agua',
-'Internet hogar',
-'Internet celular',
-'Mercado',
-'Otro',
-...nombresLocales
-])
+  ...new Set([
+    'Arriendo',
+    'Luz',
+    'Gas',
+    'Agua',
+    'Internet hogar',
+    'Internet celular',
+    'Mercado',
+    'Otro',
+    ...nombresLocales
+  ])
 ];
 
 }
 
 
-/* OBTENER ID LOCAL DE CATEGORIA */
+/* =========================
+   ID LOCAL CATEGORIA
+========================= */
 
 function getLocalCategoryId(nombre){
 
@@ -1339,14 +1359,14 @@ let locales = [];
 
 try{
 
-locales =
-JSON.parse(
-localStorage.getItem(CC)||'[]'
-);
+  locales =
+  JSON.parse(
+    localStorage.getItem(CC)||'[]'
+  );
 
 }catch(e){
 
-locales=[];
+  locales=[];
 
 }
 
@@ -1364,7 +1384,9 @@ return encontrada?.id || null;
 }
 
 
-/* GUARDAR CATEGORIA LOCAL */
+/* =========================
+   GUARDAR CATEGORIA LOCAL
+========================= */
 
 function saveLocalCategory(categoria){
 
@@ -1372,14 +1394,14 @@ let locales = [];
 
 try{
 
-locales =
-JSON.parse(
-localStorage.getItem(CC)||'[]'
-);
+  locales =
+  JSON.parse(
+    localStorage.getItem(CC)||'[]'
+  );
 
 }catch(e){
 
-locales=[];
+  locales=[];
 
 }
 
@@ -1397,43 +1419,46 @@ x?.nombre
 
 if(!existe){
 
-locales.push({
+  locales.push({
 
-id:categoria.id,
+    id:categoria.id,
+    nombre:categoria.nombre
 
-nombre:categoria.nombre
-
-});
+  });
 
 }else{
 
-locales =
-locales.map(
-x => {
+  locales =
+  locales.map(
+    x => {
 
-const nombre =
-typeof x === 'string'
-?
-x
-:
-x?.nombre;
+      const nombre =
+      typeof x === 'string'
+      ?
+      x
+      :
+      x?.nombre;
 
-if(nombre === categoria.nombre){
+      if(nombre === categoria.nombre){
 
-return {
+        return {
 
-id:categoria.id || x?.id || null,
+          id:
+          categoria.id ||
+          x?.id ||
+          null,
 
-nombre:categoria.nombre
+          nombre:
+          categoria.nombre
 
-};
+        };
 
-}
+      }
 
-return x;
+      return x;
 
-}
-);
+    }
+  );
 
 }
 
@@ -1445,7 +1470,9 @@ JSON.stringify(locales)
 }
 
 
-/* LLENAR SELECT */
+/* =========================
+   LLENAR CATEGORIAS
+========================= */
 
 function fill(){
 
@@ -1453,7 +1480,7 @@ const catEl =
 document.getElementById('cat');
 
 if(!catEl){
-return;
+  return;
 }
 
 const actual =
@@ -1475,14 +1502,16 @@ actual &&
 lista.includes(actual)
 ){
 
-catEl.value=actual;
+  catEl.value=actual;
 
 }
 
 }
 
 
-/* CATEGORIA NUEVA */
+/* =========================
+   CAMBIO CATEGORIA
+========================= */
 
 document
 .getElementById('cat')
@@ -1490,1759 +1519,1985 @@ document
 'change',
 async ()=>{
 
-const catEl =
-document.getElementById('cat');
+  const catEl =
+  document.getElementById('cat');
 
-if(
-catEl.value !== 'Otro'
-){
+  if(
+    catEl.value !== 'Otro'
+  ){
 
-return;
+    return;
 
-}
+  }
 
-let n =
-prompt(
-'Nombre de la nueva categoría'
-);
+  let n =
+  prompt(
+    'Nombre de la nueva categoría'
+  );
 
-if(n===null){
+  if(n===null){
 
-fill();
+    fill();
+    return;
 
-return;
+  }
 
-}
+  n=n.trim();
 
-n=n.trim();
+  if(!n){
 
-if(!n){
+    fill();
+    return;
 
-fill();
-
-return;
-
-}
+  }
 
 
-/* Buscar categoría existente */
-
-const {
-data:existente,
-error:buscarError
-} =
-await sb
-.from('categorias')
-.select('id,nombre')
-.eq('nombre',n)
-.limit(1)
-.maybeSingle();
+  const {
+    data:existente,
+    error:buscarError
+  } =
+  await sb
+  .from('categorias')
+  .select('id,nombre')
+  .eq('nombre',n)
+  .limit(1)
+  .maybeSingle();
 
 
-if(buscarError){
+  if(buscarError){
 
-console.error(
-'Error buscando categoría:',
-buscarError
-);
+    console.error(
+      'Error buscando categoría:',
+      buscarError
+    );
 
-alert(
-'No se pudo comprobar la categoría: '+
-buscarError.message
-);
+    alert(
+      'No se pudo comprobar la categoría: '+
+      buscarError.message
+    );
 
-fill();
+    fill();
+    return;
 
-return;
-
-}
-
-
-let categoria =
-existente;
+  }
 
 
-/* Crear categoría si no existe */
-
-if(!categoria){
-
-const {
-data:nueva,
-error:crearError
-} =
-await sb
-.from('categorias')
-.insert({
-
-nombre:n,
-
-icono:'🧾'
-
-})
-.select('id,nombre')
-.single();
+  let categoria =
+  existente;
 
 
-if(crearError){
+  if(!categoria){
 
-console.error(
-'Error creando categoría:',
-crearError
-);
+    const {
+      data:nueva,
+      error:crearError
+    } =
+    await sb
+    .from('categorias')
+    .insert({
 
-alert(
-'No se pudo crear la categoría: '+
-crearError.message
-);
+      nombre:n,
+      icono:'🧾'
 
-fill();
+    })
+    .select('id,nombre')
+    .single();
 
-return;
 
-}
+    if(crearError){
 
-categoria=nueva;
+      console.error(
+        'Error creando categoría:',
+        crearError
+      );
 
-}
+      alert(
+        'No se pudo crear la categoría: '+
+        crearError.message
+      );
 
-saveLocalCategory(categoria);
+      fill();
+      return;
 
-fill();
+    }
 
-catEl.value =
-categoria.nombre;
+    categoria=nueva;
+
+  }
+
+
+  saveLocalCategory(categoria);
+
+  fill();
+
+  catEl.value =
+  categoria.nombre;
 
 }
 );
 
 
-/* LOGIN */
+/* =========================
+   LOGIN
+========================= */
 
 async function login(){
 
-const email =
-document
-.getElementById('loginEmail')
-.value
-.trim();
+  const button =
+  document.getElementById('loginButton');
 
-const password =
-document
-.getElementById('loginPassword')
-.value;
+  const email =
+  document
+  .getElementById('loginEmail')
+  .value
+  .trim();
 
-const msg =
-document
-.getElementById('loginMsg');
+  const password =
+  document
+  .getElementById('loginPassword')
+  .value;
+
+  const msg =
+  document
+  .getElementById('loginMsg');
 
 
-if(!email || !password){
+  if(!email || !password){
 
-msg.textContent =
-'Escribe correo y contraseña';
+    msg.textContent =
+    'Escribe correo y contraseña';
 
-return;
+    return;
+
+  }
+
+
+  if(button){
+
+    button.disabled=true;
+    button.textContent='Iniciando sesión...';
+
+  }
+
+  msg.textContent =
+  'Iniciando sesión...';
+
+
+  try{
+
+    const {
+      data,
+      error
+    } =
+    await sb.auth.signInWithPassword({
+
+      email:email,
+      password:password
+
+    });
+
+
+    if(error){
+
+      console.error(
+        'Error de inicio de sesión:',
+        error
+      );
+
+      msg.textContent =
+      'Correo o contraseña incorrectos';
+
+      return;
+
+    }
+
+
+    currentUser =
+    data.user;
+
+
+    const {
+      data:member,
+      error:memberError
+    } =
+    await sb
+    .from('miembros_hogar')
+    .select('hogar_id,rol')
+    .eq(
+      'usuario_id',
+      currentUser.id
+    )
+    .limit(1)
+    .maybeSingle();
+
+
+    if(memberError || !member){
+
+      console.error(
+        'Error miembro:',
+        memberError
+      );
+
+      await sb.auth.signOut();
+
+      msg.textContent =
+      'Este usuario no tiene un hogar configurado';
+
+      currentUser=null;
+
+      return;
+
+    }
+
+
+    currentRole =
+    member.rol;
+
+    currentHouseholdId =
+    member.hogar_id;
+
+
+    document
+    .getElementById('loginScreen')
+    .style.display='none';
+
+
+    await loadExpenses();
+
+    await loadShopping();
+
+    render();
+
+
+  }catch(error){
+
+    console.error(
+      'Error inesperado en login:',
+      error
+    );
+
+    msg.textContent =
+    'Ocurrió un error al iniciar sesión';
+
+  }finally{
+
+    if(button){
+
+      button.disabled=false;
+      button.textContent='Iniciar sesión';
+
+    }
+
+  }
 
 }
 
 
-msg.textContent =
-'Iniciando sesión...';
-
-
-const {
-data,
-error
-} =
-await sb.auth.signInWithPassword({
-
-email:email,
-password:password
-
-});
-
-
-if(error){
-
-console.error(
-'Error de inicio de sesión:',
-error
-);
-
-msg.textContent =
-'Correo o contraseña incorrectos';
-
-return;
-
-}
-
-
-currentUser =
-data.user;
-
-
-/* Buscar hogar */
-
-const {
-data:member,
-error:memberError
-} =
-await sb
-.from('miembros_hogar')
-.select('hogar_id,rol')
-.eq(
-'usuario_id',
-currentUser.id
-)
-.limit(1)
-.maybeSingle();
-
-
-if(memberError || !member){
-
-console.error(
-'Error miembro:',
-memberError
-);
-
-await sb.auth.signOut();
-
-msg.textContent =
-'Este usuario no tiene un hogar configurado';
-
-return;
-
-}
-
-
-currentRole =
-member.rol;
-
-currentHouseholdId =
-member.hogar_id;
-
-
-document
-.getElementById('loginScreen')
-.style.display='none';
-
-
-await loadExpenses();
-
-await loadShopping();
-
-render();
-
-}
-
-
-/* CAMBIO DE SESION */
+/* =========================
+   CAMBIO DE SESION
+========================= */
 
 sb.auth.onAuthStateChange(
 async (
-event,
-session
+  event,
+  session
 )=>{
 
-if(session?.user){
+  if(session?.user){
 
-currentUser =
-session.user;
+    currentUser =
+    session.user;
 
-const {
-data:member
-} =
-await sb
-.from('miembros_hogar')
-.select('hogar_id,rol')
-.eq(
-'usuario_id',
-currentUser.id
-)
-.limit(1)
-.maybeSingle();
+    const {
+      data:member
+    } =
+    await sb
+    .from('miembros_hogar')
+    .select('hogar_id,rol')
+    .eq(
+      'usuario_id',
+      currentUser.id
+    )
+    .limit(1)
+    .maybeSingle();
 
-if(member){
+    if(member){
 
-currentRole =
-member.rol;
+      currentRole =
+      member.rol;
 
-currentHouseholdId =
-member.hogar_id;
+      currentHouseholdId =
+      member.hogar_id;
 
-document
-.getElementById('loginScreen')
-.style.display='none';
+      document
+      .getElementById('loginScreen')
+      .style.display='none';
 
-await loadExpenses();
+      await loadExpenses();
 
-await loadShopping();
+      await loadShopping();
 
-render();
+      render();
 
-}
+    }
 
-}
+  }
 
 }
 );
 
 
-/* CARGAR GASTOS */
+/* =========================
+   CARGAR GASTOS
+========================= */
 
 async function loadExpenses(){
 
-if(!currentHouseholdId){
-return;
+  if(!currentHouseholdId){
+    return;
+  }
+
+  const {
+    data,
+    error
+  } =
+  await sb
+  .from('gastos')
+  .select('*')
+  .eq(
+    'hogar_id',
+    currentHouseholdId
+  )
+  .order(
+    'fecha',
+    {
+      ascending:false
+    }
+  );
+
+
+  if(error){
+
+    console.error(
+      'Error cargando gastos:',
+      error
+    );
+
+    return;
+
+  }
+
+
+  const gastos =
+  data||[];
+
+
+  const categoriaIds = [
+    ...new Set(
+      gastos
+      .map(x=>x.categoria_id)
+      .filter(id=>id!=null)
+    )
+  ];
+
+
+  let categoriasMap={};
+
+
+  if(categoriaIds.length){
+
+    const {
+      data:categorias,
+      error:catError
+    } =
+    await sb
+    .from('categorias')
+    .select('id,nombre')
+    .in(
+      'id',
+      categoriaIds
+    );
+
+
+    if(catError){
+
+      console.error(
+        'Error cargando categorías:',
+        catError
+      );
+
+    }else{
+
+      (categorias||[])
+      .forEach(
+        c=>{
+          categoriasMap[c.id]=c.nombre;
+        }
+      );
+
+    }
+
+  }
+
+
+  E =
+  gastos.map(
+    x=>({
+
+      id:x.id,
+
+      cat:
+      x.cat ||
+      x.categoria ||
+      (
+        x.categoria_id!=null
+        ?
+        (
+          categoriasMap[x.categoria_id] ||
+          'Categoría '+x.categoria_id
+        )
+        :
+        'Otro'
+      ),
+
+      amount:
+      Number(
+        x.amount ??
+        x.monto ??
+        0
+      ),
+
+      date:
+      x.date ??
+      x.fecha ??
+      '',
+
+      split:
+      x.split ??
+      'shared',
+
+      payer:
+      x.payer ??
+      'me',
+
+      paid:
+      Boolean(x.paid),
+
+      note:
+      x.note ??
+      x.notas ??
+      x.descripcion ??
+      '',
+
+      photos:
+      Array.isArray(x.photos)
+      ?
+      x.photos
+      :
+      []
+
+    })
+  );
+
+
+  render();
+
 }
 
-const {
-data,
-error
-} =
-await sb
-.from('gastos')
-.select('*')
-.eq(
-'hogar_id',
-currentHouseholdId
-)
-.order(
-'fecha',
-{
-ascending:false
-}
-);
 
-if(error){
-
-console.error(
-'Error cargando gastos:',
-error
-);
-
-return;
-
-}
-
-
-const gastos =
-data||[];
-
-
-/* Buscar nombres de categorias */
-
-const categoriaIds = [
-...new Set(
-gastos
-.map(x=>x.categoria_id)
-.filter(id=>id!=null)
-)
-];
-
-let categoriasMap={};
-
-if(categoriaIds.length){
-
-const {
-data:categorias,
-error:catError
-} =
-await sb
-.from('categorias')
-.select('id,nombre')
-.in(
-'id',
-categoriaIds
-);
-
-if(catError){
-
-console.error(
-'Error cargando categorías:',
-catError
-);
-
-}else{
-
-(categorias||[])
-.forEach(
-c=>{
-categoriasMap[c.id]=c.nombre;
-}
-);
-
-}
-
-}
-
-
-E =
-gastos.map(
-x=>({
-
-id:x.id,
-
-cat:
-x.cat ||
-x.categoria ||
-(
-x.categoria_id!=null
-?
-(
-categoriasMap[x.categoria_id] ||
-'Categoría '+x.categoria_id
-)
-:
-'Otro'
-),
-
-amount:
-Number(
-x.amount ??
-x.monto ??
-0
-),
-
-date:
-x.date ??
-x.fecha ??
-'',
-
-split:
-x.split ??
-'shared',
-
-payer:
-x.payer ??
-'me',
-
-paid:
-Boolean(x.paid),
-
-note:
-x.note ??
-x.notas ??
-x.descripcion ??
-'',
-
-photos:
-Array.isArray(x.photos)
-?
-x.photos
-:
-[]
-
-})
-);
-
-render();
-
-}
-
-
-/* CARGAR COMPRAS */
+/* =========================
+   CARGAR COMPRAS
+========================= */
 
 async function loadShopping(){
 
-if(!currentHouseholdId){
+  if(!currentHouseholdId){
 
-console.log(
-'No hay hogar_id'
-);
+    console.log(
+      'No hay hogar_id'
+    );
 
-return;
+    return;
 
-}
-
-const {
-data,
-error
-} =
-await sb
-.from('compras')
-.select('*')
-.eq(
-'hogar_id',
-currentHouseholdId
-)
-.order(
-'created_at',
-{
-ascending:false
-}
-);
-
-if(error){
-
-console.error(
-'ERROR COMPRAS:',
-error
-);
-
-alert(
-'Error cargando compras: '+
-error.message
-);
-
-return;
-
-}
+  }
 
 
-S =
-(data||[])
-.map(
-x=>({
+  const {
+    data,
+    error
+  } =
+  await sb
+  .from('compras')
+  .select('*')
+  .eq(
+    'hogar_id',
+    currentHouseholdId
+  )
+  .order(
+    'created_at',
+    {
+      ascending:false
+    }
+  );
 
-id:x.id,
 
-p:x.producto,
+  if(error){
 
-q:
-Number(
-x.cantidad||1
-),
+    console.error(
+      'ERROR COMPRAS:',
+      error
+    );
 
-d:
-x.notas||'',
+    return;
 
-done:
-Boolean(
-x.comprado
-),
+  }
 
-by:
-x.usuario_id === currentUser?.id
-?
-'Yo'
-:
-'Usuario'
 
-})
-);
+  S =
+  (data||[])
+  .map(
+    x=>({
 
-render();
+      id:x.id,
+
+      p:x.producto,
+
+      q:
+      Number(
+        x.cantidad||1
+      ),
+
+      d:
+      x.notas||'',
+
+      done:
+      Boolean(
+        x.comprado
+      ),
+
+      by:
+      x.usuario_id === currentUser?.id
+      ?
+      'Yo'
+      :
+      'Usuario'
+
+    })
+  );
+
+
+  render();
 
 }
 
 
-/* GUARDADO LOCAL */
+/* =========================
+   GUARDADO LOCAL
+========================= */
 
 function save(){
 
-localStorage.setItem(
-EK,
-JSON.stringify(E)
-);
+  localStorage.setItem(
+    EK,
+    JSON.stringify(E)
+  );
 
 }
 
 
-/* AGREGAR GASTO */
+/* =========================
+   AGREGAR GASTO
+========================= */
 
 async function addExpense(ev){
 
-ev.preventDefault();
+  ev.preventDefault();
 
 
-if(
-!currentUser ||
-!currentHouseholdId
-){
+  /* EVITA DOBLE CLICK */
 
-alert(
-'No hay una sesión activa.'
-);
+  if(savingExpense){
 
-return;
+    console.log(
+      'Guardado ya en proceso'
+    );
+
+    return;
+
+  }
+
+
+  if(
+    !currentUser ||
+    !currentHouseholdId
+  ){
+
+    alert(
+      'No hay una sesión activa.'
+    );
+
+    return;
+
+  }
+
+
+  savingExpense=true;
+
+
+  const saveButton =
+  document.getElementById(
+    'saveExpenseButton'
+  );
+
+
+  if(saveButton){
+
+    saveButton.disabled=true;
+    saveButton.textContent='Guardando...';
+
+  }
+
+
+  try{
+
+    const catEl =
+    document.getElementById('cat');
+
+    const amountEl =
+    document.getElementById('amount');
+
+    const dateEl =
+    document.getElementById('date');
+
+    const splitEl =
+    document.getElementById('split');
+
+    const payerEl =
+    document.getElementById('payer');
+
+    const noteEl =
+    document.getElementById('note');
+
+    const previewEl =
+    document.getElementById('preview');
+
+
+    const categoriaTexto =
+    catEl.value.trim();
+
+    const monto =
+    Number(amountEl.value)||0;
+
+    const fecha =
+    dateEl.value;
+
+    const split =
+    splitEl.value;
+
+    const payer =
+    payerEl.value;
+
+    const notas =
+    noteEl.value.trim();
+
+
+    if(!categoriaTexto){
+
+      alert(
+        'Selecciona una categoría.'
+      );
+
+      return;
+
+    }
+
+
+    if(monto<=0){
+
+      alert(
+        'El valor debe ser mayor que 0.'
+      );
+
+      return;
+
+    }
+
+
+    if(!fecha){
+
+      alert(
+        'Selecciona una fecha.'
+      );
+
+      return;
+
+    }
+
+
+    /* CATEGORIA */
+
+    let categoriaId =
+    getLocalCategoryId(
+      categoriaTexto
+    );
+
+
+    if(!categoriaId){
+
+      const {
+        data:categoria,
+        error:catError
+      } =
+      await sb
+      .from('categorias')
+      .select('id,nombre')
+      .eq(
+        'nombre',
+        categoriaTexto
+      )
+      .limit(1)
+      .maybeSingle();
+
+
+      if(catError){
+
+        console.error(
+          'Error buscando categoría:',
+          catError
+        );
+
+        alert(
+          'No se pudo identificar la categoría: '+
+          catError.message
+        );
+
+        return;
+
+      }
+
+
+      if(categoria){
+
+        categoriaId =
+        categoria.id;
+
+        saveLocalCategory(
+          categoria
+        );
+
+      }
+
+    }
+
+
+    /* CREAR CATEGORIA */
+
+    if(!categoriaId){
+
+      const {
+        data:nuevaCategoria,
+        error:crearCategoriaError
+      } =
+      await sb
+      .from('categorias')
+      .insert({
+
+        nombre:
+        categoriaTexto,
+
+        icono:
+        '🧾'
+
+      })
+      .select(
+        'id,nombre'
+      )
+      .single();
+
+
+      if(crearCategoriaError){
+
+        console.error(
+          'Error creando categoría automáticamente:',
+          crearCategoriaError
+        );
+
+        alert(
+          'No se pudo guardar la categoría "'+
+          categoriaTexto+
+          '": '+
+          crearCategoriaError.message
+        );
+
+        return;
+
+      }
+
+
+      categoriaId =
+      nuevaCategoria.id;
+
+      saveLocalCategory(
+        nuevaCategoria
+      );
+
+    }
+
+
+    /* FOTOS */
+
+    let photoUrls=[];
+
+
+    for(const foto of pics){
+
+      if(!foto || !foto.file){
+        continue;
+      }
+
+
+      const extension =
+      (
+        foto.file.name
+        .split('.')
+        .pop() ||
+        'jpg'
+      )
+      .toLowerCase();
+
+
+      const fileName =
+      `${currentHouseholdId}/${currentUser.id}/${Date.now()}-${Math.random().toString(36).substring(2)}.${extension}`;
+
+
+      const {
+        error:uploadError
+      } =
+      await sb
+      .storage
+      .from('gastos-fotos')
+      .upload(
+        fileName,
+        foto.file,
+        {
+          contentType:
+          foto.file.type ||
+          'image/jpeg',
+
+          upsert:false
+        }
+      );
+
+
+      if(uploadError){
+
+        console.error(
+          'Error subiendo foto:',
+          uploadError
+        );
+
+        alert(
+          'No se pudo subir una foto: '+
+          uploadError.message
+        );
+
+        return;
+
+      }
+
+
+      const {
+        data:publicUrlData
+      } =
+      sb
+      .storage
+      .from('gastos-fotos')
+      .getPublicUrl(
+        fileName
+      );
+
+
+      if(
+        publicUrlData &&
+        publicUrlData.publicUrl
+      ){
+
+        photoUrls.push(
+          publicUrlData.publicUrl
+        );
+
+      }
+
+    }
+
+
+    /* GUARDAR EN SUPABASE */
+
+    const {
+      data,
+      error
+    } =
+    await sb
+    .from('gastos')
+    .insert({
+
+      hogar_id:
+      currentHouseholdId,
+
+      usuario_id:
+      currentUser.id,
+
+      categoria_id:
+      categoriaId,
+
+      monto:
+      monto,
+
+      fecha:
+      fecha,
+
+      descripcion:
+      notas ||
+      'Sin descripción',
+
+      split:
+      split,
+
+      payer:
+      payer,
+
+      paid:
+      false,
+
+      photos:
+      photoUrls
+
+    })
+    .select()
+    .single();
+
+
+    if(error){
+
+      console.error(
+        'Error guardando gasto:',
+        error
+      );
+
+      alert(
+        'No se pudo guardar el gasto: '+
+        error.message
+      );
+
+      return;
+
+    }
+
+
+    console.log(
+      'Gasto guardado:',
+      data
+    );
+
+
+    /* LIMPIAR FORMULARIO */
+
+    pics=[];
+
+    if(previewEl){
+      previewEl.innerHTML='';
+    }
+
+
+    ev.target.reset();
+
+    fill();
+
+    closeM('expense');
+
+
+    /* ACTUALIZAR */
+
+    await loadExpenses();
+
+    render();
+
+
+    notify(
+      'Nuevo gasto',
+      categoriaTexto
+    );
+
+
+  }catch(error){
+
+    console.error(
+      'Error inesperado guardando gasto:',
+      error
+    );
+
+    alert(
+      'Ocurrió un error al guardar el gasto.'
+    );
+
+
+  }finally{
+
+    savingExpense=false;
+
+
+    if(saveButton){
+
+      saveButton.disabled=false;
+      saveButton.textContent='Guardar gasto';
+
+    }
+
+  }
 
 }
 
 
-const catEl =
-document.getElementById('cat');
-
-const amountEl =
-document.getElementById('amount');
-
-const dateEl =
-document.getElementById('date');
-
-const splitEl =
-document.getElementById('split');
-
-const payerEl =
-document.getElementById('payer');
-
-const noteEl =
-document.getElementById('note');
-
-const previewEl =
-document.getElementById('preview');
-
-
-const categoriaTexto =
-catEl.value.trim();
-
-const monto =
-Number(amountEl.value)||0;
-
-const fecha =
-dateEl.value;
-
-const split =
-splitEl.value;
-
-const payer =
-payerEl.value;
-
-const notas =
-noteEl.value.trim();
-
-
-if(!categoriaTexto){
-
-alert(
-'Selecciona una categoría.'
-);
-
-return;
-
-}
-
-
-if(monto<=0){
-
-alert(
-'El valor debe ser mayor que 0.'
-);
-
-return;
-
-}
-
-
-if(!fecha){
-
-alert(
-'Selecciona una fecha.'
-);
-
-return;
-
-}
-
-
-/* OBTENER ID DE CATEGORIA */
-
-let categoriaId =
-getLocalCategoryId(
-categoriaTexto
-);
-
-
-if(!categoriaId){
-
-const {
-data:categoria,
-error:catError
-} =
-await sb
-.from('categorias')
-.select('id,nombre')
-.eq(
-'nombre',
-categoriaTexto
-)
-.limit(1)
-.maybeSingle();
-
-
-if(catError){
-
-console.error(
-'Error buscando categoría:',
-catError
-);
-
-alert(
-'No se pudo identificar la categoría: '+
-catError.message
-);
-
-return;
-
-}
-
-
-if(categoria){
-
-categoriaId =
-categoria.id;
-
-saveLocalCategory(
-categoria
-);
-
-}
-
-}
-
-
-/* CREAR CATEGORIA SI NO EXISTE */
-
-if(!categoriaId){
-
-const {
-data:nuevaCategoria,
-error:crearCategoriaError
-} =
-await sb
-.from('categorias')
-.insert({
-
-nombre:
-categoriaTexto,
-
-icono:
-'🧾'
-
-})
-.select('id,nombre')
-.single();
-
-
-if(
-crearCategoriaError
-){
-
-console.error(
-'Error creando categoría automáticamente:',
-crearCategoriaError
-);
-
-alert(
-'No se pudo guardar la categoría "'+
-categoriaTexto+
-'": '+
-crearCategoriaError.message
-);
-
-return;
-
-}
-
-
-categoriaId =
-nuevaCategoria.id;
-
-saveLocalCategory(
-nuevaCategoria
-);
-
-}
-
-
-/* SUBIR FOTOS */
-
-let photoUrls = [];
-
-for(const foto of pics){
-
-if(!foto || !foto.file){
-continue;
-}
-
-const extension =
-(
-foto.file.name
-.split('.')
-.pop() ||
-'jpg'
-)
-.toLowerCase();
-
-const fileName =
-`${currentHouseholdId}/${currentUser.id}/${Date.now()}-${Math.random().toString(36).substring(2)}.${extension}`;
-
-const {
-error:uploadError
-} =
-await sb
-.storage
-.from('gastos-fotos')
-.upload(
-fileName,
-foto.file,
-{
-contentType:
-foto.file.type ||
-'image/jpeg',
-upsert:false
-}
-);
-
-if(uploadError){
-
-console.error(
-'Error subiendo foto:',
-uploadError
-);
-
-alert(
-'No se pudo subir una foto: '+
-uploadError.message
-);
-
-return;
-
-}
-
-
-const {
-data:publicUrlData
-} =
-sb
-.storage
-.from('gastos-fotos')
-.getPublicUrl(
-fileName
-);
-
-if(
-publicUrlData &&
-publicUrlData.publicUrl
-){
-
-photoUrls.push(
-publicUrlData.publicUrl
-);
-
-}
-
-}
-
-
-/* GUARDAR GASTO */
-
-const {
-data,
-error
-} =
-await sb
-.from('gastos')
-.insert({
-
-hogar_id:
-currentHouseholdId,
-
-usuario_id:
-currentUser.id,
-
-categoria_id:
-categoriaId,
-
-monto:
-monto,
-
-fecha:
-fecha,
-
-descripcion:
-notas ||
-'Sin descripción',
-
-split:
-split,
-
-payer:
-payer,
-
-paid:
-false,
-
-photos:
-photoUrls
-
-})
-.select()
-.single();
-
-
-if(error){
-
-console.error(
-'Error guardando gasto:',
-error
-);
-
-alert(
-'No se pudo guardar el gasto: '+
-error.message
-);
-
-return;
-
-}
-
-
-console.log(
-'Gasto guardado:',
-data
-);
-
-
-/* LIMPIAR */
-
-pics=[];
-
-previewEl.innerHTML='';
-
-ev.target.reset();
-
-fill();
-
-closeM('expense');
-
-await loadExpenses();
-
-notify(
-'Nuevo gasto',
-categoriaTexto
-);
-
-}
-
-
-/* PAGAR GASTO */
+/* =========================
+   PAGAR GASTO
+========================= */
 
 async function paid(id){
 
-const x =
-E.find(
-a=>a.id===id
-);
+  const x =
+  E.find(
+    a=>a.id===id
+  );
 
-if(!x){
-return;
+  if(!x){
+    return;
+  }
+
+
+  const nuevoEstado =
+  !x.paid;
+
+
+  const {
+    error
+  } =
+  await sb
+  .from('gastos')
+  .update({
+    paid:nuevoEstado
+  })
+  .eq(
+    'id',
+    id
+  )
+  .eq(
+    'hogar_id',
+    currentHouseholdId
+  );
+
+
+  if(error){
+
+    console.error(
+      'Error actualizando gasto:',
+      error
+    );
+
+    alert(
+      'No se pudo actualizar el pago: '+
+      error.message
+    );
+
+    return;
+
+  }
+
+
+  x.paid =
+  nuevoEstado;
+
+
+  render();
+
+
+  notify(
+    nuevoEstado
+    ?
+    'Servicio pagado'
+    :
+    'Pago pendiente',
+    x.cat
+  );
+
 }
 
-const nuevoEstado =
-!x.paid;
 
-const {
-error
-} =
-await sb
-.from('gastos')
-.update({
-paid:nuevoEstado
-})
-.eq(
-'id',
-id
-)
-.eq(
-'hogar_id',
-currentHouseholdId
-);
-
-if(error){
-
-console.error(
-'Error actualizando gasto:',
-error
-);
-
-alert(
-'No se pudo actualizar el pago: '+
-error.message
-);
-
-return;
-
-}
-
-x.paid =
-nuevoEstado;
-
-render();
-
-notify(
-nuevoEstado
-?
-'Servicio pagado'
-:
-'Pago pendiente',
-x.cat
-);
-
-}
-
-
-/* RENDER */
+/* =========================
+   RENDER
+========================= */
 
 function render(){
 
-fill();
+  fill();
 
 
-const monthEl =
-document.getElementById('month');
+  const monthEl =
+  document.getElementById('month');
 
-if(monthEl){
 
-monthEl.textContent =
-new Intl.DateTimeFormat(
-'es-CO',
-{
-month:'long',
-year:'numeric'
+  if(monthEl){
+
+    monthEl.textContent =
+    new Intl.DateTimeFormat(
+      'es-CO',
+      {
+        month:'long',
+        year:'numeric'
+      }
+    ).format(
+      new Date()
+    );
+
+  }
+
+
+  let a =
+  E
+  .filter(
+    x=>
+    x.date &&
+    x.date.startsWith(ym)
+  )
+  .sort(
+    (a,b)=>
+    (a.date||'')
+    .localeCompare(
+      b.date||''
+    )
+  );
+
+
+  let total =
+  a.reduce(
+    (s,x)=>
+    s+
+    (
+      Number(x.amount)||0
+    ),
+    0
+  );
+
+
+  let my=0;
+  let w=0;
+  let pm=0;
+
+
+  a.forEach(
+    x=>{
+
+      const amount =
+      Number(x.amount)||0;
+
+
+      if(x.split==='shared'){
+
+        my+=amount/2;
+        w+=amount/2;
+
+      }else if(x.split==='mine'){
+
+        my+=amount;
+
+      }else{
+
+        w+=amount;
+
+      }
+
+
+      if(x.payer==='me'){
+
+        pm+=amount;
+
+      }
+
+    }
+  );
+
+
+  let d =
+  pm-my;
+
+
+  const totalEl =
+  document.getElementById('total');
+
+  const myEl =
+  document.getElementById('my');
+
+  const wifeEl =
+  document.getElementById('wife');
+
+  const balEl =
+  document.getElementById('bal');
+
+  const balTextEl =
+  document.getElementById('balText');
+
+  const pendingEl =
+  document.getElementById('pending');
+
+
+  if(totalEl)
+  totalEl.textContent =
+  money(total);
+
+
+  if(myEl)
+  myEl.textContent =
+  money(my);
+
+
+  if(wifeEl)
+  wifeEl.textContent =
+  money(w);
+
+
+  if(balEl)
+  balEl.textContent =
+  money(
+    Math.abs(d)
+  );
+
+
+  if(balTextEl){
+
+    balTextEl.textContent =
+    d>0
+    ?
+    'Tu esposa te debe este valor'
+    :
+    d<0
+    ?
+    'Tú debes este valor a tu esposa'
+    :
+    'Todo equilibrado';
+
+  }
+
+
+  if(pendingEl){
+
+    pendingEl.textContent =
+    a.filter(
+      x=>!x.paid
+    ).length+
+    ' pendientes';
+
+  }
+
+
+  /* LISTA */
+
+  const listEl =
+  document.getElementById('list');
+
+
+  if(listEl){
+
+    listEl.innerHTML =
+
+    a.map(
+      x=>{
+
+        const fotos =
+        Array.isArray(x.photos)
+        ?
+        x.photos.filter(Boolean)
+        :
+        [];
+
+
+        const fotosHTML =
+        fotos.length
+        ?
+        `
+        <div class="saved-photos">
+        ${fotos.map(
+          (foto,index) =>
+          `
+          <img
+            src="${foto}"
+            class="saved-photo"
+            alt="Foto del gasto"
+            onclick='openPhotoFromExpense(${JSON.stringify(fotos)},${index})'
+          >
+          `
+        ).join('')}
+        </div>
+        `
+        :
+        '';
+
+
+        return `
+
+        <div class="row">
+
+          <div class="ico">
+            ${icons[x.cat]||'🧾'}
+          </div>
+
+          <div class="grow">
+
+            <b>${x.cat}</b>
+
+            <div class="small">
+
+              ${x.date||''} ·
+
+              ${
+                x.split==='shared'
+                ?
+                '50/50'
+                :
+                x.split==='mine'
+                ?
+                'Tú'
+                :
+                'Esposa'
+              }
+
+            </div>
+
+            ${
+              x.note
+              ?
+              `<div class="small">${x.note}</div>`
+              :
+              ''
+            }
+
+            ${fotosHTML}
+
+          </div>
+
+          <div>
+
+            <b>${money(x.amount)}</b>
+
+            <br>
+
+            <button
+              class="pay ${x.paid?'ok':''}"
+              onclick="paid(${x.id})"
+            >
+
+              ${
+                x.paid
+                ?
+                '✓ Pagado'
+                :
+                'Marcar pagado'
+              }
+
+            </button>
+
+          </div>
+
+        </div>
+
+        `;
+
+      }
+    )
+    .join('') ||
+
+    '<div class="empty">No hay gastos este mes.</div>';
+
+  }
+
+
+  /* PROXIMOS */
+
+  const upEl =
+  document.getElementById('up');
+
+
+  if(upEl){
+
+    upEl.innerHTML =
+
+    a
+    .filter(
+      x=>!x.paid
+    )
+    .slice(0,6)
+    .map(
+      x=>`
+
+      <div class="row">
+
+        <div class="ico">
+          ${icons[x.cat]||'🧾'}
+        </div>
+
+        <div class="grow">
+
+          <b>${x.cat}</b>
+
+          <div class="small">
+            ${x.date||''}
+          </div>
+
+        </div>
+
+        <b>${money(x.amount)}</b>
+
+      </div>
+
+      `
+    )
+    .join('') ||
+
+    '<div class="empty">No hay pendientes 🎉</div>';
+
+  }
+
+
+  /* CALENDARIO */
+
+  const calEl =
+  document.getElementById('cal');
+
+
+  if(calEl){
+
+    calEl.innerHTML =
+
+    '<h2>Vencimientos</h2>'+
+
+    (
+      a.map(
+        x=>`
+
+        <div class="row">
+
+          <div class="ico">
+            ${icons[x.cat]||'🧾'}
+          </div>
+
+          <div class="grow">
+
+            <b>${x.cat}</b>
+
+            <div class="small">
+              ${x.date||''}
+            </div>
+
+          </div>
+
+          <span class="tag ${x.paid?'ok':''}">
+
+            ${
+              x.paid
+              ?
+              'Pagado'
+              :
+              'Pendiente'
+            }
+
+          </span>
+
+        </div>
+
+        `
+      )
+      .join('') ||
+
+      '<div class="empty">Sin pagos.</div>'
+    );
+
+  }
+
+
+  /* ESTADISTICAS */
+
+  let c={};
+
+
+  a.forEach(
+    x=>{
+
+      c[x.cat] =
+      (c[x.cat]||0)+
+      (
+        Number(x.amount)||0
+      );
+
+    }
+  );
+
+
+  let max =
+  Math.max(
+    ...Object.values(c),
+    1
+  );
+
+
+  const statsEl =
+  document.getElementById(
+    'statsbox'
+  );
+
+
+  if(statsEl){
+
+    statsEl.innerHTML =
+
+    Object.entries(c)
+
+    .sort(
+      (a,b)=>b[1]-a[1]
+    )
+
+    .map(
+      ([k,v])=>`
+
+      <div style="margin:13px 0">
+
+        <div style="
+        display:flex;
+        justify-content:space-between
+        ">
+
+          <b>
+            ${icons[k]||'🧾'} ${k}
+          </b>
+
+          <span>
+            ${money(v)}
+          </span>
+
+        </div>
+
+        <div class="bar">
+
+          <div
+            class="fill"
+            style="width:${v/max*100}%"
+          ></div>
+
+        </div>
+
+      </div>
+
+      `
+    )
+    .join('') ||
+
+    '<div class="empty">Registra gastos.</div>';
+
+  }
+
+
+  /* COMPRAS */
+
+  const shoppingBox =
+  document.getElementById(
+    'shopping'
+  );
+
+
+  if(shoppingBox){
+
+    shoppingBox.innerHTML =
+
+    S
+    .map(
+      x=>`
+
+      <div class="item">
+
+        <button
+          class="check ${x.done?'on':''}"
+          onclick="shopDone(${x.id})"
+        >
+
+          ${
+            x.done
+            ?
+            '✓'
+            :
+            ''
+          }
+
+        </button>
+
+        <div class="ico">
+          🛒
+        </div>
+
+        <div class="grow">
+
+          <b>
+            ${x.p} × ${x.q}
+          </b>
+
+          <div class="small">
+
+            ${
+              x.d ||
+              'Sin descripción'
+            }
+
+            ·
+
+            ${x.by}
+
+          </div>
+
+        </div>
+
+      </div>
+
+      `
+    )
+    .join('') ||
+
+    '<div class="empty">Lista vacía.</div>';
+
+  }
+
 }
-).format(
-new Date()
-);
 
-}
 
-
-/* GASTOS DEL MES */
-
-let a =
-E
-.filter(
-x=>
-x.date &&
-x.date.startsWith(ym)
-)
-.sort(
-(a,b)=>
-(a.date||'')
-.localeCompare(
-b.date||''
-)
-);
-
-
-/* TOTAL */
-
-let total =
-a.reduce(
-(s,x)=>
-s+
-(
-Number(x.amount)||0
-),
-0
-);
-
-
-/* PARTES */
-
-let my=0;
-let w=0;
-let pm=0;
-
-a.forEach(
-x=>{
-
-const amount =
-Number(x.amount)||0;
-
-if(x.split==='shared'){
-
-my+=amount/2;
-w+=amount/2;
-
-}else if(x.split==='mine'){
-
-my+=amount;
-
-}else{
-
-w+=amount;
-
-}
-
-if(x.payer==='me'){
-pm+=amount;
-}
-
-}
-);
-
-
-let d =
-pm-my;
-
-
-/* HOME */
-
-const totalEl =
-document.getElementById('total');
-
-const myEl =
-document.getElementById('my');
-
-const wifeEl =
-document.getElementById('wife');
-
-const balEl =
-document.getElementById('bal');
-
-const balTextEl =
-document.getElementById('balText');
-
-const pendingEl =
-document.getElementById('pending');
-
-
-if(totalEl)
-totalEl.textContent =
-money(total);
-
-if(myEl)
-myEl.textContent =
-money(my);
-
-if(wifeEl)
-wifeEl.textContent =
-money(w);
-
-if(balEl)
-balEl.textContent =
-money(
-Math.abs(d)
-);
-
-if(balTextEl){
-
-balTextEl.textContent =
-d>0
-?
-'Tu esposa te debe este valor'
-:
-d<0
-?
-'Tú debes este valor a tu esposa'
-:
-'Todo equilibrado';
-
-}
-
-if(pendingEl){
-
-pendingEl.textContent =
-a.filter(
-x=>!x.paid
-).length+
-' pendientes';
-
-}
-
-
-/* LISTA GASTOS */
-
-const listEl =
-document.getElementById('list');
-
-if(listEl){
-
-listEl.innerHTML =
-
-a.map(
-x=>{
-
-const fotos =
-Array.isArray(x.photos)
-?
-x.photos.filter(Boolean)
-:
-[];
-
-const fotosHTML =
-fotos.length
-?
-`
-<div class="saved-photos">
-${fotos.map(
-(foto,index) =>
-`
-<img
-src="${foto}"
-class="saved-photo"
-alt="Foto del gasto"
-onclick='openPhotoFromExpense(${JSON.stringify(fotos)},${index})'
->
-`
-).join('')}
-</div>
-`
-:
-'';
-
-return `
-
-<div class="row">
-
-<div class="ico">
-${icons[x.cat]||'🧾'}
-</div>
-
-<div class="grow">
-
-<b>${x.cat}</b>
-
-<div class="small">
-
-${x.date||''} ·
-
-${
-x.split==='shared'
-?
-'50/50'
-:
-x.split==='mine'
-?
-'Tú'
-:
-'Esposa'
-}
-
-</div>
-
-${
-x.note
-?
-`<div class="small">${x.note}</div>`
-:
-''
-}
-
-${fotosHTML}
-
-</div>
-
-<div>
-
-<b>${money(x.amount)}</b>
-
-<br>
-
-<button
-class="pay ${x.paid?'ok':''}"
-onclick="paid(${x.id})"
->
-
-${
-x.paid
-?
-'✓ Pagado'
-:
-'Marcar pagado'
-}
-
-</button>
-
-</div>
-
-</div>
-
-`;
-
-}
-)
-.join('') ||
-
-'<div class="empty">No hay gastos este mes.</div>';
-
-}
-
-
-/* PROXIMOS */
-
-const upEl =
-document.getElementById('up');
-
-if(upEl){
-
-upEl.innerHTML =
-
-a
-.filter(
-x=>!x.paid
-)
-.slice(0,6)
-.map(
-x=>`
-
-<div class="row">
-
-<div class="ico">
-${icons[x.cat]||'🧾'}
-</div>
-
-<div class="grow">
-
-<b>${x.cat}</b>
-
-<div class="small">
-${x.date||''}
-</div>
-
-</div>
-
-<b>${money(x.amount)}</b>
-
-</div>
-
-`
-)
-.join('') ||
-
-'<div class="empty">No hay pendientes 🎉</div>';
-
-}
-
-
-/* CALENDARIO */
-
-const calEl =
-document.getElementById('cal');
-
-if(calEl){
-
-calEl.innerHTML =
-
-'<h2>Vencimientos</h2>'+
-
-(
-a.map(
-x=>`
-
-<div class="row">
-
-<div class="ico">
-${icons[x.cat]||'🧾'}
-</div>
-
-<div class="grow">
-
-<b>${x.cat}</b>
-
-<div class="small">
-${x.date||''}
-</div>
-
-</div>
-
-<span class="tag ${x.paid?'ok':''}">
-
-${
-x.paid
-?
-'Pagado'
-:
-'Pendiente'
-}
-
-</span>
-
-</div>
-
-`
-)
-.join('') ||
-
-'<div class="empty">Sin pagos.</div>'
-);
-
-}
-
-
-/* ESTADISTICAS */
-
-let c={};
-
-a.forEach(
-x=>{
-
-c[x.cat] =
-(c[x.cat]||0)+
-(Number(x.amount)||0);
-
-}
-);
-
-let max =
-Math.max(
-...Object.values(c),
-1
-);
-
-const statsEl =
-document.getElementById('statsbox');
-
-if(statsEl){
-
-statsEl.innerHTML =
-
-Object.entries(c)
-
-.sort(
-(a,b)=>b[1]-a[1]
-)
-
-.map(
-([k,v])=>`
-
-<div style="margin:13px 0">
-
-<div style="
-display:flex;
-justify-content:space-between
-">
-
-<b>
-${icons[k]||'🧾'} ${k}
-</b>
-
-<span>
-${money(v)}
-</span>
-
-</div>
-
-<div class="bar">
-
-<div
-class="fill"
-style="width:${v/max*100}%"
-></div>
-
-</div>
-
-</div>
-
-`
-)
-.join('') ||
-
-'<div class="empty">Registra gastos.</div>';
-
-}
-
-
-/* COMPRAS */
-
-const shoppingBox =
-document.getElementById('shopping');
-
-if(shoppingBox){
-
-shoppingBox.innerHTML =
-
-S
-.map(
-x=>`
-
-<div class="item">
-
-<button
-class="check ${x.done?'on':''}"
-onclick="shopDone(${x.id})"
->
-
-${
-x.done
-?
-'✓'
-:
-''
-}
-
-</button>
-
-<div class="ico">
-🛒
-</div>
-
-<div class="grow">
-
-<b>
-${x.p} × ${x.q}
-</b>
-
-<div class="small">
-
-${
-x.d ||
-'Sin descripción'
-}
-
-·
-
-${x.by}
-
-</div>
-
-</div>
-
-</div>
-
-`
-)
-.join('') ||
-
-'<div class="empty">Lista vacía.</div>';
-
-}
-
-}
-
-
-/* CAMBIAR PANTALLA */
+/* =========================
+   CAMBIAR PANTALLA
+========================= */
 
 function show(id,b){
 
-active=id;
+  active=id;
 
-document
-.querySelectorAll('.screen')
-.forEach(
-x=>
-x.classList.remove('active')
-);
 
-const screen =
-document.getElementById(id);
+  document
+  .querySelectorAll('.screen')
+  .forEach(
+    x=>
+    x.classList.remove('active')
+  );
 
-if(screen){
-screen.classList.add('active');
+
+  const screen =
+  document.getElementById(id);
+
+
+  if(screen){
+
+    screen.classList.add('active');
+
+  }
+
+
+  document
+  .querySelectorAll('.nav button')
+  .forEach(
+    x=>
+    x.classList.remove('active')
+  );
+
+
+  if(b){
+
+    b.classList.add('active');
+
+  }
+
+
+  const fabEl =
+  document.getElementById('fab');
+
+
+  if(fabEl){
+
+    fabEl.style.display =
+    ['home','expenses'].includes(id)
+    ?
+    'block'
+    :
+    'none';
+
+  }
+
+
+  if(id==='shop'){
+
+    loadShopping();
+
+  }
+
+
+  render();
+
 }
 
-document
-.querySelectorAll('.nav button')
-.forEach(
-x=>
-x.classList.remove('active')
-);
 
-if(b){
-b.classList.add('active');
-}
-
-const fabEl =
-document.getElementById('fab');
-
-if(fabEl){
-
-fabEl.style.display =
-['home','expenses'].includes(id)
-?
-'block'
-:
-'none';
-
-}
-
-if(id==='shop'){
-loadShopping();
-}
-
-render();
-
-}
-
-
-/* MODALES */
+/* =========================
+   MODALES
+========================= */
 
 function openM(id){
 
-if(id==='expense'){
+  if(id==='expense'){
 
-const dateEl =
-document.getElementById('date');
+    const dateEl =
+    document.getElementById('date');
 
-if(dateEl){
 
-dateEl.value =
-new Date()
-.toISOString()
-.slice(0,10);
+    if(dateEl){
 
-}
+      dateEl.value =
+      new Date()
+      .toISOString()
+      .slice(0,10);
 
-fill();
+    }
 
-}
 
-const modalId =
-id==='shop'
-?
-'shopModal'
-:
-id;
+    fill();
 
-const modal =
-document.getElementById(modalId);
+  }
 
-if(modal){
-modal.classList.add('show');
-}
+
+  const modalId =
+  id==='shop'
+  ?
+  'shopModal'
+  :
+  id;
+
+
+  const modal =
+  document.getElementById(
+    modalId
+  );
+
+
+  if(modal){
+
+    modal.classList.add('show');
+
+  }
 
 }
 
 
 function closeM(id){
 
-const modal =
-document.getElementById(id);
+  const modal =
+  document.getElementById(id);
 
-if(modal){
-modal.classList.remove('show');
+
+  if(modal){
+
+    modal.classList.remove(
+      'show'
+    );
+
+  }
+
 }
 
-}
 
-
-/* FOTOS */
+/* =========================
+   FOTOS
+========================= */
 
 function openCamera(){
 
-const input =
-document.getElementById('cameraInput');
+  const input =
+  document.getElementById(
+    'cameraInput'
+  );
 
-if(input){
-input.click();
-}
+
+  if(input){
+
+    input.click();
+
+  }
 
 }
 
 
 function openGallery(){
 
-const input =
-document.getElementById('photosInput');
+  const input =
+  document.getElementById(
+    'photosInput'
+  );
 
-if(input){
-input.click();
+
+  if(input){
+
+    input.click();
+
+  }
+
 }
 
-}
 
-
-/* PREVISUALIZAR FOTOS */
+/* =========================
+   PREVISUALIZAR FOTOS
+========================= */
 
 function previewPhotos(ev){
 
-const previewEl =
-document.getElementById('preview');
+  const previewEl =
+  document.getElementById(
+    'preview'
+  );
 
-if(!previewEl){
-return;
+
+  if(!previewEl){
+    return;
+  }
+
+
+  [
+    ...ev.target.files
+  ]
+  .forEach(
+    f=>{
+
+      if(
+        !f.type.startsWith('image/')
+      ){
+
+        return;
+
+      }
+
+
+      const reader =
+      new FileReader();
+
+
+      reader.onload =
+      e=>{
+
+        pics.push({
+
+          file:f,
+
+          preview:
+          e.target.result
+
+        });
+
+
+        const img =
+        document.createElement(
+          'img'
+        );
+
+
+        img.src =
+        e.target.result;
+
+        img.className =
+        'photo';
+
+        img.title =
+        'Foto seleccionada';
+
+
+        previewEl.appendChild(
+          img
+        );
+
+      };
+
+
+      reader.readAsDataURL(f);
+
+    }
+  );
+
+
+  ev.target.value='';
+
 }
 
-[
-...ev.target.files
-].forEach(
-f=>{
 
-if(!f.type.startsWith('image/')){
-return;
-}
-
-const reader =
-new FileReader();
-
-reader.onload =
-e=>{
-
-pics.push({
-file:f,
-preview:e.target.result
-});
-
-const img =
-document.createElement('img');
-
-img.src =
-e.target.result;
-
-img.className =
-'photo';
-
-img.title =
-'Foto seleccionada';
-
-previewEl.appendChild(img);
-
-};
-
-reader.readAsDataURL(f);
-
-});
-
-
-ev.target.value='';
-
-}
-
-
-/* =================================================
-   VISOR DE FOTOS
-================================================= */
+/* =========================
+   VISOR
+========================= */
 
 function openPhotoFromExpense(
-photos,
-index
+  photos,
+  index
 ){
 
-if(
-!Array.isArray(photos) ||
-!photos.length
-){
+  if(
+    !Array.isArray(photos) ||
+    !photos.length
+  ){
 
-return;
+    return;
 
-}
+  }
 
-photoList =
-photos.filter(Boolean);
 
-photoIndex =
-Number(index)||0;
+  photoList =
+  photos.filter(Boolean);
 
-if(photoIndex < 0){
 
-photoIndex=0;
+  photoIndex =
+  Number(index)||0;
 
-}
 
-if(
-photoIndex >= photoList.length
-){
+  if(photoIndex < 0){
 
-photoIndex =
-photoList.length-1;
+    photoIndex=0;
 
-}
+  }
 
-updatePhotoViewer();
 
-const viewer =
-document.getElementById(
-'photoViewer'
-);
+  if(
+    photoIndex >=
+    photoList.length
+  ){
 
-if(viewer){
+    photoIndex =
+    photoList.length-1;
 
-viewer.classList.add('show');
+  }
 
-}
 
-document.body.style.overflow='hidden';
+  updatePhotoViewer();
+
+
+  const viewer =
+  document.getElementById(
+    'photoViewer'
+  );
+
+
+  if(viewer){
+
+    viewer.classList.add(
+      'show'
+    );
+
+  }
+
+
+  document.body.style.overflow=
+  'hidden';
 
 }
 
@@ -3251,72 +3506,71 @@ document.body.style.overflow='hidden';
 
 function openPhoto(url){
 
-if(!url){
-return;
+  if(!url){
+    return;
+  }
+
+
+  openPhotoFromExpense(
+    [url],
+    0
+  );
+
 }
 
-openPhotoFromExpense(
-[url],
-0
-);
 
-}
-
-
-/* ACTUALIZAR FOTO */
+/* ACTUALIZAR VISOR */
 
 function updatePhotoViewer(){
 
-const image =
-document.getElementById(
-'photoViewerImg'
-);
+  const image =
+  document.getElementById(
+    'photoViewerImg'
+  );
 
-const counter =
-document.getElementById(
-'photoCounter'
-);
+  const counter =
+  document.getElementById(
+    'photoCounter'
+  );
 
-const nav =
-document.getElementById(
-'photoNav'
-);
-
-
-if(
-!image ||
-!photoList.length
-){
-
-return;
-
-}
+  const nav =
+  document.getElementById(
+    'photoNav'
+  );
 
 
-image.src =
-photoList[photoIndex];
+  if(
+    !image ||
+    !photoList.length
+  ){
+
+    return;
+
+  }
 
 
-if(counter){
-
-counter.textContent =
-`${photoIndex+1} / ${photoList.length}`;
-
-}
+  image.src =
+  photoList[photoIndex];
 
 
-/* Si hay una sola foto, no mostramos anterior/siguiente */
+  if(counter){
 
-if(nav){
+    counter.textContent =
+    `${photoIndex+1} / ${photoList.length}`;
 
-nav.style.display =
-photoList.length > 1
-?
-'flex'
-:
-'none';
+  }
 
-}
+
+  if(nav){
+
+    nav.style.display =
+    photoList.length > 1
+    ?
+    'flex'
+    :
+    'none';
+
+  }
 
 }
 
@@ -3325,25 +3579,29 @@ photoList.length > 1
 
 function nextPhoto(){
 
-if(
-photoList.length <= 1
-){
+  if(
+    photoList.length <= 1
+  ){
 
-return;
+    return;
 
-}
+  }
 
-photoIndex++;
 
-if(
-photoIndex >= photoList.length
-){
+  photoIndex++;
 
-photoIndex=0;
 
-}
+  if(
+    photoIndex >=
+    photoList.length
+  ){
 
-updatePhotoViewer();
+    photoIndex=0;
+
+  }
+
+
+  updatePhotoViewer();
 
 }
 
@@ -3352,26 +3610,27 @@ updatePhotoViewer();
 
 function previousPhoto(){
 
-if(
-photoList.length <= 1
-){
+  if(
+    photoList.length <= 1
+  ){
 
-return;
+    return;
 
-}
+  }
 
-photoIndex--;
 
-if(
-photoIndex < 0
-){
+  photoIndex--;
 
-photoIndex =
-photoList.length-1;
 
-}
+  if(photoIndex < 0){
 
-updatePhotoViewer();
+    photoIndex =
+    photoList.length-1;
+
+  }
+
+
+  updatePhotoViewer();
 
 }
 
@@ -3380,36 +3639,38 @@ updatePhotoViewer();
 
 function closePhoto(){
 
-const viewer =
-document.getElementById(
-'photoViewer'
-);
+  const viewer =
+  document.getElementById(
+    'photoViewer'
+  );
 
-const image =
-document.getElementById(
-'photoViewerImg'
-);
+  const image =
+  document.getElementById(
+    'photoViewerImg'
+  );
 
 
-if(viewer){
+  if(viewer){
 
-viewer.classList.remove(
-'show'
-);
+    viewer.classList.remove(
+      'show'
+    );
 
-}
+  }
 
-if(image){
 
-image.src='';
+  if(image){
 
-}
+    image.src='';
 
-photoList=[];
+  }
 
-photoIndex=0;
 
-document.body.style.overflow='';
+  photoList=[];
+  photoIndex=0;
+
+
+  document.body.style.overflow='';
 
 }
 
@@ -3420,374 +3681,448 @@ document.addEventListener(
 'keydown',
 ev=>{
 
-const viewer =
-document.getElementById(
-'photoViewer'
+  const viewer =
+  document.getElementById(
+    'photoViewer'
+  );
+
+
+  if(
+    !viewer ||
+    !viewer.classList.contains('show')
+  ){
+
+    return;
+
+  }
+
+
+  if(ev.key==='Escape'){
+
+    closePhoto();
+
+  }
+
+
+  if(ev.key==='ArrowRight'){
+
+    nextPhoto();
+
+  }
+
+
+  if(ev.key==='ArrowLeft'){
+
+    previousPhoto();
+
+  }
+
+}
 );
 
-if(
-!viewer ||
-!viewer.classList.contains('show')
-){
 
-return;
-
-}
-
-if(ev.key==='Escape'){
-
-closePhoto();
-
-}
-
-if(ev.key==='ArrowRight'){
-
-nextPhoto();
-
-}
-
-if(ev.key==='ArrowLeft'){
-
-previousPhoto();
-
-}
-
-}
-);
-
-
-/* AGREGAR COMPRA */
+/* =========================
+   AGREGAR COMPRA
+========================= */
 
 async function addShop(ev){
 
-ev.preventDefault();
+  ev.preventDefault();
 
-if(
-!currentUser ||
-!currentHouseholdId
-){
 
-alert(
-'No hay una sesión activa.'
-);
+  if(
+    !currentUser ||
+    !currentHouseholdId
+  ){
 
-return;
+    alert(
+      'No hay una sesión activa.'
+    );
+
+    return;
+
+  }
+
+
+  const producto =
+  document
+  .getElementById('prod')
+  .value
+  .trim();
+
+
+  const cantidad =
+  document
+  .getElementById('qty')
+  .value;
+
+
+  const descripcion =
+  document
+  .getElementById('desc')
+  .value
+  .trim();
+
+
+  if(!producto){
+
+    alert(
+      'Escribe el producto.'
+    );
+
+    return;
+
+  }
+
+
+  const {
+    data,
+    error
+  } =
+  await sb
+  .from('compras')
+  .insert({
+
+    hogar_id:
+    currentHouseholdId,
+
+    usuario_id:
+    currentUser.id,
+
+    producto:
+    producto,
+
+    cantidad:
+    Number(cantidad)||1,
+
+    notas:
+    descripcion,
+
+    comprado:
+    false
+
+  })
+  .select()
+  .single();
+
+
+  if(error){
+
+    console.error(
+      'Error guardando compra:',
+      error
+    );
+
+    alert(
+      'No se pudo guardar la compra: '+
+      error.message
+    );
+
+    return;
+
+  }
+
+
+  console.log(
+    'Compra guardada:',
+    data
+  );
+
+
+  ev.target.reset();
+
+  closeM('shopModal');
+
+  await loadShopping();
+
+  render();
+
+
+  notify(
+    'Nueva compra',
+    producto
+  );
 
 }
 
-const producto =
-document
-.getElementById('prod')
-.value
-.trim();
 
-const cantidad =
-document
-.getElementById('qty')
-.value;
-
-const descripcion =
-document
-.getElementById('desc')
-.value
-.trim();
-
-if(!producto){
-
-alert(
-'Escribe el producto.'
-);
-
-return;
-
-}
-
-const {
-data,
-error
-} =
-await sb
-.from('compras')
-.insert({
-
-hogar_id:
-currentHouseholdId,
-
-usuario_id:
-currentUser.id,
-
-producto:
-producto,
-
-cantidad:
-Number(cantidad)||1,
-
-notas:
-descripcion,
-
-comprado:
-false
-
-})
-.select()
-.single();
-
-if(error){
-
-console.error(
-'Error guardando compra:',
-error
-);
-
-alert(
-'No se pudo guardar la compra: '+
-error.message
-);
-
-return;
-
-}
-
-ev.target.reset();
-
-closeM('shopModal');
-
-await loadShopping();
-
-render();
-
-notify(
-'Nueva compra',
-producto
-);
-
-}
-
-
-/* MARCAR COMPRA */
+/* =========================
+   MARCAR COMPRA
+========================= */
 
 async function shopDone(id){
 
-let x =
-S.find(
-a=>a.id===id
-);
+  let x =
+  S.find(
+    a=>a.id===id
+  );
 
-if(!x){
-return;
+
+  if(!x){
+    return;
+  }
+
+
+  const nuevoEstado =
+  !x.done;
+
+
+  const {
+    error
+  } =
+  await sb
+  .from('compras')
+  .update({
+
+    comprado:
+    nuevoEstado
+
+  })
+  .eq(
+    'id',
+    id
+  )
+  .eq(
+    'hogar_id',
+    currentHouseholdId
+  );
+
+
+  if(error){
+
+    console.error(
+      'Error actualizando compra:',
+      error
+    );
+
+    alert(
+      'No se pudo actualizar la compra: '+
+      error.message
+    );
+
+    return;
+
+  }
+
+
+  x.done =
+  nuevoEstado;
+
+
+  render();
+
+
+  notify(
+
+    nuevoEstado
+    ?
+    'Producto comprado'
+    :
+    'Producto pendiente',
+
+    x.p
+
+  );
+
 }
 
-const nuevoEstado =
-!x.done;
 
-const {
-error
-} =
-await sb
-.from('compras')
-.update({
-
-comprado:
-nuevoEstado
-
-})
-.eq(
-'id',
-id
-)
-.eq(
-'hogar_id',
-currentHouseholdId
-);
-
-if(error){
-
-console.error(
-'Error actualizando compra:',
-error
-);
-
-alert(
-'No se pudo actualizar la compra: '+
-error.message
-);
-
-return;
-
-}
-
-x.done =
-nuevoEstado;
-
-render();
-
-notify(
-
-nuevoEstado
-?
-'Producto comprado'
-:
-'Producto pendiente',
-
-x.p
-
-);
-
-}
-
-
-/* NOTIFICACIONES */
+/* =========================
+   NOTIFICACIONES
+========================= */
 
 async function notif(){
 
-if(
-!('Notification' in window)
-){
+  if(
+    !('Notification' in window)
+  ){
 
-alert(
-'Tu navegador no permite notificaciones'
-);
+    alert(
+      'Tu navegador no permite notificaciones'
+    );
 
-return;
+    return;
+
+  }
+
+
+  const p =
+  await Notification.requestPermission();
+
+
+  alert(
+
+    p==='granted'
+    ?
+    'Notificaciones activadas en este dispositivo'
+    :
+    'Permiso no concedido'
+
+  );
 
 }
 
-const p =
-await Notification.requestPermission();
 
-alert(
-
-p==='granted'
-?
-'Notificaciones activadas en este dispositivo'
-:
-'Permiso no concedido'
-
-);
-
-}
-
+/* =========================
+   NOTIFICACION
+========================= */
 
 function notify(t,b){
 
-if(
+  if(
+    'Notification' in window &&
+    Notification.permission === 'granted'
+  ){
 
-'Notification' in window &&
+    new Notification(
+      t,
+      {
+        body:b
+      }
+    );
 
-Notification.permission ===
-'granted'
-
-){
-
-new Notification(
-t,
-{
-body:b
-}
-);
-
-}
+  }
 
 }
 
 
-/* EXPORTAR */
+/* =========================
+   EXPORTAR
+========================= */
 
 function exportData(){
 
-const b =
-new Blob(
+  const b =
+  new Blob(
 
-[
-JSON.stringify(
+    [
+      JSON.stringify(
+        {
+          gastos:E,
+          compras:S
+        },
+        null,
+        2
+      )
+    ],
 
-{
-gastos:E,
-compras:S
-},
+    {
+      type:'application/json'
+    }
 
-null,
-2
+  );
 
-)
-],
 
-{
-type:'application/json'
+  const a =
+  document.createElement('a');
+
+
+  a.href =
+  URL.createObjectURL(b);
+
+
+  a.download =
+  'casagastos-respaldo.json';
+
+
+  a.click();
+
+
+  setTimeout(
+    ()=>{
+      URL.revokeObjectURL(a.href);
+    },
+    1000
+  );
+
 }
 
-);
 
-const a =
-document.createElement('a');
-
-a.href =
-URL.createObjectURL(b);
-
-a.download =
-'casagastos-respaldo.json';
-
-a.click();
-
-}
-
-
-/* INICIO */
+/* =========================
+   INICIO
+========================= */
 
 (async function(){
 
-const {
-data
-} =
-await sb.auth.getSession();
+  try{
+
+    const {
+      data
+    } =
+    await sb.auth.getSession();
 
 
-if(
-data?.session?.user
-){
+    if(
+      data?.session?.user
+    ){
 
-currentUser =
-data.session.user;
+      currentUser =
+      data.session.user;
 
-const {
-data:member
-} =
-await sb
-.from('miembros_hogar')
-.select('hogar_id,rol')
-.eq(
-'usuario_id',
-currentUser.id
-)
-.limit(1)
-.maybeSingle();
 
-if(member){
+      const {
+        data:member
+      } =
+      await sb
+      .from('miembros_hogar')
+      .select('hogar_id,rol')
+      .eq(
+        'usuario_id',
+        currentUser.id
+      )
+      .limit(1)
+      .maybeSingle();
 
-currentRole =
-member.rol;
 
-currentHouseholdId =
-member.hogar_id;
+      if(member){
 
-document
-.getElementById('loginScreen')
-.style
-.display='none';
+        currentRole =
+        member.rol;
 
-await loadExpenses();
+        currentHouseholdId =
+        member.hogar_id;
 
-await loadShopping();
 
-render();
+        document
+        .getElementById('loginScreen')
+        .style
+        .display='none';
 
-}
 
-}else{
+        await loadExpenses();
 
-render();
+        await loadShopping();
 
-}
+        render();
+
+      }else{
+
+        await sb.auth.signOut();
+
+        currentUser=null;
+        currentRole=null;
+        currentHouseholdId=null;
+
+        render();
+
+      }
+
+    }else{
+
+      render();
+
+    }
+
+  }catch(error){
+
+    console.error(
+      'Error iniciando CasaGastos:',
+      error
+    );
+
+    render();
+
+  }
 
 })();
 
