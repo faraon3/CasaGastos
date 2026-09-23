@@ -1506,13 +1506,7 @@ let editingExistingPhotos = [];
 ===================================================== */
 
 function canEditExpenses(){
-
-  const role =
-    String(
-      currentRole || ""
-    )
-    .toLowerCase()
-    .trim();
+  const role = String(currentRole || "").toLowerCase().trim();
 
   return [
     "admin",
@@ -1520,10 +1514,10 @@ function canEditExpenses(){
     "administrator",
     "superadmin",
     "owner",
+    "propietario",
     "dueño",
     "dueno"
   ].includes(role);
-
 }
 
 
