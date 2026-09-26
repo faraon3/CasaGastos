@@ -2567,32 +2567,66 @@ function render(){
 
 function show(id,b){
 
-  active =
-    id;
+  /* Guardar la categoría seleccionada antes de cambiar de pestaña */
+  const catEl = document.getElementById('cat');
 
+  if(catEl){
+    sessionStorage.setItem(
+      'cg2_categoria_seleccionada',
+      catEl.value
+    );
+  }
+
+  active = id;
 
   document
     .querySelectorAll('.screen')
     .forEach(
-      x=>
-        x.classList.remove(
-          'active'
-        )
+      x =>
+        x.classList.remove('active')
     );
-
 
   const screen =
     document.getElementById(id);
 
-
   if(screen){
-
-    screen.classList.add(
-      'active'
-    );
-
+    screen.classList.add('active');
   }
 
+  document
+    .querySelectorAll('.nav button')
+    .forEach(
+      x =>
+        x.classList.remove('active')
+    );
+
+  if(b){
+    b.classList.add('active');
+  }
+
+  /* Restaurar la categoría seleccionada */
+  if(catEl){
+
+    const categoriaGuardada =
+      sessionStorage.getItem(
+        'cg2_categoria_seleccionada'
+      );
+
+    if(
+      categoriaGuardada &&
+      [...catEl.options].some(
+        option =>
+          option.value === categoriaGuardada
+      )
+    ){
+      catEl.value =
+        categoriaGuardada;
+    }
+  }
+
+  /* Actualizar la pantalla */
+  render();
+}
 
   document
     .querySelectorAll('.nav button')
