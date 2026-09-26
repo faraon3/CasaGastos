@@ -1239,7 +1239,7 @@ const icons = {
   'Internet hogar':'🌐',
   'Internet celular':'📱',
   Mercado:'🛒',
-  Otro:'🧾'
+  Otros:'🧾'
 
 };
 
@@ -1339,8 +1339,8 @@ document
 
     const catEl=document.getElementById('cat');
 
-    if(catEl.value !== 'Otro') return;
-
+    if(catEl.value !== 'Otros') return;
+    
     let n=prompt('Nombre de la nueva categoría');
 
     if(!n){ fill(); return; }
