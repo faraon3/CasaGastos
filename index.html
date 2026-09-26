@@ -1626,22 +1626,22 @@ async function loadExpenses(){
   }
 
   E=gastos.map(x=>({
-    id:x.id,
-    cat:
-      x.cat ||
-      x.categoria ||
-      (x.categoria_id!=null
-        ? (categoriasMap[x.categoria_id] || 'Categoría '+x.categoria_id)
-        : 'Otro'),
-    amount:Number(x.amount??x.monto??0),
-    date:x.date??x.fecha??'',
-    split:x.split??'shared',
-    payer:x.payer??'me',
-    paid:Boolean(x.paid),
-    note:x.note??x.notas??x.descripcion??'',
-    photos:x.photos??[]
-  }));
-
+  id:x.id,
+  cat:
+    x.cat ||
+    x.categoria ||
+    (x.categoria_id!=null
+      ? (categoriasMap[x.categoria_id] || 'Categoría '+x.categoria_id)
+      : 'Otro'),
+  amount:Number(x.amount??x.monto??0),
+  date:x.date??x.fecha??'',
+  created_at:x.created_at??'',
+  split:x.split??'shared',
+  payer:x.payer??'me',
+  paid:Boolean(x.paid),
+  note:x.note??x.notas??x.descripcion??'',
+  photos:x.photos??[]
+}));
   render();
 }
 
@@ -2048,20 +2048,33 @@ function render(){
   */
 
   let a =
-    E
-      .filter(
-        x =>
-          x.date &&
-          x.date.startsWith(ym)
-      )
-      .sort(
-        (a,b)=>
-          (a.date||'')
-            .localeCompare(
-              b.date||''
-            )
-      );
+  E
+    .filter(
+      x =>
+        x.date &&
+        x.date.startsWith(ym)
+    )
+    .sort(
+      (a,b)=>{
 
+        const fechaA =
+          a.date || '';
+
+        const fechaB =
+          b.date || '';
+
+        if(fechaA !== fechaB){
+          return fechaB.localeCompare(fechaA);
+        }
+
+        return (
+          b.created_at || ''
+        ).localeCompare(
+          a.created_at || ''
+        );
+
+      }
+    );
 
   /*
     TOTAL
