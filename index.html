@@ -2677,53 +2677,69 @@ function show(id,b){
    MODALES
 ========================= */
 
-function openM(id){
+function show(id,b){
 
-  if(id==='expense'){
+  /* Guardar la categoría seleccionada antes de cambiar de pestaña */
+  const catEl = document.getElementById('cat');
 
-    const dateEl =
-      document.getElementById('date');
+  if(catEl){
+    sessionStorage.setItem(
+      'cg2_categoria_seleccionada',
+      catEl.value
+    );
+  }
 
+  active = id;
 
-    if(dateEl){
+  document
+    .querySelectorAll('.screen')
+    .forEach(
+      x =>
+        x.classList.remove('active')
+    );
 
-      dateEl.value =
-        new Date()
-          .toISOString()
-          .slice(0,10);
+  const screen =
+    document.getElementById(id);
 
+  if(screen){
+    screen.classList.add('active');
+  }
+
+  document
+    .querySelectorAll('.nav button')
+    .forEach(
+      x =>
+        x.classList.remove('active')
+    );
+
+  if(b){
+    b.classList.add('active');
+  }
+
+  /* Restaurar la categoría seleccionada */
+  if(catEl){
+
+    const categoriaGuardada =
+      sessionStorage.getItem(
+        'cg2_categoria_seleccionada'
+      );
+
+    if(
+      categoriaGuardada &&
+      [...catEl.options].some(
+        option =>
+          option.value === categoriaGuardada
+      )
+    ){
+      catEl.value =
+        categoriaGuardada;
     }
-
-
-    fill();
-
   }
 
-
-  const modalId =
-    id==='shop'
-      ? 'shopModal'
-      : id;
-
-
-  const modal =
-    document.getElementById(
-      modalId
-    );
-
-
-  if(modal){
-
-    modal.classList.add(
-      'show'
-    );
-
-  }
-
+  /* Actualizar la pantalla */
+  render();
 }
-
-
-function closeM(id){
+  function closeM(id){
 
   const modal =
     document.getElementById(id);
