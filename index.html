@@ -1224,7 +1224,7 @@ let E = [];
 let S = [];
 let pics = [];
 let active = 'home';
-
+let categoryIds = {};
 
 /* =========================
    ICONOS
@@ -1277,16 +1277,22 @@ const ym =
 ========================= */
 
 function cats(){
-
   let stored = [];
-
   try{
     const raw = JSON.parse(localStorage.getItem(CC)||'[]');
 
     if(Array.isArray(raw)){
       stored = raw.map(x=>{
         if(typeof x === 'string') return x.trim();
-        if(x && typeof x === 'object') return String(x.nombre ?? x.name ?? '').trim();
+
+        if(x && typeof x === 'object'){
+          if(x.id != null && x.nombre){
+            categoryIds[String(x.nombre).trim()] = x.id;
+          }
+
+          return String(x.nombre ?? x.name ?? '').trim();
+        }
+
         return '';
       }).filter(Boolean);
     }
@@ -1295,10 +1301,17 @@ function cats(){
   }
 
   return [...new Set([
-    'Arriendo','Luz','Gas','Agua','Internet hogar','Internet celular','Mercado','Otro',...stored
+    'Arriendo',
+    'Luz',
+    'Gas',
+    'Agua',
+    'Internet hogar',
+    'Internet celular',
+    'Mercado',
+    'Otros',
+    ...stored
   ])];
 }
-
 function fill(selectedValue){
   const catEl=document.getElementById('cat');
   if(!catEl) return;
