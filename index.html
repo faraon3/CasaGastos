@@ -1278,41 +1278,41 @@ const ym =
 
 function cats(){
 
-  return [
-    ...new Set([
-      'Arriendo',
-      'Luz',
-      'Gas',
-      'Agua',
-      'Internet hogar',
-      'Internet celular',
-      'Mercado',
-      'Otro',
-      ...JSON.parse(
-        localStorage.getItem(CC)||'[]'
-      )
-    ])
-  ];
+  let stored = [];
 
-}
+  try{
+    const raw = JSON.parse(localStorage.getItem(CC)||'[]');
 
-
-function fill(){
-
-  const catEl =
-    document.getElementById('cat');
-
-  if(!catEl){
-    return;
+    if(Array.isArray(raw)){
+      stored = raw.map(x=>{
+        if(typeof x === 'string') return x.trim();
+        if(x && typeof x === 'object') return String(x.nombre ?? x.name ?? '').trim();
+        return '';
+      }).filter(Boolean);
+    }
+  }catch(e){
+    console.error('Error leyendo categorías locales:',e);
   }
 
-  catEl.innerHTML =
-    cats()
-      .map(
-        x=>`<option>${x}</option>`
-      )
-      .join('');
+  return [...new Set([
+    'Arriendo','Luz','Gas','Agua','Internet hogar','Internet celular','Mercado','Otro',...stored
+  ])];
+}
 
+function fill(selectedValue){
+  const catEl=document.getElementById('cat');
+  if(!catEl) return;
+
+  const previous = selectedValue ?? catEl.value;
+  const list=cats();
+
+  catEl.innerHTML=list.map(x=>`<option value="${String(x).replace(/"/g,'&quot;')}">${String(x)}</option>`).join('');
+
+  if(previous && list.includes(previous)){
+    catEl.value=previous;
+  }else if(catEl.options.length){
+    catEl.selectedIndex=0;
+  }
 }
 
 
@@ -1322,71 +1322,73 @@ function fill(){
 
 document
   .getElementById('cat')
-  ?.addEventListener(
-    'change',
-    ()=>{
+  ?.addEventListener('change', async ()=>{
 
-      const catEl =
-        document.getElementById('cat');
+    const catEl=document.getElementById('cat');
 
+    if(catEl.value !== 'Otro') return;
 
-      if(
-        catEl.value === 'Otro'
-      ){
+    let n=prompt('Nombre de la nueva categoría');
 
-        let n =
-          prompt(
-            'Nombre de la nueva categoría'
-          );
+    if(!n){ fill(); return; }
 
+    n=n.trim();
+    if(!n){ fill(); return; }
 
-        if(n){
+    const {data:existing,error:existingError}=await sb
+      .from('categorias')
+      .select('id,nombre')
+      .eq('nombre',n)
+      .limit(1)
+      .maybeSingle();
 
-          n =
-            n.trim();
+    if(existingError){
+      console.error('Error buscando categoría:',existingError);
+      alert('No se pudo verificar la categoría: '+existingError.message);
+      fill();
+      return;
+    }
 
+    let categoria=existing;
 
-          if(!n){
-            return;
-          }
+    if(!categoria){
+      let result=await sb.from('categorias')
+        .insert({nombre:n,hogar_id:currentHouseholdId})
+        .select('id,nombre').single();
 
-
-          let a =
-            JSON.parse(
-              localStorage.getItem(CC)||'[]'
-            );
-
-
-          if(!a.includes(n)){
-
-            a.push(n);
-
-          }
-
-
-          localStorage.setItem(
-            CC,
-            JSON.stringify(a)
-          );
-
-
-          fill();
-
-
-          /*
-            Volvemos a seleccionar
-            inmediatamente la categoría
-            que acabamos de crear.
-          */
-
-          catEl.value=n;
-
-        }
-
+      if(result.error && /hogar_id|column/i.test(result.error.message||'')){
+        result=await sb.from('categorias')
+          .insert({nombre:n})
+          .select('id,nombre').single();
       }
 
+      if(result.error){
+        console.error('Error creando categoría:',result.error);
+        alert('No se pudo crear la categoría: '+result.error.message);
+        fill();
+        return;
+      }
+
+      categoria=result.data;
     }
-  );
+
+    let a=[];
+    try{
+      const raw=JSON.parse(localStorage.getItem(CC)||'[]');
+      if(Array.isArray(raw)){
+        a=raw.map(x=>{
+          if(typeof x==='string') return x.trim();
+          if(x && typeof x==='object') return String(x.nombre ?? x.name ?? '').trim();
+          return '';
+        }).filter(Boolean);
+      }
+    }catch(e){ a=[]; }
+
+    if(!a.includes(categoria.nombre)) a.push(categoria.nombre);
+    localStorage.setItem(CC,JSON.stringify(a));
+    fill(categoria.nombre);
+  });
+
 
 /* =========================
    LOGIN
@@ -2567,66 +2569,32 @@ function render(){
 
 function show(id,b){
 
-  /* Guardar la categoría seleccionada antes de cambiar de pestaña */
-  const catEl = document.getElementById('cat');
+  active =
+    id;
 
-  if(catEl){
-    sessionStorage.setItem(
-      'cg2_categoria_seleccionada',
-      catEl.value
-    );
-  }
-
-  active = id;
 
   document
     .querySelectorAll('.screen')
     .forEach(
-      x =>
-        x.classList.remove('active')
+      x=>
+        x.classList.remove(
+          'active'
+        )
     );
+
 
   const screen =
     document.getElementById(id);
 
-  if(screen){
-    screen.classList.add('active');
-  }
 
-  document
-    .querySelectorAll('.nav button')
-    .forEach(
-      x =>
-        x.classList.remove('active')
+  if(screen){
+
+    screen.classList.add(
+      'active'
     );
 
-  if(b){
-    b.classList.add('active');
   }
 
-  /* Restaurar la categoría seleccionada */
-  if(catEl){
-
-    const categoriaGuardada =
-      sessionStorage.getItem(
-        'cg2_categoria_seleccionada'
-      );
-
-    if(
-      categoriaGuardada &&
-      [...catEl.options].some(
-        option =>
-          option.value === categoriaGuardada
-      )
-    ){
-      catEl.value =
-        categoriaGuardada;
-    }
-  }
-
-  /* Actualizar la pantalla */
-  render();
-}
 
   document
     .querySelectorAll('.nav button')
@@ -2677,69 +2645,53 @@ function show(id,b){
    MODALES
 ========================= */
 
-function show(id,b){
+function openM(id){
 
-  /* Guardar la categoría seleccionada antes de cambiar de pestaña */
-  const catEl = document.getElementById('cat');
+  if(id==='expense'){
 
-  if(catEl){
-    sessionStorage.setItem(
-      'cg2_categoria_seleccionada',
-      catEl.value
-    );
-  }
+    const dateEl =
+      document.getElementById('date');
 
-  active = id;
 
-  document
-    .querySelectorAll('.screen')
-    .forEach(
-      x =>
-        x.classList.remove('active')
-    );
+    if(dateEl){
 
-  const screen =
-    document.getElementById(id);
+      dateEl.value =
+        new Date()
+          .toISOString()
+          .slice(0,10);
 
-  if(screen){
-    screen.classList.add('active');
-  }
-
-  document
-    .querySelectorAll('.nav button')
-    .forEach(
-      x =>
-        x.classList.remove('active')
-    );
-
-  if(b){
-    b.classList.add('active');
-  }
-
-  /* Restaurar la categoría seleccionada */
-  if(catEl){
-
-    const categoriaGuardada =
-      sessionStorage.getItem(
-        'cg2_categoria_seleccionada'
-      );
-
-    if(
-      categoriaGuardada &&
-      [...catEl.options].some(
-        option =>
-          option.value === categoriaGuardada
-      )
-    ){
-      catEl.value =
-        categoriaGuardada;
     }
+
+
+    fill();
+
   }
 
-  /* Actualizar la pantalla */
-  render();
+
+  const modalId =
+    id==='shop'
+      ? 'shopModal'
+      : id;
+
+
+  const modal =
+    document.getElementById(
+      modalId
+    );
+
+
+  if(modal){
+
+    modal.classList.add(
+      'show'
+    );
+
+  }
+
 }
-  function closeM(id){
+
+
+function closeM(id){
 
   const modal =
     document.getElementById(id);
