@@ -1138,7 +1138,8 @@ const CC = 'cg2_cats';
 let E = [];
 let S = [];
 let pics = [];
-let active = 'home';
+let photoFiles = [];
+  let active = 'home';
 
 let categoryIds = {};
 
@@ -3200,9 +3201,7 @@ function closeM(id){
 function openCamera(){
 
   document
-    .getElementById(
-      'cameraInput'
-    )
+    .getElementById('cameraInput')
     .click();
 
 }
@@ -3211,9 +3210,7 @@ function openCamera(){
 function openGallery(){
 
   document
-    .getElementById(
-      'photosInput'
-    )
+    .getElementById('photosInput')
     .click();
 
 }
@@ -3222,55 +3219,50 @@ function openGallery(){
 function previewPhotos(ev){
 
   const previewEl =
-    document.getElementById(
-      'preview'
-    );
+    document.getElementById('preview');
 
   if(!previewEl){
     return;
   }
 
-  [
-    ...ev.target.files
-  ].forEach(
-    file=>{
+  const files =
+    [...(ev.target.files || [])];
 
-      const reader =
-        new FileReader();
+  files.forEach(file=>{
 
-      reader.onload =
-        e=>{
-
-          pics.push(
-            e.target.result
-          );
-
-          const img =
-            document.createElement(
-              'img'
-            );
-
-          img.src =
-            e.target.result;
-
-          img.className =
-            'photo';
-
-          previewEl.appendChild(
-            img
-          );
-
-        };
-
-      reader.readAsDataURL(file);
-
+    if(!file.type.startsWith('image/')){
+      return;
     }
-  );
+
+    photoFiles.push(file);
+
+    const reader =
+      new FileReader();
+
+    reader.onload = e=>{
+
+      pics.push(e.target.result);
+
+      const img =
+        document.createElement('img');
+
+      img.src =
+        e.target.result;
+
+      img.className =
+        'photo';
+
+      previewEl.appendChild(img);
+
+    };
+
+    reader.readAsDataURL(file);
+
+  });
 
   ev.target.value='';
 
 }
-
 
 /* =========================
    AGREGAR COMPRA
