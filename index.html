@@ -2227,10 +2227,7 @@ async function addExpense(ev){
     !currentHouseholdId
   ){
 
-    alert(
-      'No hay una sesión activa.'
-    );
-
+    alert('No hay una sesión activa.');
     return;
 
   }
@@ -2256,13 +2253,8 @@ async function addExpense(ev){
   const noteEl =
     document.getElementById('note');
 
-  const previewEl =
-    document.getElementById('preview');
-
   const saveButton =
-    document.getElementById(
-      'saveExpenseButton'
-    );
+    document.getElementById('saveExpenseButton');
 
   const categoriaTexto =
     catEl.value.trim();
@@ -2282,48 +2274,39 @@ async function addExpense(ev){
   const notas =
     noteEl.value.trim();
 
+
+  /* =========================
+     VALIDACIONES
+  ========================= */
+
   if(monto <= 0){
 
-    alert(
-      'El valor debe ser mayor que 0.'
-    );
-
+    alert('El valor debe ser mayor que 0.');
     return;
 
   }
 
   if(!fecha){
 
-    alert(
-      'Selecciona una fecha.'
-    );
-
+    alert('Selecciona una fecha.');
     return;
 
   }
 
   if(!categoriaTexto){
 
-    alert(
-      'Selecciona una categoría.'
-    );
-
+    alert('Selecciona una categoría.');
     return;
 
   }
 
-  /*
-    Primero intentamos utilizar
-    el ID que ya conocemos.
-  */
+
+  /* =========================
+     BUSCAR ID CATEGORIA
+  ========================= */
 
   let categoriaId =
     categoryIds[categoriaTexto];
-
-  /*
-    Si no está disponible,
-    buscamos en Supabase.
-  */
 
   if(!categoriaId){
 
@@ -2334,10 +2317,7 @@ async function addExpense(ev){
       await sb
         .from('categorias')
         .select('id,nombre')
-        .eq(
-          'nombre',
-          categoriaTexto
-        )
+        .eq('nombre',categoriaTexto)
         .limit(1)
         .maybeSingle();
 
@@ -2362,7 +2342,7 @@ async function addExpense(ev){
       alert(
         'La categoría "'+
         categoriaTexto+
-        '" no existe todavía en la tabla de categorías.'
+        '" no existe todavía.'
       );
 
       return;
@@ -2379,166 +2359,552 @@ async function addExpense(ev){
 
   }
 
-  saveButton.disabled=true;
-  saveButton.textContent=
-    'Guardando...';
 
-  /*
-    Las fotos todavía se mantienen
-    como vista previa en este formulario.
-    El guardado permanente de imágenes
-    requiere configurar Storage.
-  */
+  /* =========================
+     BLOQUEAR BOTON
+  ========================= */
 
-  const payload = {
+  saveButton.disabled = true;
 
-    hogar_id:
-      currentHouseholdId,
+  saveButton.textContent =
+    'Comprimiendo fotos...';
 
-    usuario_id:
-      currentUser.id,
 
-    categoria_id:
-      categoriaId,
+  /* =========================
+     COMPRIMIR FOTO
+  ========================= */
 
-    monto:
-      monto,
+  async function compressImage(file){
 
-    fecha:
-      fecha,
+    return new Promise(
+      (resolve,reject)=>{
 
-    descripcion:
-      notas ||
-      'Sin descripción',
+        const reader =
+          new FileReader();
 
-    split:
-      split,
+        reader.onload =
+          function(e){
 
-    payer:
-      payer,
+            const img =
+              new Image();
 
-    paid:
-      false
+            img.onload =
+              function(){
 
-  };
+                const MAX_WIDTH = 1600;
+                const MAX_HEIGHT = 1600;
 
-  const {
-    data,
-    error
-  } =
-    await sb
-      .from('gastos')
-      .insert(payload)
-      .select()
-      .single();
+                let width =
+                  img.width;
 
-  if(error){
+                let height =
+                  img.height;
+
+                /*
+                  Reducimos la resolución
+                  manteniendo proporción.
+                */
+
+                if(
+                  width > MAX_WIDTH ||
+                  height > MAX_HEIGHT
+                ){
+
+                  const ratio =
+                    Math.min(
+                      MAX_WIDTH / width,
+                      MAX_HEIGHT / height
+                    );
+
+                  width =
+                    Math.round(
+                      width * ratio
+                    );
+
+                  height =
+                    Math.round(
+                      height * ratio
+                    );
+
+                }
+
+                const canvas =
+                  document.createElement(
+                    'canvas'
+                  );
+
+                canvas.width =
+                  width;
+
+                canvas.height =
+                  height;
+
+                const ctx =
+                  canvas.getContext(
+                    '2d'
+                  );
+
+                ctx.drawImage(
+                  img,
+                  0,
+                  0,
+                  width,
+                  height
+                );
+
+                /*
+                  JPEG calidad 0.75
+                  para reducir bastante
+                  el tamaño del archivo.
+                */
+
+                canvas.toBlob(
+                  blob=>{
+
+                    if(!blob){
+
+                      reject(
+                        new Error(
+                          'No se pudo comprimir la imagen.'
+                        )
+                      );
+
+                      return;
+
+                    }
+
+                    resolve(blob);
+
+                  },
+                  'image/jpeg',
+                  0.75
+                );
+
+              };
+
+            img.onerror =
+              ()=>reject(
+                new Error(
+                  'No se pudo leer la imagen.'
+                )
+              );
+
+            img.src =
+              e.target.result;
+
+          };
+
+        reader.onerror =
+          ()=>reject(
+            new Error(
+              'No se pudo leer el archivo.'
+            )
+          );
+
+        reader.readAsDataURL(file);
+
+      }
+    );
+
+  }
+
+
+  /* =========================
+     OBTENER ARCHIVOS
+  ========================= */
+
+  const cameraInput =
+    document.getElementById(
+      'cameraInput'
+    );
+
+  const photosInput =
+    document.getElementById(
+      'photosInput'
+    );
+
+  const files = [
+
+    ...(
+      cameraInput?.files || []
+    ),
+
+    ...(
+      photosInput?.files || []
+    )
+
+  ];
+
+
+  /* =========================
+     SUBIR FOTOS
+  ========================= */
+
+  const photoUrls = [];
+
+  try{
+
+    for(
+      let i=0;
+      i<files.length;
+      i++
+    ){
+
+      const file =
+        files[i];
+
+      saveButton.textContent =
+        `Subiendo foto ${i+1} de ${files.length}...`;
+
+      console.log(
+        'Foto original:',
+        file.name,
+        file.size
+      );
+
+
+      /* COMPRIMIR */
+
+      const compressed =
+        await compressImage(file);
+
+      console.log(
+        'Foto comprimida:',
+        compressed.size
+      );
+
+
+      /* NOMBRE UNICO */
+
+      const fileName =
+        `${Date.now()}-${i}-${Math.random()
+          .toString(36)
+          .substring(2,8)}.jpg`;
+
+
+      /*
+        Carpeta por hogar.
+        Ejemplo:
+
+        gastos-fotos/
+          1/
+            1758940000000-0-ab12cd.jpg
+      */
+
+      const filePath =
+        `${currentHouseholdId}/${fileName}`;
+
+
+      /* SUBIR A STORAGE */
+
+      const {
+        error:uploadError
+      } =
+        await sb.storage
+          .from('gastos-fotos')
+          .upload(
+            filePath,
+            compressed,
+            {
+              contentType:'image/jpeg',
+              upsert:false
+            }
+          );
+
+      if(uploadError){
+
+        console.error(
+          'Error subiendo foto:',
+          uploadError
+        );
+
+        throw new Error(
+          'No se pudo subir la foto: '+
+          uploadError.message
+        );
+
+      }
+
+
+      /* OBTENER URL PUBLICA */
+
+      const {
+        data:urlData
+      } =
+        sb.storage
+          .from('gastos-fotos')
+          .getPublicUrl(
+            filePath
+          );
+
+      const publicUrl =
+        urlData?.publicUrl;
+
+
+      if(!publicUrl){
+
+        throw new Error(
+          'No se pudo obtener la URL de la foto.'
+        );
+
+      }
+
+
+      photoUrls.push(
+        publicUrl
+      );
+
+      console.log(
+        'Foto subida:',
+        publicUrl
+      );
+
+    }
+
+
+    /* =========================
+       GUARDAR GASTO
+    ========================= */
+
+    saveButton.textContent =
+      'Guardando gasto...';
+
+
+    const payload = {
+
+      hogar_id:
+        currentHouseholdId,
+
+      usuario_id:
+        currentUser.id,
+
+      categoria_id:
+        categoriaId,
+
+      monto:
+        monto,
+
+      fecha:
+        fecha,
+
+      descripcion:
+        notas ||
+        'Sin descripción',
+
+      notas:
+        notas,
+
+      split:
+        split,
+
+      payer:
+        payer,
+
+      paid:
+        false,
+
+      photos:
+        photoUrls
+
+    };
+
+
+    const {
+      data,
+      error
+    } =
+      await sb
+        .from('gastos')
+        .insert(payload)
+        .select()
+        .single();
+
+
+    if(error){
+
+      console.error(
+        'Error guardando gasto:',
+        error
+      );
+
+      alert(
+        'No se pudo guardar el gasto: '+
+        error.message
+      );
+
+      /*
+        Si el gasto falla pero las fotos
+        ya fueron subidas, las eliminamos
+        para no dejar archivos huérfanos.
+      */
+
+      if(photoUrls.length){
+
+        const paths =
+          photoUrls.map(
+            url=>{
+
+              const marker =
+                '/gastos-fotos/';
+
+              const pos =
+                url.indexOf(marker);
+
+              return pos >= 0
+                ? decodeURIComponent(
+                    url.substring(
+                      pos + marker.length
+                    )
+                  )
+                : null;
+
+            }
+          )
+          .filter(Boolean);
+
+        if(paths.length){
+
+          await sb.storage
+            .from('gastos-fotos')
+            .remove(paths);
+
+        }
+
+      }
+
+      saveButton.disabled=false;
+
+      saveButton.textContent =
+        'Guardar gasto';
+
+      return;
+
+    }
+
+
+    console.log(
+      'Gasto guardado en Supabase:',
+      data
+    );
+
+
+    /* =========================
+       ACTUALIZAR LISTA LOCAL
+    ========================= */
+
+    E.unshift({
+
+      id:
+        data.id,
+
+      cat:
+        categoriaTexto,
+
+      categoria_id:
+        categoriaId,
+
+      amount:
+        Number(
+          data.monto ??
+          monto
+        ),
+
+      date:
+        data.fecha ??
+        fecha,
+
+      created_at:
+        data.created_at ??
+        new Date().toISOString(),
+
+      split:
+        data.split ??
+        split,
+
+      payer:
+        data.payer ??
+        payer,
+
+      paid:
+        Boolean(
+          data.paid
+        ),
+
+      note:
+        data.descripcion ??
+        notas ??
+        '',
+
+      photos:
+        data.photos ??
+        photoUrls
+
+    });
+
+
+    /* =========================
+       LIMPIAR FORMULARIO
+    ========================= */
+
+    pics=[];
+
+    const previewEl =
+      document.getElementById(
+        'preview'
+      );
+
+    if(previewEl){
+
+      previewEl.innerHTML='';
+
+    }
+
+    form.reset();
+
+    dateEl.value =
+      today();
+
+
+    closeM('expense');
+
+
+    saveButton.disabled=false;
+
+    saveButton.textContent =
+      'Guardar gasto';
+
+
+    render();
+
+
+    notify(
+      'Nuevo gasto',
+      categoriaTexto+
+      ' · '+
+      money(monto)
+    );
+
+
+  }catch(error){
 
     console.error(
-      'Error guardando gasto en Supabase:',
+      'Error procesando gasto:',
       error
     );
 
     alert(
-      'No se pudo guardar el gasto: '+
-      error.message
+      error.message ||
+      'Ocurrió un error al guardar el gasto.'
     );
 
     saveButton.disabled=false;
-    saveButton.textContent=
-      'Guardar gasto';
 
-    return;
+    saveButton.textContent =
+      'Guardar gasto';
 
   }
 
-  console.log(
-    'Gasto guardado en Supabase:',
-    data
-  );
-
-  /*
-    Agregamos inmediatamente el gasto
-    al principio para que aparezca
-    sin esperar una navegación.
-  */
-
-  E.unshift({
-
-    id:data.id,
-
-    cat:
-      categoriaTexto,
-
-    categoria_id:
-      categoriaId,
-
-    amount:
-      Number(
-        data.monto ??
-        monto
-      ),
-
-    date:
-      data.fecha ??
-      fecha,
-
-    created_at:
-      data.created_at ??
-      new Date().toISOString(),
-
-    split:
-      data.split ??
-      split,
-
-    payer:
-      data.payer ??
-      payer,
-
-    paid:
-      Boolean(
-        data.paid
-      ),
-
-    note:
-      data.descripcion ??
-      notas ??
-      '',
-
-    photos:
-      []
-
-  });
-
-  /*
-    Limpiamos formulario.
-  */
-
-  pics=[];
-  previewEl.innerHTML='';
-
-  form.reset();
-
-  dateEl.value =
-    today();
-
-  closeM('expense');
-
-  saveButton.disabled=false;
-  saveButton.textContent=
-    'Guardar gasto';
-
-  render();
-
-  notify(
-    'Nuevo gasto',
-    categoriaTexto+
-    ' · '+
-    money(monto)
-  );
-
 }
-
 
 /* =========================
    MARCAR GASTO PAGADO
