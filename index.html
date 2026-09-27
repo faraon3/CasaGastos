@@ -645,10 +645,7 @@ button{
         <div class="sub" id="month"></div>
       </div>
 
-      <button class="icon" onclick="openM('expense')">
-        ＋
-      </button>
-
+      <button id="homeAdd" class="icon" onclick="openM('expense')">＋</button>
     </div>
 
     <div class="hero">
@@ -1889,7 +1886,34 @@ function updateRoleInfo(){
       : 'Miembro: puede consultar los gastos y utilizar Compras según los permisos configurados.';
 
 }
+function applyPermissions(){
+  const isOwner = currentRole === 'propietario';
 
+  const navExpenses = document.getElementById('navExpenses');
+  const navCalendar = document.getElementById('navCalendar');
+  const navStats = document.getElementById('navStats');
+  const navMore = document.getElementById('navMore');
+
+  if(navExpenses) navExpenses.style.display = isOwner ? '' : 'none';
+  if(navCalendar) navCalendar.style.display = isOwner ? '' : 'none';
+  if(navStats) navStats.style.display = isOwner ? '' : 'none';
+  if(navMore) navMore.style.display = isOwner ? '' : 'none';
+
+  const fab = document.getElementById('fab');
+
+  if(fab){
+    fab.style.display =
+      isOwner && ['home','expenses'].includes(active)
+        ? 'block'
+        : 'none';
+  }
+
+  const homeAdd = document.getElementById('homeAdd');
+
+  if(homeAdd){
+    homeAdd.style.display = isOwner ? '' : 'none';
+  }
+}
 
 /* =========================
    CAMBIO DE SESION
