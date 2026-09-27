@@ -350,7 +350,55 @@ button{
   object-fit:cover;
   border-radius:10px;
 }
+.expensePhotos{
+  display:flex;
+  gap:7px;
+  margin-top:8px;
+  overflow-x:auto;
+}
 
+.expensePhoto{
+  width:58px;
+  height:58px;
+  object-fit:cover;
+  border-radius:10px;
+  border:1px solid var(--line);
+  cursor:pointer;
+}
+
+.photoViewer{
+  position:fixed;
+  inset:0;
+  background:#000c;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  z-index:10000;
+  padding:20px;
+}
+
+.photoViewer.show{
+  display:flex;
+}
+
+.photoViewer img{
+  max-width:100%;
+  max-height:85vh;
+  object-fit:contain;
+  border-radius:12px;
+}
+
+.photoViewer button{
+  position:absolute;
+  top:20px;
+  right:20px;
+  width:42px;
+  height:42px;
+  border-radius:50%;
+  background:#ffffffdd;
+  font-size:20px;
+}
+  
 .item{
   display:flex;
   gap:10px;
@@ -880,7 +928,17 @@ button{
 
 </div>
 
+<!-- VISOR DE FOTO -->
+<div id="photoViewer" class="photoViewer">
 
+  <button onclick="closePhotoViewer()">
+    ✕
+  </button>
+
+  <img id="photoViewerImg" src="" alt="Foto del gasto">
+
+</div>
+  
 <!-- MODAL GASTO -->
 <div id="expense" class="modal">
 
@@ -2989,8 +3047,46 @@ function render(){
 function expenseHTML(x){
 
   const canPay =
-    currentRole ===
-    'propietario';
+    currentRole === 'propietario';
+
+  let photosHTML = '';
+
+  if(
+    Array.isArray(x.photos) &&
+    x.photos.length
+  ){
+
+    photosHTML = `
+      <div class="expensePhotos">
+        ${
+          x.photos
+            .map(photo=>{
+
+              const url =
+                typeof photo === 'string'
+                  ? photo
+                  : photo?.url;
+
+              if(!url){
+                return '';
+              }
+
+              return `
+                <img
+                  class="expensePhoto"
+                  src="${esc(url)}"
+                  alt="Foto del gasto"
+                  onclick="openPhotoViewer('${esc(url)}')"
+                >
+              `;
+
+            })
+            .join('')
+        }
+      </div>
+    `;
+
+  }
 
   return `
 
@@ -3023,6 +3119,8 @@ function expenseHTML(x){
             ? `<div class="small">${esc(x.note)}</div>`
             : ''
         }
+
+        ${photosHTML}
 
       </div>
 
@@ -3066,8 +3164,54 @@ function expenseHTML(x){
   `;
 
 }
+function openPhotoViewer(url){
+
+  const viewer =
+    document.getElementById(
+      'photoViewer'
+    );
+
+  const img =
+    document.getElementById(
+      'photoViewerImg'
+    );
+
+  if(!viewer || !img){
+    return;
+  }
+
+  img.src = url;
+
+  viewer.classList.add('show');
+
+}
 
 
+function closePhotoViewer(){
+
+  const viewer =
+    document.getElementById(
+      'photoViewer'
+    );
+
+  const img =
+    document.getElementById(
+      'photoViewerImg'
+    );
+
+  if(viewer){
+
+    viewer.classList.remove('show');
+
+  }
+
+  if(img){
+
+    img.src='';
+
+  }
+
+}
 /* =========================
    CAMBIAR PANTALLA
 ========================= */
