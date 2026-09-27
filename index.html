@@ -888,46 +888,28 @@ button{
 
 <!-- NAV -->
 <div class="nav">
+  <button class="active" onclick="show('home',this)">🏠<br>Inicio</button>
 
-  <button
-    class="active"
-    onclick="show('home',this)"
-  >
-    🏠<br>Inicio
-  </button>
-
-  <button
-    onclick="show('expenses',this)"
-  >
+  <button id="navExpenses" onclick="show('expenses',this)">
     💰<br>Gastos
   </button>
 
-  <button
-    onclick="show('calendar',this)"
-  >
+  <button id="navCalendar" onclick="show('calendar',this)">
     📅<br>Calendario
   </button>
 
-  <button
-    onclick="show('shop',this)"
-  >
+  <button onclick="show('shop',this)">
     🛒<br>Compras
   </button>
 
-  <button
-    onclick="show('stats',this)"
-  >
+  <button id="navStats" onclick="show('stats',this)">
     📊<br>Stats
   </button>
 
-  <button
-    onclick="show('more',this)"
-  >
+  <button id="navMore" onclick="show('more',this)">
     ⚙️<br>Más
   </button>
-
 </div>
-
 <!-- VISOR DE FOTO -->
 <div id="photoViewer" class="photoViewer">
 
