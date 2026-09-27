@@ -3697,35 +3697,35 @@ function show(id,b){
    MODALES
 ========================= */
 
-if(id==='expense'){
+function openM(id){
 
-  photoFiles=[];
-  pics=[];
+  if(id==='expense'){
 
-  const previewEl =
-    document.getElementById('preview');
+    photoFiles=[];
+    pics=[];
 
-  if(previewEl){
+    const previewEl =
+      document.getElementById('preview');
 
-    previewEl.innerHTML='';
+    if(previewEl){
+
+      previewEl.innerHTML='';
+
+    }
+
+    const dateEl =
+      document.getElementById('date');
+
+    if(dateEl){
+
+      dateEl.value =
+        today();
+
+    }
+
+    fill();
 
   }
-
-  const dateEl =
-    document.getElementById(
-      'date'
-    );
-
-  if(dateEl){
-
-    dateEl.value =
-      today();
-
-  }
-
-  fill();
-
-}
 
   const modalId =
     id==='shop'
@@ -3745,6 +3745,21 @@ if(id==='expense'){
 
 }
 
+
+function closeM(id){
+
+  const modal =
+    document.getElementById(id);
+
+  if(modal){
+
+    modal.classList.remove(
+      'show'
+    );
+
+  }
+
+}
 
 function closeM(id){
 
