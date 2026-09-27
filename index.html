@@ -640,14 +640,32 @@ button{
 
     <div class="top">
 
-      <div>
-        <div class="brand">🏠 CasaGastos</div>
-        <div class="sub" id="month"></div>
-      </div>
+  <div>
+    <div class="brand">🏠 CasaGastos</div>
+    <div class="sub" id="month"></div>
+  </div>
 
-      <button id="homeAdd" class="icon" onclick="openM('expense')">＋</button>
-    </div>
+  <div style="display:flex;gap:8px;align-items:center">
 
+    <button
+      class="icon"
+      onclick="logout()"
+      title="Cerrar sesión"
+    >
+      🚪
+    </button>
+
+    <button
+      id="homeAdd"
+      class="icon"
+      onclick="openM('expense')"
+    >
+      ＋
+    </button>
+
+  </div>
+
+</div>
     <div class="hero">
 
       <small>Total del mes</small>
