@@ -2090,9 +2090,34 @@ async function loadExpenses(){
         '',
 
       photos:
-        x.photos ??
-        []
+  Array.isArray(x.photos)
+    ? x.photos
+    : (
+        typeof x.photos === 'string'
+          ? (()=>{
 
+              try{
+                const parsed =
+                  JSON.parse(x.photos);
+
+                return Array.isArray(parsed)
+                  ? parsed
+                  : [];
+
+              }catch(e){
+
+                console.error(
+                  'Error leyendo fotos del gasto:',
+                  e
+                );
+
+                return [];
+
+              }
+
+            })()
+          : []
+      )
     }));
 
   /*
@@ -2513,28 +2538,8 @@ async function addExpense(ev){
      OBTENER ARCHIVOS
   ========================= */
 
-  const cameraInput =
-    document.getElementById(
-      'cameraInput'
-    );
-
-  const photosInput =
-    document.getElementById(
-      'photosInput'
-    );
-
-  const files = [
-
-    ...(
-      cameraInput?.files || []
-    ),
-
-    ...(
-      photosInput?.files || []
-    )
-
-  ];
-
+  const files =
+  [...photoFiles];
 
   /* =========================
      SUBIR FOTOS
@@ -2847,7 +2852,7 @@ async function addExpense(ev){
     ========================= */
 
     pics=[];
-
+photoFiles=[];
     const previewEl =
       document.getElementById(
         'preview'
@@ -3415,44 +3420,88 @@ function expenseHTML(x){
   const canPay =
     currentRole === 'propietario';
 
-  let photosHTML = '';
+  let photos = [];
 
-  if(
-    Array.isArray(x.photos) &&
-    x.photos.length
+  /*
+    Asegurar que photos siempre
+    sea un arreglo.
+  */
+
+  if(Array.isArray(x.photos)){
+
+    photos =
+      x.photos;
+
+  }else if(
+    typeof x.photos === 'string'
   ){
 
-    photosHTML = `
-      <div class="expensePhotos">
-        ${
-          x.photos
-            .map(photo=>{
+    try{
 
-              const url =
-                typeof photo === 'string'
-                  ? photo
-                  : photo?.url;
+      const parsed =
+        JSON.parse(x.photos);
 
-              if(!url){
-                return '';
-              }
+      if(Array.isArray(parsed)){
 
-              return `
-                <img
-                  class="expensePhoto"
-                  src="${esc(url)}"
-                  alt="Foto del gasto"
-                  onclick="openPhotoViewer('${esc(url)}')"
-                >
-              `;
+        photos =
+          parsed;
 
-            })
-            .join('')
-        }
-      </div>
-    `;
+      }
+
+    }catch(e){
+
+      console.error(
+        'No se pudieron leer las fotos:',
+        e
+      );
+
+    }
 
   }
+
+
+  let photosHTML = '';
+
+  if(photos.length){
+
+    const validPhotos =
+      photos
+        .map(photo=>{
+
+          const url =
+            typeof photo === 'string'
+              ? photo
+              : photo?.url;
+
+          if(!url){
+            return '';
+          }
+
+          return `
+            <img
+              class="expensePhoto"
+              src="${esc(url)}"
+              alt="Foto del gasto"
+              loading="lazy"
+              onclick="openPhotoViewer(this.src)"
+            >
+          `;
+
+        })
+        .join('');
+
+    if(validPhotos){
+
+      photosHTML = `
+        <div class="expensePhotos">
+          ${validPhotos}
+        </div>
+      `;
+
+    }
+
+  }
+
 
   return `
 
@@ -3530,7 +3579,7 @@ function expenseHTML(x){
   `;
 
 }
-function openPhotoViewer(url){
+  function openPhotoViewer(url){
 
   const viewer =
     document.getElementById(
@@ -3648,25 +3697,35 @@ function show(id,b){
    MODALES
 ========================= */
 
-function openM(id){
+if(id==='expense'){
 
-  if(id==='expense'){
+  photoFiles=[];
+  pics=[];
 
-    const dateEl =
-      document.getElementById(
-        'date'
-      );
+  const previewEl =
+    document.getElementById('preview');
 
-    if(dateEl){
+  if(previewEl){
 
-      dateEl.value =
-        today();
-
-    }
-
-    fill();
+    previewEl.innerHTML='';
 
   }
+
+  const dateEl =
+    document.getElementById(
+      'date'
+    );
+
+  if(dateEl){
+
+    dateEl.value =
+      today();
+
+  }
+
+  fill();
+
+}
 
   const modalId =
     id==='shop'
@@ -3743,6 +3802,7 @@ function previewPhotos(ev){
       return;
     }
 
+    /* Guardar archivo real para addExpense() */
     photoFiles.push(file);
 
     const reader =
@@ -3769,10 +3829,16 @@ function previewPhotos(ev){
 
   });
 
+  /*
+    Limpiamos el input para poder
+    volver a seleccionar la misma foto.
+    El archivo REAL queda guardado
+    en photoFiles.
+  */
+
   ev.target.value='';
 
 }
-
 /* =========================
    AGREGAR COMPRA
 ========================= */
