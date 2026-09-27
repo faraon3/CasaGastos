@@ -2601,36 +2601,20 @@ function render(){
   */
 
   const monthExpenses =
-    E
-      .filter(
-        x=>
-          x.date &&
-          x.date.startsWith(ym)
-      )
-      .sort(
-        (a,b)=>{
-
-          const ca =
-            a.created_at || '';
-
-          const cb =
-            b.created_at || '';
-
-          if(ca && cb){
-
-            return cb.localeCompare(ca);
-
-          }
-
-          return (
-            b.date || ''
-          ).localeCompare(
-            a.date || ''
-          );
-
-        }
-      );
-
+    let a =
+  E
+    .filter(
+      x =>
+        x.date &&
+        x.date.startsWith(ym)
+    )
+    .sort(
+      (a,b)=>
+        (b.created_at || '')
+          .localeCompare(
+            a.created_at || ''
+          )
+    );
   /*
     TOTAL
   */
