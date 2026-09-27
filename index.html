@@ -1850,15 +1850,12 @@ async function initializeUser(){
   currentHouseholdId =
     member.hogar_id;
 
-  await loadCategories();
-
-  await loadExpenses();
-
-  await loadShopping();
-
-  updateRoleInfo();
-
-  render();
+loadCategories();
+loadExpenses();
+loadShopping();
+updateRoleInfo();
+applyPermissions();
+render();
 
   return true;
 
@@ -2251,6 +2248,13 @@ async function loadShopping(){
 
 async function addExpense(ev){
 
+  if(currentRole !== 'propietario'){
+    alert('No tienes permisos para crear gastos.');
+    return;
+  }
+
+  // aquí continúa todo el código que ya tienes
+  
   ev.preventDefault();
 
   if(
@@ -3638,66 +3642,40 @@ function closePhotoViewer(){
 ========================= */
 
 function show(id,b){
+  active=id;
 
-  active =
-    id;
-
-  document
-    .querySelectorAll('.screen')
-    .forEach(
-      x=>
-        x.classList.remove('active')
-    );
-
-  const screen =
-    document.getElementById(id);
-
-  if(screen){
-
-    screen.classList.add('active');
-
+  if(
+    currentRole !== 'propietario' &&
+    ['expenses','calendar','stats','more'].includes(id)
+  ){
+    active='home';
+    id='home';
   }
 
-  document
-    .querySelectorAll('.nav button')
-    .forEach(
-      x=>
-        x.classList.remove('active')
-    );
+  document.querySelectorAll('.screen').forEach(x=>x.classList.remove('active'));
 
-  if(b){
+  const screen=document.getElementById(id);
+  if(screen) screen.classList.add('active');
 
-    b.classList.add('active');
+  document.querySelectorAll('.nav button').forEach(x=>x.classList.remove('active'));
 
-  }
+  if(b) b.classList.add('active');
 
-  const fabEl =
-    document.getElementById(
-      'fab'
-    );
+  const fabEl=document.getElementById('fab');
 
   if(fabEl){
-
     fabEl.style.display =
-      [
-        'home',
-        'expenses'
-      ].includes(id)
+      currentRole === 'propietario' &&
+      ['home','expenses'].includes(id)
         ? 'block'
         : 'none';
-
   }
 
-  if(id==='shop'){
-
-    loadShopping();
-
-  }
+  if(id==='shop') loadShopping();
 
   render();
-
+  applyPermissions();
 }
-
 
 /* =========================
    MODALES
@@ -3705,52 +3683,26 @@ function show(id,b){
 
 function openM(id){
 
-  if(id==='expense'){
+  if(id==='expense' && currentRole !== 'propietario'){
+    alert('No tienes permisos para crear gastos.');
+    return;
+  }
 
+  if(id==='expense'){
     photoFiles=[];
     pics=[];
-
-    const previewEl =
-      document.getElementById('preview');
-
-    if(previewEl){
-
-      previewEl.innerHTML='';
-
-    }
-
-    const dateEl =
-      document.getElementById('date');
-
-    if(dateEl){
-
-      dateEl.value =
-        today();
-
-    }
-
+    const previewEl=document.getElementById('preview');
+    if(previewEl) previewEl.innerHTML='';
+    const dateEl=document.getElementById('date');
+    if(dateEl) dateEl.value=today();
     fill();
-
   }
 
-  const modalId =
-    id==='shop'
-      ? 'shopModal'
-      : id;
+  const modalId=id==='shop'?'shopModal':id;
+  const modal=document.getElementById(modalId);
 
-  const modal =
-    document.getElementById(
-      modalId
-    );
-
-  if(modal){
-
-    modal.classList.add('show');
-
-  }
-
+  if(modal) modal.classList.add('show');
 }
-
 
 function closeM(id){
 
