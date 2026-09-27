@@ -1867,23 +1867,21 @@ render();
 ========================= */
 
 function updateRoleInfo(){
+  const el = document.getElementById('roleInfo');
 
-  const el =
-    document.getElementById(
-      'roleInfo'
-    );
+  if(!el) return;
 
-  if(!el){
-    return;
+  if(currentRole === 'propietario'){
+    el.textContent =
+      'Propietario: tienes control total de los gastos, categorías y configuración del hogar.';
+  }else if(currentRole === 'miembro'){
+    el.textContent =
+      'Miembro: puedes consultar Inicio y administrar las Compras del hogar.';
+  }else{
+    el.textContent =
+      'Rol no identificado.';
   }
-
-  el.textContent =
-    currentRole === 'propietario'
-      ? 'Propietario: puede administrar los gastos y categorías. Compras compartidas con el hogar.'
-      : 'Miembro: puede consultar los gastos y utilizar Compras según los permisos configurados.';
-
-}
-function applyPermissions(){
+}function applyPermissions(){
   const isOwner = currentRole === 'propietario';
 
   const navExpenses = document.getElementById('navExpenses');
