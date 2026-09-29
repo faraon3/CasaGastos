@@ -1539,7 +1539,76 @@ function today(){
   return `${y}-${m}-${day}`;
 
 }
+  
+/* =========================
+   FECHAS DE PAGO AUTOMATICAS
+========================= */
 
+function getPaymentDateByCategory(category, expenseDate){
+
+  if(!expenseDate){
+    return '';
+  }
+
+  const d = new Date(expenseDate + 'T00:00:00');
+
+  if(Number.isNaN(d.getTime())){
+    return '';
+  }
+
+  const year = d.getFullYear();
+  const month = d.getMonth();
+
+  function formatDate(date){
+    const y = date.getFullYear();
+    const m = String(date.getMonth() + 1).padStart(2,'0');
+    const day = String(date.getDate()).padStart(2,'0');
+
+    return `${y}-${m}-${day}`;
+  }
+
+  function lastDayOfMonth(y, m){
+    return new Date(y, m + 1, 0);
+  }
+
+  /*
+    Reglas actuales:
+
+    Arriendo       -> fin de mes
+    Luz            -> fin de mes
+    Gas            -> fin de mes
+    Agua           -> fin de mes
+    Internet hogar -> primera mitad del mes
+    Otros          -> fin de mes
+
+    Internet celular y Mercado quedan
+    sin fecha automática por ahora porque
+    todavía no hemos definido su día exacto.
+  */
+
+  if(
+    category === 'Arriendo' ||
+    category === 'Luz' ||
+    category === 'Gas' ||
+    category === 'Agua' ||
+    category === 'Otros'
+  ){
+    return formatDate(
+      lastDayOfMonth(year, month)
+    );
+  }
+
+  if(category === 'Internet hogar'){
+
+    /*
+      Primera mitad del mes.
+      Usamos el día 15 como fecha límite.
+    */
+    return `${year}-${String(month + 1).padStart(2,'0')}-15`;
+  }
+
+  return '';
+}
 
 /* =========================
    MES ACTUAL
@@ -1782,7 +1851,61 @@ function fill(selectedValue){
 
 }
 
+/* =========================
+   ACTUALIZAR FECHA DE PAGO
+   SEGUN CATEGORIA Y FECHA
+========================= */
 
+function updateAutomaticPaymentDate(){
+
+  const catEl =
+    document.getElementById('cat');
+
+  const dateEl =
+    document.getElementById('date');
+
+  const paymentEl =
+    document.getElementById('paymentDate');
+
+  if(!catEl || !dateEl || !paymentEl){
+    return;
+  }
+
+  const categoria =
+    catEl.value;
+
+  const fecha =
+    dateEl.value;
+
+  const fechaAutomatica =
+    getPaymentDateByCategory(
+      categoria,
+      fecha
+    );
+
+  if(fechaAutomatica){
+    paymentEl.value =
+      fechaAutomatica;
+  }
+}
+
+
+/* Cuando cambia la categoría */
+document
+  .getElementById('cat')
+  ?.addEventListener(
+    'change',
+    updateAutomaticPaymentDate
+  );
+
+
+/* Cuando cambia la fecha del gasto */
+document
+  .getElementById('date')
+  ?.addEventListener(
+    'change',
+    updateAutomaticPaymentDate
+  );
 /* =========================
    CREAR CATEGORIA
 ========================= */
@@ -2828,9 +2951,16 @@ async function addExpense(ev){
   const dateEl =
     document.getElementById('date');
   
-  const fechaPago =
-  document.getElementById('paymentDate').value;
+  const categoriaNombre =
+  document.getElementById('cat').value;
 
+const fechaPagoAutomatica =
+  getPaymentDateByCategory(categoriaNombre, fecha);
+
+const fechaPago =
+  fechaPagoAutomatica ||
+  document.getElementById('paymentDate').value;
+  
   const splitEl =
     document.getElementById('split');
 
