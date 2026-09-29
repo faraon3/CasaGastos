@@ -1915,6 +1915,57 @@ document
     'change',
     updateAutomaticPaymentDate
   );
+  /* =========================
+   FORMA DE PAGO
+========================= */
+
+function updatePaymentFields(){
+
+  const splitEl =
+    document.getElementById('split');
+
+  const fieldsEl =
+    document.getElementById('differentPaymentFields');
+
+  const myPaymentEl =
+    document.getElementById('myPaymentAmount');
+
+  const wifePaymentEl =
+    document.getElementById('wifePaymentAmount');
+
+  if(
+    !splitEl ||
+    !fieldsEl
+  ){
+    return;
+  }
+
+  if(splitEl.value === 'different'){
+
+    fieldsEl.style.display = 'block';
+
+  }else{
+
+    fieldsEl.style.display = 'none';
+
+    if(myPaymentEl){
+      myPaymentEl.value = '';
+    }
+
+    if(wifePaymentEl){
+      wifePaymentEl.value = '';
+    }
+
+  }
+
+}
+
+document
+  .getElementById('split')
+  ?.addEventListener(
+    'change',
+    updatePaymentFields
+  );
 /* =========================
    CREAR CATEGORIA
 ========================= */
@@ -2755,23 +2806,12 @@ paymentDate:
 created_at:
   x.created_at ??
   '',
-      split:
-        x.split ??
-        'shared',
-
-      payer:
-        x.payer ??
-        'me',
-
-      paid:
-        Boolean(x.paid),
-
-      note:
-        x.note ??
-        x.notas ??
-        x.descripcion ??
-        '',
-
+      split:x.split ?? 'shared',
+payer:x.payer ?? 'me',
+myPayment:Number(x.my_payment ?? 0),
+wifePayment:Number(x.wife_payment ?? 0),
+paid:Boolean(x.paid),
+note:x.note ?? x.notas ?? x.descripcion ?? '',
       photos:
   Array.isArray(x.photos)
     ? x.photos
@@ -2963,9 +3003,6 @@ async function addExpense(ev){
   const splitEl =
     document.getElementById('split');
 
-  const payerEl =
-    document.getElementById('payer');
-
   const noteEl =
     document.getElementById('note');
 
@@ -2997,11 +3034,41 @@ async function addExpense(ev){
   const split =
     splitEl.value;
 
-  const payer =
-    payerEl.value;
+const myPaymentEl =
+    document.getElementById('myPaymentAmount');
 
-  const notas =
-    noteEl.value.trim();  
+const wifePaymentEl =
+    document.getElementById('wifePaymentAmount');
+
+const myPayment =
+    Number(myPaymentEl?.value) || 0;
+
+const wifePayment =
+    Number(wifePaymentEl?.value) || 0;
+
+const notas =
+    noteEl.value.trim();
+  
+  if(split === 'different'){
+
+  if(myPayment <= 0 && wifePayment <= 0){
+
+    alert('Ingresa cuánto pagó cada uno.');
+    return;
+
+  }
+
+  if(myPayment + wifePayment !== monto){
+
+    alert(
+      'Los valores pagados por ambos deben sumar exactamente el valor del gasto.'
+    );
+
+    return;
+
+  }
+
+}
   /* =========================
      VALIDACIONES
   ========================= */
@@ -3386,45 +3453,68 @@ if(!categoriaTexto){
 
     const payload = {
 
-      hogar_id:
-        currentHouseholdId,
+  hogar_id:
+    currentHouseholdId,
 
-      usuario_id:
-        currentUser.id,
+  usuario_id:
+    currentUser.id,
 
-      categoria_id:
-        categoriaId,
+  categoria_id:
+    categoriaId,
 
-      monto:
-        monto,
+  monto:
+    monto,
 
-      fecha:
-        fecha,
-      
-      fecha_pago: 
-        fechaPago,
+  fecha:
+    fecha,
 
-      descripcion:
-        notas ||
-        'Sin descripción',
+  fecha_pago:
+    fechaPago,
 
-      notas:
-        notas,
+  descripcion:
+    notas ||
+    'Sin descripción',
 
-      split:
-        split,
+  notas:
+    notas,
 
-      payer:
-        payer,
+  split:
+    split,
 
-      paid:
-        false,
+  payer:
+    split === 'me'
+      ? 'me'
+      : split === 'wife'
+        ? 'wife'
+        : split === 'shared'
+          ? 'both'
+          : 'both',
 
-      photos:
-        photoUrls
+  my_payment:
+    split === 'shared'
+      ? monto / 2
+      : split === 'me'
+        ? monto
+        : split === 'wife'
+          ? 0
+          : myPayment,
 
-    };
+  wife_payment:
+    split === 'shared'
+      ? monto / 2
+      : split === 'me'
+        ? 0
+        : split === 'wife'
+          ? monto
+          : wifePayment,
 
+  paid:
+    false,
+
+  photos:
+    photoUrls
+
+};
 
     const {
       data,
@@ -3782,41 +3872,51 @@ function render(){
   let pm=0;
 
   monthExpenses.forEach(
-    x=>{
+  x=>{
 
-      const amount =
-        Number(x.amount)||0;
+    const amount =
+      Number(x.amount) || 0;
 
-      if(
-        x.split === 'shared'
-      ){
+    if(x.split === 'shared'){
 
-        my += amount/2;
-        w += amount/2;
+      my += amount / 2;
+      w += amount / 2;
 
-      }else if(
-        x.split === 'mine'
-      ){
+    }else if(x.split === 'mine'){
 
-        my += amount;
+      my += amount;
 
-      }else{
+    }else if(x.split === 'wife'){
 
-        w += amount;
+      w += amount;
 
-      }
+    }else if(x.split === 'different'){
 
-      if(
-        x.payer === 'me'
-      ){
-
-        pm += amount;
-
-      }
+      my += Number(x.myPayment) || 0;
+      w += Number(x.wifePayment) || 0;
 
     }
-  );
 
+    if(x.split === 'me'){
+
+      pm += amount;
+
+    }else if(x.split === 'wife'){
+
+      pm += 0;
+
+    }else if(x.split === 'shared'){
+
+      pm += amount;
+
+    }else if(x.split === 'different'){
+
+      pm += Number(x.myPayment) || 0;
+
+    }
+
+  }
+);
   const d =
     pm-my;
 
