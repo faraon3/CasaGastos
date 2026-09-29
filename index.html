@@ -2703,6 +2703,7 @@ created_at:
   );
 
   render();
+  checkPaymentReminders();
 
 }
 
@@ -2796,13 +2797,13 @@ async function loadShopping(){
 
 async function addExpense(ev){
 
+  ev.preventDefault();
+
   if(currentRole !== 'propietario'){
     alert('No tienes permisos para crear gastos.');
     return;
   }
 
-  // aquí continúa todo el código que ya tienes
-  
   ev.preventDefault();
 
   if(
@@ -3819,7 +3820,7 @@ function render(){
                 </b>
 
                 <div class="small">
-                  ${esc(x.date)}
+                  Vence: ${esc(x.paymentDate || x.date || 'Sin fecha')}
                 </div>
 
               </div>
@@ -4092,7 +4093,8 @@ function expenseHTML(x){
         </b>
 
         <div class="small">
-          ${esc(x.date||'')}
+          Fecha: ${esc(x.date||'—')}
+          · Vence: ${esc(x.paymentDate||'—')}
           ·
           ${
             x.split==='shared'
@@ -4543,8 +4545,63 @@ async function shopDone(id){
 
 
 /* =========================
-   NOTIFICACIONES
+   RECORDATORIOS DE VENCIMIENTO
+   Se ejecutan cuando la app está abierta.
 ========================= */
+
+function checkPaymentReminders(){
+
+  if(
+    !currentUser ||
+    !Array.isArray(E) ||
+    !('Notification' in window) ||
+    Notification.permission !== 'granted'
+  ){
+    return;
+  }
+
+  const now = new Date();
+  const todayDate = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+  const todayKey = today();
+
+  E.forEach(gasto=>{
+
+    if(gasto.paid || !gasto.paymentDate){
+      return;
+    }
+
+    const due = new Date(gasto.paymentDate + 'T00:00:00');
+    if(Number.isNaN(due.getTime())) return;
+
+    const daysLeft = Math.round((due.getTime() - todayDate.getTime()) / 86400000);
+    let kind = '';
+    let title = '';
+    let body = '';
+
+    if(daysLeft === 1){
+      kind = 'before';
+      title = 'Pago próximo';
+      body = `${gasto.cat}: vence mañana (${gasto.paymentDate}).`;
+    }else if(daysLeft === 0){
+      kind = 'due';
+      title = 'Pago para hoy';
+      body = `${gasto.cat}: vence hoy (${gasto.paymentDate}).`;
+    }else if(daysLeft < 0){
+      kind = 'overdue';
+      title = 'Pago pendiente vencido';
+      body = `${gasto.cat}: estaba previsto para ${gasto.paymentDate} y sigue pendiente.`;
+    }
+
+    if(!kind) return;
+
+    const key = `cg2_reminder_${currentUser.id}_${gasto.id}_${kind}_${todayKey}`;
+    if(localStorage.getItem(key)) return;
+
+    notify(title, body);
+    localStorage.setItem(key, '1');
+
+  });
+}
 
 async function notif(){
 
@@ -4568,6 +4625,10 @@ async function notif(){
       ? 'Notificaciones activadas en este dispositivo.'
       : 'Permiso no concedido.'
   );
+
+  if(permission === 'granted'){
+    checkPaymentReminders();
+  }
 
 }
 
@@ -4724,6 +4785,7 @@ document
 (async function(){
 
   render();
+  setInterval(checkPaymentReminders, 60 * 60 * 1000);
 
   const {
     data
