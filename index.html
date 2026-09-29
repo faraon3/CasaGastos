@@ -1265,23 +1265,53 @@ button{
 
       <div class="tw">
 
-        <div>
+  <div>
 
-          <label>Fecha</label>
+```
+<label>Fecha del gasto</label>
 
-          <input
-            id="date"
-            type="date"
-            required
-          >
+<input
+  id="date"
+  type="date"
+  required
+>
+```
 
-        </div>
+  </div>
 
-        <div>
+  <div>
 
-          <label>Tipo</label>
+```
+<label>Fecha límite de pago</label>
 
-          <select id="split">
+<input
+  id="paymentDate"
+  type="date"
+  required
+>
+```
+
+  </div>
+
+</div>
+
+<label>Tipo</label>
+
+<select id="split">
+
+  <option value="shared">
+    50/50
+  </option>
+
+  <option value="mine">
+    Solo mío
+  </option>
+
+  <option value="wife">
+    Solo esposa
+  </option>
+
+</select>
 
             <option value="shared">
               50/50
