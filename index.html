@@ -2950,17 +2950,7 @@ async function addExpense(ev){
 
   const dateEl =
     document.getElementById('date');
-  
-  const categoriaNombre =
-  document.getElementById('cat').value;
 
-const fechaPagoAutomatica =
-  getPaymentDateByCategory(categoriaNombre, fecha);
-
-const fechaPago =
-  fechaPagoAutomatica ||
-  document.getElementById('paymentDate').value;
-  
   const splitEl =
     document.getElementById('split');
 
@@ -2982,6 +2972,19 @@ const fechaPago =
   const fecha =
     dateEl.value;
 
+  const categoriaNombre =
+    catEl.value;
+
+  const fechaPagoAutomatica =
+    getPaymentDateByCategory(
+      categoriaNombre,
+      fecha
+    );
+
+  const fechaPago =
+    fechaPagoAutomatica ||
+    document.getElementById('paymentDate').value;
+
   const split =
     splitEl.value;
 
@@ -2989,9 +2992,7 @@ const fechaPago =
     payerEl.value;
 
   const notas =
-    noteEl.value.trim();
-
-
+    noteEl.value.trim();  
   /* =========================
      VALIDACIONES
   ========================= */
