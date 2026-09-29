@@ -2650,14 +2650,17 @@ async function loadExpenses(){
         ),
 
       date:
-        x.date ??
-        x.fecha ??
-        '',
+  x.date ??
+  x.fecha ??
+  '',
 
-      created_at:
-        x.created_at ??
-        '',
+paymentDate:
+  x.fecha_pago ??
+  '',
 
+created_at:
+  x.created_at ??
+  '',
       split:
         x.split ??
         'shared',
@@ -2861,6 +2864,9 @@ async function addExpense(ev){
 
   const dateEl =
     document.getElementById('date');
+  
+  const fechaPago =
+  document.getElementById('paymentDate').value;
 
   const splitEl =
     document.getElementById('split');
@@ -2899,24 +2905,31 @@ async function addExpense(ev){
 
   if(monto <= 0){
 
-    alert('El valor debe ser mayor que 0.');
-    return;
+  alert('El valor debe ser mayor que 0.');
+  return;
 
-  }
+}
 
-  if(!fecha){
+if(!fecha){
 
-    alert('Selecciona una fecha.');
-    return;
+  alert('Selecciona la fecha del gasto.');
+  return;
 
-  }
+}
 
-  if(!categoriaTexto){
+if(!fechaPago){
 
-    alert('Selecciona una categoría.');
-    return;
+  alert('Selecciona la fecha límite de pago.');
+  return;
 
-  }
+}
+
+if(!categoriaTexto){
+
+  alert('Selecciona una categoría.');
+  return;
+
+}
 
 
   /* =========================
@@ -3284,6 +3297,9 @@ async function addExpense(ev){
 
       fecha:
         fecha,
+      
+      fecha_pago: 
+        fechaPago,
 
       descripcion:
         notas ||
@@ -3410,6 +3426,9 @@ async function addExpense(ev){
       date:
         data.fecha ??
         fecha,
+      
+      paymentDate: 
+        fechaPago,
 
       created_at:
         data.created_at ??
