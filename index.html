@@ -1286,27 +1286,36 @@ button{
 
 </div>
 
-<label>Tipo</label>
+<label>¿Cómo se pagó?</label>
 
 <select id="split">
   <option value="shared">50/50</option>
-  <option value="mine">Solo mío</option>
-  <option value="wife">Solo esposa</option>
+  <option value="mine">Yo</option>
+  <option value="wife">Esposa</option>
+  <option value="different">Diferente</option>
 </select>
-      <label>¿Quién pagó?</label>
 
-      <select id="payer">
+<div id="differentPaymentFields" style="display:none;">
 
-        <option value="me">
-          Yo
-        </option>
+  <label>¿Cuánto pagué yo?</label>
+  <input
+    id="myPaymentAmount"
+    type="number"
+    min="0"
+    step="1"
+    placeholder="$0"
+  >
 
-        <option value="wife">
-          Mi esposa
-        </option>
+  <label>¿Cuánto pagó mi esposa?</label>
+  <input
+    id="wifePaymentAmount"
+    type="number"
+    min="0"
+    step="1"
+    placeholder="$0"
+  >
 
-      </select>
-
+</div>
       <label>Fotos</label>
 
       <div class="drop">
