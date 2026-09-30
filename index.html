@@ -1286,25 +1286,19 @@ button{
 
 </div>
 
-<label>Tipo</label>
+<label>¿Cómo se pagó?</label>
 
 <select id="split">
-  <option value="shared">50/50</option>
-  <option value="mine">Solo mío</option>
-  <option value="wife">Solo esposa</option>
-</select>
-
-<label>¿Quién pagó?</label>
-
-<select id="payer">
   <option value="me">Yo</option>
-  <option value="wife">Mi esposa</option>
-  <option value="both">Ambos</option>
+  <option value="wife">Ella</option>
+  <option value="shared">50/50</option>
+  <option value="different">Diferente</option>
 </select>
 
-<div id="payerAmounts" style="display:none;">
+<div id="differentPaymentFields" style="display:none;">
 
   <label>¿Cuánto pagué yo?</label>
+
   <input
     id="myPaymentAmount"
     type="number"
@@ -1313,7 +1307,8 @@ button{
     placeholder="$0"
   >
 
-  <label>¿Cuánto pagó mi esposa?</label>
+  <label>¿Cuánto pagó ella?</label>
+
   <input
     id="wifePaymentAmount"
     type="number"
@@ -1323,7 +1318,6 @@ button{
   >
 
 </div>
-
 <label>Fotos</label>
       
       <div class="drop">
@@ -2925,25 +2919,34 @@ async function loadShopping(){
    AGREGAR GASTO
 ========================= */
 
-function updatePayerFields(){
+function updatePaymentFields(){
 
-  const payerEl = document.getElementById('payer');
-  const box = document.getElementById('payerAmounts');
+  const splitEl =
+    document.getElementById('split');
 
-  if(!payerEl || !box){
+  const fieldsEl =
+    document.getElementById('differentPaymentFields');
+
+  const myPaymentEl =
+    document.getElementById('myPaymentAmount');
+
+  const wifePaymentEl =
+    document.getElementById('wifePaymentAmount');
+
+  if(
+    !splitEl ||
+    !fieldsEl
+  ){
     return;
   }
 
-  if(payerEl.value === 'both'){
-    box.style.display = 'block';
+  if(splitEl.value === 'different'){
+
+    fieldsEl.style.display = 'block';
+
   }else{
-    box.style.display = 'none';
 
-    const myPaymentEl =
-      document.getElementById('myPaymentAmount');
-
-    const wifePaymentEl =
-      document.getElementById('wifePaymentAmount');
+    fieldsEl.style.display = 'none';
 
     if(myPaymentEl){
       myPaymentEl.value = '';
@@ -2952,8 +2955,17 @@ function updatePayerFields(){
     if(wifePaymentEl){
       wifePaymentEl.value = '';
     }
+
   }
+
 }
+  document
+  .getElementById('split')
+  ?.addEventListener(
+    'change',
+    updatePaymentFields
+  );
+  
   async function addExpense(ev){
 
   ev.preventDefault();
@@ -3021,12 +3033,6 @@ function updatePayerFields(){
   const split =
     splitEl.value;
 
-const payerEl =
-    document.getElementById('payer');
-
-const payer =
-    payerEl.value;
-
 const myPaymentEl =
     document.getElementById('myPaymentAmount');
 
@@ -3036,17 +3042,22 @@ const wifePaymentEl =
 let myPayment = 0;
 let wifePayment = 0;
 
-if(payer === 'me'){
+if(split === 'me'){
 
   myPayment = monto;
   wifePayment = 0;
 
-}else if(payer === 'wife'){
+}else if(split === 'wife'){
 
   myPayment = 0;
   wifePayment = monto;
 
-}else if(payer === 'both'){
+}else if(split === 'shared'){
+
+  myPayment = monto / 2;
+  wifePayment = monto / 2;
+
+}else if(split === 'different'){
 
   myPayment =
     Number(myPaymentEl?.value) || 0;
@@ -3488,9 +3499,6 @@ if(!categoriaTexto){
   split:
     split,
 
-  payer:
-    payer,
-
   my_payment:
     myPayment,
 
@@ -3504,7 +3512,6 @@ if(!categoriaTexto){
     photoUrls
 
 };
-
     const {
       data,
       error
@@ -3621,10 +3628,6 @@ if(!categoriaTexto){
     data.split ??
     split,
 
-  payer:
-    data.payer ??
-    payer,
-
   myPayment:
     Number(
       data.my_payment ??
@@ -3652,7 +3655,6 @@ if(!categoriaTexto){
     photoUrls
 
 });
-
     /* =========================
        LIMPIAR FORMULARIO
     ========================= */
@@ -3879,31 +3881,15 @@ monthExpenses.forEach(
       Number(x.amount) || 0;
 
     /*
-      CUÁNTO LE CORRESPONDE A CADA UNO
+      CADA GASTO DEL HOGAR SE REPARTE
+      50/50 PARA EL BALANCE.
+
+      "¿Cómo se pagó?" solamente indica
+      quién puso el dinero.
     */
 
-    if(x.split === 'shared'){
-
-      my += amount / 2;
-      w += amount / 2;
-
-    }else if(x.split === 'mine'){
-
-      my += amount;
-
-    }else if(x.split === 'wife'){
-
-      w += amount;
-
-    }else if(x.split === 'different'){
-
-      /*
-        Compatibilidad con gastos antiguos
-      */
-      my += Number(x.myPayment) || 0;
-      w += Number(x.wifePayment) || 0;
-
-    }
+    my += amount / 2;
+    w += amount / 2;
 
     /*
       CUÁNTO PAGUÉ YO REALMENTE
@@ -3913,15 +3899,6 @@ monthExpenses.forEach(
       x.myPayment !== undefined &&
       x.myPayment !== null
     ){
-
-      myPaid +=
-        Number(x.myPayment) || 0;
-
-    }else if(x.payer === 'me'){
-
-      myPaid += amount;
-
-    }else if(x.payer === 'both'){
 
       myPaid +=
         Number(x.myPayment) || 0;
@@ -4349,15 +4326,15 @@ function expenseHTML(x){
           · Vence: ${esc(x.paymentDate||'—')}
           ·
           ${
-            x.split==='shared'
-  ? `50/50 · ${
-      x.payer==='me'
-        ? 'Pagó: tú'
-        : x.payer==='wife'
-          ? 'Pagó: esposa'
-          : x.payer==='both'
-            ? 'Pagaron ambos'
-            : ''
+            x.split === 'me'
+  ? 'Pagaste tú'
+  : x.split === 'wife'
+    ? 'Pagó ella'
+    : x.split === 'shared'
+      ? 'Pagaron 50/50'
+      : x.split === 'different'
+        ? 'Pago diferente'
+        : 'Pago no especificado'
     }`
   : x.split==='mine'
     ? `Solo mío · ${
