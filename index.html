@@ -4236,7 +4236,9 @@ function expenseHTML(x){
     photos =
       x.photos;
 
-  }else if(
+  }
+  
+  else if(
     typeof x.photos === 'string'
   ){
 
@@ -4326,7 +4328,7 @@ function expenseHTML(x){
           · Vence: ${esc(x.paymentDate||'—')}
           ·
           ${
-            x.split === 'me'
+x.split === 'me'
   ? 'Pagaste tú'
   : x.split === 'wife'
     ? 'Pagó ella'
@@ -4334,25 +4336,24 @@ function expenseHTML(x){
       ? 'Pagaron 50/50'
       : x.split === 'different'
         ? 'Pago diferente'
-        : 'Pago no especificado'
-    }`
-  : x.split==='mine'
-    ? `Solo mío · ${
-        x.payer==='me'
-          ? 'Pagaste tú'
-          : x.payer==='wife'
-            ? 'Pagó esposa'
-            : 'Pagaron ambos'
-      }`
-    : `Solo esposa · ${
-        x.payer==='me'
-          ? 'Pagaste tú'
-          : x.payer==='wife'
-            ? 'Pagó esposa'
-            : 'Pagaron ambos'
-      }`
-          }
-        </div>
+        : x.split === 'mine'
+          ? `Solo mío · ${
+              x.payer === 'me'
+                ? 'Pagaste tú'
+                : x.payer === 'wife'
+                  ? 'Pagó esposa'
+                  : 'Pagaron ambos'
+            }`
+          : x.split === 'wife_only'
+            ? `Solo esposa · ${
+                x.payer === 'me'
+                  ? 'Pagaste tú'
+                  : x.payer === 'wife'
+                    ? 'Pagó esposa'
+                    : 'Pagaron ambos'
+              }`
+            : 'Pago no especificado'
+            </div>
 
         ${
           x.note
