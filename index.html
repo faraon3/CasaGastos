@@ -968,7 +968,7 @@ button{
       </button>
 
       <div class="monthCurrent">
-        <span id="month"></span>
+        <span id="monthExpenses"></span>
       </div>
 
       <button
@@ -3958,28 +3958,34 @@ function render(){
 
 const ym = window.selectedMonth;
 
-const monthEl =
-  document.getElementById(
-    'month'
+const [year, month] =
+  window.selectedMonth
+    .split('-')
+    .map(Number);
+
+const monthText =
+  new Intl.DateTimeFormat(
+    'es-CO',
+    {
+      month:'long',
+      year:'numeric'
+    }
+  ).format(
+    new Date(year, month - 1, 1)
   );
 
+const monthEl =
+  document.getElementById('month');
+
 if(monthEl){
+  monthEl.textContent = monthText;
+}
 
-  const [year, month] =
-    window.selectedMonth
-      .split('-')
-      .map(Number);
+const monthExpensesEl =
+  document.getElementById('monthExpenses');
 
-  monthEl.textContent =
-    new Intl.DateTimeFormat(
-      'es-CO',
-      {
-        month:'long',
-        year:'numeric'
-      }
-    ).format(
-      new Date(year, month - 1, 1)
-    );
+if(monthExpensesEl){
+  monthExpensesEl.textContent = monthText;
 }
   /*
     Gastos del mes.
