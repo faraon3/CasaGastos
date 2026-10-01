@@ -4338,17 +4338,13 @@ async function addExpense(ev){
 
 }
 
-
 /* =========================================================
    MARCAR GASTO PAGADO
 ========================================================= */
 
 async function paid(id){
 
-  if(
-    currentRole !==
-    'propietario'
-  ){
+  if(currentRole !== 'propietario'){
 
     alert(
       'No tienes permisos para modificar este gasto.'
@@ -4360,7 +4356,7 @@ async function paid(id){
 
   const x =
     E.find(
-      a=>a.id === id
+      a => a.id === id
     );
 
   if(!x){
@@ -4368,7 +4364,7 @@ async function paid(id){
   }
 
   const nuevoEstado =
-    !x.paid;
+    !Boolean(x.paid);
 
   const {
     error
@@ -4376,16 +4372,10 @@ async function paid(id){
     await sb
       .from('gastos')
       .update({
-        paid:nuevoEstado
+        paid: nuevoEstado
       })
-      .eq(
-        'id',
-        id
-      )
-      .eq(
-        'hogar_id',
-        currentHouseholdId
-      );
+      .eq('id', id)
+      .eq('hogar_id', currentHouseholdId);
 
   if(error){
 
@@ -4395,7 +4385,7 @@ async function paid(id){
     );
 
     alert(
-      'No se pudo actualizar el pago: '+
+      'No se pudo actualizar el pago: ' +
       error.message
     );
 
@@ -4403,15 +4393,16 @@ async function paid(id){
 
   }
 
-  x.paid =
-    nuevoEstado;
+  /* Actualizar el gasto localmente */
+  x.paid = nuevoEstado;
 
+  /* Volver a calcular toda la pantalla */
   render();
 
   notify(
     nuevoEstado
-      ? 'Servicio pagado'
-      : 'Pago pendiente',
+      ? 'Gasto marcado como pagado'
+      : 'Gasto marcado como pendiente',
     x.cat
   );
 
@@ -4588,61 +4579,77 @@ function render(){
 
 
   /* PARTES */
+/* =========================================================
+   PARTES Y SALDO
+========================================================= */
 
-  let my = 0;
-  let wife = 0;
+let my = 0;
+let wife = 0;
 
-  let actualMyPaid = 0;
-  let actualWifePaid = 0;
+let actualMyPaid = 0;
+let actualWifePaid = 0;
 
-  let expectedMy = 0;
-  let expectedWife = 0;
+let expectedMy = 0;
+let expectedWife = 0;
 
-  monthExpenses.forEach(x=>{
+let pendingMy = 0;
+let pendingWife = 0;
 
-    const amount =
-      Number(x.amount) || 0;
+monthExpenses.forEach(x=>{
 
-    const shares =
-      expectedShares(x);
+  const amount =
+    Number(x.amount) || 0;
 
-    expectedMy +=
-      shares.me;
+  const shares =
+    expectedShares(x);
 
-    expectedWife +=
-      shares.wife;
+  /* Lo que corresponde pagar a cada uno */
+  expectedMy += shares.me;
+  expectedWife += shares.wife;
 
-    actualMyPaid +=
-      Number(x.myPayment) || 0;
+  /* Lo que realmente pagó cada uno */
+  actualMyPaid +=
+    Number(x.myPayment) || 0;
 
-    actualWifePaid +=
-      Number(x.wifePayment) || 0;
-
-    /*
-      Para las tarjetas "Tu parte" y
-      "Parte esposa" mostramos lo que
-      corresponde a cada uno.
-    */
-
-    my +=
-      shares.me;
-
-    wife +=
-      shares.wife;
-
-  });
-
+  actualWifePaid +=
+    Number(x.wifePayment) || 0;
 
   /*
-    Saldo:
-
-    positivo = tú has pagado de más
-    negativo = ella ha pagado de más
+    Las tarjetas "Tu parte" y "Parte esposa"
+    muestran la responsabilidad total del mes.
   */
+  my += shares.me;
+  wife += shares.wife;
 
-  const balance =
-    actualMyPaid -
-    expectedMy;
+  /*
+    Si todavía NO está pagado,
+    lo contamos como pendiente.
+  */
+  if(!x.paid){
+
+    pendingMy += shares.me;
+    pendingWife += shares.wife;
+
+  }
+
+});
+
+
+/* =========================================================
+   SALDO REAL
+========================================================= */
+
+/*
+  El saldo se calcula con lo que realmente
+  ha pagado cada uno frente a lo que le corresponde.
+
+  positivo = tú has pagado de más
+  negativo = tu esposa ha pagado de más
+*/
+
+const balance =
+  actualMyPaid -
+  expectedMy;
 
 
   /* HOME */
