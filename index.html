@@ -2666,7 +2666,13 @@ async function loadExpenses(){
 
   const gastos =
     data || [];
-
+  
+console.log('DIAGNÓSTICO GASTOS:', {
+  hogarActual: currentHouseholdId,
+  cantidadRecibida: gastos.length,
+  datos: gastos
+});
+  
   const categoriaIds =
     [
       ...new Set(
