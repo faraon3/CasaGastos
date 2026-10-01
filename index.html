@@ -1,16 +1,20 @@
 <!doctype html>
 <html lang="es">
 <head>
+
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#0b8f78">
+
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
+
 <link rel="manifest" href="manifest.json">
 
 <title>CasaGastos</title>
 
 <style>
+
 :root{
   --bg:#f4f8f7;
   --card:#fff;
@@ -350,6 +354,7 @@ button{
   object-fit:cover;
   border-radius:10px;
 }
+
 .expensePhotos{
   display:flex;
   gap:7px;
@@ -398,7 +403,7 @@ button{
   background:#ffffffdd;
   font-size:20px;
 }
-  
+
 .item{
   display:flex;
   gap:10px;
@@ -464,6 +469,8 @@ button{
   border-radius:12px;
   font-size:12px;
 }
+
+/* LOGIN */
 
 .loginScreen{
   position:fixed;
@@ -536,13 +543,11 @@ button{
 .loginButton{
   width:100%;
   height:54px;
-  border:0;
   border-radius:15px;
   background:#0b8f78;
   color:white;
   font-size:16px;
   font-weight:bold;
-  cursor:pointer;
 }
 
 .loginMsg{
@@ -552,9 +557,8 @@ button{
   color:#d44;
   font-size:13px;
 }
-/* =========================
-   PERFIL
-========================= */
+
+/* PERFIL */
 
 .profileButton{
   width:42px;
@@ -570,12 +574,6 @@ button{
   font-size:21px;
 }
 
-.profileButton img{
-  width:100%;
-  height:100%;
-  object-fit:cover;
-}
-
 .profileButton span{
   width:100%;
   height:100%;
@@ -584,6 +582,7 @@ button{
   justify-content:center;
 }
 
+.profileButton img,
 .profileButton span img{
   width:100%;
   height:100%;
@@ -634,6 +633,17 @@ button{
   font-size:12px;
   color:var(--muted);
   margin-top:4px;
+}
+
+.profileRoleBadge{
+  display:inline-block;
+  margin-top:8px;
+  padding:5px 10px;
+  border-radius:10px;
+  background:var(--soft);
+  color:#08755f;
+  font-size:11px;
+  font-weight:800;
 }
 
 .profileInfo{
@@ -690,17 +700,8 @@ button{
   color:#076b5b;
   font-weight:800;
 }
-  
-@media(max-width:380px){
-  .nav button{
-    font-size:9px;
-  }
 
-  .brand{
-    font-size:20px;
-  }
-}
-/* SELECTOR DE MES */
+/* MES */
 
 .monthSelector{
   display:flex;
@@ -720,34 +721,9 @@ button{
 }
 
 .monthBtn{
-  width:36px;
-  height:36px;
-  flex:none;
-  border:none;
-  border-radius:50%;
-  background:#f1f3f5;
-  color:#222;
-  font-size:25px;
-  line-height:1;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  cursor:pointer;
-  padding:0;
-}
-
-.monthBtn:hover{
-  background:#e4e7e6;
-}
-
-.monthBtn:active{
-  transform:scale(.94);
-}
-  
-.monthBtn{
   width:40px;
   height:40px;
-  border:none;
+  flex:none;
   border-radius:50%;
   background:#f1f3f5;
   color:#222;
@@ -756,7 +732,6 @@ button{
   display:flex;
   align-items:center;
   justify-content:center;
-  cursor:pointer;
   padding:0;
   transition:all .15s ease;
 }
@@ -769,12 +744,26 @@ button{
 .monthBtn:active{
   transform:scale(.94);
 }
+
+@media(max-width:380px){
+
+  .nav button{
+    font-size:9px;
+  }
+
+  .brand{
+    font-size:20px;
+  }
+
+}
+
 </style>
 </head>
 
 <body>
 
 <!-- LOGIN -->
+
 <div id="loginScreen" class="loginScreen">
 
   <div class="loginBox">
@@ -836,70 +825,75 @@ button{
     </div>
 
   </div>
+
 </div>
 
 
 <!-- APP -->
+
 <div class="app">
 
   <!-- INICIO -->
-<div id="home" class="screen active">
 
-  <div class="top">
+  <div id="home" class="screen active">
 
-    <div>
-      <div class="brand">🏠 CasaGastos</div>
+    <div class="top">
 
-      <div class="monthSelector">
+      <div>
 
-        <button
-          class="monthBtn"
-          onclick="changeMonth(-1)"
-          aria-label="Mes anterior"
-        >
-          ‹
-        </button>
-
-        <div class="monthCurrent">
-          <span id="month"></span>
+        <div class="brand">
+          🏠 CasaGastos
         </div>
 
+        <div class="monthSelector">
+
+          <button
+            class="monthBtn"
+            onclick="changeMonth(-1)"
+            aria-label="Mes anterior"
+          >
+            ‹
+          </button>
+
+          <div class="monthCurrent">
+            <span id="month"></span>
+          </div>
+
+          <button
+            class="monthBtn"
+            onclick="changeMonth(1)"
+            aria-label="Mes siguiente"
+          >
+            ›
+          </button>
+
+        </div>
+
+      </div>
+
+      <div style="display:flex;gap:10px;align-items:center;margin-left:18px">
+
         <button
-          class="monthBtn"
-          onclick="changeMonth(1)"
-          aria-label="Mes siguiente"
+          class="profileButton"
+          onclick="openProfile()"
+          title="Mi perfil"
         >
-          ›
+          <span>👤</span>
+        </button>
+
+        <button
+          class="icon ownerOnly"
+          onclick="openM('expense')"
+        >
+          ＋
         </button>
 
       </div>
-    </div>
-
-    <div style="display:flex;gap:10px;align-items:center;margin-left:18px">
-
-      <button
-        id="profileButton"
-        class="profileButton"
-        onclick="openProfile()"
-        title="Mi perfil"
-      >
-        <span id="profileAvatar">👤</span>
-      </button>
-
-      <button
-        id="homeAdd"
-        class="icon"
-        onclick="openM('expense')"
-      >
-        ＋
-      </button>
 
     </div>
 
-  </div>
+    <div class="hero">
 
-  <div class="hero">
-    
       <small>Total del mes</small>
 
       <h1 id="total">$0</h1>
@@ -913,26 +907,57 @@ button{
     <div class="grid">
 
       <div class="card">
-        <div class="small">👤 Tu parte</div>
-        <div class="money" id="my">$0</div>
+
+        <div class="small">
+          👤 Tu parte
+        </div>
+
+        <div
+          class="money"
+          id="my"
+        >
+          $0
+        </div>
+
       </div>
 
       <div class="card">
-        <div class="small">👩 Parte esposa</div>
-        <div class="money" id="wife">$0</div>
+
+        <div class="small">
+          👩 Parte esposa
+        </div>
+
+        <div
+          class="money"
+          id="wife"
+        >
+          $0
+        </div>
+
       </div>
 
     </div>
 
-    <div class="card" style="margin:14px 18px">
+    <div
+      class="card"
+      style="margin:14px 18px"
+    >
 
       <div class="small">
         ⚖️ Saldo entre los dos
       </div>
 
-      <div class="money" id="bal">$0</div>
+      <div
+        class="money"
+        id="bal"
+      >
+        $0
+      </div>
 
-      <div class="small" id="balText">
+      <div
+        class="small"
+        id="balText"
+      >
         Todo equilibrado
       </div>
 
@@ -940,7 +965,9 @@ button{
 
     <div class="section">
 
-      <h2>Últimos gastos</h2>
+      <h2>
+        Últimos gastos
+      </h2>
 
       <div id="recentHome"></div>
 
@@ -950,116 +977,157 @@ button{
 
 
   <!-- GASTOS -->
+
   <div id="expenses" class="screen">
 
     <div class="top">
 
-  <div>
-    <div class="brand">🏠 CasaGastos</div>
+      <div>
 
-    <div class="monthSelector">
+        <div class="brand">
+          🏠 CasaGastos
+        </div>
 
-      <button
-        class="monthBtn"
-        onclick="changeMonth(-1)"
-        aria-label="Mes anterior"
-      >
-        ‹
-      </button>
+        <div class="monthSelector">
 
-      <div class="monthCurrent">
-        <span id="monthExpenses"></span>
+          <button
+            class="monthBtn"
+            onclick="changeMonth(-1)"
+            aria-label="Mes anterior"
+          >
+            ‹
+          </button>
+
+          <div class="monthCurrent">
+            <span id="monthExpenses"></span>
+          </div>
+
+          <button
+            class="monthBtn"
+            onclick="changeMonth(1)"
+            aria-label="Mes siguiente"
+          >
+            ›
+          </button>
+
+        </div>
+
       </div>
 
-      <button
-        class="monthBtn"
-        onclick="changeMonth(1)"
-        aria-label="Mes siguiente"
-      >
-        ›
-      </button>
+      <div style="display:flex;gap:8px;align-items:center">
+
+        <button
+          class="profileButton"
+          onclick="openProfile()"
+          title="Mi perfil"
+        >
+          <span>👤</span>
+        </button>
+
+        <button
+          class="icon ownerOnly"
+          onclick="openM('expense')"
+        >
+          ＋
+        </button>
+
+      </div>
 
     </div>
-  </div>
 
-  <div style="display:flex;gap:8px;align-items:center">
-
-    <button
-      id="profileButton"
-      class="profileButton"
-      onclick="openProfile()"
-      title="Mi perfil"
-    >
-      <span id="profileAvatar">👤</span>
-    </button>
-
-    <button
-      id="homeAdd"
-      class="icon"
-      onclick="openM('expense')"
-    >
-      ＋
-    </button>
+    <div
+      class="section"
+      id="list"
+    ></div>
 
   </div>
 
-</div>
-<div id="list"></div>
+
   <!-- CALENDARIO -->
+
   <div id="calendar" class="screen">
 
     <div class="top">
 
       <div>
-        <div class="brand">📅 Calendario</div>
+
+        <div class="brand">
+          📅 Calendario
+        </div>
+
         <div class="sub">
           Pagos y vencimientos
         </div>
+
       </div>
 
-      <button class="profileButton" onclick="openProfile()" title="Mi perfil">
+      <button
+        class="profileButton"
+        onclick="openProfile()"
+        title="Mi perfil"
+      >
         <span>👤</span>
       </button>
 
     </div>
 
     <div class="section">
-      <div class="card" id="cal"></div>
+
+      <div
+        class="card"
+        id="cal"
+      ></div>
+
     </div>
 
   </div>
 
 
   <!-- COMPRAS -->
+
   <div id="shop" class="screen">
 
     <div class="top">
 
       <div>
-        <div class="brand">🛒 Compras</div>
+
+        <div class="brand">
+          🛒 Compras
+        </div>
+
         <div class="sub">
           Lista compartida
         </div>
+
       </div>
 
       <div style="display:flex;gap:8px;align-items:center">
-        <button class="profileButton" onclick="openProfile()" title="Mi perfil">
+
+        <button
+          class="profileButton"
+          onclick="openProfile()"
+          title="Mi perfil"
+        >
           <span>👤</span>
         </button>
 
-      <button
-        class="icon"
-        onclick="openM('shop')"
-      >
-        ＋
-      </button>
+        <button
+          class="icon"
+          onclick="openM('shop')"
+        >
+          ＋
+        </button>
+
       </div>
 
     </div>
 
     <div class="section">
 
-      <div class="card" id="shopping"></div>
+      <div
+        class="card"
+        id="shopping"
+      ></div>
 
     </div>
 
@@ -1067,18 +1135,28 @@ button{
 
 
   <!-- ESTADISTICAS -->
+
   <div id="stats" class="screen">
 
     <div class="top">
 
       <div>
-        <div class="brand">📊 Estadísticas</div>
+
+        <div class="brand">
+          📊 Estadísticas
+        </div>
+
         <div class="sub">
           Gastos por categoría
         </div>
+
       </div>
 
-      <button class="profileButton" onclick="openProfile()" title="Mi perfil">
+      <button
+        class="profileButton"
+        onclick="openProfile()"
+        title="Mi perfil"
+      >
         <span>👤</span>
       </button>
 
@@ -1086,7 +1164,10 @@ button{
 
     <div class="section">
 
-      <div class="card" id="statsbox"></div>
+      <div
+        class="card"
+        id="statsbox"
+      ></div>
 
     </div>
 
@@ -1094,18 +1175,28 @@ button{
 
 
   <!-- MAS -->
+
   <div id="more" class="screen">
 
     <div class="top">
 
       <div>
-        <div class="brand">⚙️ Más</div>
+
+        <div class="brand">
+          ⚙️ Más
+        </div>
+
         <div class="sub">
           Configuración
         </div>
+
       </div>
 
-      <button class="profileButton" onclick="openProfile()" title="Mi perfil">
+      <button
+        class="profileButton"
+        onclick="openProfile()"
+        title="Mi perfil"
+      >
         <span>👤</span>
       </button>
 
@@ -1115,7 +1206,9 @@ button{
 
       <div class="card">
 
-        <h2>🔔 Recordatorios</h2>
+        <h2>
+          🔔 Recordatorios
+        </h2>
 
         <p class="small">
           1 día antes · día del pago · seguimiento posterior.
@@ -1135,9 +1228,14 @@ button{
         style="margin-top:12px"
       >
 
-        <h2>👥 Acceso</h2>
+        <h2>
+          👥 Acceso
+        </h2>
 
-        <p class="small" id="roleInfo">
+        <p
+          class="small"
+          id="roleInfo"
+        >
           Cargando información...
         </p>
 
@@ -1179,9 +1277,10 @@ button{
 
 
 <!-- FAB -->
+
 <button
   id="fab"
-  class="fab"
+  class="fab ownerOnly"
   onclick="openM('expense')"
 >
   ＋ Agregar gasto
@@ -1189,47 +1288,87 @@ button{
 
 
 <!-- NAV -->
-<div class="nav">
-  <button class="active" onclick="show('home',this)">🏠<br>Inicio</button>
 
-  <button id="navExpenses" onclick="show('expenses',this)">
+<div class="nav">
+
+  <button
+    class="active"
+    onclick="show('home',this)"
+  >
+    🏠<br>Inicio
+  </button>
+
+  <button
+    id="navExpenses"
+    onclick="show('expenses',this)"
+  >
     💰<br>Gastos
   </button>
 
-  <button id="navCalendar" onclick="show('calendar',this)">
+  <button
+    id="navCalendar"
+    onclick="show('calendar',this)"
+  >
     📅<br>Calendario
   </button>
 
-  <button onclick="show('shop',this)">
+  <button
+    onclick="show('shop',this)"
+  >
     🛒<br>Compras
   </button>
 
-  <button id="navStats" onclick="show('stats',this)">
+  <button
+    id="navStats"
+    onclick="show('stats',this)"
+  >
     📊<br>Stats
   </button>
 
-  <button id="navMore" onclick="show('more',this)">
+  <button
+    id="navMore"
+    onclick="show('more',this)"
+  >
     ⚙️<br>Más
   </button>
+
 </div>
+
+
 <!-- VISOR DE FOTO -->
-<div id="photoViewer" class="photoViewer">
+
+<div
+  id="photoViewer"
+  class="photoViewer"
+>
 
   <button onclick="closePhotoViewer()">
     ✕
   </button>
 
-  <img id="photoViewerImg" src="" alt="Foto del gasto">
+  <img
+    id="photoViewerImg"
+    src=""
+    alt="Foto del gasto"
+  >
 
 </div>
-  <!-- PERFIL -->
-<div id="profileModal" class="modal">
+
+
+<!-- PERFIL -->
+
+<div
+  id="profileModal"
+  class="modal"
+>
 
   <div class="profilePanel">
 
     <div class="head">
 
-      <b>Mi perfil</b>
+      <b>
+        Mi perfil
+      </b>
 
       <button
         class="icon"
@@ -1350,15 +1489,22 @@ button{
   </div>
 
 </div>
-  
+
+
 <!-- MODAL GASTO -->
-<div id="expense" class="modal">
+
+<div
+  id="expense"
+  class="modal"
+>
 
   <div class="sheet">
 
     <div class="head">
 
-      <b>Nuevo gasto</b>
+      <b>
+        Nuevo gasto
+      </b>
 
       <button
         class="icon"
@@ -1374,11 +1520,15 @@ button{
       onsubmit="addExpense(event)"
     >
 
-      <label>Categoría</label>
+      <label>
+        Categoría
+      </label>
 
       <select id="cat"></select>
 
-      <label>Valor</label>
+      <label>
+        Valor
+      </label>
 
       <input
         id="amount"
@@ -1388,63 +1538,97 @@ button{
         required
       >
 
-      
-<div class="tw">
+      <div class="tw">
 
-  <div>
-    <label>Fecha del gasto</label>
-    <input
-      id="date"
-      type="date"
-      required
-    >
-  </div>
+        <div>
 
-  <div>
-    <label>Fecha límite de pago</label>
-    <input
-      id="paymentDate"
-      type="date"
-      required
-    >
-  </div>
+          <label>
+            Fecha del gasto
+          </label>
 
-</div>
+          <input
+            id="date"
+            type="date"
+            required
+          >
 
-<label>¿Cómo se pagó?</label>
+        </div>
 
-<select id="split">
-  <option value="me">Yo</option>
-  <option value="wife">Ella</option>
-  <option value="shared">50/50</option>
-  <option value="different">Diferente</option>
-</select>
+        <div>
 
-<div id="differentPaymentFields" style="display:none;">
+          <label>
+            Fecha límite de pago
+          </label>
 
-  <label>¿Cuánto pagué yo?</label>
+          <input
+            id="paymentDate"
+            type="date"
+            required
+          >
 
-  <input
-    id="myPaymentAmount"
-    type="number"
-    min="0"
-    step="1"
-    placeholder="$0"
-  >
+        </div>
 
-  <label>¿Cuánto pagó ella?</label>
+      </div>
 
-  <input
-    id="wifePaymentAmount"
-    type="number"
-    min="0"
-    step="1"
-    placeholder="$0"
-  >
+      <label>
+        ¿Cómo se pagó?
+      </label>
 
-</div>
-<label>Fotos</label>
-      
+      <select id="split">
+
+        <option value="me">
+          Yo
+        </option>
+
+        <option value="wife">
+          Ella
+        </option>
+
+        <option value="shared">
+          50/50
+        </option>
+
+        <option value="different">
+          Diferente
+        </option>
+
+      </select>
+
+      <div
+        id="differentPaymentFields"
+        style="display:none"
+      >
+
+        <label>
+          ¿Cuánto pagué yo?
+        </label>
+
+        <input
+          id="myPaymentAmount"
+          type="number"
+          min="0"
+          step="1"
+          placeholder="$0"
+        >
+
+        <label>
+          ¿Cuánto pagó ella?
+        </label>
+
+        <input
+          id="wifePaymentAmount"
+          type="number"
+          min="0"
+          step="1"
+          placeholder="$0"
+        >
+
+      </div>
+
+      <label>
+        Fotos
+      </label>
+
       <div class="drop">
 
         <div style="
@@ -1497,7 +1681,9 @@ button{
 
       </div>
 
-      <label>Descripción</label>
+      <label>
+        Descripción
+      </label>
 
       <textarea
         id="note"
@@ -1519,13 +1705,19 @@ button{
 
 
 <!-- MODAL COMPRAS -->
-<div id="shopModal" class="modal">
+
+<div
+  id="shopModal"
+  class="modal"
+>
 
   <div class="sheet">
 
     <div class="head">
 
-      <b>Agregar compra</b>
+      <b>
+        Agregar compra
+      </b>
 
       <button
         class="icon"
@@ -1541,22 +1733,29 @@ button{
       onsubmit="addShop(event)"
     >
 
-      <label>Producto</label>
+      <label>
+        Producto
+      </label>
 
       <input
         id="prod"
         required
       >
 
-      <label>Cantidad</label>
+      <label>
+        Cantidad
+      </label>
 
       <input
         id="qty"
+        type="number"
         value="1"
         min="1"
       >
 
-      <label>Descripción</label>
+      <label>
+        Descripción
+      </label>
 
       <textarea
         id="desc"
@@ -1575,9 +1774,14 @@ button{
 
 
 <!-- SUPABASE -->
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script>
+
+/* =========================================================
+   SUPABASE
+========================================================= */
 
 const SUPABASE_URL =
   "https://knpmkqursxxnomwgmswt.supabase.co";
@@ -1592,34 +1796,36 @@ const sb =
   );
 
 
-/* =========================
+/* =========================================================
    SESION
-========================= */
+========================================================= */
 
 let currentUser = null;
 let currentRole = null;
 let currentHouseholdId = null;
 
 
-/* =========================
+/* =========================================================
    DATOS
-========================= */
+========================================================= */
 
 const EK = 'cg2_exp';
 const CC = 'cg2_cats';
 
 let E = [];
 let S = [];
+
 let pics = [];
 let photoFiles = [];
-  let active = 'home';
+
+let active = 'home';
 
 let categoryIds = {};
 
 
-/* =========================
+/* =========================================================
    ICONOS
-========================= */
+========================================================= */
 
 const icons = {
 
@@ -1635,9 +1841,9 @@ const icons = {
 };
 
 
-/* =========================
+/* =========================================================
    DINERO
-========================= */
+========================================================= */
 
 function money(n){
 
@@ -1648,14 +1854,14 @@ function money(n){
       currency:'COP',
       maximumFractionDigits:0
     }
-  ).format(Number(n)||0);
+  ).format(Number(n) || 0);
 
 }
 
 
-/* =========================
+/* =========================================================
    FECHA ACTUAL
-========================= */
+========================================================= */
 
 function today(){
 
@@ -1675,52 +1881,62 @@ function today(){
   return `${y}-${m}-${day}`;
 
 }
-  
-/* =========================
-   FECHAS DE PAGO AUTOMATICAS
-========================= */
 
-function getPaymentDateByCategory(category, expenseDate){
+
+/* =========================================================
+   FECHAS DE PAGO
+========================================================= */
+
+function getPaymentDateByCategory(
+  category,
+  expenseDate
+){
 
   if(!expenseDate){
     return '';
   }
 
-  const d = new Date(expenseDate + 'T00:00:00');
+  const d =
+    new Date(
+      expenseDate + 'T00:00:00'
+    );
 
   if(Number.isNaN(d.getTime())){
     return '';
   }
 
-  const year = d.getFullYear();
-  const month = d.getMonth();
+  const year =
+    d.getFullYear();
+
+  const month =
+    d.getMonth();
 
   function formatDate(date){
-    const y = date.getFullYear();
-    const m = String(date.getMonth() + 1).padStart(2,'0');
-    const day = String(date.getDate()).padStart(2,'0');
+
+    const y =
+      date.getFullYear();
+
+    const m =
+      String(date.getMonth()+1)
+        .padStart(2,'0');
+
+    const day =
+      String(date.getDate())
+        .padStart(2,'0');
 
     return `${y}-${m}-${day}`;
+
   }
 
-  function lastDayOfMonth(y, m){
-    return new Date(y, m + 1, 0);
+  function lastDayOfMonth(y,m){
+
+    return new Date(
+      y,
+      m + 1,
+      0
+    );
+
   }
-
-  /*
-    Reglas actuales:
-
-    Arriendo       -> fin de mes
-    Luz            -> fin de mes
-    Gas            -> fin de mes
-    Agua           -> fin de mes
-    Internet hogar -> primera mitad del mes
-    Otros          -> fin de mes
-
-    Internet celular y Mercado quedan
-    sin fecha automática por ahora porque
-    todavía no hemos definido su día exacto.
-  */
 
   if(
     category === 'Arriendo' ||
@@ -1729,26 +1945,30 @@ function getPaymentDateByCategory(category, expenseDate){
     category === 'Agua' ||
     category === 'Otros'
   ){
+
     return formatDate(
-      lastDayOfMonth(year, month)
+      lastDayOfMonth(
+        year,
+        month
+      )
     );
+
   }
 
   if(category === 'Internet hogar'){
 
-    /*
-      Primera mitad del mes.
-      Usamos el día 15 como fecha límite.
-    */
-    return `${year}-${String(month + 1).padStart(2,'0')}-15`;
+    return `${year}-${String(month+1).padStart(2,'0')}-15`;
+
   }
 
   return '';
+
 }
 
-/* =========================
+
+/* =========================================================
    MES ACTUAL
-========================= */
+========================================================= */
 
 function currentYM(){
 
@@ -1759,9 +1979,9 @@ function currentYM(){
 }
 
 
-/* =========================
+/* =========================================================
    ESCAPAR HTML
-========================= */
+========================================================= */
 
 function esc(value){
 
@@ -1775,9 +1995,9 @@ function esc(value){
 }
 
 
-/* =========================
+/* =========================================================
    CATEGORIAS LOCALES
-========================= */
+========================================================= */
 
 function readStoredCategories(){
 
@@ -1800,36 +2020,39 @@ function readStoredCategories(){
           typeof x === 'object'
         ){
 
+          const nombre =
+            String(
+              x.nombre ??
+              x.name ??
+              ''
+            ).trim();
+
           if(
             x.id != null &&
-            x.nombre
+            nombre
           ){
 
-            categoryIds[
-              String(x.nombre).trim()
-            ] =
+            categoryIds[nombre] =
               x.id;
 
           }
 
-          return String(
-            x.nombre ??
-            x.name ??
-            ''
-          ).trim();
+          return nombre;
 
         }
 
-        return String(x ?? '').trim();
+        return String(
+          x ?? ''
+        ).trim();
 
       })
       .filter(Boolean);
 
-  }catch(e){
+  }catch(error){
 
     console.error(
       'Error leyendo categorías locales:',
-      e
+      error
     );
 
     return [];
@@ -1839,9 +2062,9 @@ function readStoredCategories(){
 }
 
 
-/* =========================
+/* =========================================================
    CATEGORIAS
-========================= */
+========================================================= */
 
 function cats(){
 
@@ -1865,9 +2088,9 @@ function cats(){
 }
 
 
-/* =========================
-   CARGAR CATEGORIAS DESDE SUPABASE
-========================= */
+/* =========================================================
+   CARGAR CATEGORIAS
+========================================================= */
 
 async function loadCategories(){
 
@@ -1909,19 +2132,23 @@ async function loadCategories(){
 
   });
 
+  const base = [
+    'Arriendo',
+    'Luz',
+    'Gas',
+    'Agua',
+    'Internet hogar',
+    'Internet celular',
+    'Mercado',
+    'Otros'
+  ];
+
   const personalizadas =
     categorias
       .filter(c=>
-        ![
-          'Arriendo',
-          'Luz',
-          'Gas',
-          'Agua',
-          'Internet hogar',
-          'Internet celular',
-          'Mercado',
-          'Otros'
-        ].includes(c.nombre)
+        !base.includes(
+          String(c.nombre).trim()
+        )
       )
       .map(c=>({
         id:c.id,
@@ -1930,9 +2157,7 @@ async function loadCategories(){
 
   localStorage.setItem(
     CC,
-    JSON.stringify(
-      personalizadas
-    )
+    JSON.stringify(personalizadas)
   );
 
   fill();
@@ -1940,9 +2165,9 @@ async function loadCategories(){
 }
 
 
-/* =========================
+/* =========================================================
    SELECT CATEGORIAS
-========================= */
+========================================================= */
 
 function fill(selectedValue){
 
@@ -1977,20 +2202,20 @@ function fill(selectedValue){
     catEl.value =
       previous;
 
-  }else if(
-    catEl.options.length
-  ){
+  }else if(catEl.options.length){
 
-    catEl.selectedIndex=0;
+    catEl.selectedIndex = 0;
 
   }
 
+  updateAutomaticPaymentDate();
+
 }
 
-/* =========================
-   ACTUALIZAR FECHA DE PAGO
-   SEGUN CATEGORIA Y FECHA
-========================= */
+
+/* =========================================================
+   FECHA AUTOMATICA
+========================================================= */
 
 function updateAutomaticPaymentDate(){
 
@@ -2003,8 +2228,14 @@ function updateAutomaticPaymentDate(){
   const paymentEl =
     document.getElementById('paymentDate');
 
-  if(!catEl || !dateEl || !paymentEl){
+  if(
+    !catEl ||
+    !dateEl ||
+    !paymentEl
+  ){
+
     return;
+
   }
 
   const categoria =
@@ -2020,48 +2251,46 @@ function updateAutomaticPaymentDate(){
     );
 
   if(fechaAutomatica){
+
     paymentEl.value =
       fechaAutomatica;
+
+  }else{
+
+    /*
+      Las categorías sin regla automática
+      deben quedar disponibles para fecha
+      manual y no conservar una fecha vieja.
+    */
+
+    paymentEl.value = '';
+
   }
+
 }
 
 
-/* Cuando cambia la categoría */
-document
-  .getElementById('cat')
-  ?.addEventListener(
-    'change',
-    updateAutomaticPaymentDate
-  );
-
-
-/* Cuando cambia la fecha del gasto */
-document
-  .getElementById('date')
-  ?.addEventListener(
-    'change',
-    updateAutomaticPaymentDate
-  );
-  
-/* =========================
+/* =========================================================
    CREAR CATEGORIA
-========================= */
+========================================================= */
 
 document
   .getElementById('cat')
   ?.addEventListener(
     'change',
-    async ()=>{
+    async function(){
+
+      updateAutomaticPaymentDate();
 
       const catEl =
         document.getElementById('cat');
 
-      if(
-        catEl.value !== 'Otros'
-      ){
-
+      if(!catEl){
         return;
+      }
 
+      if(catEl.value !== 'Otros'){
+        return;
       }
 
       let nombre =
@@ -2088,7 +2317,32 @@ document
 
       }
 
-      const existingResult =
+      if(
+        cats().some(
+          x =>
+            x.toLowerCase() ===
+            nombre.toLowerCase()
+        )
+      ){
+
+        alert(
+          'Esa categoría ya existe.'
+        );
+
+        fill(nombre);
+
+        return;
+
+      }
+
+      let categoria = null;
+
+      /*
+        Primero intentamos encontrarla
+        en el hogar actual.
+      */
+
+      let existingResult =
         await sb
           .from('categorias')
           .select('id,nombre')
@@ -2114,7 +2368,7 @@ document
 
       }
 
-      let categoria =
+      categoria =
         existingResult.data;
 
       if(!categoria){
@@ -2130,8 +2384,8 @@ document
             .single();
 
         /*
-          Compatibilidad con tablas
-          que no tengan hogar_id.
+          Compatibilidad si la tabla no
+          tiene hogar_id.
         */
 
         if(
@@ -2180,11 +2434,6 @@ document
       ] =
         categoria.id;
 
-      /*
-        Guardamos nombre + ID
-        localmente.
-      */
-
       let locales = [];
 
       try{
@@ -2221,15 +2470,18 @@ document
                     categoryIds[
                       String(x).trim()
                     ] ?? null,
-                  nombre:String(x).trim()
+                  nombre:
+                    String(x).trim()
                 };
 
               })
-              .filter(x=>x.nombre);
+              .filter(
+                x=>x.nombre
+              );
 
         }
 
-      }catch(e){
+      }catch(error){
 
         locales=[];
 
@@ -2237,24 +2489,24 @@ document
 
       const index =
         locales.findIndex(
-          x=>
+          x =>
             x.nombre ===
             categoria.nombre
         );
 
+      const nueva = {
+        id:categoria.id,
+        nombre:categoria.nombre
+      };
+
       if(index >= 0){
 
-        locales[index] = {
-          id:categoria.id,
-          nombre:categoria.nombre
-        };
+        locales[index] =
+          nueva;
 
       }else{
 
-        locales.push({
-          id:categoria.id,
-          nombre:categoria.nombre
-        });
+        locales.push(nueva);
 
       }
 
@@ -2263,7 +2515,9 @@ document
         JSON.stringify(locales)
       );
 
-      fill(categoria.nombre);
+      fill(
+        categoria.nombre
+      );
 
       alert(
         'Categoría "'+
@@ -2275,9 +2529,9 @@ document
   );
 
 
-/* =========================
-   PERFIL DE USUARIO
-========================= */
+/* =========================================================
+   PERFIL
+========================================================= */
 
 function getProfileName(){
 
@@ -2295,13 +2549,14 @@ function getProfileName(){
   }
 
   const email =
-    currentUser?.email ||
-    '';
+    currentUser?.email || '';
 
   return email
     ? email.split('@')[0]
     : 'Usuario';
+
 }
+
 
 function getProfileAvatar(){
 
@@ -2310,11 +2565,18 @@ function getProfileAvatar(){
   }
 
   return localStorage.getItem(
-    'cg2_profile_photo_' + currentUser.id
+    'cg2_profile_photo_' +
+    currentUser.id
   ) || '👤';
+
 }
 
+
 function updateProfile(){
+
+  if(!currentUser){
+    return;
+  }
 
   const nameEl =
     document.getElementById('profileName');
@@ -2334,18 +2596,15 @@ function updateProfile(){
   const permissionsEl =
     document.getElementById('profilePermissions');
 
-  const avatarEl =
-    document.getElementById('profileAvatar');
-
   const avatarLarge =
     document.getElementById('profileAvatarLarge');
 
-  if(!currentUser){
-    return;
-  }
+  const name =
+    getProfileName();
 
-  const name = getProfileName();
-  const email = currentUser.email || '—';
+  const email =
+    currentUser.email || '—';
+
   const role =
     currentRole === 'propietario'
       ? 'Propietario'
@@ -2353,55 +2612,97 @@ function updateProfile(){
         ? 'Miembro'
         : 'No identificado';
 
-  if(nameEl) nameEl.textContent = name;
-  if(emailEl) emailEl.textContent = email;
-  if(roleEl) roleEl.textContent = role;
-  if(roleBadge) roleBadge.textContent = role;
+  if(nameEl){
+    nameEl.textContent =
+      name;
+  }
+
+  if(emailEl){
+    emailEl.textContent =
+      email;
+  }
+
+  if(roleEl){
+    roleEl.textContent =
+      role;
+  }
+
+  if(roleBadge){
+    roleBadge.textContent =
+      role;
+  }
+
   if(homeEl){
+
     homeEl.textContent =
       currentHouseholdId
         ? 'CasaGastos'
         : '—';
+
   }
 
   if(permissionsEl){
+
     permissionsEl.textContent =
       currentRole === 'propietario'
         ? 'Control total'
         : currentRole === 'miembro'
           ? 'Inicio y Compras'
           : '—';
+
   }
 
-  const avatar = getProfileAvatar();
+  const avatar =
+    getProfileAvatar();
 
-  document.querySelectorAll('.profileButton span').forEach(span=>{
-    if(avatar.startsWith('data:image/')){
-      span.innerHTML =
-        '<img src="' + esc(avatar) + '" alt="Foto de perfil">';
-    }else{
-      span.textContent = avatar;
-    }
-  });
+  document
+    .querySelectorAll('.profileButton span')
+    .forEach(span=>{
 
-  if(avatarEl){
-    if(avatar.startsWith('data:image/')){
-      avatarEl.innerHTML =
-        '<img src="' + esc(avatar) + '" alt="Foto de perfil">';
-    }else{
-      avatarEl.textContent = avatar;
-    }
-  }
+      if(
+        avatar.startsWith(
+          'data:image/'
+        )
+      ){
+
+        span.innerHTML =
+          '<img src="' +
+          esc(avatar) +
+          '" alt="Foto de perfil">';
+
+      }else{
+
+        span.textContent =
+          avatar;
+
+      }
+
+    });
 
   if(avatarLarge){
-    if(avatar.startsWith('data:image/')){
+
+    if(
+      avatar.startsWith(
+        'data:image/'
+      )
+    ){
+
       avatarLarge.innerHTML =
-        '<img src="' + esc(avatar) + '" alt="Foto de perfil">';
+        '<img src="' +
+        esc(avatar) +
+        '" alt="Foto de perfil">';
+
     }else{
-      avatarLarge.textContent = avatar;
+
+      avatarLarge.textContent =
+        avatar;
+
     }
+
   }
+
 }
+
 
 function openProfile(){
 
@@ -2412,73 +2713,135 @@ function openProfile(){
   updateProfile();
 
   const modal =
-    document.getElementById('profileModal');
+    document.getElementById(
+      'profileModal'
+    );
 
   if(modal){
     modal.classList.add('show');
   }
+
 }
+
 
 function closeProfile(){
 
   const modal =
-    document.getElementById('profileModal');
+    document.getElementById(
+      'profileModal'
+    );
 
   if(modal){
     modal.classList.remove('show');
   }
+
 }
+
 
 async function compressProfileImage(file){
 
-  return new Promise((resolve,reject)=>{
+  return new Promise(
+    (resolve,reject)=>{
 
-    const reader = new FileReader();
+      const reader =
+        new FileReader();
 
-    reader.onload = e=>{
+      reader.onload =
+        e=>{
 
-      const img = new Image();
+          const img =
+            new Image();
 
-      img.onload = ()=>{
+          img.onload =
+            ()=>{
 
-        const size = 320;
-        let width = img.width;
-        let height = img.height;
+              const size = 320;
 
-        if(width > height){
-          height = Math.round(height * size / width);
-          width = size;
-        }else{
-          width = Math.round(width * size / height);
-          height = size;
-        }
+              let width =
+                img.width;
 
-        const canvas =
-          document.createElement('canvas');
+              let height =
+                img.height;
 
-        canvas.width = width;
-        canvas.height = height;
+              if(width > height){
 
-        const ctx = canvas.getContext('2d');
-        ctx.drawImage(img,0,0,width,height);
+                height =
+                  Math.round(
+                    height * size / width
+                  );
 
-        resolve(
-          canvas.toDataURL('image/jpeg',0.78)
+                width =
+                  size;
+
+              }else{
+
+                width =
+                  Math.round(
+                    width * size / height
+                  );
+
+                height =
+                  size;
+
+              }
+
+              const canvas =
+                document.createElement(
+                  'canvas'
+                );
+
+              canvas.width =
+                width;
+
+              canvas.height =
+                height;
+
+              const ctx =
+                canvas.getContext('2d');
+
+              ctx.drawImage(
+                img,
+                0,
+                0,
+                width,
+                height
+              );
+
+              resolve(
+                canvas.toDataURL(
+                  'image/jpeg',
+                  0.78
+                )
+              );
+
+            };
+
+          img.onerror =
+            ()=>reject(
+              new Error(
+                'No se pudo leer la imagen.'
+              )
+            );
+
+          img.src =
+            e.target.result;
+
+        };
+
+      reader.onerror =
+        ()=>reject(
+          new Error(
+            'No se pudo leer el archivo.'
+          )
         );
-      };
 
-      img.onerror = ()=>
-        reject(new Error('No se pudo leer la imagen.'));
+      reader.readAsDataURL(file);
 
-      img.src = e.target.result;
-    };
+    }
+  );
 
-    reader.onerror = ()=>
-      reject(new Error('No se pudo leer el archivo.'));
-
-    reader.readAsDataURL(file);
-  });
 }
+
 
 async function changeProfilePhoto(ev){
 
@@ -2487,22 +2850,33 @@ async function changeProfilePhoto(ev){
 
   ev.target.value = '';
 
-  if(!file || !currentUser?.id){
+  if(
+    !file ||
+    !currentUser?.id
+  ){
     return;
   }
 
   if(!file.type.startsWith('image/')){
-    alert('Selecciona una imagen válida.');
+
+    alert(
+      'Selecciona una imagen válida.'
+    );
+
     return;
+
   }
 
   try{
 
     const photo =
-      await compressProfileImage(file);
+      await compressProfileImage(
+        file
+      );
 
     localStorage.setItem(
-      'cg2_profile_photo_' + currentUser.id,
+      'cg2_profile_photo_' +
+      currentUser.id,
       photo
     );
 
@@ -2519,12 +2893,15 @@ async function changeProfilePhoto(ev){
       error.message ||
       'No se pudo cambiar la foto de perfil.'
     );
+
   }
+
 }
 
-/* =========================
+
+/* =========================================================
    LOGIN
-========================= */
+========================================================= */
 
 async function login(){
 
@@ -2540,8 +2917,9 @@ async function login(){
       .value;
 
   const msg =
-    document
-      .getElementById('loginMsg');
+    document.getElementById(
+      'loginMsg'
+    );
 
   if(
     !email ||
@@ -2584,31 +2962,42 @@ async function login(){
   currentUser =
     data.user;
 
-  await initializeUser();
+  const ok =
+    await initializeUser();
 
-  if(!currentHouseholdId){
+  if(
+    !ok ||
+    !currentHouseholdId
+  ){
 
     await sb.auth.signOut();
 
+    currentUser = null;
+    currentRole = null;
+    currentHouseholdId = null;
+
     msg.textContent =
-      'Este usuario no tiene un hogar configurado';
+      'Este usuario no tiene un hogar configurado.';
 
     return;
 
   }
 
   document
-    .getElementById('loginScreen')
-    .style.display='none';
+    .getElementById(
+      'loginScreen'
+    )
+    .style.display =
+      'none';
 
-  msg.textContent='';
+  msg.textContent = '';
 
 }
 
 
-/* =========================
+/* =========================================================
    INICIALIZAR USUARIO
-========================= */
+========================================================= */
 
 async function initializeUser(){
 
@@ -2622,7 +3011,9 @@ async function initializeUser(){
   } =
     await sb
       .from('miembros_hogar')
-      .select('hogar_id,rol')
+      .select(
+        'hogar_id,rol'
+      )
       .eq(
         'usuario_id',
         currentUser.id
@@ -2637,7 +3028,8 @@ async function initializeUser(){
       error
     );
 
-    currentHouseholdId=null;
+    currentHouseholdId =
+      null;
 
     return false;
 
@@ -2645,7 +3037,8 @@ async function initializeUser(){
 
   if(!member){
 
-    currentHouseholdId=null;
+    currentHouseholdId =
+      null;
 
     return false;
 
@@ -2657,72 +3050,147 @@ async function initializeUser(){
   currentHouseholdId =
     member.hogar_id;
 
-loadCategories();
-loadExpenses();
-loadShopping();
-updateRoleInfo();
-applyPermissions();
-render();
+  /*
+    Cargar datos en orden.
+  */
+
+  await loadCategories();
+  await loadExpenses();
+  await loadShopping();
+
+  updateRoleInfo();
+  applyPermissions();
+  updateProfile();
+  render();
 
   return true;
 
 }
 
 
-/* =========================
+/* =========================================================
    INFORMACION DEL ROL
-========================= */
+========================================================= */
 
 function updateRoleInfo(){
-  const el = document.getElementById('roleInfo');
 
-  if(!el) return;
+  const el =
+    document.getElementById(
+      'roleInfo'
+    );
 
-  if(currentRole === 'propietario'){
+  if(!el){
+    return;
+  }
+
+  if(
+    currentRole ===
+    'propietario'
+  ){
+
     el.textContent =
       'Propietario: tienes control total de los gastos, categorías y configuración del hogar.';
-  }else if(currentRole === 'miembro'){
+
+  }else if(
+    currentRole ===
+    'miembro'
+  ){
+
     el.textContent =
       'Miembro: puedes consultar Inicio y administrar las Compras del hogar.';
+
   }else{
+
     el.textContent =
       'Rol no identificado.';
-  }
-}function applyPermissions(){
-  const isOwner = currentRole === 'propietario';
 
-  const navExpenses = document.getElementById('navExpenses');
-  const navCalendar = document.getElementById('navCalendar');
-  const navStats = document.getElementById('navStats');
-  const navMore = document.getElementById('navMore');
-
-  if(navExpenses) navExpenses.style.display = isOwner ? '' : 'none';
-  if(navCalendar) navCalendar.style.display = isOwner ? '' : 'none';
-  if(navStats) navStats.style.display = isOwner ? '' : 'none';
-  if(navMore) navMore.style.display = isOwner ? '' : 'none';
-
-  const fab = document.getElementById('fab');
-
-  if(fab){
-    fab.style.display =
-      isOwner && ['home','expenses'].includes(active)
-        ? 'block'
-        : 'none';
   }
 
-  const homeAdd = document.getElementById('homeAdd');
-
-  if(homeAdd){
-    homeAdd.style.display = isOwner ? '' : 'none';
-  }
 }
 
-/* =========================
+
+/* =========================================================
+   PERMISOS
+========================================================= */
+
+function applyPermissions(){
+
+  const isOwner =
+    currentRole === 'propietario';
+
+  const navExpenses =
+    document.getElementById(
+      'navExpenses'
+    );
+
+  const navCalendar =
+    document.getElementById(
+      'navCalendar'
+    );
+
+  const navStats =
+    document.getElementById(
+      'navStats'
+    );
+
+  const navMore =
+    document.getElementById(
+      'navMore'
+    );
+
+  if(navExpenses){
+    navExpenses.style.display =
+      isOwner ? '' : 'none';
+  }
+
+  if(navCalendar){
+    navCalendar.style.display =
+      isOwner ? '' : 'none';
+  }
+
+  if(navStats){
+    navStats.style.display =
+      isOwner ? '' : 'none';
+  }
+
+  if(navMore){
+    navMore.style.display =
+      isOwner ? '' : 'none';
+  }
+
+  document
+    .querySelectorAll('.ownerOnly')
+    .forEach(el=>{
+
+      el.style.display =
+        isOwner ? '' : 'none';
+
+    });
+
+  const fab =
+    document.getElementById(
+      'fab'
+    );
+
+  if(fab){
+
+    fab.style.display =
+      isOwner &&
+      ['home','expenses'].includes(active)
+        ? 'block'
+        : 'none';
+
+  }
+
+}
+
+
+/* =========================================================
    CAMBIO DE SESION
-========================= */
+========================================================= */
 
 sb.auth.onAuthStateChange(
-  async (
+  async(
     event,
     session
   )=>{
@@ -2735,11 +3203,15 @@ sb.auth.onAuthStateChange(
       currentUser =
         session.user;
 
-      await initializeUser();
+      const ok =
+        await initializeUser();
 
       document
-        .getElementById('loginScreen')
+        .getElementById(
+          'loginScreen'
+        )
         .style.display =
+          ok &&
           currentHouseholdId
             ? 'none'
             : 'flex';
@@ -2750,9 +3222,9 @@ sb.auth.onAuthStateChange(
 );
 
 
-/* =========================
+/* =========================================================
    CARGAR GASTOS
-========================= */
+========================================================= */
 
 async function loadExpenses(){
 
@@ -2791,19 +3263,23 @@ async function loadExpenses(){
 
   const gastos =
     data || [];
-    
-  const categoriaIds =
+
+  const ids =
     [
       ...new Set(
         gastos
-          .map(x=>x.categoria_id)
-          .filter(id=>id!=null)
+          .map(
+            x=>x.categoria_id
+          )
+          .filter(
+            id=>id!=null
+          )
       )
     ];
 
   let categoriasMap = {};
 
-  if(categoriaIds.length){
+  if(ids.length){
 
     const {
       data:categorias,
@@ -2811,10 +3287,12 @@ async function loadExpenses(){
     } =
       await sb
         .from('categorias')
-        .select('id,nombre')
+        .select(
+          'id,nombre'
+        )
         .in(
           'id',
-          categoriaIds
+          ids
         );
 
     if(catError){
@@ -2832,7 +3310,9 @@ async function loadExpenses(){
           categoriasMap[c.id] =
             c.nombre;
 
-          categoryIds[c.nombre] =
+          categoryIds[
+            c.nombre
+          ] =
             c.id;
 
         });
@@ -2855,7 +3335,7 @@ async function loadExpenses(){
                 categoriasMap[
                   x.categoria_id
                 ] ||
-                'Categoría '+
+                'Categoría ' +
                 x.categoria_id
               )
             : 'Otros'
@@ -2872,58 +3352,59 @@ async function loadExpenses(){
         ),
 
       date:
-  x.date ??
-  x.fecha ??
-  '',
+        x.date ??
+        x.fecha ??
+        '',
 
-paymentDate:
-  x.fecha_pago ??
-  '',
+      paymentDate:
+        x.fecha_pago ??
+        '',
 
-created_at:
-  x.created_at ??
-  '',
-      split:x.split ?? 'shared',
-payer:x.payer ?? 'me',
-myPayment:Number(x.my_payment ?? 0),
-wifePayment:Number(x.wife_payment ?? 0),
-paid:Boolean(x.paid),
-note:x.note ?? x.notas ?? x.descripcion ?? '',
+      created_at:
+        x.created_at ??
+        '',
+
+      split:
+        x.split ??
+        'shared',
+
+      payer:
+        x.payer ??
+        'me',
+
+      myPayment:
+        Number(
+          x.my_payment ??
+          0
+        ),
+
+      wifePayment:
+        Number(
+          x.wife_payment ??
+          0
+        ),
+
+      paid:
+        Boolean(
+          x.paid
+        ),
+
+      note:
+        x.note ??
+        x.notas ??
+        x.descripcion ??
+        '',
+
       photos:
-  Array.isArray(x.photos)
-    ? x.photos
-    : (
-        typeof x.photos === 'string'
-          ? (()=>{
+        Array.isArray(x.photos)
+          ? x.photos
+          : (
+              typeof x.photos === 'string'
+                ? parsePhotos(x.photos)
+                : []
+            )
 
-              try{
-                const parsed =
-                  JSON.parse(x.photos);
-
-                return Array.isArray(parsed)
-                  ? parsed
-                  : [];
-
-              }catch(e){
-
-                console.error(
-                  'Error leyendo fotos del gasto:',
-                  e
-                );
-
-                return [];
-
-              }
-
-            })()
-          : []
-      )
     }));
-
-  /*
-    Siempre dejamos el más reciente
-    primero.
-  */
 
   E.sort(
     (a,b)=>{
@@ -2940,13 +3421,11 @@ note:x.note ?? x.notas ?? x.descripcion ?? '',
 
       }
 
-      const da =
-        a.date || '';
-
-      const db =
-        b.date || '';
-
-      return db.localeCompare(da);
+      return (
+        b.date || ''
+      ).localeCompare(
+        a.date || ''
+      );
 
     }
   );
@@ -2957,20 +3436,44 @@ note:x.note ?? x.notas ?? x.descripcion ?? '',
 }
 
 
-/* =========================
+/* =========================================================
+   FOTOS JSON
+========================================================= */
+
+function parsePhotos(value){
+
+  try{
+
+    const parsed =
+      JSON.parse(value);
+
+    return Array.isArray(parsed)
+      ? parsed
+      : [];
+
+  }catch(error){
+
+    console.error(
+      'Error leyendo fotos:',
+      error
+    );
+
+    return [];
+
+  }
+
+}
+
+
+/* =========================================================
    CARGAR COMPRAS
-========================= */
+========================================================= */
 
 async function loadShopping(){
 
   if(!currentHouseholdId){
     return;
   }
-
-  console.log(
-    'Cargando compras del hogar:',
-    currentHouseholdId
-  );
 
   const {
     data,
@@ -3000,11 +3503,6 @@ async function loadShopping(){
     return;
 
   }
-
-  console.log(
-    'COMPRAS ENCONTRADAS:',
-    data
-  );
 
   S =
     (data || [])
@@ -3040,23 +3538,31 @@ async function loadShopping(){
 }
 
 
-/* =========================
-   AGREGAR GASTO
-========================= */
+/* =========================================================
+   CAMPOS DE PAGO
+========================================================= */
 
 function updatePaymentFields(){
 
   const splitEl =
-    document.getElementById('split');
+    document.getElementById(
+      'split'
+    );
 
   const fieldsEl =
-    document.getElementById('differentPaymentFields');
+    document.getElementById(
+      'differentPaymentFields'
+    );
 
   const myPaymentEl =
-    document.getElementById('myPaymentAmount');
+    document.getElementById(
+      'myPaymentAmount'
+    );
 
   const wifePaymentEl =
-    document.getElementById('wifePaymentAmount');
+    document.getElementById(
+      'wifePaymentAmount'
+    );
 
   if(
     !splitEl ||
@@ -3065,13 +3571,18 @@ function updatePaymentFields(){
     return;
   }
 
-  if(splitEl.value === 'different'){
+  if(
+    splitEl.value ===
+    'different'
+  ){
 
-    fieldsEl.style.display = 'block';
+    fieldsEl.style.display =
+      'block';
 
   }else{
 
-    fieldsEl.style.display = 'none';
+    fieldsEl.style.display =
+      'none';
 
     if(myPaymentEl){
       myPaymentEl.value = '';
@@ -3084,30 +3595,45 @@ function updatePaymentFields(){
   }
 
 }
-  document
+
+document
   .getElementById('split')
   ?.addEventListener(
     'change',
     updatePaymentFields
   );
-  
-  async function addExpense(ev){
+
+
+/* =========================================================
+   AGREGAR GASTO
+========================================================= */
+
+async function addExpense(ev){
 
   ev.preventDefault();
 
-  if(currentRole !== 'propietario'){
-    alert('No tienes permisos para crear gastos.');
+  if(
+    currentRole !==
+    'propietario'
+  ){
+
+    alert(
+      'No tienes permisos para crear gastos.'
+    );
+
     return;
-  }
 
-  ev.preventDefault();
+  }
 
   if(
     !currentUser ||
     !currentHouseholdId
   ){
 
-    alert('No hay una sesión activa.');
+    alert(
+      'No hay una sesión activa.'
+    );
+
     return;
 
   }
@@ -3116,141 +3642,190 @@ function updatePaymentFields(){
     ev.target;
 
   const catEl =
-    document.getElementById('cat');
+    document.getElementById(
+      'cat'
+    );
 
   const amountEl =
-    document.getElementById('amount');
+    document.getElementById(
+      'amount'
+    );
 
   const dateEl =
-    document.getElementById('date');
+    document.getElementById(
+      'date'
+    );
 
   const splitEl =
-    document.getElementById('split');
+    document.getElementById(
+      'split'
+    );
 
   const noteEl =
-    document.getElementById('note');
+    document.getElementById(
+      'note'
+    );
+
+  const paymentDateEl =
+    document.getElementById(
+      'paymentDate'
+    );
 
   const saveButton =
-    document.getElementById('saveExpenseButton');
+    document.getElementById(
+      'saveExpenseButton'
+    );
 
   const categoriaTexto =
     catEl.value.trim();
 
   const monto =
-    Number(amountEl.value) || 0;
+    Number(
+      amountEl.value
+    ) || 0;
 
   const fecha =
     dateEl.value;
 
-  const categoriaNombre =
-    catEl.value;
+  const split =
+    splitEl.value;
 
   const fechaPagoAutomatica =
     getPaymentDateByCategory(
-      categoriaNombre,
+      categoriaTexto,
       fecha
     );
 
   const fechaPago =
     fechaPagoAutomatica ||
-    document.getElementById('paymentDate').value;
+    paymentDateEl.value;
 
-  const split =
-    splitEl.value;
+  let myPayment = 0;
+  let wifePayment = 0;
 
-const myPaymentEl =
-    document.getElementById('myPaymentAmount');
+  if(split === 'me'){
 
-const wifePaymentEl =
-    document.getElementById('wifePaymentAmount');
+    myPayment =
+      monto;
 
-let myPayment = 0;
-let wifePayment = 0;
+    wifePayment =
+      0;
 
-if(split === 'me'){
+  }else if(split === 'wife'){
 
-  myPayment = monto;
-  wifePayment = 0;
+    myPayment =
+      0;
 
-}else if(split === 'wife'){
+    wifePayment =
+      monto;
 
-  myPayment = 0;
-  wifePayment = monto;
+  }else if(split === 'shared'){
 
-}else if(split === 'shared'){
+    myPayment =
+      monto / 2;
 
-  myPayment = monto / 2;
-  wifePayment = monto / 2;
+    wifePayment =
+      monto / 2;
 
-}else if(split === 'different'){
+  }else if(split === 'different'){
 
-  myPayment =
-    Number(myPaymentEl?.value) || 0;
+    myPayment =
+      Number(
+        document.getElementById(
+          'myPaymentAmount'
+        )?.value
+      ) || 0;
 
-  wifePayment =
-    Number(wifePaymentEl?.value) || 0;
+    wifePayment =
+      Number(
+        document.getElementById(
+          'wifePaymentAmount'
+        )?.value
+      ) || 0;
 
-  if(myPayment <= 0 && wifePayment <= 0){
+    if(
+      myPayment <= 0 &&
+      wifePayment <= 0
+    ){
 
-    alert('Ingresa cuánto pagó cada uno.');
-    return;
+      alert(
+        'Ingresa cuánto pagó cada uno.'
+      );
+
+      return;
+
+    }
+
+    if(
+      Math.abs(
+        (myPayment + wifePayment) -
+        monto
+      ) > 0.001
+    ){
+
+      alert(
+        'Los valores pagados por ambos deben sumar exactamente el valor del gasto.'
+      );
+
+      return;
+
+    }
 
   }
 
-  if(myPayment + wifePayment !== monto){
+  const notas =
+    noteEl.value.trim();
+
+
+  /* VALIDACIONES */
+
+  if(monto <= 0){
 
     alert(
-      'Los valores pagados por ambos deben sumar exactamente el valor del gasto.'
+      'El valor debe ser mayor que 0.'
     );
 
     return;
 
   }
 
-}
+  if(!fecha){
 
-const notas =
-    noteEl.value.trim();
-    
-  /* =========================
-     VALIDACIONES
-  ========================= */
+    alert(
+      'Selecciona la fecha del gasto.'
+    );
 
-  if(monto <= 0){
+    return;
 
-  alert('El valor debe ser mayor que 0.');
-  return;
+  }
 
-}
+  if(!fechaPago){
 
-if(!fecha){
+    alert(
+      'Selecciona la fecha límite de pago.'
+    );
 
-  alert('Selecciona la fecha del gasto.');
-  return;
+    return;
 
-}
+  }
 
-if(!fechaPago){
+  if(!categoriaTexto){
 
-  alert('Selecciona la fecha límite de pago.');
-  return;
+    alert(
+      'Selecciona una categoría.'
+    );
 
-}
+    return;
 
-if(!categoriaTexto){
-
-  alert('Selecciona una categoría.');
-  return;
-
-}
+  }
 
 
-  /* =========================
-     BUSCAR ID CATEGORIA
-  ========================= */
+  /* CATEGORIA */
 
   let categoriaId =
-    categoryIds[categoriaTexto];
+    categoryIds[
+      categoriaTexto
+    ];
 
   if(!categoriaId){
 
@@ -3260,8 +3835,13 @@ if(!categoriaTexto){
     } =
       await sb
         .from('categorias')
-        .select('id,nombre')
-        .eq('nombre',categoriaTexto)
+        .select(
+          'id,nombre'
+        )
+        .eq(
+          'nombre',
+          categoriaTexto
+        )
         .limit(1)
         .maybeSingle();
 
@@ -3304,19 +3884,18 @@ if(!categoriaTexto){
   }
 
 
-  /* =========================
-     BLOQUEAR BOTON
-  ========================= */
+  /* BLOQUEAR BOTON */
 
-  saveButton.disabled = true;
+  saveButton.disabled =
+    true;
 
   saveButton.textContent =
-    'Comprimiendo fotos...';
+    photoFiles.length
+      ? 'Comprimiendo fotos...'
+      : 'Guardando gasto...';
 
 
-  /* =========================
-     COMPRIMIR FOTO
-  ========================= */
+  /* COMPRESION */
 
   async function compressImage(file){
 
@@ -3335,8 +3914,11 @@ if(!categoriaTexto){
             img.onload =
               function(){
 
-                const MAX_WIDTH = 1600;
-                const MAX_HEIGHT = 1600;
+                const MAX_WIDTH =
+                  1600;
+
+                const MAX_HEIGHT =
+                  1600;
 
                 let width =
                   img.width;
@@ -3344,20 +3926,19 @@ if(!categoriaTexto){
                 let height =
                   img.height;
 
-                /*
-                  Reducimos la resolución
-                  manteniendo proporción.
-                */
-
                 if(
-                  width > MAX_WIDTH ||
-                  height > MAX_HEIGHT
+                  width >
+                    MAX_WIDTH ||
+                  height >
+                    MAX_HEIGHT
                 ){
 
                   const ratio =
                     Math.min(
-                      MAX_WIDTH / width,
-                      MAX_HEIGHT / height
+                      MAX_WIDTH /
+                        width,
+                      MAX_HEIGHT /
+                        height
                     );
 
                   width =
@@ -3395,12 +3976,6 @@ if(!categoriaTexto){
                   width,
                   height
                 );
-
-                /*
-                  JPEG calidad 0.75
-                  para reducir bastante
-                  el tamaño del archivo.
-                */
 
                 canvas.toBlob(
                   blob=>{
@@ -3445,7 +4020,9 @@ if(!categoriaTexto){
             )
           );
 
-        reader.readAsDataURL(file);
+        reader.readAsDataURL(
+          file
+        );
 
       }
     );
@@ -3453,18 +4030,11 @@ if(!categoriaTexto){
   }
 
 
-  /* =========================
-     OBTENER ARCHIVOS
-  ========================= */
-
   const files =
-  [...photoFiles];
-
-  /* =========================
-     SUBIR FOTOS
-  ========================= */
+    [...photoFiles];
 
   const photoUrls = [];
+  const uploadedPaths = [];
 
   try{
 
@@ -3480,46 +4050,18 @@ if(!categoriaTexto){
       saveButton.textContent =
         `Subiendo foto ${i+1} de ${files.length}...`;
 
-      console.log(
-        'Foto original:',
-        file.name,
-        file.size
-      );
-
-
-      /* COMPRIMIR */
-
       const compressed =
-        await compressImage(file);
-
-      console.log(
-        'Foto comprimida:',
-        compressed.size
-      );
-
-
-      /* NOMBRE UNICO */
+        await compressImage(
+          file
+        );
 
       const fileName =
         `${Date.now()}-${i}-${Math.random()
           .toString(36)
           .substring(2,8)}.jpg`;
 
-
-      /*
-        Carpeta por hogar.
-        Ejemplo:
-
-        gastos-fotos/
-          1/
-            1758940000000-0-ab12cd.jpg
-      */
-
       const filePath =
         `${currentHouseholdId}/${fileName}`;
-
-
-      /* SUBIR A STORAGE */
 
       const {
         error:uploadError
@@ -3530,17 +4072,13 @@ if(!categoriaTexto){
             filePath,
             compressed,
             {
-              contentType:'image/jpeg',
+              contentType:
+                'image/jpeg',
               upsert:false
             }
           );
 
       if(uploadError){
-
-        console.error(
-          'Error subiendo foto:',
-          uploadError
-        );
 
         throw new Error(
           'No se pudo subir la foto: '+
@@ -3549,8 +4087,9 @@ if(!categoriaTexto){
 
       }
 
-
-      /* OBTENER URL PUBLICA */
+      uploadedPaths.push(
+        filePath
+      );
 
       const {
         data:urlData
@@ -3564,7 +4103,6 @@ if(!categoriaTexto){
       const publicUrl =
         urlData?.publicUrl;
 
-
       if(!publicUrl){
 
         throw new Error(
@@ -3573,70 +4111,62 @@ if(!categoriaTexto){
 
       }
 
-
       photoUrls.push(
-        publicUrl
-      );
-
-      console.log(
-        'Foto subida:',
         publicUrl
       );
 
     }
 
 
-    /* =========================
-       GUARDAR GASTO
-    ========================= */
+    /* GUARDAR */
 
     saveButton.textContent =
       'Guardando gasto...';
 
-
     const payload = {
 
-  hogar_id:
-    currentHouseholdId,
+      hogar_id:
+        currentHouseholdId,
 
-  usuario_id:
-    currentUser.id,
+      usuario_id:
+        currentUser.id,
 
-  categoria_id:
-    categoriaId,
+      categoria_id:
+        categoriaId,
 
-  monto:
-    monto,
+      monto:
+        monto,
 
-  fecha:
-    fecha,
+      fecha:
+        fecha,
 
-  fecha_pago:
-    fechaPago,
+      fecha_pago:
+        fechaPago,
 
-  descripcion:
-    notas ||
-    'Sin descripción',
+      descripcion:
+        notas ||
+        'Sin descripción',
 
-  notas:
-    notas,
+      notas:
+        notas,
 
-  split:
-    split,
+      split:
+        split,
 
-  my_payment:
-    myPayment,
+      my_payment:
+        myPayment,
 
-  wife_payment:
-    wifePayment,
+      wife_payment:
+        wifePayment,
 
-  paid:
-    false,
+      paid:
+        false,
 
-  photos:
-    photoUrls
+      photos:
+        photoUrls
 
-};
+    };
+
     const {
       data,
       error
@@ -3647,7 +4177,6 @@ if(!categoriaTexto){
         .select()
         .single();
 
-
     if(error){
 
       console.error(
@@ -3655,146 +4184,108 @@ if(!categoriaTexto){
         error
       );
 
-      alert(
+      /*
+        Eliminar fotos que ya fueron
+        subidas si falló el gasto.
+      */
+
+      if(uploadedPaths.length){
+
+        await sb.storage
+          .from('gastos-fotos')
+          .remove(
+            uploadedPaths
+          );
+
+      }
+
+      throw new Error(
         'No se pudo guardar el gasto: '+
         error.message
       );
 
-      /*
-        Si el gasto falla pero las fotos
-        ya fueron subidas, las eliminamos
-        para no dejar archivos huérfanos.
-      */
-
-      if(photoUrls.length){
-
-        const paths =
-          photoUrls.map(
-            url=>{
-
-              const marker =
-                '/gastos-fotos/';
-
-              const pos =
-                url.indexOf(marker);
-
-              return pos >= 0
-                ? decodeURIComponent(
-                    url.substring(
-                      pos + marker.length
-                    )
-                  )
-                : null;
-
-            }
-          )
-          .filter(Boolean);
-
-        if(paths.length){
-
-          await sb.storage
-            .from('gastos-fotos')
-            .remove(paths);
-
-        }
-
-      }
-
-      saveButton.disabled=false;
-
-      saveButton.textContent =
-        'Guardar gasto';
-
-      return;
-
     }
 
 
-    console.log(
-      'Gasto guardado en Supabase:',
-      data
-    );
-
-
-    /* =========================
-       ACTUALIZAR LISTA LOCAL
-    ========================= */
+    /* ACTUALIZAR LOCAL */
 
     E.unshift({
 
-  id:
-    data.id,
+      id:
+        data.id,
 
-  cat:
-    categoriaTexto,
+      cat:
+        categoriaTexto,
 
-  categoria_id:
-    categoriaId,
+      categoria_id:
+        categoriaId,
 
-  amount:
-    Number(
-      data.monto ??
-      monto
-    ),
+      amount:
+        Number(
+          data.monto ??
+          monto
+        ),
 
-  date:
-    data.fecha ??
-    fecha,
+      date:
+        data.fecha ??
+        fecha,
 
-  paymentDate:
-    data.fecha_pago ??
-    fechaPago,
+      paymentDate:
+        data.fecha_pago ??
+        fechaPago,
 
-  created_at:
-    data.created_at ??
-    new Date().toISOString(),
+      created_at:
+        data.created_at ??
+        new Date().toISOString(),
 
-  split:
-    data.split ??
-    split,
+      split:
+        data.split ??
+        split,
 
-  myPayment:
-    Number(
-      data.my_payment ??
-      myPayment
-    ),
+      myPayment:
+        Number(
+          data.my_payment ??
+          myPayment
+        ),
 
-  wifePayment:
-    Number(
-      data.wife_payment ??
-      wifePayment
-    ),
+      wifePayment:
+        Number(
+          data.wife_payment ??
+          wifePayment
+        ),
 
-  paid:
-    Boolean(
-      data.paid
-    ),
+      paid:
+        Boolean(
+          data.paid
+        ),
 
-  note:
-    data.descripcion ??
-    notas ??
-    '',
+      note:
+        data.descripcion ??
+        notas ??
+        '',
 
-  photos:
-    data.photos ??
-    photoUrls
+      photos:
+        Array.isArray(
+          data.photos
+        )
+          ? data.photos
+          : photoUrls
 
-});
-    /* =========================
-       LIMPIAR FORMULARIO
-    ========================= */
+    });
 
-    pics=[];
-photoFiles=[];
+
+    /* LIMPIAR */
+
+    pics = [];
+    photoFiles = [];
+
     const previewEl =
       document.getElementById(
         'preview'
       );
 
     if(previewEl){
-
-      previewEl.innerHTML='';
-
+      previewEl.innerHTML = '';
     }
 
     form.reset();
@@ -3802,26 +4293,28 @@ photoFiles=[];
     dateEl.value =
       today();
 
+    fill();
 
-    closeM('expense');
+    updatePaymentFields();
 
+    closeM(
+      'expense'
+    );
 
-    saveButton.disabled=false;
+    saveButton.disabled =
+      false;
 
     saveButton.textContent =
       'Guardar gasto';
 
-
     render();
-
 
     notify(
       'Nuevo gasto',
-      categoriaTexto+
-      ' · '+
+      categoriaTexto +
+      ' · ' +
       money(monto)
     );
-
 
   }catch(error){
 
@@ -3835,7 +4328,8 @@ photoFiles=[];
       'Ocurrió un error al guardar el gasto.'
     );
 
-    saveButton.disabled=false;
+    saveButton.disabled =
+      false;
 
     saveButton.textContent =
       'Guardar gasto';
@@ -3844,29 +4338,16 @@ photoFiles=[];
 
 }
 
-/* =========================
+
+/* =========================================================
    MARCAR GASTO PAGADO
-========================= */
+========================================================= */
 
 async function paid(id){
 
-  const x =
-    E.find(
-      a=>a.id===id
-    );
-
-  if(!x){
-    return;
-  }
-
-  /*
-    Solo permitimos modificar
-    desde aquí al usuario que
-    tiene rol propietario.
-  */
-
   if(
-    currentRole !== 'propietario'
+    currentRole !==
+    'propietario'
   ){
 
     alert(
@@ -3875,6 +4356,15 @@ async function paid(id){
 
     return;
 
+  }
+
+  const x =
+    E.find(
+      a=>a.id === id
+    );
+
+  if(!x){
+    return;
   }
 
   const nuevoEstado =
@@ -3928,142 +4418,234 @@ async function paid(id){
 }
 
 
-/* =========================
-   RENDER
-========================= */
+/* =========================================================
+   CAMBIAR MES
+========================================================= */
+
 function changeMonth(direction){
 
   const current =
-    window.selectedMonth || currentYM();
+    window.selectedMonth ||
+    currentYM();
 
-  const [year, month] =
-    current.split('-').map(Number);
+  const [
+    year,
+    month
+  ] =
+    current
+      .split('-')
+      .map(Number);
 
   const date =
-    new Date(year, month - 1 + direction, 1);
+    new Date(
+      year,
+      month - 1 + direction,
+      1
+    );
 
   window.selectedMonth =
-    `${date.getFullYear()}-${String(date.getMonth()+1).padStart(2,'0')}`;
+    `${date.getFullYear()}-${String(
+      date.getMonth()+1
+    ).padStart(2,'0')}`;
 
   render();
+
 }
-  
+
+
+/* =========================================================
+   CALCULAR PARTE ESPERADA
+========================================================= */
+
+function expectedShares(x){
+
+  const amount =
+    Number(x.amount) || 0;
+
+  if(x.split === 'me'){
+
+    return {
+      me:amount,
+      wife:0
+    };
+
+  }
+
+  if(x.split === 'wife'){
+
+    return {
+      me:0,
+      wife:amount
+    };
+
+  }
+
+  /*
+    shared y different son gastos
+    del hogar que corresponden 50/50.
+  */
+
+  return {
+    me:amount / 2,
+    wife:amount / 2
+  };
+
+}
+
+
+/* =========================================================
+   RENDER
+========================================================= */
+
 function render(){
 
   fill();
 
   if(!window.selectedMonth){
-  window.selectedMonth = currentYM();
-}
 
-const ym = window.selectedMonth;
+    window.selectedMonth =
+      currentYM();
 
-const [year, month] =
-  window.selectedMonth
-    .split('-')
-    .map(Number);
+  }
 
-const monthText =
-  new Intl.DateTimeFormat(
-    'es-CO',
-    {
-      month:'long',
-      year:'numeric'
-    }
-  ).format(
-    new Date(year, month - 1, 1)
-  );
+  const ym =
+    window.selectedMonth;
 
-const monthEl =
-  document.getElementById('month');
+  const [
+    year,
+    month
+  ] =
+    ym
+      .split('-')
+      .map(Number);
 
-if(monthEl){
-  monthEl.textContent = monthText;
-}
+  const monthText =
+    new Intl.DateTimeFormat(
+      'es-CO',
+      {
+        month:'long',
+        year:'numeric'
+      }
+    ).format(
+      new Date(
+        year,
+        month - 1,
+        1
+      )
+    );
 
-const monthExpensesEl =
-  document.getElementById('monthExpenses');
+  const monthEl =
+    document.getElementById(
+      'month'
+    );
 
-if(monthExpensesEl){
-  monthExpensesEl.textContent = monthText;
-}
-  /*
-    Gastos del mes.
-  */
+  if(monthEl){
+    monthEl.textContent =
+      monthText;
+  }
+
+  const monthExpensesEl =
+    document.getElementById(
+      'monthExpenses'
+    );
+
+  if(monthExpensesEl){
+    monthExpensesEl.textContent =
+      monthText;
+  }
+
+
+  /* GASTOS DEL MES */
 
   const monthExpenses =
-  E
-    .filter(
-      x =>
-        x.date &&
-        x.date.startsWith(ym)
-    )
-    .sort(
-      (a,b)=>
-        (b.created_at || '')
-          .localeCompare(
+    E
+      .filter(
+        x =>
+          x.date &&
+          x.date.startsWith(ym)
+      )
+      .sort(
+        (a,b)=>
+          (
+            b.created_at || ''
+          ).localeCompare(
             a.created_at || ''
           )
-    );
-  /*
-    TOTAL
-  */
+      );
+
+
+  /* TOTAL */
 
   const total =
     monthExpenses.reduce(
-      (s,x)=>
-        s+
+      (sum,x)=>
+        sum +
         (
-          Number(x.amount)||0
+          Number(x.amount) || 0
         ),
       0
     );
 
-  /*
-    PARTES
-  */
+
+  /* PARTES */
 
   let my = 0;
-let w = 0;
-let myPaid = 0;
+  let wife = 0;
 
-monthExpenses.forEach(
-  x => {
+  let actualMyPaid = 0;
+  let actualWifePaid = 0;
+
+  let expectedMy = 0;
+  let expectedWife = 0;
+
+  monthExpenses.forEach(x=>{
 
     const amount =
       Number(x.amount) || 0;
 
-    /*
-      CADA GASTO DEL HOGAR SE REPARTE
-      50/50 PARA EL BALANCE.
+    const shares =
+      expectedShares(x);
 
-      "¿Cómo se pagó?" solamente indica
-      quién puso el dinero.
+    expectedMy +=
+      shares.me;
+
+    expectedWife +=
+      shares.wife;
+
+    actualMyPaid +=
+      Number(x.myPayment) || 0;
+
+    actualWifePaid +=
+      Number(x.wifePayment) || 0;
+
+    /*
+      Para las tarjetas "Tu parte" y
+      "Parte esposa" mostramos lo que
+      corresponde a cada uno.
     */
 
-    my += Number(x.myPayment) || 0;
-    w += Number(x.wifePayment) || 0;
-    /*
-      CUÁNTO PAGUÉ YO REALMENTE
-    */
+    my +=
+      shares.me;
 
-    if(
-      x.myPayment !== undefined &&
-      x.myPayment !== null
-    ){
+    wife +=
+      shares.wife;
 
-      myPaid +=
-        Number(x.myPayment) || 0;
+  });
 
-    }
 
-  }
-);
-  const d = myPaid - my;
-  
   /*
-    HOME
+    Saldo:
+
+    positivo = tú has pagado de más
+    negativo = ella ha pagado de más
   */
+
+  const balance =
+    actualMyPaid -
+    expectedMy;
+
+
+  /* HOME */
 
   const totalEl =
     document.getElementById(
@@ -4095,28 +4677,34 @@ monthExpenses.forEach(
       'pending'
     );
 
-  if(totalEl)
+  if(totalEl){
     totalEl.textContent =
       money(total);
+  }
 
-  if(myEl)
+  if(myEl){
     myEl.textContent =
       money(my);
+  }
 
-  if(wifeEl)
+  if(wifeEl){
     wifeEl.textContent =
-      money(w);
+      money(wife);
+  }
 
-  if(balEl)
+  if(balEl){
     balEl.textContent =
-      money(Math.abs(d));
+      money(
+        Math.abs(balance)
+      );
+  }
 
   if(balTextEl){
 
     balTextEl.textContent =
-      d>0
+      balance > 0
         ? 'Tu esposa te debe este valor'
-        : d<0
+        : balance < 0
           ? 'Tú debes este valor a tu esposa'
           : 'Todo equilibrado';
 
@@ -4127,14 +4715,13 @@ monthExpenses.forEach(
     pendingEl.textContent =
       monthExpenses.filter(
         x=>!x.paid
-      ).length+
+      ).length +
       ' pendientes';
 
   }
 
-  /*
-    ULTIMOS GASTOS EN INICIO
-  */
+
+  /* ULTIMOS GASTOS */
 
   const recentEl =
     document.getElementById(
@@ -4146,15 +4733,16 @@ monthExpenses.forEach(
     recentEl.innerHTML =
       monthExpenses
         .slice(0,5)
-        .map(x=>expenseHTML(x))
+        .map(
+          x=>expenseHTML(x)
+        )
         .join('') ||
       '<div class="empty">No hay gastos este mes.</div>';
 
   }
 
-  /*
-    LISTA DE GASTOS
-  */
+
+  /* LISTA */
 
   const listEl =
     document.getElementById(
@@ -4165,15 +4753,16 @@ monthExpenses.forEach(
 
     listEl.innerHTML =
       monthExpenses
-        .map(x=>expenseHTML(x))
+        .map(
+          x=>expenseHTML(x)
+        )
         .join('') ||
       '<div class="empty">No hay gastos este mes.</div>';
 
   }
 
-  /*
-    CALENDARIO
-  */
+
+  /* CALENDARIO */
 
   const calEl =
     document.getElementById(
@@ -4183,7 +4772,7 @@ monthExpenses.forEach(
   if(calEl){
 
     calEl.innerHTML =
-      '<h2>Vencimientos</h2>'+
+      '<h2>Vencimientos</h2>' +
       (
         monthExpenses
           .map(x=>`
@@ -4191,7 +4780,7 @@ monthExpenses.forEach(
             <div class="row">
 
               <div class="ico">
-                ${icons[x.cat]||'🧾'}
+                ${icons[x.cat] || '🧾'}
               </div>
 
               <div class="grow">
@@ -4201,7 +4790,12 @@ monthExpenses.forEach(
                 </b>
 
                 <div class="small">
-                  Vence: ${esc(x.paymentDate || x.date || 'Sin fecha')}
+                  Vence:
+                  ${esc(
+                    x.paymentDate ||
+                    x.date ||
+                    'Sin fecha'
+                  )}
                 </div>
 
               </div>
@@ -4223,25 +4817,22 @@ monthExpenses.forEach(
 
   }
 
-  /*
-    ESTADISTICAS
-  */
 
-  const c={};
+  /* ESTADISTICAS */
 
-  monthExpenses.forEach(
-    x=>{
+  const c = {};
 
-      c[x.cat] =
-        (
-          c[x.cat]||0
-        )+
-        (
-          Number(x.amount)||0
-        );
+  monthExpenses.forEach(x=>{
 
-    }
-  );
+    c[x.cat] =
+      (
+        c[x.cat] || 0
+      ) +
+      (
+        Number(x.amount) || 0
+      );
+
+  });
 
   const max =
     Math.max(
@@ -4274,7 +4865,7 @@ monthExpenses.forEach(
               ">
 
                 <b>
-                  ${icons[k]||'🧾'}
+                  ${icons[k] || '🧾'}
                   ${esc(k)}
                 </b>
 
@@ -4302,9 +4893,8 @@ monthExpenses.forEach(
 
   }
 
-  /*
-    COMPRAS
-  */
+
+  /* COMPRAS */
 
   const shoppingBox =
     document.getElementById(
@@ -4367,56 +4957,31 @@ monthExpenses.forEach(
 }
 
 
-/* =========================
-   HTML DE GASTO
-========================= */
+/* =========================================================
+   HTML GASTO
+========================================================= */
 
 function expenseHTML(x){
 
   const canPay =
-    currentRole === 'propietario';
+    currentRole ===
+    'propietario';
 
   let photos = [];
-
-  /*
-    Asegurar que photos siempre
-    sea un arreglo.
-  */
 
   if(Array.isArray(x.photos)){
 
     photos =
       x.photos;
 
-  }
-  
-  else if(
+  }else if(
     typeof x.photos === 'string'
   ){
 
-    try{
-
-      const parsed =
-        JSON.parse(x.photos);
-
-      if(Array.isArray(parsed)){
-
-        photos =
-          parsed;
-
-      }
-
-    }catch(e){
-
-      console.error(
-        'No se pudieron leer las fotos:',
-        e
-      );
-
-    }
+    photos =
+      parsePhotos(x.photos);
 
   }
-
 
   let photosHTML = '';
 
@@ -4461,12 +5026,48 @@ function expenseHTML(x){
   }
 
 
+  let splitText =
+    'Pago no especificado';
+
+  if(x.split === 'me'){
+    splitText =
+      'Pagaste tú';
+  }else if(x.split === 'wife'){
+    splitText =
+      'Pagó ella';
+  }else if(x.split === 'shared'){
+    splitText =
+      'Pagaron 50/50';
+  }else if(x.split === 'different'){
+    splitText =
+      'Pago diferente';
+  }else if(x.split === 'mine'){
+    splitText =
+      `Solo mío · ${
+        x.payer === 'me'
+          ? 'Pagaste tú'
+          : x.payer === 'wife'
+            ? 'Pagó esposa'
+            : 'Pagaron ambos'
+      }`;
+  }else if(x.split === 'wife_only'){
+    splitText =
+      `Solo esposa · ${
+        x.payer === 'me'
+          ? 'Pagaste tú'
+          : x.payer === 'wife'
+            ? 'Pagó esposa'
+            : 'Pagaron ambos'
+      }`;
+  }
+
+
   return `
 
     <div class="row">
 
       <div class="ico">
-        ${icons[x.cat]||'🧾'}
+        ${icons[x.cat] || '🧾'}
       </div>
 
       <div class="grow">
@@ -4476,37 +5077,21 @@ function expenseHTML(x){
         </b>
 
         <div class="small">
-          Fecha: ${esc(x.date||'—')}
-          · Vence: ${esc(x.paymentDate||'—')}
+
+          Fecha:
+          ${esc(x.date || '—')}
+
           ·
-          ${
-x.split === 'me'
-  ? 'Pagaste tú'
-  : x.split === 'wife'
-    ? 'Pagó ella'
-    : x.split === 'shared'
-      ? 'Pagaron 50/50'
-      : x.split === 'different'
-        ? 'Pago diferente'
-        : x.split === 'mine'
-          ? `Solo mío · ${
-              x.payer === 'me'
-                ? 'Pagaste tú'
-                : x.payer === 'wife'
-                  ? 'Pagó esposa'
-                  : 'Pagaron ambos'
-            }`
-          : x.split === 'wife_only'
-            ? `Solo esposa · ${
-                x.payer === 'me'
-                  ? 'Pagaste tú'
-                  : x.payer === 'wife'
-                    ? 'Pagó esposa'
-                    : 'Pagaron ambos'
-              }`
-                        : 'Pago no especificado'
-        }
+
+          Vence:
+          ${esc(x.paymentDate || '—')}
+
+          ·
+
+          ${esc(splitText)}
+
         </div>
+
         ${
           x.note
             ? `<div class="small">${esc(x.note)}</div>`
@@ -4557,7 +5142,13 @@ x.split === 'me'
   `;
 
 }
-  function openPhotoViewer(url){
+
+
+/* =========================================================
+   VISOR DE FOTOS
+========================================================= */
+
+function openPhotoViewer(url){
 
   const viewer =
     document.getElementById(
@@ -4569,13 +5160,19 @@ x.split === 'me'
       'photoViewerImg'
     );
 
-  if(!viewer || !img){
+  if(
+    !viewer ||
+    !img
+  ){
     return;
   }
 
-  img.src = url;
+  img.src =
+    url;
 
-  viewer.classList.add('show');
+  viewer.classList.add(
+    'show'
+  );
 
 }
 
@@ -4594,88 +5191,174 @@ function closePhotoViewer(){
 
   if(viewer){
 
-    viewer.classList.remove('show');
+    viewer.classList.remove(
+      'show'
+    );
 
   }
 
   if(img){
 
-    img.src='';
+    img.src = '';
 
   }
 
 }
-/* =========================
+
+
+/* =========================================================
    CAMBIAR PANTALLA
-========================= */
+========================================================= */
 
 function show(id,b){
-  active=id;
 
   if(
-    currentRole !== 'propietario' &&
-    ['expenses','calendar','stats','more'].includes(id)
+    currentRole !==
+      'propietario' &&
+    [
+      'expenses',
+      'calendar',
+      'stats',
+      'more'
+    ].includes(id)
   ){
-    active='home';
-    id='home';
+
+    id =
+      'home';
+
+    active =
+      'home';
+
+  }else{
+
+    active =
+      id;
+
   }
 
-  document.querySelectorAll('.screen').forEach(x=>x.classList.remove('active'));
+  document
+    .querySelectorAll('.screen')
+    .forEach(
+      x =>
+        x.classList.remove(
+          'active'
+        )
+    );
 
-  const screen=document.getElementById(id);
-  if(screen) screen.classList.add('active');
+  const screen =
+    document.getElementById(
+      id
+    );
 
-  document.querySelectorAll('.nav button').forEach(x=>x.classList.remove('active'));
+  if(screen){
 
-  if(b) b.classList.add('active');
+    screen.classList.add(
+      'active'
+    );
 
-  const fabEl=document.getElementById('fab');
-
-  if(fabEl){
-    fabEl.style.display =
-      currentRole === 'propietario' &&
-      ['home','expenses'].includes(id)
-        ? 'block'
-        : 'none';
   }
 
-  if(id==='shop') loadShopping();
+  document
+    .querySelectorAll('.nav button')
+    .forEach(
+      x =>
+        x.classList.remove(
+          'active'
+        )
+    );
+
+  if(b){
+    b.classList.add(
+      'active'
+    );
+  }
+
+  if(id === 'shop'){
+    loadShopping();
+  }
 
   render();
   applyPermissions();
+
 }
 
-/* =========================
+
+/* =========================================================
    MODALES
-========================= */
+========================================================= */
 
 function openM(id){
 
-  if(id==='expense' && currentRole !== 'propietario'){
-    alert('No tienes permisos para crear gastos.');
+  if(
+    id === 'expense' &&
+    currentRole !==
+      'propietario'
+  ){
+
+    alert(
+      'No tienes permisos para crear gastos.'
+    );
+
     return;
+
   }
 
-  if(id==='expense'){
-    photoFiles=[];
-    pics=[];
-    const previewEl=document.getElementById('preview');
-    if(previewEl) previewEl.innerHTML='';
-    const dateEl=document.getElementById('date');
-    if(dateEl) dateEl.value=today();
+  if(id === 'expense'){
+
+    photoFiles = [];
+    pics = [];
+
+    const previewEl =
+      document.getElementById(
+        'preview'
+      );
+
+    if(previewEl){
+      previewEl.innerHTML = '';
+    }
+
+    const dateEl =
+      document.getElementById(
+        'date'
+      );
+
+    if(dateEl){
+      dateEl.value =
+        today();
+    }
+
     fill();
+
+    updatePaymentFields();
+    updateAutomaticPaymentDate();
+
   }
 
-  const modalId=id==='shop'?'shopModal':id;
-  const modal=document.getElementById(modalId);
+  const modalId =
+    id === 'shop'
+      ? 'shopModal'
+      : id;
 
-  if(modal) modal.classList.add('show');
+  const modal =
+    document.getElementById(
+      modalId
+    );
+
+  if(modal){
+    modal.classList.add(
+      'show'
+    );
+  }
+
 }
+
 
 function closeM(id){
 
   const modal =
-    document.getElementById(id);
+    document.getElementById(
+      id
+    );
 
   if(modal){
 
@@ -4687,14 +5370,17 @@ function closeM(id){
 
 }
 
-/* =========================
+
+/* =========================================================
    FOTOS
-========================= */
+========================================================= */
 
 function openCamera(){
 
   document
-    .getElementById('cameraInput')
+    .getElementById(
+      'cameraInput'
+    )
     .click();
 
 }
@@ -4703,7 +5389,9 @@ function openCamera(){
 function openGallery(){
 
   document
-    .getElementById('photosInput')
+    .getElementById(
+      'photosInput'
+    )
     .click();
 
 }
@@ -4712,61 +5400,74 @@ function openGallery(){
 function previewPhotos(ev){
 
   const previewEl =
-    document.getElementById('preview');
+    document.getElementById(
+      'preview'
+    );
 
   if(!previewEl){
     return;
   }
 
   const files =
-    [...(ev.target.files || [])];
+    [
+      ...(ev.target.files || [])
+    ];
 
   files.forEach(file=>{
 
-    if(!file.type.startsWith('image/')){
+    if(
+      !file.type.startsWith(
+        'image/'
+      )
+    ){
       return;
     }
 
-    /* Guardar archivo real para addExpense() */
-    photoFiles.push(file);
+    photoFiles.push(
+      file
+    );
 
     const reader =
       new FileReader();
 
-    reader.onload = e=>{
+    reader.onload =
+      e=>{
 
-      pics.push(e.target.result);
+        pics.push(
+          e.target.result
+        );
 
-      const img =
-        document.createElement('img');
+        const img =
+          document.createElement(
+            'img'
+          );
 
-      img.src =
-        e.target.result;
+        img.src =
+          e.target.result;
 
-      img.className =
-        'photo';
+        img.className =
+          'photo';
 
-      previewEl.appendChild(img);
+        previewEl.appendChild(
+          img
+        );
 
-    };
+      };
 
-    reader.readAsDataURL(file);
+    reader.readAsDataURL(
+      file
+    );
 
   });
 
-  /*
-    Limpiamos el input para poder
-    volver a seleccionar la misma foto.
-    El archivo REAL queda guardado
-    en photoFiles.
-  */
-
-  ev.target.value='';
+  ev.target.value = '';
 
 }
-/* =========================
-   AGREGAR COMPRA
-========================= */
+
+
+/* =========================================================
+   COMPRAS
+========================================================= */
 
 async function addShop(ev){
 
@@ -4787,18 +5488,24 @@ async function addShop(ev){
 
   const producto =
     document
-      .getElementById('prod')
+      .getElementById(
+        'prod'
+      )
       .value
       .trim();
 
   const cantidad =
     document
-      .getElementById('qty')
+      .getElementById(
+        'qty'
+      )
       .value;
 
   const descripcion =
     document
-      .getElementById('desc')
+      .getElementById(
+        'desc'
+      )
       .value
       .trim();
 
@@ -4830,7 +5537,7 @@ async function addShop(ev){
           producto,
 
         cantidad:
-          Number(cantidad)||1,
+          Number(cantidad) || 1,
 
         notas:
           descripcion,
@@ -4858,11 +5565,6 @@ async function addShop(ev){
 
   }
 
-  console.log(
-    'Compra guardada:',
-    data
-  );
-
   ev.target.reset();
 
   closeM(
@@ -4879,15 +5581,15 @@ async function addShop(ev){
 }
 
 
-/* =========================
+/* =========================================================
    MARCAR COMPRA
-========================= */
+========================================================= */
 
 async function shopDone(id){
 
   const x =
     S.find(
-      a=>a.id===id
+      a=>a.id === id
     );
 
   if(!x){
@@ -4946,10 +5648,9 @@ async function shopDone(id){
 }
 
 
-/* =========================
-   RECORDATORIOS DE VENCIMIENTO
-   Se ejecutan cuando la app está abierta.
-========================= */
+/* =========================================================
+   RECORDATORIOS
+========================================================= */
 
 function checkPaymentReminders(){
 
@@ -4957,53 +5658,127 @@ function checkPaymentReminders(){
     !currentUser ||
     !Array.isArray(E) ||
     !('Notification' in window) ||
-    Notification.permission !== 'granted'
+    Notification.permission !==
+      'granted'
   ){
+
     return;
+
   }
 
-  const now = new Date();
-  const todayDate = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-  const todayKey = today();
+  const now =
+    new Date();
+
+  const todayDate =
+    new Date(
+      now.getFullYear(),
+      now.getMonth(),
+      now.getDate()
+    );
+
+  const todayKey =
+    today();
 
   E.forEach(gasto=>{
 
-    if(gasto.paid || !gasto.paymentDate){
+    if(
+      gasto.paid ||
+      !gasto.paymentDate
+    ){
+
+      return;
+
+    }
+
+    const due =
+      new Date(
+        gasto.paymentDate +
+        'T00:00:00'
+      );
+
+    if(
+      Number.isNaN(
+        due.getTime()
+      )
+    ){
       return;
     }
 
-    const due = new Date(gasto.paymentDate + 'T00:00:00');
-    if(Number.isNaN(due.getTime())) return;
+    const daysLeft =
+      Math.round(
+        (
+          due.getTime() -
+          todayDate.getTime()
+        ) /
+        86400000
+      );
 
-    const daysLeft = Math.round((due.getTime() - todayDate.getTime()) / 86400000);
     let kind = '';
     let title = '';
     let body = '';
 
     if(daysLeft === 1){
-      kind = 'before';
-      title = 'Pago próximo';
-      body = `${gasto.cat}: vence mañana (${gasto.paymentDate}).`;
+
+      kind =
+        'before';
+
+      title =
+        'Pago próximo';
+
+      body =
+        `${gasto.cat}: vence mañana (${gasto.paymentDate}).`;
+
     }else if(daysLeft === 0){
-      kind = 'due';
-      title = 'Pago para hoy';
-      body = `${gasto.cat}: vence hoy (${gasto.paymentDate}).`;
+
+      kind =
+        'due';
+
+      title =
+        'Pago para hoy';
+
+      body =
+        `${gasto.cat}: vence hoy (${gasto.paymentDate}).`;
+
     }else if(daysLeft < 0){
-      kind = 'overdue';
-      title = 'Pago pendiente vencido';
-      body = `${gasto.cat}: estaba previsto para ${gasto.paymentDate} y sigue pendiente.`;
+
+      kind =
+        'overdue';
+
+      title =
+        'Pago pendiente vencido';
+
+      body =
+        `${gasto.cat}: estaba previsto para ${gasto.paymentDate} y sigue pendiente.`;
+
     }
 
-    if(!kind) return;
+    if(!kind){
+      return;
+    }
 
-    const key = `cg2_reminder_${currentUser.id}_${gasto.id}_${kind}_${todayKey}`;
-    if(localStorage.getItem(key)) return;
+    const key =
+      `cg2_reminder_${currentUser.id}_${gasto.id}_${kind}_${todayKey}`;
 
-    notify(title, body);
-    localStorage.setItem(key, '1');
+    if(
+      localStorage.getItem(key)
+    ){
+      return;
+    }
+
+    notify(
+      title,
+      body
+    );
+
+    localStorage.setItem(
+      key,
+      '1'
+    );
 
   });
+
 }
+
 
 async function notif(){
 
@@ -5028,18 +5803,26 @@ async function notif(){
       : 'Permiso no concedido.'
   );
 
-  if(permission === 'granted'){
+  if(
+    permission === 'granted'
+  ){
+
     checkPaymentReminders();
+
   }
 
 }
 
 
-function notify(title,body){
+function notify(
+  title,
+  body
+){
 
   if(
     'Notification' in window &&
-    Notification.permission === 'granted'
+    Notification.permission ===
+      'granted'
   ){
 
     new Notification(
@@ -5054,11 +5837,24 @@ function notify(title,body){
 }
 
 
-/* =========================
+/* =========================================================
    EXPORTAR
-========================= */
+========================================================= */
 
 function exportData(){
+
+  if(
+    currentRole !==
+      'propietario'
+  ){
+
+    alert(
+      'No tienes permisos para exportar el respaldo.'
+    );
+
+    return;
+
+  }
 
   const backup = {
 
@@ -5086,7 +5882,8 @@ function exportData(){
         )
       ],
       {
-        type:'application/json'
+        type:
+          'application/json'
       }
     );
 
@@ -5095,10 +5892,13 @@ function exportData(){
       'a'
     );
 
-  a.href =
+  const url =
     URL.createObjectURL(
       blob
     );
+
+  a.href =
+    url;
 
   a.download =
     'casagastos-respaldo.json';
@@ -5106,15 +5906,15 @@ function exportData(){
   a.click();
 
   URL.revokeObjectURL(
-    a.href
+    url
   );
 
 }
 
 
-/* =========================
+/* =========================================================
    CERRAR SESION
-========================= */
+========================================================= */
 
 async function logout(){
 
@@ -5129,40 +5929,49 @@ async function logout(){
 
   await sb.auth.signOut();
 
-  currentUser=null;
-  currentRole=null;
+  currentUser = null;
+  currentRole = null;
+  currentHouseholdId = null;
+
+  E = [];
+  S = [];
+
+  categoryIds = {};
+
+  active = 'home';
+
+  window.selectedMonth =
+    currentYM();
+
   closeProfile();
-  currentHouseholdId=null;
-  E=[];
-  S=[];
-  categoryIds={};
 
   document
     .getElementById(
       'loginScreen'
     )
-    .style.display='flex';
+    .style.display =
+      'flex';
 
   document
     .getElementById(
       'loginPassword'
     )
-    .value='';
+    .value = '';
 
   document
     .getElementById(
       'loginMsg'
     )
-    .textContent='';
+    .textContent = '';
 
   render();
 
 }
 
 
-/* =========================
+/* =========================================================
    TECLADO LOGIN
-========================= */
+========================================================= */
 
 document
   .getElementById(
@@ -5172,7 +5981,7 @@ document
     'keydown',
     e=>{
 
-      if(e.key==='Enter'){
+      if(e.key === 'Enter'){
         login();
       }
 
@@ -5180,14 +5989,21 @@ document
   );
 
 
-/* =========================
+/* =========================================================
    INICIO
-========================= */
+========================================================= */
 
 (async function(){
 
+  window.selectedMonth =
+    currentYM();
+
   render();
-  setInterval(checkPaymentReminders, 60 * 60 * 1000);
+
+  setInterval(
+    checkPaymentReminders,
+    60 * 60 * 1000
+  );
 
   const {
     data
@@ -5204,13 +6020,17 @@ document
     const ok =
       await initializeUser();
 
-    if(ok){
+    if(
+      ok &&
+      currentHouseholdId
+    ){
 
       document
         .getElementById(
           'loginScreen'
         )
-        .style.display='none';
+        .style.display =
+          'none';
 
     }
 
