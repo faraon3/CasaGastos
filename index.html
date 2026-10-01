@@ -939,42 +939,78 @@ button{
     </div>
 
     <div
-      class="card"
-      style="margin:14px 18px"
+  class="card"
+  style="margin:14px 18px"
+>
+
+  <div class="small">
+    📋 Pendientes por pagar
+  </div>
+
+  <div
+    style="
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:12px;
+      margin-top:12px;
+    "
+  >
+
+    <div
+      style="
+        background:var(--soft);
+        border-radius:14px;
+        padding:12px;
+      "
     >
 
       <div class="small">
-        ⚖️ Saldo entre los dos
+        👤 Tú
       </div>
 
       <div
         class="money"
-        id="bal"
+        id="pendingMe"
+        style="font-size:20px"
       >
         $0
       </div>
 
-      <div
-        class="small"
-        id="balText"
-      >
-        Todo equilibrado
-      </div>
-
     </div>
 
-    <div class="section">
+    <div
+      style="
+        background:var(--soft);
+        border-radius:14px;
+        padding:12px;
+      "
+    >
 
-      <h2>
-        Últimos gastos
-      </h2>
+      <div class="small">
+        👩 Esposa
+      </div>
 
-      <div id="recentHome"></div>
+      <div
+        class="money"
+        id="pendingWife"
+        style="font-size:20px"
+      >
+        $0
+      </div>
 
     </div>
 
   </div>
 
+  <div
+    class="small"
+    id="pendingCount"
+    style="margin-top:12px"
+  >
+    0 gastos pendientes
+  </div>
+
+</div>
 
   <!-- GASTOS -->
 
@@ -4586,12 +4622,6 @@ function render(){
 let my = 0;
 let wife = 0;
 
-let actualMyPaid = 0;
-let actualWifePaid = 0;
-
-let expectedMy = 0;
-let expectedWife = 0;
-
 let pendingMy = 0;
 let pendingWife = 0;
 
@@ -4606,13 +4636,6 @@ monthExpenses.forEach(x=>{
   /* Lo que corresponde pagar a cada uno */
   expectedMy += shares.me;
   expectedWife += shares.wife;
-
-  /* Lo que realmente pagó cada uno */
-  actualMyPaid +=
-    Number(x.myPayment) || 0;
-
-  actualWifePaid +=
-    Number(x.wifePayment) || 0;
 
   /*
     Las tarjetas "Tu parte" y "Parte esposa"
@@ -4634,24 +4657,6 @@ monthExpenses.forEach(x=>{
 
 });
 
-
-/* =========================================================
-   SALDO REAL
-========================================================= */
-
-/*
-  El saldo se calcula con lo que realmente
-  ha pagado cada uno frente a lo que le corresponde.
-
-  positivo = tú has pagado de más
-  negativo = tu esposa ha pagado de más
-*/
-
-const balance =
-  actualMyPaid -
-  expectedMy;
-
-
   /* HOME */
 
   const totalEl =
@@ -4669,16 +4674,21 @@ const balance =
       'wife'
     );
 
-  const balEl =
-    document.getElementById(
-      'bal'
-    );
+  const pendingMeEl =
+  document.getElementById(
+    'pendingMe'
+  );
 
-  const balTextEl =
-    document.getElementById(
-      'balText'
-    );
+const pendingWifeEl =
+  document.getElementById(
+    'pendingWife'
+  );
 
+const pendingCountEl =
+  document.getElementById(
+    'pendingCount'
+  );
+  
   const pendingEl =
     document.getElementById(
       'pending'
@@ -4699,24 +4709,34 @@ const balance =
       money(wife);
   }
 
-  if(balEl){
-    balEl.textContent =
-      money(
-        Math.abs(balance)
-      );
-  }
+  if(pendingMeEl){
 
-  if(balTextEl){
+  pendingMeEl.textContent =
+    money(pendingMy);
 
-    balTextEl.textContent =
-      balance > 0
-        ? 'Tu esposa te debe este valor'
-        : balance < 0
-          ? 'Tú debes este valor a tu esposa'
-          : 'Todo equilibrado';
+}
 
-  }
+if(pendingWifeEl){
 
+  pendingWifeEl.textContent =
+    money(pendingWife);
+
+}
+
+if(pendingCountEl){
+
+  const pendingCount =
+    monthExpenses.filter(
+      x => !x.paid
+    ).length;
+
+  pendingCountEl.textContent =
+    pendingCount === 1
+      ? '1 gasto pendiente'
+      : `${pendingCount} gastos pendientes`;
+
+}
+  
   if(pendingEl){
 
     pendingEl.textContent =
