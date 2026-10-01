@@ -926,23 +926,56 @@ button{
 
     <div class="top">
 
-      <div>
-        <div class="brand">💰 Gastos</div>
-        <div class="sub">
-          Gastos del hogar
-        </div>
+  <div>
+    <div class="brand">🏠 CasaGastos</div>
+
+    <div class="monthSelector">
+
+      <button
+        class="monthBtn"
+        onclick="changeMonth(-1)"
+        aria-label="Mes anterior"
+      >
+        ‹
+      </button>
+
+      <div class="monthCurrent">
+        <span id="month"></span>
       </div>
 
-      <button class="profileButton" onclick="openProfile()" title="Mi perfil">
-        <span>👤</span>
+      <button
+        class="monthBtn"
+        onclick="changeMonth(1)"
+        aria-label="Mes siguiente"
+      >
+        ›
       </button>
 
     </div>
+  </div>
 
-    <div class="section" id="list"></div>
+  <div style="display:flex;gap:8px;align-items:center">
+
+    <button
+      id="profileButton"
+      class="profileButton"
+      onclick="openProfile()"
+      title="Mi perfil"
+    >
+      <span id="profileAvatar">👤</span>
+    </button>
+
+    <button
+      id="homeAdd"
+      class="icon"
+      onclick="openM('expense')"
+    >
+      ＋
+    </button>
 
   </div>
 
+</div>
 
   <!-- CALENDARIO -->
   <div id="calendar" class="screen">
