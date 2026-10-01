@@ -780,7 +780,13 @@ button{
 
   <div>
     <div class="brand">🏠 CasaGastos</div>
-    <div class="sub" id="month"></div>
+    <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;">
+  <button onclick="changeMonth(-1)">‹</button>
+
+  <div id="month"></div>
+
+  <button onclick="changeMonth(1)">›</button>
+</div>
   </div>
 
   <div style="display:flex;gap:8px;align-items:center">
@@ -3806,33 +3812,54 @@ async function paid(id){
 /* =========================
    RENDER
 ========================= */
+function changeMonth(direction){
 
+  const current =
+    window.selectedMonth || currentYM();
+
+  const [year, month] =
+    current.split('-').map(Number);
+
+  const date =
+    new Date(year, month - 1 + direction, 1);
+
+  window.selectedMonth =
+    `${date.getFullYear()}-${String(date.getMonth()+1).padStart(2,'0')}`;
+
+  render();
+}
+  
 function render(){
 
   fill();
 
   const monthEl =
-    document.getElementById(
-      'month'
+  document.getElementById(
+    'month'
+  );
+
+if(monthEl){
+
+  const [year, month] =
+    window.selectedMonth.split('-').map(Number);
+
+  monthEl.textContent =
+    new Intl.DateTimeFormat(
+      'es-CO',
+      {
+        month:'long',
+        year:'numeric'
+      }
+    ).format(
+      new Date(year, month - 1, 1)
     );
+}
+  
+if(!window.selectedMonth){
+  window.selectedMonth = currentYM();
+}
 
-  if(monthEl){
-
-    monthEl.textContent =
-      new Intl.DateTimeFormat(
-        'es-CO',
-        {
-          month:'long',
-          year:'numeric'
-        }
-      ).format(
-        new Date()
-      );
-
-  }
-
-  const ym =
-    currentYM();
+const ym = window.selectedMonth;
 
   /*
     Gastos del mes.
