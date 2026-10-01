@@ -706,10 +706,44 @@ button{
   display:flex;
   align-items:center;
   justify-content:center;
-  gap:12px;
-  margin-top:10px;
+  gap:8px;
+  margin-top:8px;
+  width:100%;
 }
 
+.monthCurrent{
+  min-width:150px;
+  text-align:center;
+  font-size:18px;
+  font-weight:700;
+  text-transform:capitalize;
+}
+
+.monthBtn{
+  width:36px;
+  height:36px;
+  flex:none;
+  border:none;
+  border-radius:50%;
+  background:#f1f3f5;
+  color:#222;
+  font-size:25px;
+  line-height:1;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+  padding:0;
+}
+
+.monthBtn:hover{
+  background:#e4e7e6;
+}
+
+.monthBtn:active{
+  transform:scale(.94);
+}
+  
 .monthCurrent{
   min-width:170px;
   text-align:center;
