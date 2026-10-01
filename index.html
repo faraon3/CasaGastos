@@ -3833,7 +3833,13 @@ function render(){
 
   fill();
 
-  const monthEl =
+  if(!window.selectedMonth){
+  window.selectedMonth = currentYM();
+}
+
+const ym = window.selectedMonth;
+
+const monthEl =
   document.getElementById(
     'month'
   );
@@ -3841,7 +3847,9 @@ function render(){
 if(monthEl){
 
   const [year, month] =
-    window.selectedMonth.split('-').map(Number);
+    window.selectedMonth
+      .split('-')
+      .map(Number);
 
   monthEl.textContent =
     new Intl.DateTimeFormat(
@@ -3854,13 +3862,6 @@ if(monthEl){
       new Date(year, month - 1, 1)
     );
 }
-  
-if(!window.selectedMonth){
-  window.selectedMonth = currentYM();
-}
-
-const ym = window.selectedMonth;
-
   /*
     Gastos del mes.
   */
