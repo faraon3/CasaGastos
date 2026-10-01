@@ -3888,9 +3888,8 @@ monthExpenses.forEach(
       quién puso el dinero.
     */
 
-    my += amount / 2;
-    w += amount / 2;
-
+    my += Number(x.myPayment) || 0;
+    w += Number(x.wifePayment) || 0;
     /*
       CUÁNTO PAGUÉ YO REALMENTE
     */
