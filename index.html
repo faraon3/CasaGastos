@@ -700,6 +700,49 @@ button{
     font-size:20px;
   }
 }
+/* SELECTOR DE MES */
+
+.monthSelector{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:12px;
+  margin-top:10px;
+}
+
+.monthCurrent{
+  min-width:170px;
+  text-align:center;
+  font-size:20px;
+  font-weight:700;
+  text-transform:capitalize;
+}
+
+.monthBtn{
+  width:40px;
+  height:40px;
+  border:none;
+  border-radius:50%;
+  background:#f1f3f5;
+  color:#222;
+  font-size:28px;
+  line-height:1;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+  padding:0;
+  transition:all .15s ease;
+}
+
+.monthBtn:hover{
+  background:#e4e7e6;
+  transform:scale(1.08);
+}
+
+.monthBtn:active{
+  transform:scale(.94);
+}
 </style>
 </head>
 
@@ -780,15 +823,30 @@ button{
 
   <div>
     <div class="brand">🏠 CasaGastos</div>
-    <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;">
-  <button onclick="changeMonth(-1)">‹</button>
+    <div class="monthSelector">
 
-  <div id="month"></div>
+  <button
+    class="monthBtn"
+    onclick="changeMonth(-1)"
+    aria-label="Mes anterior"
+  >
+    ‹
+  </button>
 
-  <button onclick="changeMonth(1)">›</button>
-</div>
+  <div class="monthCurrent">
+    <span id="month"></span>
   </div>
 
+  <button
+    class="monthBtn"
+    onclick="changeMonth(1)"
+    aria-label="Mes siguiente"
+  >
+    ›
+  </button>
+
+</div>
+    
   <div style="display:flex;gap:8px;align-items:center">
 
     <button
