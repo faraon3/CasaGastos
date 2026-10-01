@@ -744,14 +744,6 @@ button{
   transform:scale(.94);
 }
   
-.monthCurrent{
-  min-width:170px;
-  text-align:center;
-  font-size:20px;
-  font-weight:700;
-  text-transform:capitalize;
-}
-
 .monthBtn{
   width:40px;
   height:40px;
@@ -851,62 +843,63 @@ button{
 <div class="app">
 
   <!-- INICIO -->
-  <div id="home" class="screen active">
+<div id="home" class="screen active">
 
-    <div class="top">
+  <div class="top">
 
-  <div>
-    <div class="brand">🏠 CasaGastos</div>
-    <div class="monthSelector">
+    <div>
+      <div class="brand">🏠 CasaGastos</div>
 
-  <button
-    class="monthBtn"
-    onclick="changeMonth(-1)"
-    aria-label="Mes anterior"
-  >
-    ‹
-  </button>
+      <div class="monthSelector">
 
-  <div class="monthCurrent">
-    <span id="month"></span>
-  </div>
+        <button
+          class="monthBtn"
+          onclick="changeMonth(-1)"
+          aria-label="Mes anterior"
+        >
+          ‹
+        </button>
 
-  <button
-    class="monthBtn"
-    onclick="changeMonth(1)"
-    aria-label="Mes siguiente"
-  >
-    ›
-  </button>
+        <div class="monthCurrent">
+          <span id="month"></span>
+        </div>
 
-</div>
-    
-  <div style="display:flex;gap:8px;align-items:center">
+        <button
+          class="monthBtn"
+          onclick="changeMonth(1)"
+          aria-label="Mes siguiente"
+        >
+          ›
+        </button>
 
-    <button
-      id="profileButton"
-      class="profileButton"
-      onclick="openProfile()"
-      title="Mi perfil"
-    >
-      <span id="profileAvatar">👤</span>
-    </button>
+      </div>
+    </div>
 
-    <button
-      id="homeAdd"
-      class="icon"
-      onclick="openM('expense')"
-    >
-      ＋
-    </button>
+    <div style="display:flex;gap:10px;align-items:center;margin-left:18px">
+
+      <button
+        id="profileButton"
+        class="profileButton"
+        onclick="openProfile()"
+        title="Mi perfil"
+      >
+        <span id="profileAvatar">👤</span>
+      </button>
+
+      <button
+        id="homeAdd"
+        class="icon"
+        onclick="openM('expense')"
+      >
+        ＋
+      </button>
 
     </div>
 
-</div>
+  </div>
 
-</div>
+  <div class="hero">
     
-    <div class="hero">
       <small>Total del mes</small>
 
       <h1 id="total">$0</h1>
