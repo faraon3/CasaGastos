@@ -3300,6 +3300,9 @@ async function loadExpenses(){
   const gastos =
     data || [];
 
+  console.log('GASTOS SUPABASE:', data);
+console.log('CANTIDAD DE GASTOS:', gastos.length);
+  
   const ids =
     [
       ...new Set(
@@ -4613,8 +4616,6 @@ function render(){
       0
     );
 
-
-  /* PARTES */
 /* =========================================================
    PARTES Y SALDO
 ========================================================= */
