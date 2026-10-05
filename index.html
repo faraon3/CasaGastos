@@ -84,7 +84,90 @@ button{
   box-shadow:var(--shadow);
   color:var(--ink);
 }
+/* ENCABEZADO INICIO */
+.homeHeader{
+  padding:18px 16px 12px;
+}
 
+.homeBrand{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin-bottom:16px;
+}
+
+.homeBrandIcon{
+  width:42px;
+  height:42px;
+  border-radius:12px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:var(--primary);
+  font-size:21px;
+}
+
+.homeBrandTitle{
+  font-size:21px;
+  font-weight:800;
+  line-height:1.1;
+}
+
+.homeBrandSubtitle{
+  margin-top:3px;
+  font-size:12px;
+  opacity:.65;
+}
+
+.homeToolbar{
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+
+.monthArrow,
+.homeProfileBtn,
+.homeAddBtn{
+  border:0;
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.monthArrow{
+  width:34px;
+  height:34px;
+  border-radius:10px;
+  background:var(--card);
+  color:inherit;
+  font-size:25px;
+}
+
+.monthCurrent{
+  flex:1;
+  text-align:center;
+  font-size:16px;
+  font-weight:700;
+}
+
+.homeProfileBtn,
+.homeAddBtn{
+  width:38px;
+  height:38px;
+  border-radius:50%;
+  background:var(--card);
+  color:inherit;
+  font-size:18px;
+}
+
+.homeAddBtn{
+  background:var(--primary);
+  color:#fff;
+  font-size:24px;
+  font-weight:700;
+}
+  
 .hero{
   margin:8px 18px;
   padding:22px;
@@ -1290,60 +1373,59 @@ button{
 
     <div class="homeHeader">
 
-      <div class="homeBrand">
-        🏠 CasaGastos
-      </div>
+  <div class="homeBrand">
+    <div class="homeBrandIcon">🏠</div>
+    <div>
+      <div class="homeBrandTitle">CasaGastos</div>
+      <div class="homeBrandSubtitle">Tus finanzas, en un solo lugar</div>
+    </div>
+  </div>
 
-      <div class="homeMonthRow">
+  <div class="homeToolbar">
 
-        <div class="monthSelector">
+    <button
+      class="monthArrow"
+      type="button"
+      onclick="changeMonth(-1)"
+      aria-label="Mes anterior"
+    >
+      ‹
+    </button>
 
-          <button
-            class="monthBtn"
-            onclick="changeMonth(-1)"
-            aria-label="Mes anterior"
-          >
-            ‹
-          </button>
-
-          <div class="monthCurrent">
-            <span id="month"></span>
-          </div>
-
-          <button
-            class="monthBtn"
-            onclick="changeMonth(1)"
-            aria-label="Mes siguiente"
-          >
-            ›
-          </button>
-
-        </div>
-
-        <div class="homeTopActions">
-
-          <button
-            class="profileButton"
-            onclick="openProfile()"
-            title="Mi perfil"
-          >
-            <span>👤</span>
-          </button>
-
-          <button
-            class="icon ownerOnly"
-            onclick="openM('expense')"
-            aria-label="Nuevo gasto"
-          >
-            ＋
-          </button>
-
-        </div>
-
-      </div>
-
+    <div class="monthCurrent" id="monthLabel">
+      Octubre 2026
     </div>
 
+    <button
+      class="monthArrow"
+      type="button"
+      onclick="changeMonth(1)"
+      aria-label="Mes siguiente"
+    >
+      ›
+    </button>
+
+    <button
+      class="homeProfileBtn"
+      type="button"
+      onclick="openProfile()"
+      aria-label="Perfil"
+    >
+      👤
+    </button>
+
+    <button
+      class="homeAddBtn ownerOnly"
+      type="button"
+      onclick="openM('expense')"
+      aria-label="Agregar gasto"
+    >
+      ＋
+    </button>
+
+  </div>
+
+</div>
     <div class="hero">
 
       <small>Total del mes</small>
