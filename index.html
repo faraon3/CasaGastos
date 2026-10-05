@@ -5233,23 +5233,7 @@ const pendingWifeEl =
   document.getElementById(
     'pendingWife'
   );
-  if(pendingMeCountEl){
-
-  pendingMeCountEl.textContent =
-    pendingMyCount === 1
-      ? '1 gasto'
-      : `${pendingMyCount} gastos`;
-
-}
-
-if(pendingWifeCountEl){
-
-  pendingWifeCountEl.textContent =
-    pendingWifeCount === 1
-      ? '1 gasto'
-      : `${pendingWifeCount} gastos`;
-
-}
+  
   const pendingMeCountEl =
   document.getElementById(
     'pendingMeCount'
@@ -5259,7 +5243,6 @@ const pendingWifeCountEl =
   document.getElementById(
     'pendingWifeCount'
   );
-
 const pendingCountEl =
   document.getElementById(
     'pendingCount'
@@ -5298,7 +5281,25 @@ if(pendingWifeEl){
     money(pendingWife);
 
 }
+  
+if(pendingMeCountEl){
 
+  pendingMeCountEl.textContent =
+    pendingMyCount === 1
+      ? '1 gasto'
+      : `${pendingMyCount} gastos`;
+
+}
+
+if(pendingWifeCountEl){
+
+  pendingWifeCountEl.textContent =
+    pendingWifeCount === 1
+      ? '1 gasto'
+      : `${pendingWifeCount} gastos`;
+
+}
+  
 if(pendingCountEl){
 
   const pendingCount =
