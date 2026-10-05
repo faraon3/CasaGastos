@@ -1316,7 +1316,106 @@ button{
 .monthBtn{
   flex-shrink:0;
 }
-  
+/* =========================================================
+   CABECERA INICIO - DISEÑO DEFINITIVO
+========================================================= */
+
+#home .homeHeader{
+  width:100%;
+  padding:18px 16px 12px;
+}
+
+#home .homeBrand{
+  width:100%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:9px;
+  margin:0 0 16px 0;
+  text-align:center;
+}
+
+#home .homeBrandIcon{
+  flex:0 0 42px;
+  width:42px;
+  height:42px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+#home .homeBrandTitle{
+  font-size:21px;
+  font-weight:800;
+  line-height:1.1;
+}
+
+#home .homeToolbar{
+  position:relative;
+  width:100%;
+  min-height:40px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+#home .homeMonth{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:7px;
+}
+
+#home .monthCurrent{
+  min-width:150px;
+  text-align:center;
+  font-size:16px;
+  font-weight:700;
+  text-transform:capitalize;
+}
+
+#home .monthArrow{
+  width:34px;
+  height:34px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:0;
+  border-radius:10px;
+}
+
+#home .homeTopActions{
+  position:absolute;
+  right:0;
+  top:50%;
+  transform:translateY(-50%);
+  margin:0;
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+
+#home .homeProfileBtn,
+#home .homeAddBtn{
+  width:38px;
+  height:38px;
+  flex:0 0 38px;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+#home .homeAddBtn{
+  background:#0b8f7899;
+  border:1px solid #ffffff55;
+  color:#fff;
+  font-size:24px;
+  font-weight:700;
+  box-shadow:0 8px 22px #0b8f7838;
+  backdrop-filter:blur(10px);
+  -webkit-backdrop-filter:blur(10px);
+}  
 </style>
 </head>
 
@@ -5269,15 +5368,14 @@ function render(){
     );
 
   const monthEl =
-    document.getElementById(
-      'month'
-    );
+  document.getElementById(
+    'monthLabel'
+  );
 
-  if(monthEl){
-    monthEl.textContent =
-      monthText;
-  }
-
+if(monthEl){
+  monthEl.textContent =
+    monthText;
+}
   const monthExpensesEl =
     document.getElementById(
       'monthExpenses'
