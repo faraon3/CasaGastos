@@ -103,17 +103,20 @@ button{
   padding:18px 16px 12px;
 }
 
+/* LOGO + NOMBRE CENTRADOS */
 .homeBrand{
   display:flex;
   align-items:center;
-  gap:10px;
-  margin-bottom:16px;
+  justify-content:center;
+  gap:9px;
+  margin-bottom:14px;
+  text-align:center;
 }
 
 .homeBrandIcon{
   width:42px;
   height:42px;
-  border-radius:12px;
+  border-radius:13px;
   display:flex;
   align-items:center;
   justify-content:center;
@@ -127,61 +130,85 @@ button{
   line-height:1.1;
 }
 
-.homeBrandSubtitle{
-  margin-top:3px;
-  font-size:12px;
-  opacity:.65;
-}
-
+/* MES CENTRADO + BOTONES A LA DERECHA */
 .homeToolbar{
-  display:flex;
-  align-items:center;
-  gap:8px;
-}
-
-.monthArrow,
-.homeProfileBtn,
-.homeAddBtn{
-  border:0;
-  cursor:pointer;
+  position:relative;
   display:flex;
   align-items:center;
   justify-content:center;
+  min-height:40px;
+}
+
+.homeMonth{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:7px;
 }
 
 .monthArrow{
   width:34px;
   height:34px;
+  border:0;
   border-radius:10px;
   background:var(--card);
   color:inherit;
   font-size:25px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
 }
 
 .monthCurrent{
-  flex:1;
+  min-width:150px;
   text-align:center;
   font-size:16px;
   font-weight:700;
+  text-transform:capitalize;
+}
+
+/* PERFIL + AGREGAR GASTO */
+.homeTopActions{
+  position:absolute;
+  right:0;
+  top:50%;
+  transform:translateY(-50%);
+  display:flex;
+  align-items:center;
+  gap:8px;
 }
 
 .homeProfileBtn,
 .homeAddBtn{
   width:38px;
   height:38px;
+  border:0;
   border-radius:50%;
-  background:var(--card);
-  color:inherit;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
   font-size:18px;
 }
 
+.homeProfileBtn{
+  background:var(--card);
+  color:inherit;
+}
+
+/* BOTÓN + CON EFECTO GLASS */
 .homeAddBtn{
-  background:var(--p);
+  background:#0b8f7899;
   color:#fff;
   font-size:24px;
   font-weight:700;
+  border:1px solid #ffffff55;
+  box-shadow:0 8px 22px #0b8f7838;
+  backdrop-filter:blur(10px);
+  -webkit-backdrop-filter:blur(10px);
 }
-.grid{
+  .grid{
   display:grid;
   grid-template-columns:1fr 1fr;
   gap:12px;
