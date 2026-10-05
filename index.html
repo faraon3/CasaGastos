@@ -1288,13 +1288,13 @@ button{
 
   <div id="home" class="screen active">
 
-    <div class="top">
+    <div class="homeHeader">
 
-      <div>
+      <div class="homeBrand">
+        🏠 CasaGastos
+      </div>
 
-        <div class="brand">
-          🏠 CasaGastos
-        </div>
+      <div class="homeMonthRow">
 
         <div class="monthSelector">
 
@@ -1320,42 +1320,41 @@ button{
 
         </div>
 
+        <div class="homeTopActions">
+
+          <button
+            class="profileButton"
+            onclick="openProfile()"
+            title="Mi perfil"
+          >
+            <span>👤</span>
+          </button>
+
+          <button
+            class="icon ownerOnly"
+            onclick="openM('expense')"
+            aria-label="Nuevo gasto"
+          >
+            ＋
+          </button>
+
+        </div>
+
       </div>
 
-      <div class="homeTopActions">
+    </div>
 
-  <button
-    class="profileButton"
-    onclick="openProfile()"
-    title="Mi perfil"
-  >
-    <span>👤</span>
-  </button>
+    <div class="hero">
 
-  <button
-    class="icon ownerOnly"
-    onclick="openM('expense')"
-    aria-label="Nuevo gasto"
-  >
-    ＋
-  </button>
+      <small>Total del mes</small>
 
-</div>
+      <h1 id="total">$0</h1>
 
-</div>
+      <span id="pending">
+        0 pendientes
+      </span>
 
-<div class="hero">
-  
-  <small>Total del mes</small>
-
-  <h1 id="total">$0</h1>
-
-  <span id="pending">
-    0 pendientes
-  </span>
-
-</div>
-
+    </div>
 
 <!-- RESUMEN DEL HOGAR -->
 
