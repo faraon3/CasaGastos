@@ -5299,6 +5299,52 @@ if(pendingWifeCountEl){
       : `${pendingWifeCount} gastos`;
 
 }
+/* =========================================================
+   BALANCE DEL HOGAR
+========================================================= */
+
+const balTextEl =
+  document.getElementById(
+    'balText'
+  );
+
+const balEl =
+  document.getElementById(
+    'bal'
+  );
+
+const difference =
+  Math.abs(my - wife);
+
+if(balTextEl && balEl){
+
+  if(difference === 0){
+
+    balTextEl.textContent =
+      'Todo equilibrado';
+
+    balEl.textContent =
+      money(0);
+
+  }else if(my > wife){
+
+    balTextEl.textContent =
+      'Tú llevas más';
+
+    balEl.textContent =
+      money(difference);
+
+  }else{
+
+    balTextEl.textContent =
+      'Ella lleva más';
+
+    balEl.textContent =
+      money(difference);
+
+  }
+
+}
   
 if(pendingCountEl){
 
