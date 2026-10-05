@@ -1961,12 +1961,12 @@ button{
 
         <div class="fieldGroup">
           <label>Fecha límite de pago</label>
-
+          
           <input
             id="paymentDate"
             type="date"
-            required
-          >
+            >
+          
         </div>
 
       </div>
@@ -4158,16 +4158,7 @@ async function addExpense(ev){
 
   }
 
-  if(!fechaPago){
-
-    alert(
-      'Selecciona la fecha límite de pago.'
-    );
-
-    return;
-
-  }
-
+  
   if(!categoriaTexto){
 
     alert(
