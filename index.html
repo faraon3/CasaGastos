@@ -987,6 +987,186 @@ button{
   }
 
 }
+  /* =========================================================
+   INICIO MODERNO
+========================================================= */
+
+.homeSection{
+  margin-top:18px;
+}
+
+.homeSectionTitle{
+  font-size:16px;
+  font-weight:800;
+  margin-bottom:16px;
+}
+
+.homeSummary{
+  padding:18px;
+}
+
+.homePeople{
+  display:grid;
+  grid-template-columns:1fr auto 1fr;
+  align-items:stretch;
+  gap:14px;
+}
+
+.homePerson{
+  text-align:center;
+  min-width:0;
+}
+
+.homePersonName{
+  font-size:14px;
+  font-weight:800;
+  margin-bottom:6px;
+}
+
+.homePerson .money{
+  font-size:21px;
+}
+
+.homeLabel{
+  font-size:11px;
+  color:#8b9895;
+  margin-top:2px;
+}
+
+.homePending{
+  font-size:17px;
+  font-weight:800;
+  margin-top:12px;
+}
+
+.homePendingCount{
+  font-size:11px;
+  color:#8b9895;
+  margin-top:2px;
+}
+
+.homeDivider{
+  width:1px;
+  background:#e7eeec;
+}
+
+.homeBalance{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-top:16px;
+  padding-top:13px;
+  border-top:1px solid #edf1f0;
+  font-size:12px;
+  color:#7c8986;
+}
+
+.homeBalance strong{
+  font-size:14px;
+  color:#263331;
+}
+
+
+/* ENCABEZADOS DE SECCIÓN */
+
+.homeSectionHeader{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-bottom:10px;
+}
+
+.homeSectionHeader h2{
+  margin:0;
+}
+
+.homeSeeAll{
+  border:0;
+  background:transparent;
+  color:#087563;
+  font-size:12px;
+  font-weight:800;
+  padding:4px;
+}
+
+
+/* PRÓXIMOS PAGOS */
+
+.upcomingScroller{
+  display:flex;
+  gap:12px;
+  overflow-x:auto;
+  padding:2px 2px 8px;
+  scroll-snap-type:x mandatory;
+  scrollbar-width:none;
+}
+
+.upcomingScroller::-webkit-scrollbar{
+  display:none;
+}
+
+.upcomingCard{
+  flex:0 0 210px;
+  background:var(--card);
+  border:1px solid #e8efed;
+  border-radius:18px;
+  padding:15px;
+  scroll-snap-align:start;
+  box-shadow:0 3px 12px rgba(0,0,0,.04);
+}
+
+.upcomingTop{
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+
+.upcomingIcon{
+  width:36px;
+  height:36px;
+  border-radius:12px;
+  background:var(--soft);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:18px;
+}
+
+.upcomingName{
+  font-weight:800;
+  font-size:14px;
+}
+
+.upcomingAmount{
+  font-size:19px;
+  font-weight:900;
+  margin-top:13px;
+}
+
+.upcomingDate{
+  font-size:12px;
+  color:#788581;
+  margin-top:4px;
+}
+
+.upcomingWho{
+  display:inline-block;
+  margin-top:10px;
+  padding:5px 8px;
+  border-radius:8px;
+  background:var(--soft);
+  color:#087563;
+  font-size:10px;
+  font-weight:800;
+}
+
+
+/* ÚLTIMOS MOVIMIENTOS */
+
+#recentHome .row{
+  margin-bottom:8px;
+}
+  
 </style>
 </head>
 
@@ -1124,22 +1304,33 @@ button{
 
     <div class="hero">
 
-      <small>Total del mes</small>
+  <small>Total del mes</small>
 
-      <h1 id="total">$0</h1>
+  <h1 id="total">$0</h1>
 
-      <span id="pending">
-        0 pendientes
-      </span>
+  <span id="pending">
+    0 pendientes
+  </span>
 
+</div>
+
+
+<!-- RESUMEN DEL HOGAR -->
+
+<div class="section homeSection">
+
+  <div class="homeSummary card">
+
+    <div class="homeSectionTitle">
+      ⚖️ Cómo vamos
     </div>
 
-    <div class="grid">
+    <div class="homePeople">
 
-      <div class="card">
+      <div class="homePerson">
 
-        <div class="small">
-          👤 Tu parte
+        <div class="homePersonName">
+          👤 Tú
         </div>
 
         <div
@@ -1149,12 +1340,38 @@ button{
           $0
         </div>
 
+        <div class="homeLabel">
+          Gastado
+        </div>
+
+        <div
+          class="homePending"
+          id="pendingMe"
+        >
+          $0
+        </div>
+
+        <div class="homeLabel">
+          Pendiente
+        </div>
+
+        <div
+          class="homePendingCount"
+          id="pendingMeCount"
+        >
+          0 gastos
+        </div>
+
       </div>
 
-      <div class="card">
 
-        <div class="small">
-          👩 Parte esposa
+      <div class="homeDivider"></div>
+
+
+      <div class="homePerson">
+
+        <div class="homePersonName">
+          👩 Ella
         </div>
 
         <div
@@ -1164,84 +1381,94 @@ button{
           $0
         </div>
 
+        <div class="homeLabel">
+          Gastado
+        </div>
+
+        <div
+          class="homePending"
+          id="pendingWife"
+        >
+          $0
+        </div>
+
+        <div class="homeLabel">
+          Pendiente
+        </div>
+
+        <div
+          class="homePendingCount"
+          id="pendingWifeCount"
+        >
+          0 gastos
+        </div>
+
       </div>
 
     </div>
 
-    <div
-  class="card"
-  style="margin:14px 18px"
->
 
-  <div class="small">
-    📋 Pendientes por pagar
+    <div class="homeBalance">
+
+      <span id="balText">
+        Todo equilibrado
+      </span>
+
+      <strong id="bal">$0</strong>
+
+    </div>
+
   </div>
 
-  <div
-    style="
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:12px;
-      margin-top:12px;
-    "
-  >
+</div>
 
-    <div
-      style="
-        background:var(--soft);
-        border-radius:14px;
-        padding:12px;
-      "
+
+<!-- PRÓXIMOS PAGOS -->
+
+<div class="section homeSection">
+
+  <div class="homeSectionHeader">
+
+    <h2>📅 Próximos pagos</h2>
+
+    <button
+      class="homeSeeAll"
+      onclick="show('calendar')"
     >
-
-      <div class="small">
-        👤 Tú
-      </div>
-
-      <div
-        class="money"
-        id="pendingMe"
-        style="font-size:20px"
-      >
-        $0
-      </div>
-
-    </div>
-
-    <div
-      style="
-        background:var(--soft);
-        border-radius:14px;
-        padding:12px;
-      "
-    >
-
-      <div class="small">
-        👩 Esposa
-      </div>
-
-      <div
-        class="money"
-        id="pendingWife"
-        style="font-size:20px"
-      >
-        $0
-      </div>
-
-    </div>
+      Ver todos
+    </button>
 
   </div>
 
   <div
-    class="small"
-    id="pendingCount"
-    style="margin-top:12px"
-  >
-    0 gastos pendientes
-  </div>
+    id="up"
+    class="upcomingScroller"
+  ></div>
 
 </div>
+
+
+<!-- ÚLTIMOS MOVIMIENTOS -->
+
+<div class="section homeSection">
+
+  <div class="homeSectionHeader">
+
+    <h2>🧾 Últimos movimientos</h2>
+
+    <button
+      class="homeSeeAll"
+      onclick="show('expenses')"
+    >
+      Ver todos
+    </button>
+
+  </div>
+
+  <div id="recentHome"></div>
+
 </div>
+    
   <!-- GASTOS -->
 
   <div id="expenses" class="screen">
@@ -4941,7 +5168,9 @@ let my = 0;
 let wife = 0;
 
 let pendingMy = 0;
-let pendingWife = 0;
+  let pendingWife = 0;
+  let pendingMyCount = 0;
+  let pendingWifeCount = 0;
 
 monthExpenses.forEach(x=>{
 
@@ -4964,11 +5193,18 @@ monthExpenses.forEach(x=>{
   */
   if(!x.paid){
 
-    pendingMy += shares.me;
-    pendingWife += shares.wife;
+  pendingMy += shares.me;
+  pendingWife += shares.wife;
 
+  if(shares.me > 0){
+    pendingMyCount++;
   }
 
+  if(shares.wife > 0){
+    pendingWifeCount++;
+  }
+
+}
 });
 
   /* HOME */
@@ -4996,6 +5232,32 @@ monthExpenses.forEach(x=>{
 const pendingWifeEl =
   document.getElementById(
     'pendingWife'
+  );
+  if(pendingMeCountEl){
+
+  pendingMeCountEl.textContent =
+    pendingMyCount === 1
+      ? '1 gasto'
+      : `${pendingMyCount} gastos`;
+
+}
+
+if(pendingWifeCountEl){
+
+  pendingWifeCountEl.textContent =
+    pendingWifeCount === 1
+      ? '1 gasto'
+      : `${pendingWifeCount} gastos`;
+
+}
+  const pendingMeCountEl =
+  document.getElementById(
+    'pendingMeCount'
+  );
+
+const pendingWifeCountEl =
+  document.getElementById(
+    'pendingWifeCount'
   );
 
 const pendingCountEl =
@@ -5061,7 +5323,113 @@ if(pendingCountEl){
 
   }
 
+/* =========================================================
+   PRÓXIMOS PAGOS - INICIO
+========================================================= */
 
+const upcomingEl =
+  document.getElementById(
+    'up'
+  );
+
+if(upcomingEl){
+
+  const upcomingPayments =
+    monthExpenses
+      .filter(x =>
+        !x.paid &&
+        x.paymentDate
+      )
+      .sort((a,b) =>
+        a.paymentDate.localeCompare(
+          b.paymentDate
+        )
+      );
+
+  if(upcomingPayments.length === 0){
+
+    upcomingEl.innerHTML = `
+      <div class="empty">
+        No hay próximos pagos.
+      </div>
+    `;
+
+  }else{
+
+    upcomingEl.innerHTML =
+      upcomingPayments
+        .map(x => {
+
+          const shares =
+            expectedShares(x);
+
+          let who = '50/50';
+
+          if(shares.me > 0 && shares.wife === 0){
+            who = 'Tú';
+          }
+
+          if(shares.wife > 0 && shares.me === 0){
+            who = 'Ella';
+          }
+
+          const paymentDate =
+            new Date(
+              x.paymentDate + 'T00:00:00'
+            );
+
+          const dateText =
+            paymentDate.toLocaleDateString(
+              'es-CO',
+              {
+                day:'numeric',
+                month:'short'
+              }
+            );
+
+          return `
+            <div class="upcomingCard">
+
+              <div class="upcomingTop">
+
+                <div class="upcomingIcon">
+                  ${icons[x.cat] || '🧾'}
+                </div>
+
+                <div class="upcomingName">
+                  ${esc(x.cat)}
+                </div>
+
+              </div>
+
+              <div class="upcomingAmount">
+                ${money(
+                  Number(x.amount) || 0
+                )}
+              </div>
+
+              <div class="upcomingDate">
+                📅 Vence ${dateText}
+              </div>
+
+              <div class="upcomingWho">
+                ${who}
+              </div>
+
+            </div>
+          `;
+
+        })
+        .join('');
+
+  }
+
+}
+
+
+/* =========================================================
+   PRÓXIMOS PAGOS - FIN
+========================================================= */
   /* ULTIMOS GASTOS */
 
   const recentEl =
