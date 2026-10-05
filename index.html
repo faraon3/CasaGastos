@@ -756,7 +756,237 @@ button{
   }
 
 }
+ /* ===== NUEVO GASTO — DISEÑO CASA GASTOS ===== */
 
+.expenseSheet{
+  padding-bottom:24px;
+}
+
+.expenseSheet .head{
+  align-items:flex-start;
+}
+
+.expenseSheet .head > div{
+  display:flex;
+  flex-direction:column;
+  gap:4px;
+}
+
+.expenseSheet .head small{
+  color:var(--muted);
+  font-size:12px;
+  font-weight:500;
+}
+
+
+/* GRUPOS */
+
+.fieldGroup{
+  display:flex;
+  flex-direction:column;
+  gap:7px;
+}
+
+.fieldGroup > label{
+  margin-bottom:0;
+}
+
+
+/* CATEGORÍA + */
+
+.categoryRow{
+  display:grid;
+  grid-template-columns:1fr 48px;
+  gap:8px;
+  align-items:center;
+}
+
+.addCategoryButton{
+  width:48px;
+  height:48px;
+  border:1px solid var(--line);
+  border-radius:14px;
+  background:var(--soft);
+  color:var(--p);
+  font-size:28px;
+  font-weight:500;
+  line-height:1;
+  cursor:pointer;
+  transition:.15s ease;
+}
+
+.addCategoryButton:active{
+  transform:scale(.95);
+  background:#d9f1eb;
+}
+
+
+/* VALOR */
+
+.moneyInput{
+  position:relative;
+  display:flex;
+  align-items:center;
+}
+
+.moneyInput > span{
+  position:absolute;
+  left:15px;
+  color:var(--muted);
+  font-size:16px;
+  font-weight:600;
+  pointer-events:none;
+}
+
+.moneyInput input{
+  width:100%;
+  padding-left:34px !important;
+}
+
+
+/* FIJO / VARIABLE */
+
+.segmentedControl{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:6px;
+  padding:5px;
+  background:var(--soft);
+  border-radius:14px;
+}
+
+.segment{
+  min-height:42px;
+  border:0;
+  border-radius:10px;
+  background:transparent;
+  color:var(--muted);
+  font-size:14px;
+  font-weight:700;
+  cursor:pointer;
+  transition:.15s ease;
+}
+
+.segment.active{
+  background:var(--card);
+  color:var(--p2);
+  box-shadow:0 2px 8px #164f4212;
+}
+
+
+/* QUIÉN PAGA */
+
+.payerOptions{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:7px;
+}
+
+.payerOption{
+  min-height:70px;
+  padding:8px 5px;
+  border:1px solid var(--line);
+  border-radius:14px;
+  background:var(--card);
+  color:var(--muted);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:5px;
+  font-size:12px;
+  font-weight:700;
+  cursor:pointer;
+  transition:.15s ease;
+}
+
+.payerOption .payerIcon{
+  font-size:18px;
+  line-height:1;
+}
+
+.payerOption.active{
+  border-color:var(--p);
+  background:var(--soft);
+  color:var(--p2);
+  box-shadow:0 3px 10px #164f4212;
+}
+
+
+/* PAGOS DIFERENTES */
+
+.differentPaymentBox{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+  padding:12px;
+  border:1px solid var(--line);
+  border-radius:14px;
+  background:#f8fbfa;
+}
+
+.differentPaymentBox > div{
+  display:flex;
+  flex-direction:column;
+  gap:7px;
+}
+
+
+/* FECHAS */
+
+.dateFields{
+  margin-top:2px;
+}
+
+
+/* FOTOS */
+
+.photoActions{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:8px;
+}
+
+.photoButton{
+  min-height:44px;
+}
+
+
+/* GUARDAR */
+
+.saveExpenseButton{
+  margin-top:4px;
+  min-height:50px;
+  font-size:15px;
+}
+
+
+/* AJUSTE PARA CELULARES PEQUEÑOS */
+
+@media(max-width:380px){
+
+  .payerOptions{
+    gap:5px;
+  }
+
+  .payerOption{
+    min-height:66px;
+    font-size:11px;
+  }
+
+  .payerOption .payerIcon{
+    font-size:16px;
+  }
+
+  .differentPaymentBox{
+    grid-template-columns:1fr;
+  }
+
+  .photoActions{
+    grid-template-columns:1fr;
+  }
+
+}
 </style>
 </head>
 
@@ -1529,216 +1759,295 @@ button{
 
 <!-- MODAL GASTO -->
 
-<div
-  id="expense"
-  class="modal"
->
-
-  <div class="sheet">
+<div id="expense" class="modal">
+  <div class="sheet expenseSheet">
 
     <div class="head">
-
-      <b>
-        Nuevo gasto
-      </b>
-
-      <button
-        class="icon"
-        onclick="closeM('expense')"
-      >
-        ✕
-      </button>
-
+      <div>
+        <b>Nuevo gasto</b>
+        <small>Registra el gasto de forma rápida y clara</small>
+      </div>
+      <button type="button" class="icon" onclick="closeM('expense')">✕</button>
     </div>
 
-    <form
-      class="form"
-      onsubmit="addExpense(event)"
-    >
+    <form class="form" onsubmit="addExpense(event)">
 
-      <label>
-        Categoría
-      </label>
+      <!-- CATEGORÍA -->
+      <div class="fieldGroup">
+        <label>Categoría</label>
 
-      <select id="cat"></select>
+        <div class="categoryRow">
+          <select id="cat" required></select>
 
-      <label>
-        Valor
-      </label>
+          <button
+            type="button"
+            class="addCategoryButton"
+            onclick="addNewCategory()"
+            aria-label="Agregar categoría"
+          >+</button>
+        </div>
+      </div>
 
-      <input
-        id="amount"
-        type="number"
-        min="1"
-        step="1"
-        required
+
+      <!-- VALOR -->
+      <div class="fieldGroup">
+        <label>Valor</label>
+
+        <div class="moneyInput">
+          <span>$</span>
+          <input
+            id="amount"
+            type="number"
+            min="1"
+            step="1"
+            placeholder="0"
+            required
+          >
+        </div>
+      </div>
+
+
+      <!-- TIPO DE GASTO -->
+      <div class="fieldGroup">
+        <label>Tipo de gasto</label>
+
+        <div class="segmentedControl" id="expenseTypeControl">
+
+          <button
+            type="button"
+            class="segment active"
+            data-value="variable"
+            onclick="selectExpenseType('variable')"
+          >
+            Variable
+          </button>
+
+          <button
+            type="button"
+            class="segment"
+            data-value="fixed"
+            onclick="selectExpenseType('fixed')"
+          >
+            Fijo
+          </button>
+
+        </div>
+
+        <input type="hidden" id="expenseType" value="variable">
+      </div>
+
+
+      <!-- PERIODICIDAD -->
+      <div
+        class="fieldGroup"
+        id="periodicityGroup"
+        style="display:none;"
+      >
+        <label>Periodicidad</label>
+
+        <select id="periodicity">
+          <option value="monthly">Mensual</option>
+          <option value="bimonthly">Cada 2 meses</option>
+          <option value="quarterly">Cada 3 meses</option>
+          <option value="yearly">Anual</option>
+        </select>
+      </div>
+
+
+      <!-- QUIÉN PAGA -->
+      <div class="fieldGroup">
+        <label>¿Quién paga?</label>
+
+        <div class="payerOptions">
+
+          <button
+            type="button"
+            class="payerOption active"
+            data-value="me"
+            onclick="selectPayer('me')"
+          >
+            <span class="payerIcon">👤</span>
+            <span>Yo</span>
+          </button>
+
+          <button
+            type="button"
+            class="payerOption"
+            data-value="shared"
+            onclick="selectPayer('shared')"
+          >
+            <span class="payerIcon">⚖️</span>
+            <span>50/50</span>
+          </button>
+
+          <button
+            type="button"
+            class="payerOption"
+            data-value="wife"
+            onclick="selectPayer('wife')"
+          >
+            <span class="payerIcon">👤</span>
+            <span>Ella</span>
+          </button>
+
+          <button
+            type="button"
+            class="payerOption"
+            data-value="different"
+            onclick="selectPayer('different')"
+          >
+            <span class="payerIcon">✏️</span>
+            <span>Otro</span>
+          </button>
+
+        </div>
+
+        <input type="hidden" id="split" value="me">
+      </div>
+
+
+      <!-- PAGOS DIFERENTES -->
+      <div
+        id="differentPaymentFields"
+        class="differentPaymentBox"
+        style="display:none;"
       >
 
-      <div class="tw">
+        <div>
+          <label>¿Cuánto pago yo?</label>
+
+          <div class="moneyInput">
+            <span>$</span>
+            <input
+              id="myPaymentAmount"
+              type="number"
+              min="0"
+              step="1"
+              placeholder="0"
+            >
+          </div>
+        </div>
 
         <div>
+          <label>¿Cuánto paga ella?</label>
 
-          <label>
-            Fecha del gasto
-          </label>
+          <div class="moneyInput">
+            <span>$</span>
+            <input
+              id="wifePaymentAmount"
+              type="number"
+              min="0"
+              step="1"
+              placeholder="0"
+            >
+          </div>
+        </div>
+
+      </div>
+
+
+      <!-- FECHAS -->
+      <div class="tw dateFields">
+
+        <div class="fieldGroup">
+          <label>Fecha del gasto</label>
 
           <input
             id="date"
             type="date"
             required
           >
-
         </div>
 
-        <div>
-
-          <label>
-            Fecha límite de pago
-          </label>
+        <div class="fieldGroup">
+          <label>Fecha límite de pago</label>
 
           <input
             id="paymentDate"
             type="date"
             required
           >
-
         </div>
 
       </div>
 
-      <label>
-        ¿Cómo se pagó?
-      </label>
 
-      <select id="split">
+      <!-- FOTOS -->
+      <div class="fieldGroup">
+        <label>Fotos</label>
 
-        <option value="me">
-          Yo
-        </option>
+        <div class="drop">
 
-        <option value="wife">
-          Ella
-        </option>
+          <div class="photoActions">
 
-        <option value="shared">
-          50/50
-        </option>
+            <button
+              type="button"
+              class="secondary photoButton"
+              onclick="openCamera()"
+            >
+              📷 Tomar foto
+            </button>
 
-        <option value="different">
-          Diferente
-        </option>
+            <button
+              type="button"
+              class="secondary photoButton"
+              onclick="openGallery()"
+            >
+              🖼️ Galería
+            </button>
 
-      </select>
+          </div>
 
-      <div
-        id="differentPaymentFields"
-        style="display:none"
-      >
-
-        <label>
-          ¿Cuánto pagué yo?
-        </label>
-
-        <input
-          id="myPaymentAmount"
-          type="number"
-          min="0"
-          step="1"
-          placeholder="$0"
-        >
-
-        <label>
-          ¿Cuánto pagó ella?
-        </label>
-
-        <input
-          id="wifePaymentAmount"
-          type="number"
-          min="0"
-          step="1"
-          placeholder="$0"
-        >
-
-      </div>
-
-      <label>
-        Fotos
-      </label>
-
-      <div class="drop">
-
-        <div style="
-          display:flex;
-          gap:10px;
-          flex-wrap:wrap;
-          justify-content:center;
-        ">
-
-          <button
-            type="button"
-            class="secondary"
-            onclick="openCamera()"
+          <input
+            id="cameraInput"
+            type="file"
+            accept="image/*"
+            capture="environment"
+            hidden
+            onchange="previewPhotos(event)"
           >
-            📷 Tomar foto
-          </button>
 
-          <button
-            type="button"
-            class="secondary"
-            onclick="openGallery()"
+          <input
+            id="photosInput"
+            type="file"
+            accept="image/*"
+            multiple
+            hidden
+            onchange="previewPhotos(event)"
           >
-            🖼️ Elegir de galería
-          </button>
+
+          <div
+            class="photos"
+            id="preview"
+          ></div>
 
         </div>
-
-        <input
-          id="cameraInput"
-          type="file"
-          accept="image/*"
-          capture="environment"
-          hidden
-          onchange="previewPhotos(event)"
-        >
-
-        <input
-          id="photosInput"
-          type="file"
-          accept="image/*"
-          multiple
-          hidden
-          onchange="previewPhotos(event)"
-        >
-
-        <div
-          class="photos"
-          id="preview"
-        ></div>
-
       </div>
 
-      <label>
-        Descripción
-      </label>
 
-      <textarea
-        id="note"
-        placeholder="Factura, marca, detalle..."
-      ></textarea>
+      <!-- DESCRIPCIÓN -->
+      <div class="fieldGroup">
+        <label>Descripción</label>
 
+        <textarea
+          id="note"
+          placeholder="Factura, marca, detalle..."
+          rows="3"
+        ></textarea>
+      </div>
+
+
+      <!-- GUARDAR -->
       <button
         id="saveExpenseButton"
-        class="primary"
+        class="primary saveExpenseButton"
       >
         Guardar gasto
       </button>
 
     </form>
-
   </div>
-
 </div>
-
 
 <!-- MODAL COMPRAS -->
 
@@ -3712,7 +4021,15 @@ async function addExpense(ev){
     document.getElementById(
       'paymentDate'
     );
-
+  
+  const tipoGasto =
+  document.getElementById('expenseType')?.value || 'variable';
+  
+  const periodicidad =
+  tipoGasto === 'fixed'
+    ? (document.getElementById('periodicity')?.value || 'monthly')
+    : null;
+  
   const saveButton =
     document.getElementById(
       'saveExpenseButton'
@@ -4204,6 +4521,12 @@ async function addExpense(ev){
       paid:
         false,
 
+      tipo_gasto: 
+        tipoGasto,
+
+      periodicidad: 
+        periodicidad,
+      
       photos:
         photoUrls
 
@@ -5313,7 +5636,189 @@ function show(id,b){
 /* =========================================================
    MODALES
 ========================================================= */
+// ===== NUEVO GASTO — CONTROLES =====
 
+function selectExpenseType(type){
+  const input = document.getElementById('expenseType');
+  const group = document.getElementById('periodicityGroup');
+
+  if(!input) return;
+
+  input.value = type;
+
+  document.querySelectorAll('#expenseTypeControl .segment')
+    .forEach(btn => {
+      btn.classList.toggle(
+        'active',
+        btn.dataset.value === type
+      );
+    });
+
+  if(group){
+    group.style.display = type === 'fixed' ? 'flex' : 'none';
+  }
+}
+
+
+function selectPayer(value){
+  const input = document.getElementById('split');
+
+  if(!input) return;
+
+  input.value = value;
+
+  document.querySelectorAll('.payerOption')
+    .forEach(btn => {
+      btn.classList.toggle(
+        'active',
+        btn.dataset.value === value
+      );
+    });
+
+  updatePaymentFields();
+}
+
+
+function addNewCategory(){
+
+  if(currentRole !== 'propietario'){
+    alert('Solo el propietario puede agregar categorías.');
+    return;
+  }
+
+  const name = prompt('Nombre de la nueva categoría:');
+
+  if(name === null) return;
+
+  const cleanName = name.trim();
+
+  if(!cleanName){
+    alert('Escribe un nombre para la categoría.');
+    return;
+  }
+
+  const exists = [...document.querySelectorAll('#cat option')]
+    .some(option =>
+      option.value.toLowerCase() === cleanName.toLowerCase()
+    );
+
+  if(exists){
+    alert('Esa categoría ya existe.');
+    return;
+  }
+
+  createNewCategory(cleanName);
+}
+
+
+async function createNewCategory(name){
+
+  try{
+
+    const res = await fetch(
+      `${SUPABASE_URL}/rest/v1/categorias`,
+      {
+        method:'POST',
+        headers:{
+          apikey:SUPABASE_KEY,
+          Authorization:`Bearer ${SUPABASE_KEY}`,
+          'Content-Type':'application/json',
+          Prefer:'return=representation'
+        },
+        body:JSON.stringify({
+          nombre:name,
+          hogar_id:currentHouseholdId
+        })
+      }
+    );
+
+    if(!res.ok){
+
+      const errorText = await res.text();
+
+      console.error(
+        'Error creando categoría:',
+        errorText
+      );
+
+      alert('No se pudo crear la categoría.');
+      return;
+    }
+
+    const created = await res.json();
+
+    const newCategory =
+      Array.isArray(created)
+        ? created[0]
+        : created;
+
+    // Guardar también en categorías locales
+    try{
+
+      const localCats =
+        JSON.parse(
+          localStorage.getItem(CC) || '[]'
+        );
+
+      if(
+        !localCats.some(
+          c =>
+            String(c).toLowerCase() ===
+            name.toLowerCase()
+        )
+      ){
+
+        localCats.push(name);
+
+        localStorage.setItem(
+          CC,
+          JSON.stringify(localCats)
+        );
+      }
+
+    }catch(localError){
+
+      console.warn(
+        'No se pudo actualizar categorías locales:',
+        localError
+      );
+
+    }
+
+    // Actualizar selector
+    fill(name);
+
+    const catSelect =
+      document.getElementById('cat');
+
+    if(catSelect){
+
+      if(newCategory?.id){
+
+        catSelect.value =
+          String(newCategory.id);
+      }else{
+
+        catSelect.value = name;
+      }
+
+    }
+
+    alert(`Categoría "${name}" creada correctamente.`);
+
+  }catch(error){
+
+    console.error(
+      'Error creando categoría:',
+      error
+    );
+
+    alert('No se pudo crear la categoría.');
+
+  }
+
+}
+  
 function openM(id){
 
   if(
@@ -5358,6 +5863,8 @@ function openM(id){
 
     updatePaymentFields();
     updateAutomaticPaymentDate();
+    selectExpenseType('variable');
+    selectPayer('me');
 
   }
 
