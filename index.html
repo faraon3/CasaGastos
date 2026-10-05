@@ -1372,55 +1372,65 @@ button{
 
     <div class="homeHeader">
 
+  <!-- LOGO Y NOMBRE -->
   <div class="homeBrand">
     <div class="homeBrandIcon">🏠</div>
-    <div>
-      <div class="homeBrandTitle">CasaGastos</div>
-      <div class="homeBrandSubtitle">Tus finanzas, en un solo lugar</div>
+
+    <div class="homeBrandTitle">
+      CasaGastos
     </div>
   </div>
 
+  <!-- MES + ACCIONES -->
   <div class="homeToolbar">
 
-    <button
-      class="monthArrow"
-      type="button"
-      onclick="changeMonth(-1)"
-      aria-label="Mes anterior"
-    >
-      ‹
-    </button>
+    <div class="homeMonth">
 
-    <div class="monthCurrent" id="monthLabel">
-      Octubre 2026
+      <button
+        class="monthArrow"
+        type="button"
+        onclick="changeMonth(-1)"
+        aria-label="Mes anterior"
+      >
+        ‹
+      </button>
+
+      <div class="monthCurrent" id="monthLabel">
+        Octubre 2026
+      </div>
+
+      <button
+        class="monthArrow"
+        type="button"
+        onclick="changeMonth(1)"
+        aria-label="Mes siguiente"
+      >
+        ›
+      </button>
+
     </div>
 
-    <button
-      class="monthArrow"
-      type="button"
-      onclick="changeMonth(1)"
-      aria-label="Mes siguiente"
-    >
-      ›
-    </button>
+    <div class="homeTopActions">
 
-    <button
-      class="homeProfileBtn"
-      type="button"
-      onclick="openProfile()"
-      aria-label="Perfil"
-    >
-      👤
-    </button>
+      <button
+        class="homeProfileBtn"
+        type="button"
+        onclick="openProfile()"
+        aria-label="Perfil"
+      >
+        👤
+      </button>
 
-    <button
-      class="homeAddBtn ownerOnly"
-      type="button"
-      onclick="openM('expense')"
-      aria-label="Agregar gasto"
-    >
-      ＋
-    </button>
+      <button
+        class="homeAddBtn ownerOnly"
+        type="button"
+        onclick="openM('expense')"
+        aria-label="Agregar gasto"
+      >
+        ＋
+      </button>
+
+    </div>
 
   </div>
 
