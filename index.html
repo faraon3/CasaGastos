@@ -3370,7 +3370,7 @@ let photoFiles = [];
 let active = 'home';
 
 let categoryIds = {};
-
+let categoryNamesById = {};
 
 /* =========================================================
    ICONOS
@@ -3673,13 +3673,18 @@ async function loadCategories(){
   categoryIds = {};
 
   categorias.forEach(c=>{
+categoryIds = {};
+categoryNamesById = {};
 
-    categoryIds[
-      String(c.nombre).trim()
-    ] =
-      c.id;
+categorias.forEach(c=>{
 
-  });
+  const nombre =
+    String(c.nombre).trim();
+
+  categoryIds[nombre] = c.id;
+  categoryNamesById[c.id] = nombre;
+
+});
 
   const base = [
     'Arriendo',
@@ -4548,83 +4553,114 @@ async function login(){
    INICIALIZAR USUARIO
 ========================================================= */
 
+let initializePromise = null;
+
 async function initializeUser(){
 
-  if(window.initializingUser){
-    return false;
+  if(initializePromise){
+    return initializePromise;
   }
 
-  window.initializingUser = true;
+  initializePromise =
+    (async ()=>{
 
-  console.time('⏱️ initializeUser');
+      console.time('⏱️ initializeUser');
 
-  if(!currentUser){
-    console.timeEnd('⏱️ initializeUser');
-    window.initializingUser = false;
-    return false;
+      try{
+
+        if(!currentUser){
+          return false;
+        }
+
+        const {
+          data:member,
+          error
+        } =
+          await sb
+            .from('miembros_hogar')
+            .select(
+              'hogar_id,rol'
+            )
+            .eq(
+              'usuario_id',
+              currentUser.id
+            )
+            .limit(1)
+            .maybeSingle();
+
+        if(error){
+
+          console.error(
+            'Error obteniendo miembro:',
+            error
+          );
+
+          currentHouseholdId =
+            null;
+
+          return false;
+
+        }
+
+        if(!member){
+
+          currentHouseholdId =
+            null;
+
+          return false;
+
+        }
+
+        currentRole =
+          member.rol;
+
+        currentHouseholdId =
+          member.hogar_id;
+
+        console.time('📂 + 🛒 cargas');
+
+        await Promise.all([
+          loadCategories(),
+          loadShopping()
+        ]);
+
+        console.timeEnd('📂 + 🛒 cargas');
+
+        console.time('💰 loadExpenses');
+
+        await loadExpenses();
+
+        console.timeEnd('💰 loadExpenses');
+
+        console.time('🎨 render');
+
+        updateRoleInfo();
+        applyPermissions();
+        updateProfile();
+        render();
+
+        console.timeEnd('🎨 render');
+
+        return true;
+
+      }finally{
+
+        console.timeEnd('⏱️ initializeUser');
+
+      }
+
+    })();
+
+  try{
+
+    return await initializePromise;
+
+  }finally{
+
+    initializePromise = null;
+
   }
-  const {
-    data:member,
-    error
-  } =
-    await sb
-      .from('miembros_hogar')
-      .select(
-        'hogar_id,rol'
-      )
-      .eq(
-        'usuario_id',
-        currentUser.id
-      )
-      .limit(1)
-      .maybeSingle();
 
-  if(error){
-
-    console.error(
-      'Error obteniendo miembro:',
-      error
-    );
-
-    currentHouseholdId =
-      null;
-
-    return false;
-
-  }
-
-  if(!member){
-
-    currentHouseholdId =
-      null;
-
-    return false;
-
-  }
-
-  currentRole =
-    member.rol;
-
-  currentHouseholdId =
-    member.hogar_id;
-console.time('📂 + 🛒 cargas');
-await Promise.all([
-  loadCategories(),
-  loadShopping()
-]);
-console.timeEnd('📂 + 🛒 cargas');
-console.time('💰 loadExpenses');
-await loadExpenses();
-console.timeEnd('💰 loadExpenses');
-console.time('🎨 render');
-updateRoleInfo();
-applyPermissions();
-updateProfile();
-render();
-console.timeEnd('🎨 render');
-console.timeEnd('⏱️ initializeUser');
-  window.initializingUser = false;
-  return true;
 }
 /* =========================================================
    INFORMACION DEL ROL
@@ -4825,63 +4861,7 @@ async function loadExpenses(){
   console.log('GASTOS SUPABASE:', data);
 console.log('CANTIDAD DE GASTOS:', gastos.length);
   
-  const ids =
-    [
-      ...new Set(
-        gastos
-          .map(
-            x=>x.categoria_id
-          )
-          .filter(
-            id=>id!=null
-          )
-      )
-    ];
-
-  let categoriasMap = {};
-
-  if(ids.length){
-
-    const {
-      data:categorias,
-      error:catError
-    } =
-      await sb
-        .from('categorias')
-        .select(
-          'id,nombre'
-        )
-        .in(
-          'id',
-          ids
-        );
-
-    if(catError){
-
-      console.error(
-        'Error cargando categorías:',
-        catError
-      );
-
-    }else{
-
-      (categorias || [])
-        .forEach(c=>{
-
-          categoriasMap[c.id] =
-            c.nombre;
-
-          categoryIds[
-            c.nombre
-          ] =
-            c.id;
-
-        });
-
-    }
-
-  }
-
+  
   E =
     gastos.map(x=>({
 
@@ -4892,14 +4872,8 @@ console.log('CANTIDAD DE GASTOS:', gastos.length);
         x.categoria ||
         (
           x.categoria_id != null
-            ? (
-                categoriasMap[
-                  x.categoria_id
-                ] ||
-                'Categoría ' +
-                x.categoria_id
-              )
-            : 'Otros'
+  ? (categoryNamesById[x.categoria_id] || 'Categoría ' + x.categoria_id)
+  : 'Otros'
         ),
 
       categoria_id:
@@ -4993,8 +4967,7 @@ console.log('CANTIDAD EN E:', E.length);
 
     }
   );
-
-  render();
+  
   checkPaymentReminders();
 }
 
@@ -5095,9 +5068,6 @@ async function loadShopping(){
             : 'Usuario'
 
       }));
-
-  render();
-
 }
 
 
@@ -7044,11 +7014,6 @@ function show(id,b){
       'active'
     );
   }
-
-  if(id === 'shop'){
-    loadShopping();
-  }
-
   applyPermissions();
 
 }
