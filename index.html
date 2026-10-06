@@ -1203,13 +1203,25 @@ button{
 
 .upcomingScroller{
   display:flex;
-  gap:12px;
+  gap:14px;
   overflow-x:auto;
-  padding:2px 2px 8px;
+  overflow-y:hidden;
+  padding:4px 0 12px 0;
   scroll-snap-type:x mandatory;
   scrollbar-width:none;
+  width:100%;
+  box-sizing:border-box;
+  -webkit-overflow-scrolling:touch;
 }
 
+.upcomingScroller::-webkit-scrollbar{
+  display:none;
+}
+
+.upcomingScroller .upcomingCard{
+  flex:0 0 220px;
+  scroll-snap-align:start;
+} 
 .upcomingScroller::-webkit-scrollbar{
   display:none;
 }
