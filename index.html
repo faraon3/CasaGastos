@@ -3664,34 +3664,26 @@ async function loadCategories(){
     );
 
     return;
-
   }
 
   const categorias =
     data || [];
 
   categoryIds = {};
-categoryNamesById = {};
+  categoryNamesById = {};
 
-categorias.forEach(c=>{
+  categorias.forEach(c=>{
 
-  const nombre =
-    String(c.nombre).trim();
+    const nombre =
+      String(c.nombre).trim();
 
-  categoryIds[nombre] =
-    c.id;
+    categoryIds[nombre] =
+      c.id;
 
-  categoryNamesById[c.id] =
-    nombre;
+    categoryNamesById[c.id] =
+      nombre;
 
-});
-  const nombre =
-    String(c.nombre).trim();
-
-  categoryIds[nombre] = c.id;
-  categoryNamesById[c.id] = nombre;
-
-});
+  });
 
   const base = [
     'Arriendo',
@@ -3706,22 +3698,20 @@ categorias.forEach(c=>{
 
   const personalizadas =
     categorias
-      .filter(c=>
+      .filter(c =>
         !base.includes(
           String(c.nombre).trim()
         )
       )
-      .map(c=>({
-        id:c.id,
-        nombre:c.nombre
+      .map(c => ({
+        id: c.id,
+        nombre: c.nombre
       }));
 
   localStorage.setItem(
     CC,
     JSON.stringify(personalizadas)
   );
-
-  fill();
 
 }
 
