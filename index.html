@@ -1841,8 +1841,71 @@ button{
   line-height:1.4;
   opacity:.68;
 }
+/* =========================================================
+   GASTOS — BUSCADOR
+========================================================= */
 
-  
+.expenseSearch{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin:0 16px 14px;
+  padding:0 14px;
+  min-height:46px;
+  border-radius:15px;
+  background:var(--card);
+  box-shadow:0 6px 18px rgba(0,0,0,.05);
+}
+
+.expenseSearch span{
+  font-size:17px;
+  opacity:.65;
+}
+
+.expenseSearch input{
+  width:100%;
+  border:0;
+  outline:0;
+  background:transparent;
+  color:inherit;
+  font-size:14px;
+}
+
+.expenseSearch input::placeholder{
+  opacity:.55;
+}
+  /* =========================================================
+   GASTOS — FILTROS
+========================================================= */
+
+.expenseFilters{
+  display:flex;
+  gap:8px;
+  margin:0 16px 14px;
+  overflow-x:auto;
+  scrollbar-width:none;
+}
+
+.expenseFilters::-webkit-scrollbar{
+  display:none;
+}
+
+.expenseFilter{
+  border:0;
+  border-radius:999px;
+  padding:9px 15px;
+  background:var(--card);
+  color:inherit;
+  font-size:13px;
+  font-weight:700;
+  white-space:nowrap;
+  cursor:pointer;
+}
+
+.expenseFilter.active{
+  background:var(--p);
+  color:#fff;
+}
 </style>
 
 </head>
@@ -2159,7 +2222,16 @@ button{
   <!-- GASTOS -->
 
   <div id="expenses" class="screen">
-
+    <div class="expenseSearch">
+  <span>🔎</span>
+  <input
+    type="search"
+    id="expenseSearchInput"
+    placeholder="Buscar gasto..."
+    autocomplete="off"
+  >
+    </div>
+    
     <div class="top">
 
       <div>
@@ -2221,7 +2293,19 @@ button{
     ></div>
 
   </div>
+<div class="expenseFilters">
+  <button type="button" class="expenseFilter active" data-filter="all">
+    Todos
+  </button>
 
+  <button type="button" class="expenseFilter" data-filter="pending">
+    Pendientes
+  </button>
+
+  <button type="button" class="expenseFilter" data-filter="paid">
+    Pagados
+  </button>
+</div>
 
   <!-- CALENDARIO -->
 
@@ -6584,7 +6668,52 @@ function expenseHTML(x){
   `;
 
 }
+/* =========================================================
+   BUSCADOR DE GASTOS
+========================================================= */
 
+document
+  .getElementById('expenseSearchInput')
+  ?.addEventListener('input', function(){
+
+    const texto =
+      this.value
+        .toLowerCase()
+        .trim();
+
+    const gastos =
+      document.querySelectorAll(
+        '#expenses .row'
+      );
+
+    gastos.forEach(gasto => {
+
+      const contenido =
+        gasto.textContent
+          .toLowerCase();
+
+      gasto.style.display =
+        !texto ||
+        contenido.includes(texto)
+          ? ''
+          : 'none';
+
+    });
+
+  });
+  <div class="expenseFilters">
+  <button type="button" class="expenseFilter active" data-filter="all">
+    Todos
+  </button>
+
+  <button type="button" class="expenseFilter" data-filter="pending">
+    Pendientes
+  </button>
+
+  <button type="button" class="expenseFilter" data-filter="paid">
+    Pagados
+  </button>
+</div>
 
 /* =========================================================
    VISOR DE FOTOS
