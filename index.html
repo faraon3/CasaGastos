@@ -4550,13 +4550,19 @@ async function login(){
 
 async function initializeUser(){
 
+  if(window.initializingUser){
+    return false;
+  }
+
+  window.initializingUser = true;
+
   console.time('⏱️ initializeUser');
 
   if(!currentUser){
     console.timeEnd('⏱️ initializeUser');
+    window.initializingUser = false;
     return false;
   }
-
   const {
     data:member,
     error
