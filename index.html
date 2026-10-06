@@ -4604,14 +4604,14 @@ async function initializeUser(){
   */
 
   await loadCategories();
-  await loadExpenses();
-  await loadShopping();
+await loadExpenses();
+await loadShopping();
 
-  updateRoleInfo();
-  applyPermissions();
-  updateProfile();
-  render();
-
+updateRoleInfo();
+applyPermissions();
+updateProfile();
+render();
+  
   return true;
 
 }
@@ -4987,7 +4987,6 @@ console.log('CANTIDAD EN E:', E.length);
 
   render();
   checkPaymentReminders();
-
 }
 
 
@@ -7041,7 +7040,6 @@ function show(id,b){
     loadShopping();
   }
 
-  render();
   applyPermissions();
 
 }
