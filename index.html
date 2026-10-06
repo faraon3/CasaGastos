@@ -1221,7 +1221,12 @@ button{
 .upcomingScroller .upcomingCard{
   flex:0 0 220px;
   scroll-snap-align:start;
-} 
+}
+  
+  .upcomingScroller::after{
+  content:"";
+  flex:0 0 1px;
+}
 .upcomingScroller::-webkit-scrollbar{
   display:none;
 }
