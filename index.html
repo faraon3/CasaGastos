@@ -4607,18 +4607,15 @@ async function initializeUser(){
 
   currentHouseholdId =
     member.hogar_id;
-console.time('📂 loadCategories');
-await loadCategories();
-console.timeEnd('📂 loadCategories');
-
+console.time('📂 + 🛒 cargas');
+await Promise.all([
+  loadCategories(),
+  loadShopping()
+]);
+console.timeEnd('📂 + 🛒 cargas');
 console.time('💰 loadExpenses');
 await loadExpenses();
 console.timeEnd('💰 loadExpenses');
-
-console.time('🛒 loadShopping');
-await loadShopping();
-console.timeEnd('🛒 loadShopping');
-
 console.time('🎨 render');
 updateRoleInfo();
 applyPermissions();
