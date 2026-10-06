@@ -6017,10 +6017,14 @@ function expectedShares(x){
 
   }
 
-  /*
-    shared y different son gastos
-    del hogar que corresponden 50/50.
-  */
+  if(x.split === 'different'){
+
+    return {
+      me:Number(x.myPayment) || 0,
+      wife:Number(x.wifePayment) || 0
+    };
+
+  }
 
   return {
     me:amount / 2,
@@ -6028,7 +6032,6 @@ function expectedShares(x){
   };
 
 }
-
 
 /* =========================================================
    RENDER
