@@ -1217,7 +1217,11 @@ button{
   border:none;
   box-shadow:none;
 }
-
+.upcomingScroller::before,
+.upcomingScroller::after{
+  content:none;
+}
+  
 .upcomingScroller::-webkit-scrollbar{
   display:none;
 }
