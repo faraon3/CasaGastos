@@ -4551,13 +4551,21 @@ async function login(){
 ========================================================= */
 
 let initializePromise = null;
-
+let initializedUserId = null;
+  
 async function initializeUser(){
+
+  if(
+    currentUser?.id === initializedUserId &&
+    currentHouseholdId
+  ){
+    return true;
+  }
 
   if(initializePromise){
     return initializePromise;
   }
-
+  
   initializePromise =
     (async ()=>{
 
@@ -4632,14 +4640,17 @@ async function initializeUser(){
         console.time('🎨 render');
 
         updateRoleInfo();
-        applyPermissions();
-        updateProfile();
-        render();
+applyPermissions();
+updateProfile();
+render();
 
-        console.timeEnd('🎨 render');
+console.timeEnd('🎨 render');
 
-        return true;
+initializedUserId =
+  currentUser.id;
 
+return true;
+        
       }finally{
 
         console.timeEnd('⏱️ initializeUser');
