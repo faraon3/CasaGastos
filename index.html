@@ -1906,6 +1906,171 @@ button{
   background:var(--p);
   color:#fff;
 }
+  /* =========================================================
+   NUEVO GASTO — DISEÑO ANDROID MODERNO
+========================================================= */
+
+#expense{
+  background:rgba(0,0,0,.45);
+  padding:18px;
+  align-items:center;
+  justify-content:center;
+}
+
+#expense .expenseSheet{
+  width:100%;
+  max-width:520px;
+  max-height:calc(100vh - 36px);
+  margin:0 auto;
+  border-radius:26px;
+  overflow:hidden;
+  box-shadow:0 20px 60px rgba(0,0,0,.28);
+  background:var(--bg, #f7f9f8);
+  display:flex;
+  flex-direction:column;
+}
+
+#expense .expenseSheet .head{
+  padding:18px 18px 14px;
+  flex-shrink:0;
+}
+
+#expense .expenseSheet .form{
+  padding:4px 18px 20px;
+  overflow-y:auto;
+  overscroll-behavior:contain;
+}
+
+#expense .expenseSheet .fieldGroup{
+  margin-bottom:16px;
+}
+
+#expense .expenseSheet label{
+  display:block;
+  margin-bottom:7px;
+  font-size:13px;
+  font-weight:700;
+}
+
+#expense .expenseSheet input,
+#expense .expenseSheet select,
+#expense .expenseSheet textarea{
+  border-radius:14px;
+  min-height:46px;
+}
+
+#expense .expenseSheet textarea{
+  min-height:82px;
+  resize:vertical;
+}
+
+#expense .categoryRow{
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+
+#expense .categoryRow select{
+  flex:1;
+  min-width:0;
+}
+
+#expense .addCategoryButton{
+  width:46px;
+  height:46px;
+  flex:0 0 46px;
+  border:0;
+  border-radius:14px;
+  font-size:24px;
+  font-weight:700;
+  cursor:pointer;
+}
+
+#expense .moneyInput{
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+
+#expense .moneyInput span{
+  font-size:17px;
+  font-weight:800;
+}
+
+#expense .moneyInput input{
+  flex:1;
+  min-width:0;
+}
+
+#expense .segmentedControl{
+  border-radius:14px;
+  padding:4px;
+}
+
+#expense .segment{
+  min-height:40px;
+  border-radius:11px;
+}
+
+#expense .payerOptions{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:8px;
+}
+
+#expense .payerOption{
+  min-height:68px;
+  border-radius:15px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:5px;
+}
+
+#expense .payerIcon{
+  font-size:19px;
+}
+
+#expense .differentPaymentBox{
+  border-radius:16px;
+  padding:12px;
+  margin-bottom:16px;
+}
+
+#expense .dateFields{
+  gap:10px;
+}
+
+#expense .drop{
+  border-radius:16px;
+  padding:12px;
+}
+
+#expense .photoActions{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:8px;
+}
+
+#expense .photoButton{
+  min-height:44px;
+  border-radius:13px;
+}
+
+#expense .photos{
+  margin-top:10px;
+}
+
+#expense .saveExpenseButton{
+  width:100%;
+  min-height:52px;
+  margin-top:4px;
+  border-radius:16px;
+  font-size:16px;
+  font-weight:800;
+}
+  
 </style>
 
 </head>
