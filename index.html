@@ -3671,13 +3671,20 @@ async function loadCategories(){
     data || [];
 
   categoryIds = {};
-
-  categorias.forEach(c=>{
-categoryIds = {};
 categoryNamesById = {};
 
 categorias.forEach(c=>{
 
+  const nombre =
+    String(c.nombre).trim();
+
+  categoryIds[nombre] =
+    c.id;
+
+  categoryNamesById[c.id] =
+    nombre;
+
+});
   const nombre =
     String(c.nombre).trim();
 
