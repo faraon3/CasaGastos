@@ -1415,7 +1415,136 @@ button{
   box-shadow:0 8px 22px #0b8f7838;
   backdrop-filter:blur(10px);
   -webkit-backdrop-filter:blur(10px);
-}  
+}
+/* =========================================================
+   NUEVO GASTO — TARJETA FLOTANTE
+========================================================= */
+
+#expense.modal{
+  position:fixed;
+  inset:0;
+  z-index:1000;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:18px;
+  background:rgba(0,0,0,.42);
+  backdrop-filter:blur(5px);
+  -webkit-backdrop-filter:blur(5px);
+}
+
+#expense.modal.show{
+  display:flex;
+}
+
+/* Tarjeta principal */
+#expense .sheet.expenseSheet{
+  width:100%;
+  max-width:430px;
+  max-height:calc(100vh - 36px);
+  margin:0;
+  border-radius:26px;
+  overflow:hidden;
+  box-shadow:0 24px 70px rgba(0,0,0,.28);
+  transform:none;
+  animation:expenseSheetIn .22s ease-out;
+}
+
+/* Entrada suave */
+@keyframes expenseSheetIn{
+  from{
+    opacity:0;
+    transform:translateY(18px) scale(.98);
+  }
+  to{
+    opacity:1;
+    transform:translateY(0) scale(1);
+  }
+}
+
+/* Encabezado */
+#expense .sheet .head{
+  padding:20px 20px 16px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+}
+
+/* Título */
+#expense .sheet .head h2{
+  margin:0;
+  font-size:21px;
+  font-weight:800;
+}
+
+/* Botón cerrar */
+#expense .sheet .head button{
+  width:38px;
+  height:38px;
+  min-width:38px;
+  border:0;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:22px;
+}
+
+/* Contenido */
+#expense .sheet .form{
+  padding:4px 20px 22px;
+  overflow-y:auto;
+  max-height:calc(100vh - 120px);
+}
+
+/* Separación entre campos */
+#expense .sheet .form > *{
+  margin-bottom:14px;
+}
+
+/* Último elemento */
+#expense .sheet .form > *:last-child{
+  margin-bottom:0;
+}
+
+/* Inputs y select */
+#expense input,
+#expense select,
+#expense textarea{
+  border-radius:14px;
+}
+
+/* Botón principal */
+#expense #saveExpenseButton{
+  width:100%;
+  min-height:50px;
+  border-radius:15px;
+  font-size:16px;
+  font-weight:800;
+  margin-top:6px;
+}
+
+/* En teléfonos pequeños */
+@media (max-height:700px){
+  #expense.modal{
+    padding:10px;
+  }
+
+  #expense .sheet.expenseSheet{
+    max-height:calc(100vh - 20px);
+    border-radius:22px;
+  }
+
+  #expense .sheet .head{
+    padding:16px 18px 12px;
+  }
+
+  #expense .sheet .form{
+    padding:2px 18px 18px;
+  }
+}
+  
 </style>
 </head>
 
