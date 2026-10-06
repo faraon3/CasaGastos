@@ -4625,23 +4625,10 @@ applyPermissions();
 updateProfile();
 render();
 console.timeEnd('🎨 render');
-
 console.timeEnd('⏱️ initializeUser');
-
-  await loadCategories();
-await loadExpenses();
-await loadShopping();
-
-updateRoleInfo();
-applyPermissions();
-updateProfile();
-render();
-  
+  window.initializingUser = false;
   return true;
-
 }
-
-
 /* =========================================================
    INFORMACION DEL ROL
 ========================================================= */
